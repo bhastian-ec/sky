@@ -3,186 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sky Map - Modo Rápido</title>
+    <title>Star Map - Manual Layering</title>
 
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
 
     <style>
-        /* ESTILO VISUAL "CABALLEROS" */
-        body { margin: 0; overflow: hidden; font-family: 'Arial', sans-serif; background-color: #000; }
+        /* ESTILO "CABALLEROS" */
+        body { margin: 0; overflow: hidden; background-color: #000; font-family: sans-serif; }
 
-        /* Pantalla de Carga Blanca */
-        #splash-screen {
+        /* CAPA 1: VIDEO DE CÁMARA (Fondo) */
+        #webcam {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: white; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; z-index: 9999;
-            transition: opacity 0.5s ease-out;
+            object-fit: cover; z-index: 1; /* Al fondo */
         }
 
-        h2 { margin-bottom: 10px; font-size: 24px; letter-spacing: 2px; }
-        p { color: #666; margin-bottom: 30px; }
-
-        #start-button {
-            padding: 20px 50px; background-color: #000; color: white;
-            border: none; border-radius: 50px; font-size: 18px; font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: pointer;
+        /* CAPA 2: ESCENA 3D (Transparente encima) */
+        a-scene {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; /* Encima del video */
         }
 
-        /* Textos de Depuración (Estilo Caballeros) */
-        #debug-ui {
-            position: fixed; top: 10px; left: 10px; z-index: 10000;
-            pointer-events: none;
-        }
-        .debug-line {
-            color: yellow; background: rgba(0,0,0,0.6); 
-            padding: 4px 8px; margin-bottom: 4px; border-radius: 4px;
-            font-family: monospace; font-size: 12px; display: inline-block; clear: both; float: left;
+        /* CAPA 3: INTERFAZ UI */
+        #ui-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 3; pointer-events: none;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
 
-        /* Brújula abajo */
-        #compass-readout {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            color: #00ffcc; background: rgba(0,0,0,0.7); padding: 10px 20px;
-            border-radius: 30px; font-weight: bold; font-size: 20px; z-index: 10000;
+        #splash {
+            background: white; pointer-events: auto; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.5s;
+        }
+
+        button {
+            padding: 20px 50px; background: black; color: white; border: none;
+            border-radius: 50px; font-size: 18px; font-weight: bold; margin-top: 20px;
+        }
+
+        #debug {
+            position: fixed; top: 10px; left: 10px; color: yellow; 
+            background: rgba(0,0,0,0.5); padding: 5px; font-family: monospace;
+            z-index: 4;
         }
     </style>
 </head>
 
 <body>
 
-    <div id="debug-ui">
-        <div class="debug-line" id="status-text">Esperando usuario...</div>
-        <div class="debug-line" id="gps-text">GPS: Inactivo</div>
-    </div>
-    <div id="compass-readout">--°</div>
+    <video id="webcam" autoplay playsinline muted></video>
 
-    <div id="splash-screen">
-        <h2>SKY MAP AR</h2>
-        <p>Apunta al cielo</p>
-        <button id="start-button">INICIAR EXPERIENCIA</button>
+    <div id="debug">Sistema listo.</div>
+
+    <div id="ui-layer">
+        <div id="splash">
+            <h1>MODO FUSIÓN</h1>
+            <p>Video de Caballeros + 3D de Estrellas</p>
+            <button id="btn-start">INICIAR</button>
+        </div>
     </div>
 
-    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; videoTexture: true;' vr-mode-ui="enabled: false">
+    <a-scene embedded transparent="true" vr-mode-ui="enabled: false">
         
         <a-entity id="sky-container"></a-entity>
 
-        <a-box position="0 0 -20" color="red" scale="2 2 2" animation="property: rotation; to: 0 360 0; loop: true; dur: 5000"></a-box>
-        <a-text value="NORTE (Referencia)" position="0 3 -20" color="red" align="center" scale="3 3 3" look-at="[camera]"></a-text>
+        <a-box position="0 0 -10" color="red" scale="2 2 2" 
+               animation="property: rotation; to: 0 360 0; loop: true; dur: 3000">
+        </a-box>
+        <a-text value="SI VES ESTO, GANAMOS" position="0 2 -10" align="center" scale="2 2 2" color="yellow"></a-text>
 
-        <a-camera gps-camera="simulateLatitude: -0.1807; simulateLongitude: -78.4678;" rotation-reader look-controls="enabled: true" far="5000"></a-camera>
+        <a-camera look-controls="enabled: true; magicWindowTrackingEnabled: true;" position="0 0 0"></a-camera>
 
     </a-scene>
 
     <script>
-        // --- REFERENCIAS ---
-        const splash = document.getElementById('splash-screen');
-        const btn = document.getElementById('start-button');
-        const statusText = document.getElementById('status-text');
-        const gpsText = document.getElementById('gps-text');
-        const compassText = document.getElementById('compass-readout');
+        const btn = document.getElementById('btn-start');
+        const video = document.getElementById('webcam');
+        const splash = document.getElementById('splash');
+        const debug = document.getElementById('debug');
         const container = document.getElementById('sky-container');
 
-        // --- DATOS ESTELARES ---
+        // 1. INICIAR CÁMARA (Código Caballeros)
+        async function startCamera() {
+            try {
+                debug.innerText = "Accediendo a cámara...";
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment' } // Cámara trasera
+                });
+                video.srcObject = stream;
+                debug.innerText = "Cámara OK. Renderizando estrellas...";
+            } catch (err) {
+                debug.innerText = "Error Cámara: " + err.message;
+                alert("No se pudo iniciar la cámara. Revisa permisos.");
+            }
+        }
+
+        // 2. GENERAR ESTRELLAS (Código A-Frame Puro)
         const stars = {
             "SIRIUS":     { ra: 6.75, dec: -16.71, mag: -1.4, color: "#FFFFFF" },
             "Canopus":    { ra: 6.39, dec: -52.69, mag: -0.7, color: "#EEEEEE" },
-            "Betelgeuse": { ra: 5.91, dec: 7.40, mag: 0.5, color: "#FF4500" }, // Roja
-            "Rigel":      { ra: 5.24, dec: -8.20, mag: 0.1, color: "#88CCFF" }, // Azul
+            "Betelgeuse": { ra: 5.91, dec: 7.40, mag: 0.5, color: "#FF4500" },
+            "Rigel":      { ra: 5.24, dec: -8.20, mag: 0.1, color: "#88CCFF" },
             "Antares":    { ra: 16.49, dec: -26.43, mag: 1.0, color: "#FF4500" },
             "Vega":       { ra: 18.61, dec: 38.78, mag: 0.0, color: "#88CCFF" },
             "Spica":      { ra: 13.42, dec: -11.16, mag: 0.9, color: "#88CCFF" },
             "Cruz del Sur":{ ra: 12.44, dec: -63.09, mag: 0.7, color: "#88CCFF" },
-            "Dubhe":      { ra: 11.06, dec: 61.75, mag: 1.8, color: "#FFAA00" } // Osa Mayor
+            "Dubhe":      { ra: 11.06, dec: 61.75, mag: 1.8, color: "#FFAA00" }
         };
-        
-        const constellations = [
-            ["Betelgeuse", "Rigel"], ["Alpha Cent", "Cruz del Sur"]
-        ];
 
-        // --- MATEMÁTICAS ---
-        function calculatePos(ra, dec, observer, date) {
-            const equator = new Astronomy.Equator(ra, dec, 2000.0);
-            const horizon = Astronomy.Horizon(date, observer, equator.ra, equator.dec, 'normal');
-            
-            // SIN FILTRO: Mostramos todo para asegurar que veas algo
-            const r = 40; 
-            const theta = horizon.azimuth * (Math.PI / 180);
-            const phi = horizon.altitude * (Math.PI / 180);
-
-            return { 
-                x: r * Math.cos(phi) * Math.sin(theta), 
-                y: r * Math.sin(phi), 
-                z: -r * Math.cos(phi) * Math.cos(theta) 
-            };
-        }
-
-        // --- RENDER ---
-        function renderSky(lat, lon) {
-            container.innerHTML = "";
+        function initStars() {
+            // Simulamos ubicación Quito para cálculos
+            const observer = new Astronomy.Observer(-0.18, -78.46, 0);
             const date = new Date();
-            const observer = new Astronomy.Observer(lat, lon, 0);
-            let count = 0;
 
             for (const [name, data] of Object.entries(stars)) {
-                const pos = calculatePos(data.ra, data.dec, observer, date);
+                // Cálculo matemático manual
+                const equator = new Astronomy.Equator(data.ra, data.dec, 2000.0);
+                const horizon = Astronomy.Horizon(date, observer, equator.ra, equator.dec, 'normal');
                 
-                // ESFERAS (Estilo Cubo Rojo)
+                // Conversión a 3D
+                const r = 30; // Radio de distancia
+                const theta = horizon.azimuth * (Math.PI / 180);
+                const phi = horizon.altitude * (Math.PI / 180);
+
+                const x = r * Math.cos(phi) * Math.sin(theta);
+                const y = r * Math.sin(phi);
+                const z = -r * Math.cos(phi) * Math.cos(theta);
+
+                // Crear Esfera
                 const s = document.createElement('a-sphere');
-                s.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
-                // Hacemos las estrellas GRANDES para que las veas seguro
-                s.setAttribute('radius', 0.3); 
+                s.setAttribute('position', `${x} ${y} ${z}`);
+                s.setAttribute('radius', 0.2);
                 s.setAttribute('color', data.color);
-                s.setAttribute('shader', 'flat'); // Importante: Shader plano brilla sin luz
+                s.setAttribute('shader', 'flat'); // Importante para que brille
                 container.appendChild(s);
 
-                // TEXTO
+                // Crear Texto
                 const t = document.createElement('a-text');
                 t.setAttribute('value', name);
-                t.setAttribute('position', `${pos.x} ${pos.y - 1} ${pos.z}`);
+                t.setAttribute('position', `${x} ${y - 0.5} ${z}`);
                 t.setAttribute('align', 'center');
-                t.setAttribute('scale', '2 2 2');
+                t.setAttribute('scale', '1.5 1.5 1.5');
                 t.setAttribute('look-at', '[camera]');
                 container.appendChild(t);
-                count++;
             }
-            statusText.innerText = `Renderizado: ${count} estrellas`;
         }
 
-        // --- INICIO ---
-        btn.addEventListener('click', () => {
-            // 1. Ocultar Splash inmediatamente
-            splash.style.opacity = '0';
+        // 3. SECUENCIA DE ARRANQUE
+        btn.addEventListener('click', async () => {
+            // Ocultar Splash
+            splash.style.opacity = 0;
             setTimeout(() => splash.style.display = 'none', 500);
 
-            // 2. CARGA INMEDIATA (Simulación Quito)
-            // Esto asegura que veas el Cubo Rojo y las estrellas YA MISMO
-            statusText.innerText = "Modo Simulación (Quito)";
-            renderSky(-0.18, -78.46);
+            // Iniciar Video
+            await startCamera();
 
-            // 3. Solicitar Sensores Reales (Silenciosamente)
+            // Iniciar Estrellas
+            initStars();
+
+            // Permisos de Sensores (iOS)
             if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission().catch(console.error);
             }
-
-            // 4. Intentar mejorar con GPS Real
-            if (navigator.geolocation) {
-                gpsText.innerText = "GPS: Buscando...";
-                navigator.geolocation.watchPosition((pos) => {
-                    gpsText.innerText = `GPS: ${pos.coords.latitude.toFixed(2)}, ${pos.coords.longitude.toFixed(2)}`;
-                    // Si el GPS real funciona, actualizamos el cielo
-                    renderSky(pos.coords.latitude, pos.coords.longitude);
-                }, (err) => {
-                    gpsText.innerText = "GPS: Error (Usando Simulación)";
-                }, { enableHighAccuracy: true });
-            }
-        });
-
-        // Monitor de Brújula
-        window.addEventListener('deviceorientation', (e) => {
-            if(e.alpha) compassText.innerText = Math.round(e.alpha) + "°";
         });
 
     </script>
