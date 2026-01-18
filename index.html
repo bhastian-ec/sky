@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Buscador Estelar GPS - Pro</title>
+    <title>Sky Map - Modo Rápido</title>
 
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
@@ -11,170 +11,107 @@
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
 
     <style>
-        /* ESTILO TIPO "CABALLEROS" (Limpio y Profesional) */
-        html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; font-family: sans-serif; background-color: #000; }
+        /* ESTILO VISUAL "CABALLEROS" */
+        body { margin: 0; overflow: hidden; font-family: 'Arial', sans-serif; background-color: #000; }
 
-        /* UI: Pantalla de Carga (Splash Screen) */
+        /* Pantalla de Carga Blanca */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: white; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; z-index: 9999; 
-            transition: opacity 0.6s ease-out; text-align: center;
+            background-color: white; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 9999;
+            transition: opacity 0.5s ease-out;
         }
+
+        h2 { margin-bottom: 10px; font-size: 24px; letter-spacing: 2px; }
+        p { color: #666; margin-bottom: 30px; }
 
         #start-button {
-            margin-top: 20px; padding: 20px 40px; background-color: #000; color: white;
-            border: none; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            padding: 20px 50px; background-color: #000; color: white;
+            border: none; border-radius: 50px; font-size: 18px; font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: pointer;
         }
 
-        #btn-force {
-            margin-top: 15px; padding: 10px 20px; background-color: #FF4444; color: white;
-            border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer;
-            display: none; /* Se oculta al principio */
+        /* Textos de Depuración (Estilo Caballeros) */
+        #debug-ui {
+            position: fixed; top: 10px; left: 10px; z-index: 10000;
+            pointer-events: none;
+        }
+        .debug-line {
+            color: yellow; background: rgba(0,0,0,0.6); 
+            padding: 4px 8px; margin-bottom: 4px; border-radius: 4px;
+            font-family: monospace; font-size: 12px; display: inline-block; clear: both; float: left;
         }
 
-        /* UI: Texto de Depuración (Amarillo arriba) */
-        #debug-text {
-            position: fixed; top: 10px; left: 10px; color: yellow; font-weight: bold; font-family: monospace;
-            z-index: 10001; background: rgba(0,0,0,0.7); padding: 8px; font-size: 12px; 
-            max-width: 90%; border-radius: 4px; pointer-events: none;
-        }
-
-        /* UI: Brújula visual en pantalla */
-        #compass-ui {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            color: cyan; font-size: 20px; font-weight: bold; z-index: 10000;
-            background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px;
+        /* Brújula abajo */
+        #compass-readout {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            color: #00ffcc; background: rgba(0,0,0,0.7); padding: 10px 20px;
+            border-radius: 30px; font-weight: bold; font-size: 20px; z-index: 10000;
         }
     </style>
 </head>
+
 <body>
 
-    <div id="debug-text">Esperando inicio...</div>
-    <div id="compass-ui">--°</div>
+    <div id="debug-ui">
+        <div class="debug-line" id="status-text">Esperando usuario...</div>
+        <div class="debug-line" id="gps-text">GPS: Inactivo</div>
+    </div>
+    <div id="compass-readout">--°</div>
 
     <div id="splash-screen">
-        <h2>MAPA ESTELAR GPS</h2>
-        <p style="color: #666">Activa tu ubicación y apunta al cielo</p>
-        <button id="start-button">INICIAR RASTREO</button>
-        <button id="btn-force">⚠️ GPS LENTO: FORZAR SIMULACIÓN</button>
+        <h2>SKY MAP AR</h2>
+        <p>Apunta al cielo</p>
+        <button id="start-button">INICIAR EXPERIENCIA</button>
     </div>
 
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; videoTexture: true;' vr-mode-ui="enabled: false">
         
         <a-entity id="sky-container"></a-entity>
 
-        <a-camera gps-camera rotation-reader look-controls="enabled: true" far="5000"></a-camera>
+        <a-box position="0 0 -20" color="red" scale="2 2 2" animation="property: rotation; to: 0 360 0; loop: true; dur: 5000"></a-box>
+        <a-text value="NORTE (Referencia)" position="0 3 -20" color="red" align="center" scale="3 3 3" look-at="[camera]"></a-text>
+
+        <a-camera gps-camera="simulateLatitude: -0.1807; simulateLongitude: -78.4678;" rotation-reader look-controls="enabled: true" far="5000"></a-camera>
 
     </a-scene>
 
     <script>
-        // --- REFERENCIAS UI ---
+        // --- REFERENCIAS ---
         const splash = document.getElementById('splash-screen');
-        const btnStart = document.getElementById('start-button');
-        const btnForce = document.getElementById('btn-force');
-        const debug = document.getElementById('debug-text');
-        const compassUi = document.getElementById('compass-ui');
+        const btn = document.getElementById('start-button');
+        const statusText = document.getElementById('status-text');
+        const gpsText = document.getElementById('gps-text');
+        const compassText = document.getElementById('compass-readout');
         const container = document.getElementById('sky-container');
 
-        let gpsTimer = null;
-
-        // --- BASE DE DATOS ESTELAR (Simplificada para rendimiento) ---
+        // --- DATOS ESTELARES ---
         const stars = {
             "SIRIUS":     { ra: 6.75, dec: -16.71, mag: -1.4, color: "#FFFFFF" },
-            "Canopus":    { ra: 6.39, dec: -52.69, mag: -0.7, color: "#FFFFFF" },
-            "Betelgeuse": { ra: 5.91, dec: 7.40, mag: 0.5, color: "#FF4400" }, // Roja
+            "Canopus":    { ra: 6.39, dec: -52.69, mag: -0.7, color: "#EEEEEE" },
+            "Betelgeuse": { ra: 5.91, dec: 7.40, mag: 0.5, color: "#FF4500" }, // Roja
             "Rigel":      { ra: 5.24, dec: -8.20, mag: 0.1, color: "#88CCFF" }, // Azul
-            "Antares":    { ra: 16.49, dec: -26.43, mag: 1.0, color: "#FF4400" },
+            "Antares":    { ra: 16.49, dec: -26.43, mag: 1.0, color: "#FF4500" },
             "Vega":       { ra: 18.61, dec: 38.78, mag: 0.0, color: "#88CCFF" },
             "Spica":      { ra: 13.42, dec: -11.16, mag: 0.9, color: "#88CCFF" },
-            "Arcturus":   { ra: 14.26, dec: 19.18, mag: -0.05, color: "#FFAA00" },
-            "Alpha Cent": { ra: 14.66, dec: -60.83, mag: -0.27, color: "#FFFFE0" },
-            "Cruz Sur":   { ra: 12.44, dec: -63.09, mag: 0.7, color: "#88CCFF" },
+            "Cruz del Sur":{ ra: 12.44, dec: -63.09, mag: 0.7, color: "#88CCFF" },
             "Dubhe":      { ra: 11.06, dec: 61.75, mag: 1.8, color: "#FFAA00" } // Osa Mayor
         };
-
+        
         const constellations = [
-            ["Betelgeuse", "Rigel"], // Orión simple
-            ["Alpha Cent", "Cruz Sur"] // Guía al sur
+            ["Betelgeuse", "Rigel"], ["Alpha Cent", "Cruz del Sur"]
         ];
 
-        // --- 1. LÓGICA DE INICIO (ESTILO CABALLEROS) ---
-        btnStart.addEventListener('click', () => {
-            debug.innerText = "Iniciando sensores (GPS + Brújula)...";
-            btnStart.disabled = true;
-            btnStart.style.opacity = "0.5";
-
-            // Mostrar botón de emergencia a los 3 segundos si falla
-            gpsTimer = setTimeout(() => {
-                debug.innerText = "GPS tardando demasiado...";
-                btnForce.style.display = "block";
-            }, 3000);
-
-            // Solicitar permisos iOS
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                DeviceOrientationEvent.requestPermission()
-                    .then(response => {
-                        if (response == 'granted') startGPS();
-                        else {
-                            alert("Sin permiso de orientación, el mapa no girará.");
-                            startGPS();
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                startGPS();
-            }
-        });
-
-        // Botón de emergencia
-        btnForce.addEventListener('click', () => {
-            clearTimeout(gpsTimer);
-            loadSky(-0.18, -78.46, true); // Carga Quito por defecto
-            hideSplash();
-        });
-
-        // --- 2. GPS ---
-        function startGPS() {
-            if (!navigator.geolocation) {
-                debug.innerText = "Error: Este navegador no tiene GPS.";
-                return;
-            }
-
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    clearTimeout(gpsTimer);
-                    debug.innerText = "GPS Encontrado. Calculando estrellas...";
-                    loadSky(pos.coords.latitude, pos.coords.longitude, false);
-                    hideSplash();
-                },
-                (err) => {
-                    debug.innerText = "Error GPS: " + err.message;
-                    btnForce.style.display = "block"; // Mostrar botón de forzar
-                },
-                { enableHighAccuracy: false, timeout: 5000, maximumAge: Infinity } // Baja precisión para ser rápido
-            );
-        }
-
-        function hideSplash() {
-            splash.style.opacity = '0';
-            setTimeout(() => splash.style.display = 'none', 600);
-        }
-
-        // --- 3. MATEMÁTICAS ASTRONÓMICAS ---
-        function calculateVector(ra, dec, observer, date) {
+        // --- MATEMÁTICAS ---
+        function calculatePos(ra, dec, observer, date) {
             const equator = new Astronomy.Equator(ra, dec, 2000.0);
             const horizon = Astronomy.Horizon(date, observer, equator.ra, equator.dec, 'normal');
             
-            // FILTRO DE HORIZONTE: Si quieres ver a través del suelo, cambia -10 a -90
-            if (horizon.altitude < -10) return null; 
-
-            const r = 30; // Distancia de las estrellas
+            // SIN FILTRO: Mostramos todo para asegurar que veas algo
+            const r = 40; 
             const theta = horizon.azimuth * (Math.PI / 180);
             const phi = horizon.altitude * (Math.PI / 180);
 
-            // Conversión para A-Frame (Y es arriba, -Z es Norte)
             return { 
                 x: r * Math.cos(phi) * Math.sin(theta), 
                 y: r * Math.sin(phi), 
@@ -182,85 +119,70 @@
             };
         }
 
-        // --- 4. RENDERIZADO DEL CIELO ---
-        function loadSky(lat, lon, simulated) {
+        // --- RENDER ---
+        function renderSky(lat, lon) {
+            container.innerHTML = "";
             const date = new Date();
             const observer = new Astronomy.Observer(lat, lon, 0);
             let count = 0;
 
-            container.innerHTML = ""; // Limpiar
-
-            // ESTRELLAS
             for (const [name, data] of Object.entries(stars)) {
-                const pos = calculateVector(data.ra, data.dec, observer, date);
-                if (pos) {
-                    stars[name].pos = pos;
-                    count++;
+                const pos = calculatePos(data.ra, data.dec, observer, date);
+                
+                // ESFERAS (Estilo Cubo Rojo)
+                const s = document.createElement('a-sphere');
+                s.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
+                // Hacemos las estrellas GRANDES para que las veas seguro
+                s.setAttribute('radius', 0.3); 
+                s.setAttribute('color', data.color);
+                s.setAttribute('shader', 'flat'); // Importante: Shader plano brilla sin luz
+                container.appendChild(s);
 
-                    // Esfera brillante
-                    const s = document.createElement('a-sphere');
-                    s.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
-                    s.setAttribute('radius', Math.max(0.1, 0.4 - (data.mag * 0.1)));
-                    s.setAttribute('color', data.color);
-                    s.setAttribute('shader', 'flat');
-                    container.appendChild(s);
-
-                    // Texto
-                    const t = document.createElement('a-text');
-                    t.setAttribute('value', name);
-                    t.setAttribute('position', `${pos.x} ${pos.y - 0.5} ${pos.z}`);
-                    t.setAttribute('align', 'center');
-                    t.setAttribute('scale', '1.5 1.5 1.5');
-                    t.setAttribute('look-at', '[camera]');
-                    container.appendChild(t);
-                }
+                // TEXTO
+                const t = document.createElement('a-text');
+                t.setAttribute('value', name);
+                t.setAttribute('position', `${pos.x} ${pos.y - 1} ${pos.z}`);
+                t.setAttribute('align', 'center');
+                t.setAttribute('scale', '2 2 2');
+                t.setAttribute('look-at', '[camera]');
+                container.appendChild(t);
+                count++;
             }
-
-            // LÍNEAS
-            constellations.forEach(pair => {
-                const s1 = stars[pair[0]]; const s2 = stars[pair[1]];
-                if (s1 && s2 && s1.pos && s2.pos) {
-                    const l = document.createElement('a-entity');
-                    l.setAttribute('line', `start: ${s1.pos.x} ${s1.pos.y} ${s1.pos.z}; end: ${s2.pos.x} ${s2.pos.y} ${s2.pos.z}; color: white; opacity: 0.3`);
-                    container.appendChild(l);
-                }
-            });
-
-            // VÍA LÁCTEA (Simulada - Puntos Violetas)
-            createMilkyWay(observer, date);
-
-            // ACTUALIZAR TEXTO DEPURACIÓN
-            if (simulated) {
-                debug.innerText = "MODO SIMULACIÓN (GPS falló). Mostrando cielo de Ecuador.";
-                debug.style.color = "#FF8800";
-            } else {
-                debug.innerText = `GPS OK (${lat.toFixed(2)}, ${lon.toFixed(2)}). ${count} estrellas visibles.`;
-                debug.style.color = "#00FF00";
-            }
+            statusText.innerText = `Renderizado: ${count} estrellas`;
         }
 
-        function createMilkyWay(observer, date) {
-            // Centro galáctico aprox
-            const centerRA = 17.76; const centerDEC = -29.00;
-            for (let i = 0; i < 50; i++) {
-                const rOff = (Math.random() - 0.5) * 2;
-                const dOff = (Math.random() - 0.5) * 30;
-                const pos = calculateVector(centerRA + rOff, centerDEC + dOff, observer, date);
-                if (pos) {
-                    const el = document.createElement('a-sphere');
-                    el.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
-                    el.setAttribute('radius', Math.random() * 0.1);
-                    el.setAttribute('color', '#9900FF');
-                    el.setAttribute('opacity', 0.5);
-                    el.setAttribute('shader', 'flat');
-                    container.appendChild(el);
-                }
-            }
-        }
+        // --- INICIO ---
+        btn.addEventListener('click', () => {
+            // 1. Ocultar Splash inmediatamente
+            splash.style.opacity = '0';
+            setTimeout(() => splash.style.display = 'none', 500);
 
-        // --- 5. MONITOR DE BRÚJULA (EXTRA) ---
+            // 2. CARGA INMEDIATA (Simulación Quito)
+            // Esto asegura que veas el Cubo Rojo y las estrellas YA MISMO
+            statusText.innerText = "Modo Simulación (Quito)";
+            renderSky(-0.18, -78.46);
+
+            // 3. Solicitar Sensores Reales (Silenciosamente)
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission().catch(console.error);
+            }
+
+            // 4. Intentar mejorar con GPS Real
+            if (navigator.geolocation) {
+                gpsText.innerText = "GPS: Buscando...";
+                navigator.geolocation.watchPosition((pos) => {
+                    gpsText.innerText = `GPS: ${pos.coords.latitude.toFixed(2)}, ${pos.coords.longitude.toFixed(2)}`;
+                    // Si el GPS real funciona, actualizamos el cielo
+                    renderSky(pos.coords.latitude, pos.coords.longitude);
+                }, (err) => {
+                    gpsText.innerText = "GPS: Error (Usando Simulación)";
+                }, { enableHighAccuracy: true });
+            }
+        });
+
+        // Monitor de Brújula
         window.addEventListener('deviceorientation', (e) => {
-            if(e.alpha) compassUi.innerText = Math.round(e.alpha) + "°";
+            if(e.alpha) compassText.innerText = Math.round(e.alpha) + "°";
         });
 
     </script>
