@@ -3,50 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Star Map - GRID MODE</title>
+    <title>Star Map - MANUAL</title>
 
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
 
     <style>
         body { margin: 0; overflow: hidden; background-color: #000; font-family: monospace; }
 
-        /* CAPA 1: VIDEO (Fondo) */
+        /* VIDEO FONDO */
         #webcam {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; z-index: 1;
         }
 
-        /* CAPA 2: 3D (Encima) */
+        /* ESCENA 3D */
         a-scene {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 2; pointer-events: none;
         }
 
-        /* CAPA 3: UI */
+        /* UI */
         #ui-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 3; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; pointer-events: none;
         }
 
-        #debug {
-            position: fixed; top: 10px; left: 10px; color: #00FF00; font-weight: bold;
-            background: rgba(0,0,0,0.8); padding: 5px 10px; border-radius: 5px;
-            z-index: 4; font-size: 14px; pointer-events: none;
+        #splash {
+            background: rgba(0,0,0,0.8); pointer-events: auto; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center;
         }
 
         button {
-            pointer-events: auto; padding: 20px 40px; background: rgba(255,0,0,0.8); 
-            color: white; border: 2px solid white; border-radius: 10px; 
+            pointer-events: auto; padding: 20px 40px; background: #00FF00; 
+            color: black; border: none; border-radius: 50px; 
             font-size: 20px; font-weight: bold; margin-top: 20px;
-        }
-        
-        #splash {
-            background: rgba(0,0,0,0.9); pointer-events: auto; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: white; text-align: center;
         }
     </style>
 </head>
@@ -55,37 +48,56 @@
 
     <video id="webcam" autoplay playsinline muted></video>
 
-    <div id="debug">Sistema Iniciado.</div>
-
     <div id="ui-layer">
         <div id="splash">
-            <h2>MODO JAULA</h2>
-            <p>Rodeándote de referencias visuales...</p>
-            <button id="btn-start">ACTIVAR VISIÓN</button>
+            <h2>MODO MANUAL</h2>
+            <p>Estrellas fijas sin cálculo matemático</p>
+            <button id="btn-start">ENCENDER CIELO</button>
         </div>
     </div>
 
     <a-scene embedded transparent="true" vr-mode-ui="enabled: false">
         
-        <a-entity id="sky-container"></a-entity>
-
-        <a-text value="NORTE" position="0 0 -15" color="red" align="center" scale="5 5 5" look-at="[camera]"></a-text>
-        <a-cylinder position="0 -5 -15" height="10" radius="0.2" color="red"></a-cylinder>
-
-        <a-text value="SUR" position="0 0 15" color="blue" align="center" scale="5 5 5" look-at="[camera]"></a-text>
-        <a-cylinder position="0 -5 15" height="10" radius="0.2" color="blue"></a-cylinder>
-
-        <a-text value="ESTE" position="15 0 0" color="yellow" align="center" scale="5 5 5" look-at="[camera]"></a-text>
-        <a-cylinder position="15 -5 0" height="10" radius="0.2" color="yellow"></a-cylinder>
-
-        <a-text value="OESTE" position="-15 0 0" color="green" align="center" scale="5 5 5" look-at="[camera]"></a-text>
-        <a-cylinder position="-15 -5 0" height="10" radius="0.2" color="green"></a-cylinder>
-
-
         <a-camera look-controls="enabled: true; reverseMouseDrag: true" position="0 0 0">
             <a-ring position="0 0 -1" radius-inner="0.05" radius-outer="0.06" color="#00FF00" opacity="0.5" material="shader: flat"></a-ring>
-            <a-text value="HUD ACTIVO" position="0 -0.2 -1" align="center" scale="0.2 0.2 0.2" color="#00FF00"></a-text>
         </a-camera>
+
+        <a-text value="NORTE" position="0 0 -20" color="red" align="center" scale="8 8 8" look-at="[camera]"></a-text>
+        <a-cylinder position="0 -10 -20" height="20" radius="0.5" color="red"></a-cylinder>
+
+        <a-text value="SUR" position="0 0 20" color="blue" align="center" scale="8 8 8" look-at="[camera]"></a-text>
+        <a-cylinder position="0 -10 20" height="20" radius="0.5" color="blue"></a-cylinder>
+
+        <a-text value="ESTE" position="20 0 0" color="yellow" align="center" scale="8 8 8" look-at="[camera]"></a-text>
+        <a-cylinder position="20 -10 0" height="20" radius="0.5" color="yellow"></a-cylinder>
+
+        
+        <a-entity id="orion-group" position="20 15 0" look-at="[camera]">
+            <a-text value="ORION" position="0 2 0" color="#FFF" align="center" scale="5 5 5"></a-text>
+            <a-sphere position="-2 0 0" radius="0.5" color="#FFF"></a-sphere>
+            <a-sphere position="0 0.5 0" radius="0.5" color="#FFF"></a-sphere>
+            <a-sphere position="2 1 0" radius="0.5" color="#FFF"></a-sphere>
+            <a-sphere position="-2 4 0" radius="0.8" color="#FF4500"></a-sphere>
+            <a-sphere position="3 -3 0" radius="0.8" color="#00FFFF"></a-sphere>
+        </a-entity>
+
+        <a-entity id="cruz-group" position="0 15 20" look-at="[camera]">
+            <a-text value="CRUZ SUR" position="0 3 0" color="#FFF" align="center" scale="5 5 5"></a-text>
+            <a-sphere position="0 2 0" radius="0.6" color="#FFF"></a-sphere> <a-sphere position="0 -2 0" radius="0.6" color="#FFF"></a-sphere> <a-sphere position="-1.5 0 0" radius="0.6" color="#FFF"></a-sphere> <a-sphere position="1.5 0 0" radius="0.6" color="#FFF"></a-sphere> </a-entity>
+
+        <a-entity id="osa-group" position="0 20 -20" look-at="[camera]">
+             <a-text value="OSA MAYOR" position="0 2 0" color="#FFF" align="center" scale="5 5 5"></a-text>
+             <a-sphere position="0 0 0" radius="0.5" color="#FFF"></a-sphere>
+             <a-sphere position="2 0.5 0" radius="0.5" color="#FFF"></a-sphere>
+             <a-sphere position="2 2.5 0" radius="0.5" color="#FFF"></a-sphere>
+             <a-sphere position="0 2.5 0" radius="0.5" color="#FFF"></a-sphere>
+             <a-sphere position="-2 2.8 0" radius="0.5" color="#FFF"></a-sphere>
+             <a-sphere position="-4 3.0 0" radius="0.5" color="#FFF"></a-sphere>
+             <a-sphere position="-6 2.0 0" radius="0.5" color="#FFF"></a-sphere>
+        </a-entity>
+
+        <a-sphere position="15 10 15" radius="1.2" color="#FFFFFF" shader="flat"></a-sphere>
+        <a-text value="SIRIO" position="15 8 15" color="#FFF" align="center" scale="5 5 5" look-at="[camera]"></a-text>
 
     </a-scene>
 
@@ -93,102 +105,25 @@
         const btn = document.getElementById('btn-start');
         const video = document.getElementById('webcam');
         const splash = document.getElementById('splash');
-        const debug = document.getElementById('debug');
-        const container = document.getElementById('sky-container');
 
-        // BASE DE DATOS
-        const stars = {
-            "SIRIUS":     { ra: 6.75, dec: -16.71, color: "#FFFFFF" },
-            "Canopus":    { ra: 6.39, dec: -52.69, color: "#EEEEEE" },
-            "Betelgeuse": { ra: 5.91, dec: 7.40, color: "#FF4500" },
-            "Rigel":      { ra: 5.24, dec: -8.20, color: "#88CCFF" },
-            "Antares":    { ra: 16.49, dec: -26.43, color: "#FF4500" },
-            "Vega":       { ra: 18.61, dec: 38.78, color: "#88CCFF" },
-            "Spica":      { ra: 13.42, dec: -11.16, color: "#88CCFF" },
-            "Cruz Sur":   { ra: 12.44, dec: -63.09, color: "#88CCFF" },
-            "Dubhe":      { ra: 11.06, dec: 61.75, color: "#FFAA00" }
-        };
-
-        // 1. CÁMARA
         async function startCamera() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
                 video.srcObject = stream;
             } catch (err) {
-                debug.innerText = "Error Camara: " + err.message;
+                console.log("Error camara");
             }
         }
 
-        // 2. RENDER (Matemáticas)
-        function renderSky(lat, lon) {
-            container.innerHTML = "";
-            const date = new Date();
-            const observer = new Astronomy.Observer(lat, lon, 0);
-
-            for (const [name, data] of Object.entries(stars)) {
-                const equator = new Astronomy.Equator(data.ra, data.dec, 2000.0);
-                const horizon = Astronomy.Horizon(date, observer, equator.ra, equator.dec, 'normal');
-                
-                // SIN FILTROS: Mostramos todo
-                const r = 30;
-                const th = horizon.azimuth * (Math.PI / 180);
-                const ph = horizon.altitude * (Math.PI / 180);
-
-                const x = r * Math.cos(ph) * Math.sin(th);
-                const y = r * Math.sin(ph);
-                const z = -r * Math.cos(ph) * Math.cos(th);
-
-                // Estrella
-                const s = document.createElement('a-sphere');
-                s.setAttribute('position', `${x} ${y} ${z}`);
-                s.setAttribute('radius', 0.5); // GIGANTES
-                s.setAttribute('color', data.color);
-                s.setAttribute('shader', 'flat');
-                container.appendChild(s);
-
-                // Texto
-                const t = document.createElement('a-text');
-                t.setAttribute('value', name);
-                t.setAttribute('position', `${x} ${y - 1} ${z}`);
-                t.setAttribute('align', 'center');
-                t.setAttribute('scale', '2 2 2');
-                t.setAttribute('look-at', '[camera]');
-                container.appendChild(t);
-            }
-        }
-
-        // 3. INICIO
         btn.addEventListener('click', async () => {
             splash.style.display = 'none';
-            
-            // Video
             await startCamera();
-
-            // GPS
-            if (navigator.geolocation) {
-                debug.innerText = "Buscando GPS...";
-                navigator.geolocation.watchPosition(
-                    (pos) => {
-                        debug.innerText = `GPS: ${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
-                        renderSky(pos.coords.latitude, pos.coords.longitude);
-                    },
-                    (err) => {
-                        debug.innerText = "GPS Error. Simulando Quito.";
-                        renderSky(-0.18, -78.46);
-                    },
-                    { enableHighAccuracy: true }
-                );
-            } else {
-                debug.innerText = "Sin GPS. Simulando Quito.";
-                renderSky(-0.18, -78.46);
-            }
-
-            // Permisos
+            
+            // Permisos iOS
             if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission().catch(console.error);
             }
         });
-
     </script>
 </body>
 </html>
