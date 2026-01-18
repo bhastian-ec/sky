@@ -2,149 +2,68 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Modo Diagnóstico AR</title>
+    <title>Test Gráfico AR</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-
+    
     <style>
         body { margin: 0; overflow: hidden; font-family: monospace; }
-        #debug-panel {
-            position: absolute; top: 10px; left: 10px;
-            background: rgba(0, 0, 0, 0.8); color: lime;
-            padding: 10px; border-radius: 8px; pointer-events: none;
-            z-index: 9999; font-size: 14px;
+        #console {
+            position: absolute; top: 0; left: 0; width: 100%;
+            background: rgba(0,0,0,0.8); color: #00FF00;
+            padding: 10px; pointer-events: none; z-index: 99999;
+            white-space: pre-wrap; font-size: 12px;
         }
-        .btn {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-            padding: 15px 30px; background: red; color: white; border: none;
-            font-size: 16px; font-weight: bold; z-index: 9999; border-radius: 50px;
-        }
+        .error { color: #FF4444 !important; font-weight: bold; }
     </style>
 </head>
 
 <body>
-    <div id="debug-panel">
-        <div>Estado: <span id="status">Esperando click...</span></div>
-        <div>GPS Lat: <span id="gps-lat">--</span></div>
-        <div>Brújula (Alpha): <span id="compass-val">--</span></div>
-        <div>Estrellas cargadas: <span id="star-count">0</span></div>
-    </div>
+    <div id="console">Iniciando sistema gráfico...</div>
 
-    <button class="btn" id="start-btn">ACTIVAR SENSORES</button>
+    <script>
+        // Función para mostrar errores en la pantalla del móvil
+        function log(msg, type) {
+            const c = document.getElementById('console');
+            c.innerHTML += `<div class="${type === 'error' ? 'error' : ''}">> ${msg}</div>`;
+        }
+        window.onerror = function(message, source, lineno, colno, error) {
+            log(`ERROR: ${message}`, 'error');
+        };
+    </script>
 
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; videoTexture: true;' vr-mode-ui="enabled: false">
         
-        <a-entity id="sky-container"></a-entity>
+        <a-entity camera look-controls>
+            <a-box position="0 0 -3" scale="0.5 0.5 0.5" color="red" animation="property: rotation; to: 0 360 0; loop: true; dur: 2000"></a-box>
+            <a-text value="SI VES ESTO, FUNCIONA" position="0 0.8 -3" align="center" color="yellow"></a-text>
+        </a-entity>
 
-        <a-text value="N" position="0 0 -5" color="red" scale="2 2 2" align="center" look-at="[camera]"></a-text>
-        <a-text value="S" position="0 0 5" color="blue" scale="2 2 2" align="center" look-at="[camera]"></a-text>
-        <a-text value="E" position="5 0 0" color="yellow" scale="2 2 2" align="center" look-at="[camera]"></a-text>
-        <a-text value="O" position="-5 0 0" color="green" scale="2 2 2" align="center" look-at="[camera]"></a-text>
+        <a-entity id="world-objects">
+            <a-sphere position="0 2 -10" radius="1" color="cyan"></a-sphere>
+            <a-text value="ESTRELLA NORTE (Simulada)" position="0 4 -10" scale="2 2 2" align="center" color="white"></a-text>
+        </a-entity>
 
-        <a-camera gps-camera rotation-reader look-controls="enabled: true" far="10000"></a-camera>
     </a-scene>
 
     <script>
-        const statusEl = document.getElementById('status');
-        const compassEl = document.getElementById('compass-val');
-        const latEl = document.getElementById('gps-lat');
-        const countEl = document.getElementById('star-count');
-        const container = document.getElementById('sky-container');
-        const btn = document.getElementById('start-btn');
-
-        // Monitor de Brújula
-        window.addEventListener('deviceorientation', (event) => {
-            if(event.alpha) compassEl.innerText = Math.round(event.alpha) + "°";
+        log("Librerías gráficas cargadas.");
+        log("Intentando renderizar cubo rojo...");
+        
+        // Verificación de WebGL
+        const scene = document.querySelector('a-scene');
+        scene.addEventListener('loaded', () => {
+            log("Escena 3D cargada correctamente.");
+            log("Mira al frente. ¿Ves un cubo rojo girando?");
         });
-
-        // Base de datos mini (Solo las muy brillantes)
-        const stars = {
-            "SIRIUS": { ra: 6.75, dec: -16.71, color: "#FFF" },
-            "Canopus": { ra: 6.39, dec: -52.69, color: "#FFF" },
-            "Rigel": { ra: 5.24, dec: -8.20, color: "#AAF" },
-            "Betelgeuse": { ra: 5.91, dec: 7.40, color: "#F50" },
-            "Aldebaran": { ra: 4.59, dec: 16.50, color: "#F50" },
-            "Antares": { ra: 16.49, dec: -26.43, color: "#F00" },
-            "Vega": { ra: 18.61, dec: 38.78, color: "#AAF" },
-            "Altair": { ra: 19.84, dec: 8.86, color: "#FFF" },
-            "Deneb": { ra: 20.69, dec: 45.28, color: "#FFF" },
-            "Spica": { ra: 13.42, dec: -11.16, color: "#AAF" }
-        };
-
-        function calculatePos(ra, dec, observer, date) {
-            const equator = new Astronomy.Equator(ra, dec, 2000.0);
-            const horizon = Astronomy.Horizon(date, observer, equator.ra, equator.dec, 'normal');
-            
-            // SIN FILTRO: Dibujamos todo aunque esté abajo (Altitud negativa)
-            
-            const r = 20; // Distancia cercana para asegurar que se vea
-            const theta = horizon.azimuth * (Math.PI / 180);
-            const phi = horizon.altitude * (Math.PI / 180);
-
-            // Conversión A-Frame (Y es arriba, -Z es Norte)
-            return { 
-                x: r * Math.cos(phi) * Math.sin(theta), 
-                y: r * Math.sin(phi), 
-                z: -r * Math.cos(phi) * Math.cos(theta) 
-            };
-        }
-
-        function initApp() {
-            btn.style.display = 'none';
-            statusEl.innerText = "Solicitando GPS...";
-
-            navigator.geolocation.getCurrentPosition(pos => {
-                const lat = pos.coords.latitude;
-                const lon = pos.coords.longitude;
-                latEl.innerText = lat.toFixed(4);
-                statusEl.innerText = "GPS OK. Calculando...";
-
-                const date = new Date();
-                const observer = new Astronomy.Observer(lat, lon, 0);
-                let count = 0;
-
-                for (const [name, data] of Object.entries(stars)) {
-                    const p = calculatePos(data.ra, data.dec, observer, date);
-                    
-                    // Esfera GIGANTE (Radio 0.5) para que no se pierda
-                    const el = document.createElement('a-sphere');
-                    el.setAttribute('position', `${p.x} ${p.y} ${p.z}`);
-                    el.setAttribute('radius', 0.5); 
-                    el.setAttribute('color', data.color);
-                    container.appendChild(el);
-
-                    // Texto GIGANTE
-                    const txt = document.createElement('a-text');
-                    txt.setAttribute('value', name);
-                    txt.setAttribute('position', `${p.x} ${p.y - 1} ${p.z}`);
-                    txt.setAttribute('scale', '3 3 3');
-                    txt.setAttribute('align', 'center');
-                    txt.setAttribute('look-at', '[camera]');
-                    container.appendChild(txt);
-                    count++;
-                }
-                countEl.innerText = count;
-                statusEl.innerText = "Renderizado. Gira el móvil.";
-
-            }, err => {
-                statusEl.innerText = "Error GPS: " + err.message;
-            }, { enableHighAccuracy: true });
-        }
-
-        btn.addEventListener('click', () => {
-            // Permiso iOS para brújula
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                DeviceOrientationEvent.requestPermission()
-                    .then(r => {
-                        if (r == 'granted') initApp();
-                        else alert("Sin permiso de brújula no verás nada al girar.");
-                    })
-                    .catch(e => initApp());
-            } else {
-                initApp();
-            }
+        
+        // Verificación de cámara
+        scene.addEventListener('camera-init', () => {
+            log("Cámara AR iniciada.");
+        });
+        
+        scene.addEventListener('camera-error', (e) => {
+            log("ERROR DE CÁMARA: " + e.detail.error, 'error');
         });
     </script>
 </body>
