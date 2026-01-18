@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Mapa Estelar AR - Completo</title>
+    <title>GPS Alta Precisión</title>
     
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
@@ -10,287 +10,209 @@
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
 
     <style>
-        body { margin: 0; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { margin: 0; overflow: hidden; font-family: monospace; }
         
-        /* Interfaz de usuario superpuesta */
         #overlay {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9999;
-            display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
-            padding-bottom: 30px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: rgba(0,0,0,0.8); /* Fondo oscuro inicial */
+            transition: opacity 1s;
         }
-        
-        #btn-start {
-            pointer-events: auto;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; border: none; border-radius: 50px;
-            font-size: 18px; font-weight: bold; letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        #btn-start:active { transform: scale(0.95); }
         
         #status-box {
-            margin-bottom: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            color: #00ffcc;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            text-align: center;
-            max-width: 80%;
+            background: #000; border: 2px solid #00FF00;
+            color: #00FF00; padding: 20px; text-align: center;
+            border-radius: 10px; max-width: 80%;
+            pointer-events: auto;
         }
+
+        h1 { margin: 0 0 10px 0; font-size: 20px; text-transform: uppercase; }
+        .data { font-size: 16px; margin: 5px 0; color: #fff; }
+        .warning { color: yellow; font-size: 12px; margin-top: 10px; }
+
+        #btn-force {
+            display: none; margin-top: 15px; padding: 10px 20px;
+            background: #333; color: white; border: 1px solid white;
+            cursor: pointer; text-transform: uppercase;
+        }
+
+        /* Ocultar overlay cuando cargue */
+        .loaded { opacity: 0; pointer-events: none !important; }
     </style>
 </head>
 
 <body>
     <div id="overlay">
-        <div id="status-box">Listo para explorar. Pulsa el botón.</div>
-        <button id="btn-start">ACTIVAR AR</button>
+        <div id="status-box">
+            <h1>Buscando Satélites...</h1>
+            <div class="data" id="acc-display">Precisión: --- metros</div>
+            <div class="data" id="gps-coords">Esperando señal...</div>
+            <div class="warning">⚠️ Acércate a una ventana o sal al exterior.<br>El GPS tarda en calentar.</div>
+            <button id="btn-force">USAR ESTA PRECISIÓN AUNQUE SEA MALA</button>
+        </div>
     </div>
 
     <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; videoTexture: true;' vr-mode-ui="enabled: false">
-        
         <a-entity id="sky-container"></a-entity>
-
-        <a-camera gps-camera rotation-reader look-controls="enabled: true" far="2000"></a-camera>
-
+        <a-camera gps-camera rotation-reader look-controls="enabled: true" far="5000"></a-camera>
     </a-scene>
 
     <script>
-        // =========================================================
-        // 1. BASE DE DATOS ASTRONÓMICA (Coordenadas J2000)
-        // =========================================================
+        // --- BASE DE DATOS (Estrellas Principales) ---
         const stars = {
-            // --- ORION (Visible ahora al Este/Cenit) ---
-            "Betelgeuse": { ra: 5.919, dec: 7.407, mag: 0.5, color: "#FF5733" }, // Roja
-            "Rigel":      { ra: 5.242, dec: -8.202, mag: 0.1, color: "#ADD8E6" }, // Azul
-            "Bellatrix":  { ra: 5.418, dec: 6.349, mag: 1.6, color: "#FFFFFF" },
-            "Mintaka":    { ra: 5.533, dec: -0.299, mag: 2.2, color: "#FFFFFF" }, // Cinturón
-            "Alnilam":    { ra: 5.603, dec: -1.201, mag: 1.7, color: "#FFFFFF" }, // Cinturón
-            "Alnitak":    { ra: 5.679, dec: -1.942, mag: 1.7, color: "#FFFFFF" }, // Cinturón
-            "Saiph":      { ra: 5.795, dec: -9.669, mag: 2.0, color: "#FFFFFF" },
-
-            // --- CAN MAYOR (Sirio) ---
-            "SIRIUS":     { ra: 6.752, dec: -16.716, mag: -1.4, color: "#FFFFFF" }, // La más brillante
-
-            // --- ESCORPIO ---
+            "Betelgeuse": { ra: 5.919, dec: 7.407, mag: 0.5, color: "#FF5733" },
+            "Rigel":      { ra: 5.242, dec: -8.202, mag: 0.1, color: "#ADD8E6" },
+            "SIRIUS":     { ra: 6.752, dec: -16.716, mag: -1.4, color: "#FFFFFF" },
             "Antares":    { ra: 16.490, dec: -26.432, mag: 1.0, color: "#FF4500" },
-            "Graffias":   { ra: 16.086, dec: -19.805, mag: 2.5, color: "#FFFFFF" },
-            "Shaula":     { ra: 17.561, dec: -37.103, mag: 1.6, color: "#FFFFFF" },
-
-            // --- SAGITARIO (La Tetera) ---
-            "KausAust":   { ra: 18.402, dec: -34.384, mag: 1.7, color: "#ADD8E6" },
-            "Nunki":      { ra: 18.918, dec: -26.296, mag: 2.0, color: "#FFFFFF" },
-            "KausMed":    { ra: 18.463, dec: -29.828, mag: 2.7, color: "#FFA500" },
-
-            // --- VIRGO ---
             "Spica":      { ra: 13.421, dec: -11.161, mag: 0.9, color: "#ADD8E6" },
-            "Porrima":    { ra: 12.693, dec: -1.450, mag: 2.7, color: "#FFFFFF" },
-            "Vindemiatrix":{ ra: 13.036, dec: 10.959, mag: 2.8, color: "#FFFF00" },
-
-            // --- OSA MAYOR ---
-            "Dubhe":      { ra: 11.062, dec: 61.751, mag: 1.8, color: "#FFA500" },
-            "Merak":      { ra: 11.030, dec: 56.382, mag: 2.3, color: "#FFFFFF" },
-            "Alioth":     { ra: 12.900, dec: 55.959, mag: 1.7, color: "#FFFFFF" },
-            "Alkaid":     { ra: 13.792, dec: 49.313, mag: 1.8, color: "#ADD8E6" },
-
-            // --- CRUZ DEL SUR ---
-            "Acrux":      { ra: 12.443, dec: -63.099, mag: 0.7, color: "#ADD8E6" },
-            "Gacrux":     { ra: 12.519, dec: -57.113, mag: 1.6, color: "#FF4500" },
-
-            // --- ESTRELLAS CLAVE ---
-            "Canopus":    { ra: 6.399, dec: -52.696, mag: -0.7, color: "#FFFFFF" },
+            "Arcturus":   { ra: 14.261, dec: 19.182, mag: -0.05, color: "#FFA500" },
             "Vega":       { ra: 18.616, dec: 38.784, mag: 0.0, color: "#ADD8E6" },
-            "Arcturus":   { ra: 14.261, dec: 19.182, mag: -0.05, color: "#FFA500" }
+            "Canopus":    { ra: 6.399, dec: -52.696, mag: -0.7, color: "#FFFFFF" },
+            "Alpha Cent": { ra: 14.660, dec: -60.834, mag: -0.27, color: "#FFFFE0" },
+            "Acrux":      { ra: 12.443, dec: -63.099, mag: 0.77, color: "#ADD8E6" },
+            "Dubhe":      { ra: 11.062, dec: 61.751, mag: 1.8, color: "#FFA500" }
         };
 
-        // Pares de estrellas para dibujar líneas
         const constellations = [
-            ["Betelgeuse", "Alnitak"], ["Alnitak", "Alnilam"], ["Alnilam", "Mintaka"], ["Mintaka", "Bellatrix"], ["Betelgeuse", "Bellatrix"], ["Alnitak", "Saiph"], ["Mintaka", "Rigel"], // Orión
-            ["Antares", "Graffias"], ["Antares", "Shaula"], // Escorpio
-            ["KausAust", "KausMed"], ["KausMed", "Nunki"], // Sagitario
-            ["Spica", "Porrima"], ["Porrima", "Vindemiatrix"], ["Vindemiatrix", "Spica"], // Virgo
-            ["Dubhe", "Merak"], ["Merak", "Alioth"], ["Alioth", "Alkaid"], // Osa Mayor
-            ["Gacrux", "Acrux"] // Cruz del Sur
+             ["Betelgeuse", "Rigel"], ["Alpha Cent", "Acrux"] // Ejemplos simples
         ];
 
-        // Referencias al DOM
         const container = document.getElementById('sky-container');
-        const statusBox = document.getElementById('status-box');
-        const btn = document.getElementById('btn-start');
+        const overlay = document.getElementById('overlay');
+        const accDisplay = document.getElementById('acc-display');
+        const coordsDisplay = document.getElementById('gps-coords');
+        const btnForce = document.getElementById('btn-force');
 
-        // =========================================================
-        // 2. FUNCIONES MATEMÁTICAS (Astronomía -> 3D)
-        // =========================================================
+        // --- MATEMÁTICAS ---
         function calculateVector(ra, dec, observer, date) {
             const equator = new Astronomy.Equator(ra, dec, 2000.0);
             const horizon = Astronomy.Horizon(date, observer, equator.ra, equator.dec, 'normal');
-            const az = horizon.azimuth;
-            const alt = horizon.altitude;
-
-            // Si está muy debajo del horizonte (-20 grados), no la dibujamos para ahorrar recursos
-            if (alt < -20) return null; 
-
-            // Convertir coordenadas esféricas a vector 3D (A-Frame)
-            const r = 30; // Radio de la esfera celeste virtual
-            const theta = az * (Math.PI / 180);
-            const phi = alt * (Math.PI / 180);
-
-            // Nota: En A-Frame WebAR, el Norte es -Z, Este es +X, Arriba es +Y
-            const x = r * Math.cos(phi) * Math.sin(theta);
-            const y = r * Math.sin(phi);
-            const z = -r * Math.cos(phi) * Math.cos(theta);
             
-            return { x, y, z };
+            if (horizon.altitude < -10) return null; // Ocultar si está bajo el suelo
+
+            const r = 40; // Distancia visual
+            const theta = horizon.azimuth * (Math.PI / 180);
+            const phi = horizon.altitude * (Math.PI / 180);
+
+            return { 
+                x: r * Math.cos(phi) * Math.sin(theta), 
+                y: r * Math.sin(phi), 
+                z: -r * Math.cos(phi) * Math.cos(theta) 
+            };
         }
 
-        // =========================================================
-        // 3. GENERADOR DE VÍA LÁCTEA
-        // =========================================================
-        function createMilkyWay(observer, date) {
-            // Centro galáctico aprox: RA 17.76, DEC -29.00 (Sagitario)
-            const galacticCenterRA = 17.76;
-            const galacticCenterDEC = -29.00;
-
-            for (let i = 0; i < 80; i++) {
-                // Crear nube dispersa
-                const raOffset = (Math.random() - 0.5) * 3; // +/- 1.5 horas
-                const decOffset = (Math.random() - 0.5) * 40; // +/- 20 grados
-
-                const pos = calculateVector(galacticCenterRA + raOffset, galacticCenterDEC + decOffset, observer, date);
-                
-                if (pos) {
-                    const el = document.createElement('a-sphere');
-                    el.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
-                    el.setAttribute('radius', Math.random() * 0.2 + 0.05); 
-                    el.setAttribute('color', Math.random() > 0.5 ? "#9400D3" : "#4B0082"); // Violeta/Indigo
-                    el.setAttribute('opacity', 0.5);
-                    el.setAttribute('material', 'shader: flat; transparent: true');
-                    container.appendChild(el);
-                }
-            }
-        }
-
-        // =========================================================
-        // 4. INICIALIZAR EL CIELO
-        // =========================================================
-        function initSky(lat, lon, isSimulated = false) {
-            container.innerHTML = ""; // Limpiar
+        function renderSky(lat, lon) {
+            container.innerHTML = "";
             const date = new Date();
             const observer = new Astronomy.Observer(lat, lon, 0);
 
-            // A. DIBUJAR ESTRELLAS
             for (const [name, data] of Object.entries(stars)) {
                 const pos = calculateVector(data.ra, data.dec, observer, date);
                 if (pos) {
-                    stars[name].pos = pos; // Guardar para líneas
+                    stars[name].pos = pos;
+                    
+                    // Esfera
+                    const s = document.createElement('a-sphere');
+                    s.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
+                    s.setAttribute('radius', Math.max(0.1, 0.4 - (data.mag * 0.1)));
+                    s.setAttribute('color', data.color);
+                    s.setAttribute('shader', 'flat');
+                    container.appendChild(s);
 
-                    // 1. Esfera de la estrella
-                    const sphere = document.createElement('a-sphere');
-                    sphere.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
-                    // Mag menor = Más brillo = Más grande
-                    const size = Math.max(0.05, 0.3 - (data.mag * 0.1)); 
-                    sphere.setAttribute('radius', size);
-                    sphere.setAttribute('color', data.color);
-                    sphere.setAttribute('material', 'shader: flat'); // Shader plano para que brille siempre
-                    container.appendChild(sphere);
-
-                    // 2. Nombre (Texto)
-                    // Solo mostramos texto si es muy brillante (mag < 1.8) para no saturar
-                    if (data.mag < 1.8) {
-                        const text = document.createElement('a-text');
-                        text.setAttribute('value', name);
-                        text.setAttribute('position', `${pos.x} ${pos.y - 0.5} ${pos.z}`);
-                        text.setAttribute('align', 'center');
-                        text.setAttribute('scale', '1.5 1.5 1.5');
-                        text.setAttribute('look-at', '[camera]'); // Componente extra: mira siempre a cámara
-                        text.setAttribute('color', '#00ffcc');
-                        container.appendChild(text);
+                    // Texto
+                    if (data.mag < 1.5) {
+                        const t = document.createElement('a-text');
+                        t.setAttribute('value', name);
+                        t.setAttribute('position', `${pos.x} ${pos.y - 0.7} ${pos.z}`);
+                        t.setAttribute('align', 'center');
+                        t.setAttribute('scale', '2 2 2');
+                        t.setAttribute('look-at', '[camera]');
+                        container.appendChild(t);
                     }
                 }
             }
-
-            // B. DIBUJAR LÍNEAS DE CONSTELACIONES
+            // Líneas simples de conexión
             constellations.forEach(pair => {
-                const s1 = stars[pair[0]];
-                const s2 = stars[pair[1]];
+                const s1 = stars[pair[0]]; const s2 = stars[pair[1]];
                 if (s1 && s2 && s1.pos && s2.pos) {
-                    const line = document.createElement('a-entity');
-                    line.setAttribute('line', `start: ${s1.pos.x} ${s1.pos.y} ${s1.pos.z}; end: ${s2.pos.x} ${s2.pos.y} ${s2.pos.z}; color: white; opacity: 0.3`);
-                    container.appendChild(line);
+                    const l = document.createElement('a-entity');
+                    l.setAttribute('line', `start: ${s1.pos.x} ${s1.pos.y} ${s1.pos.z}; end: ${s2.pos.x} ${s2.pos.y} ${s2.pos.z}; color: white; opacity: 0.3`);
+                    container.appendChild(l);
                 }
             });
-
-            // C. DIBUJAR VÍA LÁCTEA
-            createMilkyWay(observer, date);
-
-            // D. ACTUALIZAR ESTADO
-            if (isSimulated) {
-                statusBox.innerText = "⚠️ GPS falló. Usando modo simulación (Quito).";
-                statusBox.style.color = "#ffaa00";
-            } else {
-                statusBox.innerText = `Cielo cargado. Lat: ${lat.toFixed(2)}`;
-            }
         }
 
-        // =========================================================
-        // 5. GESTIÓN DE SENSORES Y FALLBACK
-        // =========================================================
-        btn.addEventListener('click', () => {
-            statusBox.innerText = "Solicitando acceso a sensores...";
-            
-            // Permisos iOS 13+
-            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        // --- LÓGICA DE GPS DE ALTA PRECISIÓN ---
+        let watchID = null;
+        let bestAccuracy = 99999;
+        
+        function startHighAccuracyGPS() {
+            if (!navigator.geolocation) {
+                alert("Tu navegador no soporta GPS.");
+                return;
+            }
+
+            // Usamos watchPosition en lugar de getCurrentPosition
+            // Esto se queda "escuchando" a los satélites constantemente
+            watchID = navigator.geolocation.watchPosition(
+                (pos) => {
+                    const acc = pos.coords.accuracy;
+                    const lat = pos.coords.latitude;
+                    const lon = pos.coords.longitude;
+
+                    // Actualizar pantalla
+                    accDisplay.innerText = `Precisión: ${acc.toFixed(0)} metros`;
+                    coordsDisplay.innerText = `Lat: ${lat.toFixed(4)} Lon: ${lon.toFixed(4)}`;
+                    
+                    // Colorear según calidad
+                    if (acc < 20) accDisplay.style.color = "#00FF00"; // Excelente
+                    else if (acc < 100) accDisplay.style.color = "yellow"; // Decente
+                    else accDisplay.style.color = "red"; // Mala (Antenas celulares)
+
+                    // SI LA PRECISIÓN ES BUENA (< 50m), INICIAMOS AUTOMÁTICAMENTE
+                    if (acc < 50) {
+                        finishLoading(lat, lon);
+                    }
+                    
+                    // Guardamos la mejor posición por si el usuario fuerza el inicio
+                    bestAccuracy = acc;
+                    btnForce.onclick = () => finishLoading(lat, lon);
+                    btnForce.style.display = 'inline-block';
+                },
+                (err) => {
+                    coordsDisplay.innerText = "Error: " + err.message;
+                    accDisplay.innerText = "Reintentando...";
+                },
+                {
+                    enableHighAccuracy: true, // ¡OBLIGAR SATÉLITES!
+                    timeout: 20000,           // Esperar hasta 20 seg por lectura
+                    maximumAge: 0             // No usar caché vieja
+                }
+            );
+        }
+
+        function finishLoading(lat, lon) {
+            if (watchID) navigator.geolocation.clearWatch(watchID); // Dejar de gastar batería
+            overlay.classList.add('loaded'); // Quitar pantalla negra
+            renderSky(lat, lon);
+            // alert("Cielo cargado con precisión GPS.");
+        }
+
+        // --- INICIO ---
+        // Pedir permisos primero (iOS)
+        document.body.addEventListener('click', () => {
+             if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission()
-                    .then(state => {
-                        if (state === 'granted') {
-                            startGPS();
-                        } else {
-                            alert("Se requiere permiso de orientación para AR.");
-                            startGPS(); // Intentamos igual
-                        }
+                    .then(response => {
+                        if (response == 'granted') startHighAccuracyGPS();
                     })
-                    .catch(e => startGPS());
+                    .catch(console.error);
             } else {
-                startGPS(); // Android / PC
+                startHighAccuracyGPS();
             }
-            btn.style.display = 'none';
-        });
+        }, { once: true });
 
-        function startGPS() {
-            if (navigator.geolocation) {
-                statusBox.innerText = "Buscando satélites... (Max 5 seg)";
-                
-                // Configuración GPS con Timeout corto
-                navigator.geolocation.getCurrentPosition(
-                    (p) => {
-                        // ÉXITO
-                        initSky(p.coords.latitude, p.coords.longitude, false);
-                    },
-                    (e) => {
-                        // ERROR DE GPS
-                        fallbackLocation();
-                    },
-                    { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-                );
-            } else {
-                fallbackLocation();
-            }
-        }
-
-        function fallbackLocation() {
-            // Ubicación por defecto: Quito, Ecuador
-            // Así garantizamos que la app funcione aunque el GPS falle
-            const defLat = -0.1807;
-            const defLon = -78.4678;
-            console.warn("Usando ubicación fallback");
-            initSky(defLat, defLon, true);
-        }
     </script>
 </body>
 </html>
