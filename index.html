@@ -1,31 +1,268 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <title>Prueba Solo 3D</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Buscador Estelar GPS - Pro</title>
+
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+
+    <style>
+        /* ESTILO TIPO "CABALLEROS" (Limpio y Profesional) */
+        html, body { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; font-family: sans-serif; background-color: #000; }
+
+        /* UI: Pantalla de Carga (Splash Screen) */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: white; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; z-index: 9999; 
+            transition: opacity 0.6s ease-out; text-align: center;
+        }
+
+        #start-button {
+            margin-top: 20px; padding: 20px 40px; background-color: #000; color: white;
+            border: none; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        #btn-force {
+            margin-top: 15px; padding: 10px 20px; background-color: #FF4444; color: white;
+            border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer;
+            display: none; /* Se oculta al principio */
+        }
+
+        /* UI: Texto de Depuración (Amarillo arriba) */
+        #debug-text {
+            position: fixed; top: 10px; left: 10px; color: yellow; font-weight: bold; font-family: monospace;
+            z-index: 10001; background: rgba(0,0,0,0.7); padding: 8px; font-size: 12px; 
+            max-width: 90%; border-radius: 4px; pointer-events: none;
+        }
+
+        /* UI: Brújula visual en pantalla */
+        #compass-ui {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            color: cyan; font-size: 20px; font-weight: bold; z-index: 10000;
+            background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px;
+        }
+    </style>
 </head>
-
 <body>
-    <a-scene background="color: #000000">
+
+    <div id="debug-text">Esperando inicio...</div>
+    <div id="compass-ui">--°</div>
+
+    <div id="splash-screen">
+        <h2>MAPA ESTELAR GPS</h2>
+        <p style="color: #666">Activa tu ubicación y apunta al cielo</p>
+        <button id="start-button">INICIAR RASTREO</button>
+        <button id="btn-force">⚠️ GPS LENTO: FORZAR SIMULACIÓN</button>
+    </div>
+
+    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; videoTexture: true;' vr-mode-ui="enabled: false">
         
-        <a-box position="0 1.6 -3" 
-               rotation="0 45 0" 
-               color="#FF0000" 
-               scale="1 1 1"
-               animation="property: rotation; to: 0 405 0; loop: true; dur: 2000; easing: linear">
-        </a-box>
+        <a-entity id="sky-container"></a-entity>
 
-        <a-sphere position="2 1.6 -5" radius="1.25" color="#0000FF"></a-sphere>
-
-        <a-cylinder position="-2 1.6 -5" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-
-        <a-text value="¿VES ESTO?" position="0 3 -3" align="center" color="white" scale="2 2 2"></a-text>
-
-        <a-camera position="0 1.6 0">
-            <a-cursor color="yellow"></a-cursor>
-        </a-camera>
+        <a-camera gps-camera rotation-reader look-controls="enabled: true" far="5000"></a-camera>
 
     </a-scene>
+
+    <script>
+        // --- REFERENCIAS UI ---
+        const splash = document.getElementById('splash-screen');
+        const btnStart = document.getElementById('start-button');
+        const btnForce = document.getElementById('btn-force');
+        const debug = document.getElementById('debug-text');
+        const compassUi = document.getElementById('compass-ui');
+        const container = document.getElementById('sky-container');
+
+        let gpsTimer = null;
+
+        // --- BASE DE DATOS ESTELAR (Simplificada para rendimiento) ---
+        const stars = {
+            "SIRIUS":     { ra: 6.75, dec: -16.71, mag: -1.4, color: "#FFFFFF" },
+            "Canopus":    { ra: 6.39, dec: -52.69, mag: -0.7, color: "#FFFFFF" },
+            "Betelgeuse": { ra: 5.91, dec: 7.40, mag: 0.5, color: "#FF4400" }, // Roja
+            "Rigel":      { ra: 5.24, dec: -8.20, mag: 0.1, color: "#88CCFF" }, // Azul
+            "Antares":    { ra: 16.49, dec: -26.43, mag: 1.0, color: "#FF4400" },
+            "Vega":       { ra: 18.61, dec: 38.78, mag: 0.0, color: "#88CCFF" },
+            "Spica":      { ra: 13.42, dec: -11.16, mag: 0.9, color: "#88CCFF" },
+            "Arcturus":   { ra: 14.26, dec: 19.18, mag: -0.05, color: "#FFAA00" },
+            "Alpha Cent": { ra: 14.66, dec: -60.83, mag: -0.27, color: "#FFFFE0" },
+            "Cruz Sur":   { ra: 12.44, dec: -63.09, mag: 0.7, color: "#88CCFF" },
+            "Dubhe":      { ra: 11.06, dec: 61.75, mag: 1.8, color: "#FFAA00" } // Osa Mayor
+        };
+
+        const constellations = [
+            ["Betelgeuse", "Rigel"], // Orión simple
+            ["Alpha Cent", "Cruz Sur"] // Guía al sur
+        ];
+
+        // --- 1. LÓGICA DE INICIO (ESTILO CABALLEROS) ---
+        btnStart.addEventListener('click', () => {
+            debug.innerText = "Iniciando sensores (GPS + Brújula)...";
+            btnStart.disabled = true;
+            btnStart.style.opacity = "0.5";
+
+            // Mostrar botón de emergencia a los 3 segundos si falla
+            gpsTimer = setTimeout(() => {
+                debug.innerText = "GPS tardando demasiado...";
+                btnForce.style.display = "block";
+            }, 3000);
+
+            // Solicitar permisos iOS
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(response => {
+                        if (response == 'granted') startGPS();
+                        else {
+                            alert("Sin permiso de orientación, el mapa no girará.");
+                            startGPS();
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                startGPS();
+            }
+        });
+
+        // Botón de emergencia
+        btnForce.addEventListener('click', () => {
+            clearTimeout(gpsTimer);
+            loadSky(-0.18, -78.46, true); // Carga Quito por defecto
+            hideSplash();
+        });
+
+        // --- 2. GPS ---
+        function startGPS() {
+            if (!navigator.geolocation) {
+                debug.innerText = "Error: Este navegador no tiene GPS.";
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    clearTimeout(gpsTimer);
+                    debug.innerText = "GPS Encontrado. Calculando estrellas...";
+                    loadSky(pos.coords.latitude, pos.coords.longitude, false);
+                    hideSplash();
+                },
+                (err) => {
+                    debug.innerText = "Error GPS: " + err.message;
+                    btnForce.style.display = "block"; // Mostrar botón de forzar
+                },
+                { enableHighAccuracy: false, timeout: 5000, maximumAge: Infinity } // Baja precisión para ser rápido
+            );
+        }
+
+        function hideSplash() {
+            splash.style.opacity = '0';
+            setTimeout(() => splash.style.display = 'none', 600);
+        }
+
+        // --- 3. MATEMÁTICAS ASTRONÓMICAS ---
+        function calculateVector(ra, dec, observer, date) {
+            const equator = new Astronomy.Equator(ra, dec, 2000.0);
+            const horizon = Astronomy.Horizon(date, observer, equator.ra, equator.dec, 'normal');
+            
+            // FILTRO DE HORIZONTE: Si quieres ver a través del suelo, cambia -10 a -90
+            if (horizon.altitude < -10) return null; 
+
+            const r = 30; // Distancia de las estrellas
+            const theta = horizon.azimuth * (Math.PI / 180);
+            const phi = horizon.altitude * (Math.PI / 180);
+
+            // Conversión para A-Frame (Y es arriba, -Z es Norte)
+            return { 
+                x: r * Math.cos(phi) * Math.sin(theta), 
+                y: r * Math.sin(phi), 
+                z: -r * Math.cos(phi) * Math.cos(theta) 
+            };
+        }
+
+        // --- 4. RENDERIZADO DEL CIELO ---
+        function loadSky(lat, lon, simulated) {
+            const date = new Date();
+            const observer = new Astronomy.Observer(lat, lon, 0);
+            let count = 0;
+
+            container.innerHTML = ""; // Limpiar
+
+            // ESTRELLAS
+            for (const [name, data] of Object.entries(stars)) {
+                const pos = calculateVector(data.ra, data.dec, observer, date);
+                if (pos) {
+                    stars[name].pos = pos;
+                    count++;
+
+                    // Esfera brillante
+                    const s = document.createElement('a-sphere');
+                    s.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
+                    s.setAttribute('radius', Math.max(0.1, 0.4 - (data.mag * 0.1)));
+                    s.setAttribute('color', data.color);
+                    s.setAttribute('shader', 'flat');
+                    container.appendChild(s);
+
+                    // Texto
+                    const t = document.createElement('a-text');
+                    t.setAttribute('value', name);
+                    t.setAttribute('position', `${pos.x} ${pos.y - 0.5} ${pos.z}`);
+                    t.setAttribute('align', 'center');
+                    t.setAttribute('scale', '1.5 1.5 1.5');
+                    t.setAttribute('look-at', '[camera]');
+                    container.appendChild(t);
+                }
+            }
+
+            // LÍNEAS
+            constellations.forEach(pair => {
+                const s1 = stars[pair[0]]; const s2 = stars[pair[1]];
+                if (s1 && s2 && s1.pos && s2.pos) {
+                    const l = document.createElement('a-entity');
+                    l.setAttribute('line', `start: ${s1.pos.x} ${s1.pos.y} ${s1.pos.z}; end: ${s2.pos.x} ${s2.pos.y} ${s2.pos.z}; color: white; opacity: 0.3`);
+                    container.appendChild(l);
+                }
+            });
+
+            // VÍA LÁCTEA (Simulada - Puntos Violetas)
+            createMilkyWay(observer, date);
+
+            // ACTUALIZAR TEXTO DEPURACIÓN
+            if (simulated) {
+                debug.innerText = "MODO SIMULACIÓN (GPS falló). Mostrando cielo de Ecuador.";
+                debug.style.color = "#FF8800";
+            } else {
+                debug.innerText = `GPS OK (${lat.toFixed(2)}, ${lon.toFixed(2)}). ${count} estrellas visibles.`;
+                debug.style.color = "#00FF00";
+            }
+        }
+
+        function createMilkyWay(observer, date) {
+            // Centro galáctico aprox
+            const centerRA = 17.76; const centerDEC = -29.00;
+            for (let i = 0; i < 50; i++) {
+                const rOff = (Math.random() - 0.5) * 2;
+                const dOff = (Math.random() - 0.5) * 30;
+                const pos = calculateVector(centerRA + rOff, centerDEC + dOff, observer, date);
+                if (pos) {
+                    const el = document.createElement('a-sphere');
+                    el.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
+                    el.setAttribute('radius', Math.random() * 0.1);
+                    el.setAttribute('color', '#9900FF');
+                    el.setAttribute('opacity', 0.5);
+                    el.setAttribute('shader', 'flat');
+                    container.appendChild(el);
+                }
+            }
+        }
+
+        // --- 5. MONITOR DE BRÚJULA (EXTRA) ---
+        window.addEventListener('deviceorientation', (e) => {
+            if(e.alpha) compassUi.innerText = Math.round(e.alpha) + "°";
+        });
+
+    </script>
 </body>
 </html>
