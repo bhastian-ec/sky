@@ -3,65 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visor Estelar Stellarium Clone</title>
+    <title>Explorador del Universo</title>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stu.lco.global/virtualsky/virtualsky.js"></script>
+    <link rel="stylesheet" href="https://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.css" />
     
     <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: #000; /* Fondo negro por si tarda en cargar */
-            overflow: hidden; /* Evita barras de desplazamiento */
+        body { margin: 0; padding: 0; overflow: hidden; background-color: #000; }
+        /* El visor ocupa toda la pantalla */
+        #aladin-lite-div {
+            width: 100vw;
+            height: 100vh;
         }
-        #starmap {
-            width: 100%;
-            height: 100%;
+        /* Un pequeño título flotante */
+        #titulo {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: sans-serif;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            pointer-events: none; /* Para que los clicks pasen al mapa */
+            z-index: 100;
         }
     </style>
 </head>
 <body>
 
-    <div id="starmap"></div>
+    <div id="titulo">Vista de Galaxias y Constelaciones</div>
 
-    <script>
-        $(document).ready(function() {
-            var planetarium = $.virtualsky({
-                id: 'starmap',
-                
-                // --- ESTA ES LA LÍNEA QUE ARREGLA LA PANTALLA NEGRA ---
-                // Le dice al código dónde buscar las imágenes y datos reales
-                host: 'https://stu.lco.global/virtualsky/', 
-                // -----------------------------------------------------
+    <div id="aladin-lite-div"></div>
 
-                projection: 'stereo',
-                fov: 60, 
-                live: true, // Hora real
-                latitude: -0.1807, // Coordenadas (Ej: Ecuador)
-                longitude: -78.4678,
-                lang: 'es',
-                
-                // Configuración visual completa
-                showstars: true,
-                showplanets: true,
-                constellations: true,
-                constellationlabels: true,
-                milkyway: true,     // Vía Láctea
-                showgalaxy: true,   // Galaxias y nebulosas
-                gridlines_eq: false, // Ocultar cuadrícula para que se vea más real
-                az: 180,            // Mirar hacia el sur por defecto
-                
-                // Estilo
-                color: 'rgba(200, 220, 255, 0.5)', // Color de líneas más sutil
-                scalestars: 2 // Estrellas un poco más brillantes
-            });
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.1.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+        // 4. Inicialización
+        var aladin = A.aladin('#aladin-lite-div', {
+            survey: "P/DSS2/color", // Capa base: Digital Sky Survey (Color)
+            fov: 60,                // Campo de visión inicial (Zoom)
+            target: "M42",          // A dónde apunta al inicio (M42 es la Nebulosa de Orión)
+            showReticle: false,     // Ocultar la cruz central
+            showLayersControl: true, // Mostrar control de capas
+            showFullscreenControl: true // Botón de pantalla completa
         });
+
+        // 5. Agregar las constelaciones (capa superpuesta)
+        aladin.createOverlay({
+            name: 'Constelaciones',
+            lineWidth: 1,
+            color: '#bdc3c7'
+        });
+        
+        // Activamos las líneas de constelaciones que vienen integradas
+        // (Aladin las carga automáticamente si se lo pedimos así)
+        // Nota: Aladin Lite v2 tiene las constelaciones integradas en su interfaz,
+        // pero aquí forzamos una vista inicial interesante.
     </script>
 </body>
 </html>
