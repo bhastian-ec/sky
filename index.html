@@ -2,64 +2,132 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explorador del Universo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stellarium Web AR</title>
     
-    <link rel="stylesheet" href="https://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stu.lco.global/virtualsky/virtualsky.js"></script>
     
     <style>
-        body { margin: 0; padding: 0; overflow: hidden; background-color: #000; }
-        /* El visor ocupa toda la pantalla */
-        #aladin-lite-div {
+        body { margin: 0; padding: 0; overflow: hidden; background-color: #000; font-family: sans-serif; }
+        
+        #starmap {
             width: 100vw;
             height: 100vh;
         }
-        /* Un pequeño título flotante */
-        #titulo {
+
+        /* Botón necesario para activar el giroscopio en iPhone/Android */
+        #btn-start {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            font-family: sans-serif;
-            background: rgba(0,0,0,0.5);
-            padding: 5px 10px;
-            border-radius: 5px;
-            pointer-events: none; /* Para que los clicks pasen al mapa */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            background: rgba(255, 215, 0, 0.8); /* Dorado */
+            color: black;
+            border: 2px solid white;
+            border-radius: 10px;
+            font-size: 18px;
             z-index: 100;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
     </style>
 </head>
 <body>
 
-    <div id="titulo">Vista de Galaxias y Constelaciones</div>
+    <button id="btn-start">📍 ACTIVAR MODO AR (GIROSCOPIO)</button>
 
-    <div id="aladin-lite-div"></div>
+    <div id="starmap"></div>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.1.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="https://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.js" charset="utf-8"></script>
+    <script>
+        let planetarium;
 
-    <script type="text/javascript">
-        // 4. Inicialización
-        var aladin = A.aladin('#aladin-lite-div', {
-            survey: "P/DSS2/color", // Capa base: Digital Sky Survey (Color)
-            fov: 60,                // Campo de visión inicial (Zoom)
-            target: "M42",          // A dónde apunta al inicio (M42 es la Nebulosa de Orión)
-            showReticle: false,     // Ocultar la cruz central
-            showLayersControl: true, // Mostrar control de capas
-            showFullscreenControl: true // Botón de pantalla completa
+        $(document).ready(function() {
+            planetarium = $.virtualsky({
+                id: 'starmap',
+                
+                // 1. CONEXIÓN AL SERVIDOR (Esto arregla la pantalla negra)
+                host: 'https://stu.lco.global/virtualsky/',
+                
+                projection: 'stereo',
+                fov: 70, 
+                live: true, 
+                latitude: -0.1807, // Quito (puedes cambiarlo)
+                longitude: -78.4678,
+                lang: 'es',
+                
+                // 2. CONFIGURACIÓN VISUAL TIPO STELLARIUM
+                showstars: true,
+                showplanets: true,
+                
+                // Líneas que conectan las estrellas
+                constellations: true,
+                
+                // Las "Formas" o dibujos artísticos (Mitos)
+                constellationimages: true, 
+                
+                // Nombres
+                constellationlabels: true,
+                
+                milkyway: true,     
+                showgalaxy: true,   
+                
+                // Estética
+                color: 'rgba(255, 255, 255, 0.4)', 
+                scalestars: 1.5,
+                mouse: true // Permite mover con el dedo también
+            });
         });
 
-        // 5. Agregar las constelaciones (capa superpuesta)
-        aladin.createOverlay({
-            name: 'Constelaciones',
-            lineWidth: 1,
-            color: '#bdc3c7'
+        // 3. LÓGICA DEL GIROSCOPIO (MOVER CELULAR)
+        const btn = document.getElementById('btn-start');
+
+        btn.addEventListener('click', function() {
+            // Ocultar botón
+            btn.style.display = 'none';
+
+            // Solicitar permiso (Requerido para iOS 13+)
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation);
+                        } else {
+                            alert("Permiso denegado. Tendrás que mover con el dedo.");
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                // Android y otros no requieren permiso explícito a veces
+                window.addEventListener('deviceorientation', handleOrientation);
+            }
         });
-        
-        // Activamos las líneas de constelaciones que vienen integradas
-        // (Aladin las carga automáticamente si se lo pedimos así)
-        // Nota: Aladin Lite v2 tiene las constelaciones integradas en su interfaz,
-        // pero aquí forzamos una vista inicial interesante.
+
+        // Función matemática para convertir el movimiento del celular en coordenadas del mapa
+        function handleOrientation(event) {
+            if (!planetarium) return;
+
+            // alpha: rotación alrededor del eje Z (brújula 0-360)
+            // beta: inclinación frontal (arriba/abajo)
+            var alpha = event.alpha; 
+            var beta = event.beta;
+
+            if (alpha !== null && beta !== null) {
+                // Ajuste básico: Mapeamos la brújula (alpha) al Azimut del mapa
+                // El +180 o ajustes dependen de cómo sostienes el cel
+                var newAzimuth = alpha; 
+                
+                // Mapeamos la inclinación (beta) a la Altura
+                // Beta va de -180 a 180. Necesitamos ajustar para que mirar al frente sea horizonte.
+                var newElevation = beta - 90; 
+
+                // Actualizamos la cámara de VirtualSky
+                // Nota: VirtualSky usa funciones internas para redibujar, forzamos el centro
+                planetarium.setAzimuth(newAzimuth);
+                planetarium.setElevation(Math.abs(newElevation) < 90 ? -newElevation : 0);
+            }
+        }
     </script>
 </body>
 </html>
