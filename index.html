@@ -2,128 +2,51 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VirtualSky AR</title>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Planetario Web</title>
     
-    <script src="https://virtualsky.lco.global/embed/virtualsky.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stu.lco.global/virtualsky/virtualsky.js"></script>
+    
     <style>
-        body { margin: 0; overflow: hidden; background-color: #000; font-family: sans-serif; }
-
-        /* CAPA 1: CÁMARA REAL (Fondo) */
-        #webcam {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 0;
-            filter: brightness(0.7); /* Oscurecemos un poco la cámara para que resalten las estrellas */
-        }
-
-        /* CAPA 2: PLANETARIO VIRTUALSKY (Encima) */
+        body { margin: 0; padding: 0; overflow: hidden; background-color: #000; }
+        /* El contenedor ocupará toda la pantalla */
         #starmap {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-        }
-
-        /* INTERFAZ */
-        #ui {
-            position: fixed; bottom: 20px; left: 0; width: 100%;
-            text-align: center; z-index: 2; pointer-events: none;
-        }
-        .btn {
-            pointer-events: auto; padding: 15px 30px; 
-            background: rgba(0, 200, 255, 0.8); color: white;
-            border: none; border-radius: 30px; font-weight: bold;
-            font-size: 16px; box-shadow: 0 0 15px rgba(0,200,255,0.5);
-        }
-        #status {
-            position: fixed; top: 10px; width: 100%; text-align: center;
-            color: #00ffff; font-weight: bold; z-index: 2; text-shadow: 1px 1px 2px black;
+            width: 100vw;
+            height: 100vh;
         }
     </style>
 </head>
-
 <body>
-
-    <video id="webcam" autoplay playsinline muted></video>
-
-    <div id="status">Desliza el dedo para explorar el cielo</div>
 
     <div id="starmap"></div>
 
-    <div id="ui">
-        <button class="btn" onclick="activarGPS()">CENTRAR EN MI GPS</button>
-    </div>
-
     <script>
-        // 1. INICIAR CÁMARA
-        const video = document.getElementById('webcam');
-        async function startCamera() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: 'environment' } 
-                });
-                video.srcObject = stream;
-            } catch (err) {
-                console.error("Error cámara:", err);
-                alert("Activa la cámara para ver el fondo.");
-            }
-        }
-        startCamera();
-
-        // 2. CONFIGURAR VIRTUALSKY
-        // Esta es la magia: Creamos un planetario transparente
-        let planetarium = $.virtualsky({
-            id: 'starmap', 
-            projection: 'stereo', // Proyección tipo ojo de pez (buena para móviles)
-            background: 'rgba(0,0,0,0)', // ¡FONDO TRANSPARENTE!
-            transparent: true,
-            fov: 45, // Campo de visión similar a un celular
-            
-            // ¿Qué queremos ver?
-            constellations: true, // Líneas
-            constellationlabels: true, // Nombres
-            stars: true,
-            showgalaxy: true, // Vía Láctea realista
-            showplanets: true, // Planetas
-            showplanetlabels: true,
-            gridlines_eq: false, // Quitar cuadrícula fea
-            lines: true,
-            
-            // Colores brillantes para que se vean sobre la cámara
-            color: 'white',
-            scalestars: 2, // Estrellas más grandes
-            lang: 'es', // Español
-            live: true // Hora real automática
+        // 3. Inicialización del Planetario
+        $(document).ready(function() {
+            var planetarium = $.virtualsky({
+                id: 'starmap',           // ID del div contenedor
+                projection: 'stereo',    // Proyección tipo 'ojo de pez' (similar a Stellarium)
+                fov: 45,                 // Campo de visión inicial
+                live: true,              // Usar fecha/hora actual en tiempo real
+                latitude: -0.1807,       // Latitud inicial (Ej: Ecuador) - Puedes cambiarla
+                longitude: -78.4678,     // Longitud inicial
+                lang: 'es',              // Idioma español
+                
+                // --- Capas Visuales (Lo que se ve) ---
+                constellations: true,    // Líneas de constelaciones
+                constellationlabels: true, // Nombres de constelaciones
+                gridlines_eq: true,      // Cuadrícula ecuatorial (opcional)
+                showstars: true,         // Mostrar estrellas
+                showplanets: true,       // Mostrar planetas
+                milkyway: true,          // Mostrar la Vía Láctea
+                showgalaxy: true,        // Mostrar otras galaxias
+                
+                // --- Colores y Estética ---
+                color: 'white',          // Color de las líneas
+                scalestars: 1.5          // Tamaño de las estrellas
+            });
         });
-
-        // 3. FUNCIÓN GPS
-        function activarGPS() {
-            if (navigator.geolocation) {
-                document.getElementById('status').innerText = "Localizando...";
-                navigator.geolocation.getCurrentPosition(
-                    (pos) => {
-                        const lat = pos.coords.latitude;
-                        const lon = pos.coords.longitude;
-                        
-                        // Mover el mapa a tu ubicación
-                        planetarium.setPosition(lat, lon);
-                        document.getElementById('status').innerText = `Ubicación fijada: ${lat.toFixed(2)}, ${lon.toFixed(2)}`;
-                        alert("Mapa alineado a tu Cenit (Arriba). Baja el dedo para mirar al horizonte.");
-                    },
-                    (err) => {
-                        alert("Error GPS. Usando ubicación por defecto.");
-                    }
-                );
-            }
-        }
-
-        // Forzar redibujado para transparencia
-        setTimeout(() => {
-            // Un pequeño truco para asegurar que el canvas sea transparente
-            $('#starmap canvas').css('background', 'transparent');
-        }, 1000);
-
     </script>
 </body>
 </html>
