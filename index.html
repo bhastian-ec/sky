@@ -2,61 +2,112 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Mi Stellarium Web AR</title>
+    <title>Visor de Constelaciones Web</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-meshline-component@0.3.2/dist/aframe-meshline-component.min.js"></script>
   </head>
   <body>
     <script>
-      // COMPONENTE PARA GENERAR ESTRELLAS
-      // Esto crea esferas pequeñas alrededor del usuario para simular estrellas
-      AFRAME.registerComponent('star-system', {
-        schema: {
-          count: {type: 'int', default: 1000},
-          radius: {type: 'number', default: 300}
-        },
+      // --- EL CEREBRO DE STELLARIUM ---
+      // Esta función convierte coordenadas astronómicas (RA/Dec) a posición 3D (x,y,z)
+      function getPositionFromRaDec(ra, dec, radius) {
+        // Convertir grados a radianes
+        var phi = (90 - dec) * (Math.PI / 180);
+        var theta = (ra + 180) * (Math.PI / 180); // Ajuste simple
+
+        var x = -(radius * Math.sin(phi) * Math.cos(theta));
+        var z = (radius * Math.sin(phi) * Math.sin(theta));
+        var y = (radius * Math.cos(phi));
+
+        return {x: x, y: y, z: z};
+      }
+
+      AFRAME.registerComponent('constellation-loader', {
         init: function () {
           var scene = this.el.sceneEl;
-          for (var i = 0; i < this.data.count; i++) {
-            var star = document.createElement('a-sphere');
-            
-            // Posición aleatoria en coordenadas esféricas
-            var r = this.data.radius;
-            var theta = Math.random() * 2 * Math.PI;
-            var phi = Math.acos(2 * Math.random() - 1);
-            
-            var x = r * Math.sin(phi) * Math.cos(theta);
-            var y = r * Math.sin(phi) * Math.sin(theta);
-            var z = r * Math.cos(phi);
+          var radius = 20; // Distancia de las estrellas al usuario
 
-            star.setAttribute('position', {x: x, y: y, z: z});
+          // --- DATOS DE ORIÓN (Simplificado) ---
+          // RA (Ascensión Recta) y Dec (Declinación) son como Latitud/Longitud del cielo
+          const stars = {
+            "Betelgeuse": {ra: 88.79, dec: 7.40, color: "#FF5733"}, // Roja
+            "Rigel":      {ra: 78.63, dec: -8.20, color: "#33A1FF"}, // Azul
+            "Bellatrix":  {ra: 81.28, dec: 6.34, color: "#ADD8E6"},
+            "Saiph":      {ra: 86.93, dec: -9.66, color: "#FFFFFF"},
+            "Alnitak":    {ra: 85.18, dec: -1.94, color: "#FFFFFF"}, // Cinturón 1
+            "Alnilam":    {ra: 84.05, dec: -1.20, color: "#FFFFFF"}, // Cinturón 2
+            "Mintaka":    {ra: 83.00, dec: -0.29, color: "#FFFFFF"}  // Cinturón 3
+          };
+
+          // --- DIBUJAR LAS LÍNEAS (CONEXIONES) ---
+          // Pares de estrellas que forman el dibujo
+          const connections = [
+            ["Betelgeuse", "Bellatrix"], // Hombros
+            ["Bellatrix", "Mintaka"],
+            ["Mintaka", "Alnilam"],      // Cinturón
+            ["Alnilam", "Alnitak"],      // Cinturón
+            ["Alnitak", "Saiph"],        // Pierna
+            ["Saiph", "Rigel"],          // Pies (imaginario)
+            ["Rigel", "Mintaka"],        // Cuerpo
+            ["Betelgeuse", "Alnitak"]    // Cuerpo cruzado
+          ];
+
+          // 1. Crear las estrellas
+          for (const [name, data] of Object.entries(stars)) {
+            let pos = getPositionFromRaDec(data.ra, data.dec, radius);
             
-            // Tamaño y color aleatorio para realismo
-            var size = Math.random() * 0.5 + 0.1;
-            star.setAttribute('radius', size);
-            star.setAttribute('color', '#FFF');
-            star.setAttribute('shader', 'flat'); // Mejor rendimiento
+            // Crear esfera (estrella)
+            let sphere = document.createElement('a-sphere');
+            sphere.setAttribute('position', pos);
+            sphere.setAttribute('radius', 0.15); // Tamaño aparente
+            sphere.setAttribute('color', data.color);
+            sphere.setAttribute('shader', 'flat');
             
-            this.el.appendChild(star);
+            // Crear etiqueta de texto
+            let text = document.createElement('a-text');
+            text.setAttribute('value', name);
+            text.setAttribute('position', {x: pos.x, y: pos.y - 0.3, z: pos.z});
+            text.setAttribute('align', 'center');
+            text.setAttribute('scale', '1.5 1.5 1.5');
+            text.setAttribute('look-at', '[camera]'); // Que el texto siempre te mire a ti
+            
+            this.el.appendChild(sphere);
+            this.el.appendChild(text);
           }
+
+          // 2. Dibujar las líneas
+          connections.forEach(pair => {
+            let startData = stars[pair[0]];
+            let endData = stars[pair[1]];
+            
+            let startPos = getPositionFromRaDec(startData.ra, startData.dec, radius);
+            let endPos = getPositionFromRaDec(endData.ra, endData.dec, radius);
+
+            let line = document.createElement('a-entity');
+            
+            // Usamos la sintaxis estándar de línea de A-Frame
+            line.setAttribute('line', {
+              start: startPos,
+              end: endPos,
+              color: '#4444FF', // Color azul tenue tipo holograma
+              opacity: 0.6
+            });
+
+            this.el.appendChild(line);
+          });
         }
       });
     </script>
 
-    <a-scene loading-screen="dotsColor: white; backgroundColor: black">
+    <a-scene background="color: #000005">
       
-      <a-entity camera look-controls="magicWindowTrackingEnabled: true" position="0 1.6 0">
-          <a-text value="Mueve tu celular para explorar" position="0 -0.5 -1" 
-                  align="center" width="2" color="cyan"></a-text>
+      <a-entity camera look-controls="magicWindowTrackingEnabled: true" position="0 0 0">
+         <a-text value="Busca a Orion" position="0 -0.5 -1" color="grey" align="center"></a-text>
       </a-entity>
 
-      <a-entity star-system="count: 1500; radius: 400"></a-entity>
+      <a-entity constellation-loader></a-entity>
 
-      <a-sphere position="20 40 -100" radius="5" src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg" 
-                animation="property: rotation; to: 0 360 0; loop: true; dur: 20000">
-        <a-text value="Jupiter" position="0 6 0" align="center" width="50" color="white"></a-text>
-      </a-sphere>
-
-      <a-sky color="#050510"></a-sky>
+      <a-grid position="0 -2 0"></a-grid>
 
     </a-scene>
   </body>
