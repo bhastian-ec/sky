@@ -3,152 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Universo Completo - Modo Fijo</title>
+    <title>Cosmos Matemático Real</title>
 
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
 
     <style>
-        body { margin: 0; overflow: hidden; background-color: #000; font-family: monospace; }
-        #webcam { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-        a-scene { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
-        #ui-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; display: flex; flex-direction: column; justify-content: center; align-items: center; pointer-events: none; }
-        #splash { background: rgba(0,0,0,0.9); pointer-events: auto; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; }
-        button { pointer-events: auto; padding: 20px 40px; background: #00D4FF; color: black; border: none; border-radius: 50px; font-size: 20px; font-weight: bold; margin-top: 20px; }
-        #debug { position: fixed; top: 10px; left: 10px; color: #00FF00; background: rgba(0,0,0,0.8); padding: 5px; z-index: 4; font-size: 14px; }
+        body { margin: 0; overflow: hidden; background-color: #000; font-family: sans-serif; }
+
+        /* FONDO DE CÁMARA */
+        #webcam {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 1;
+        }
+
+        /* CAPA 3D */
+        a-scene {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none;
+        }
+
+        /* UI */
+        #ui-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 3; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; pointer-events: none;
+        }
+
+        #splash {
+            background: rgba(0,0,0,0.95); pointer-events: auto; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; color: white; transition: opacity 0.5s;
+        }
+
+        button {
+            pointer-events: auto; padding: 20px 40px; background: #6b00ff; 
+            color: white; border: none; border-radius: 50px; 
+            font-size: 18px; font-weight: bold; margin-top: 30px;
+            box-shadow: 0 0 20px rgba(107, 0, 255, 0.5);
+        }
+
+        #debug {
+            position: fixed; top: 10px; left: 10px; color: #00FF00; 
+            background: rgba(0,0,0,0.8); padding: 5px 10px; border-radius: 4px;
+            z-index: 4; font-size: 12px; font-family: monospace;
+        }
     </style>
 </head>
+
 <body>
 
     <video id="webcam" autoplay playsinline muted></video>
-    <div id="debug">Sistema listo.</div>
+    <div id="debug">Esperando inicio...</div>
 
     <div id="ui-layer">
         <div id="splash">
-            <h2>UNIVERSO TOTAL</h2>
-            <p>Torres de Referencia + Planetas + Estrellas</p>
-            <button id="btn-start">ACTIVAR</button>
+            <h2>COSMOS MATEMÁTICO</h2>
+            <p>Calculando posiciones J2000...</p>
+            <p style="font-size: 12px; color: #aaa;">(Modo Rayos-X activado: Verás estrellas bajo el suelo)</p>
+            <button id="btn-start">CALCULAR Y VER</button>
         </div>
     </div>
 
     <a-scene embedded transparent="true" vr-mode-ui="enabled: false">
+        <a-entity id="universe"></a-entity>
         
-        <a-entity id="universe-container"></a-entity>
-
         <a-camera look-controls="enabled: true; reverseMouseDrag: true" position="0 0 0">
-            <a-ring position="0 0 -1" radius-inner="0.05" radius-outer="0.06" color="#00FF00" opacity="0.5" material="shader: flat"></a-ring>
-            <a-text value="N" position="0 0.1 -1" align="center" scale="0.2 0.2 0.2" color="red"></a-text>
+            <a-ring position="0 0 -1" radius-inner="0.03" radius-outer="0.04" color="#00FF00" opacity="0.3" material="shader: flat"></a-ring>
         </a-camera>
-
-        <a-text value="NORTE" position="0 5 -20" color="red" align="center" scale="8 8 8" look-at="[camera]"></a-text>
-        <a-cylinder position="0 -10 -20" height="20" radius="0.5" color="red" opacity="0.5"></a-cylinder>
-
-        <a-text value="SUR" position="0 5 20" color="blue" align="center" scale="8 8 8" look-at="[camera]"></a-text>
-        <a-cylinder position="0 -10 20" height="20" radius="0.5" color="blue" opacity="0.5"></a-cylinder>
-
-        <a-text value="ESTE" position="20 5 0" color="yellow" align="center" scale="8 8 8" look-at="[camera]"></a-text>
-        <a-cylinder position="20 -10 0" height="20" radius="0.5" color="yellow" opacity="0.5"></a-cylinder>
-
-        <a-text value="OESTE" position="-20 5 0" color="green" align="center" scale="8 8 8" look-at="[camera]"></a-text>
-        <a-cylinder position="-20 -10 0" height="20" radius="0.5" color="green" opacity="0.5"></a-cylinder>
-
     </a-scene>
 
     <script>
         const btn = document.getElementById('btn-start');
         const video = document.getElementById('webcam');
         const splash = document.getElementById('splash');
-        const container = document.getElementById('universe-container');
+        const container = document.getElementById('universe');
         const debug = document.getElementById('debug');
 
-        // --- DATOS FIJOS (Sin cálculos complejos) ---
-        // Posiciones manuales relativas (X, Y, Z) simulando el cielo de Enero 2026
-        const celestialObjects = [
-            // --- PLANETAS (Enero 2026 aprox) ---
-            // Júpiter (Brillante en Geminis, cerca del Este-Cenit)
-            { name: "JUPITER", x: 15, y: 25, z: -5, color: "#FFCC99", size: 2.0, type: "planet" },
-            // Marte (Oeste al anochecer)
-            { name: "MARTE", x: -18, y: 10, z: -5, color: "#FF3300", size: 1.5, type: "planet" },
-            // Venus (Muy brillante al Oeste)
-            { name: "VENUS", x: -25, y: 15, z: 5, color: "#EEEEFF", size: 2.5, type: "planet" },
-            // Saturno (Oeste, bajo)
-            { name: "SATURNO", x: -20, y: 5, z: 10, color: "#FFEEAA", size: 1.8, type: "planet" },
-            // SOL (Para referencia de día)
-            { name: "SOL", x: -10, y: -20, z: 30, color: "#FFFF00", size: 5.0, type: "star" }, 
+        // --- 1. BASE DE DATOS EXTENSA ---
+        const stars = {
+            "SIRIUS": { ra: 6.75, dec: -16.71, mag: -1.4, color: "#FFF" },
+            "Canopus": { ra: 6.39, dec: -52.69, mag: -0.7, color: "#DDD" },
+            "Betelgeuse": { ra: 5.91, dec: 7.40, mag: 0.5, color: "#F40" },
+            "Rigel": { ra: 5.24, dec: -8.20, mag: 0.1, color: "#AAF" },
+            "Vega": { ra: 18.61, dec: 38.78, mag: 0.0, color: "#AAF" },
+            "Capella": { ra: 5.27, dec: 45.99, mag: 0.0, color: "#FFD" },
+            "Arcturus": { ra: 14.26, dec: 19.18, mag: -0.0, color: "#FA0" },
+            "Antares": { ra: 16.49, dec: -26.43, mag: 1.0, color: "#F40" },
+            "Aldebaran": { ra: 4.59, dec: 16.50, mag: 0.8, color: "#F40" },
+            "Spica": { ra: 13.42, dec: -11.16, mag: 0.9, color: "#AAF" },
+            "Pollux": { ra: 7.75, dec: 28.02, mag: 1.1, color: "#FA0" },
+            "Fomalhaut": { ra: 22.96, dec: -29.62, mag: 1.1, color: "#FFF" },
+            "Deneb": { ra: 20.69, dec: 45.28, mag: 1.2, color: "#FFF" },
+            "Regulus": { ra: 10.13, dec: 11.96, mag: 1.3, color: "#AAF" },
+            "Acrux": { ra: 12.44, dec: -63.09, mag: 0.7, color: "#AAF" }, // Cruz Sur
+            "Gacrux": { ra: 12.51, dec: -57.11, mag: 1.6, color: "#F40" },
+            "Dubhe": { ra: 11.06, dec: 61.75, mag: 1.8, color: "#FA0" }  // Osa Mayor
+        };
 
-            // --- ESTRELLAS ---
-            // Orión (Sur-Este alto)
-            { name: "Betelgeuse", x: 10, y: 30, z: 10, color: "#FF4400", size: 0.8, type: "star" },
-            { name: "Rigel", x: 15, y: 20, z: 15, color: "#88CCFF", size: 0.8, type: "star" },
-            { name: "Cinturon", x: 12, y: 25, z: 12, color: "#FFFFFF", size: 0.6, type: "star" },
-            
-            // Sirio (La más brillante, debajo de Orión)
-            { name: "SIRIUS", x: 15, y: 10, z: 20, color: "#FFFFFF", size: 1.2, type: "star" },
-            
-            // Cruz del Sur (Sur bajo)
-            { name: "CRUZ SUR", x: 0, y: 10, z: 25, color: "#88CCFF", size: 0.8, type: "star" },
-            
-            // Osa Mayor (Norte)
-            { name: "OSA MAYOR", x: 0, y: 20, z: -25, color: "#FFFFFF", size: 0.8, type: "star" },
-            
-            // Pléyades (Cerca de Júpiter)
-            { name: "PLEYADES", x: 5, y: 35, z: -5, color: "#4444FF", size: 1.0, type: "star" }
+        const connections = [
+            ["Betelgeuse", "Rigel"], ["Betelgeuse", "Bellatrix"], // Orion simple
+            ["Dubhe", "Merak"], // Osa Mayor pointer
+            ["Gacrux", "Acrux"] // Cruz Sur
         ];
 
-        function initUniverse() {
-            container.innerHTML = "";
+        // --- 2. GENERADOR VÍA LÁCTEA ---
+        function generateMilkyWay(observer, date) {
+            // Centro Galáctico (Sagitario A*)
+            const centerRA = 17.76;
+            const centerDEC = -29.00;
             
-            celestialObjects.forEach(obj => {
-                // Esfera
-                const s = document.createElement('a-sphere');
-                s.setAttribute('position', `${obj.x} ${obj.y} ${obj.z}`);
-                s.setAttribute('radius', obj.size);
-                s.setAttribute('color', obj.color);
-                s.setAttribute('shader', 'flat'); // Brilla sin luz
-                container.appendChild(s);
-
-                // Texto Gigante
-                const t = document.createElement('a-text');
-                t.setAttribute('value', obj.name);
-                // Ponemos el texto un poco debajo del objeto
-                t.setAttribute('position', `${obj.x} ${obj.y - (obj.size + 1)} ${obj.z}`);
-                t.setAttribute('align', 'center');
-                t.setAttribute('scale', '4 4 4'); // Texto MUY grande
-                t.setAttribute('look-at', '[camera]'); // Siempre te mira a ti
-                t.setAttribute('color', obj.color);
-                container.appendChild(t);
-
-                // Si es un planeta, le ponemos un anillo extra para destacar
-                if (obj.type === "planet") {
-                    const ring = document.createElement('a-ring');
-                    ring.setAttribute('position', `${obj.x} ${obj.y} ${obj.z}`);
-                    ring.setAttribute('radius-inner', obj.size + 0.2);
-                    ring.setAttribute('radius-outer', obj.size + 0.4);
-                    ring.setAttribute('color', 'white');
-                    ring.setAttribute('shader', 'flat');
-                    ring.setAttribute('look-at', '[camera]');
-                    container.appendChild(ring);
-                }
-            });
-            
-            debug.innerText = "Objetos cargados manualmente.";
+            for(let i=0; i<120; i++) {
+                // Crear nube alargada a lo largo del plano galáctico
+                const spreadRA = (Math.random() - 0.5) * 4; // +/- 2 horas de ancho
+                const spreadDEC = (Math.random() - 0.5) * 60; // +/- 30 grados de largo
+                
+                const pos = calculateXYZ(centerRA + spreadRA, centerDEC + spreadDEC, observer, date);
+                
+                const el = document.createElement('a-sphere');
+                el.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
+                el.setAttribute('radius', Math.random() * 0.3);
+                // Color violeta/blanco mezclado
+                const color = Math.random() > 0.5 ? "#9900FF" : "#CCCCFF";
+                el.setAttribute('color', color);
+                el.setAttribute('opacity', 0.4);
+                el.setAttribute('shader', 'flat');
+                container.appendChild(el);
+            }
         }
 
+        // --- 3. MATEMÁTICAS PURAS ---
+        function calculateXYZ(ra, dec, observer, date) {
+            const equator = new Astronomy.Equator(ra, dec, 2000.0);
+            const horizon = Astronomy.Horizon(date, observer, equator.ra, equator.dec, 'normal');
+            
+            // NOTA: NO FILTRAMOS EL HORIZONTE. Mostramos todo (Vision Rayos X)
+            
+            const r = 40; // Radio del domo celeste
+            const th = horizon.azimuth * (Math.PI / 180);
+            const ph = horizon.altitude * (Math.PI / 180);
+
+            // Conversión Esférica a Cartesiana (A-Frame: Y es arriba)
+            return {
+                x: r * Math.cos(ph) * Math.sin(th),
+                y: r * Math.sin(ph),
+                z: -r * Math.cos(ph) * Math.cos(th)
+            };
+        }
+
+        // --- 4. RENDERIZADO DEL UNIVERSO ---
+        function renderUniverse(lat, lon) {
+            container.innerHTML = ""; // Limpiar escena
+            const date = new Date();
+            const observer = new Astronomy.Observer(lat, lon, 0);
+            let count = 0;
+
+            // A. Estrellas
+            for (const [name, data] of Object.entries(stars)) {
+                const pos = calculateXYZ(data.ra, data.dec, observer, date);
+                stars[name].pos = pos; // Guardar para líneas
+
+                // Esfera
+                const s = document.createElement('a-sphere');
+                s.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
+                s.setAttribute('radius', Math.max(0.2, 0.5 - (data.mag * 0.1))); // Escala grande
+                s.setAttribute('color', data.color);
+                s.setAttribute('shader', 'flat');
+                container.appendChild(s);
+
+                // Texto
+                if(data.mag < 1.5) {
+                    const t = document.createElement('a-text');
+                    t.setAttribute('value', name);
+                    t.setAttribute('position', `${pos.x} ${pos.y - 1} ${pos.z}`);
+                    t.setAttribute('align', 'center');
+                    t.setAttribute('scale', '3 3 3'); // Texto grande
+                    t.setAttribute('look-at', '[camera]');
+                    container.appendChild(t);
+                }
+                count++;
+            }
+
+            // B. Planetas (Cálculo dinámico real)
+            ["Sun", "Moon", "Jupiter", "Venus", "Mars", "Saturn"].forEach(body => {
+                const planet = Astronomy.Body[body];
+                const eq = Astronomy.Equator(planet, date, observer, false, true);
+                const hor = Astronomy.Horizon(date, observer, eq.ra, eq.dec, 'normal');
+                
+                const r = 35;
+                const th = hor.azimuth * (Math.PI / 180);
+                const ph = hor.altitude * (Math.PI / 180);
+                const x = r * Math.cos(ph) * Math.sin(th);
+                const y = r * Math.sin(ph);
+                const z = -r * Math.cos(ph) * Math.cos(th);
+
+                // Esfera Planeta
+                const p = document.createElement('a-sphere');
+                p.setAttribute('position', `${x} ${y} ${z}`);
+                p.setAttribute('radius', 1.0); // Planetas muy grandes
+                let c = "#FFF";
+                if(body==="Sun") c="#FFD700"; if(body==="Mars") c="#F00"; if(body==="Jupiter") c="#FA0";
+                p.setAttribute('color', c);
+                p.setAttribute('shader', 'flat');
+                container.appendChild(p);
+
+                // Etiqueta
+                const t = document.createElement('a-text');
+                t.setAttribute('value', body.toUpperCase());
+                t.setAttribute('position', `${x} ${y+1.5} ${z}`);
+                t.setAttribute('align', 'center');
+                t.setAttribute('scale', '4 4 4');
+                t.setAttribute('color', c);
+                t.setAttribute('look-at', '[camera]');
+                container.appendChild(t);
+                count++;
+            });
+
+            // C. Líneas
+            connections.forEach(pair => {
+                const s1 = stars[pair[0]]; const s2 = stars[pair[1]];
+                if(s1 && s2) {
+                    const l = document.createElement('a-entity');
+                    l.setAttribute('line', `start: ${s1.pos.x} ${s1.pos.y} ${s1.pos.z}; end: ${s2.pos.x} ${s2.pos.y} ${s2.pos.z}; color: white; opacity: 0.3`);
+                    container.appendChild(l);
+                }
+            });
+
+            // D. Vía Láctea
+            generateMilkyWay(observer, date);
+
+            debug.innerText = `GPS: ${lat.toFixed(2)}, ${lon.toFixed(2)} | Objetos: ${count}`;
+        }
+
+        // --- 5. INICIO ---
         async function startCamera() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
                 video.srcObject = stream;
-            } catch (err) {
-                console.error("Error camara", err);
-            }
+            } catch (e) { console.log("Camara error"); }
         }
 
         btn.addEventListener('click', async () => {
-            splash.style.display = 'none';
+            splash.style.opacity = 0;
+            setTimeout(() => splash.style.display = 'none', 500);
+            
             await startCamera();
-            initUniverse();
+            
+            // Intentar GPS
+            if(navigator.geolocation) {
+                debug.innerText = "Calculando triangulación...";
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => { renderUniverse(pos.coords.latitude, pos.coords.longitude); },
+                    (err) => { 
+                        debug.innerText = "GPS Error. Usando Quito."; 
+                        renderUniverse(-0.18, -78.46); 
+                    },
+                    { enableHighAccuracy: true }
+                );
+            } else {
+                renderUniverse(-0.18, -78.46);
+            }
 
-            // Permisos iOS
+            // Permisos Brújula
             if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission().catch(console.error);
             }
