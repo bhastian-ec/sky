@@ -130,7 +130,7 @@
       display: block;
     }
 
-    /* 2. SUB-BARRA DE NAVEGACIÓN */
+    /* 2. SUB-BARRA ESTILO APPLE */
     .subnav-strip {
       margin-top: 52px;
       background: #000000;
@@ -238,10 +238,10 @@
       font-size: 0.95rem;
     }
 
-    /* 4. SCROLL VIDEO */
+    /* 4. SECCIÓN SCROLL VIDEO CINEMÁTICO */
     .video-scroll-section {
       position: relative;
-      height: 320vh;
+      height: 250vh;
       background: #000;
     }
 
@@ -262,10 +262,13 @@
       left: 50%;
       min-width: 100%;
       min-height: 100%;
-      transform: translate(-50%, -50%);
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%) scale(1);
       object-fit: cover;
       opacity: 0.65;
       pointer-events: none;
+      transition: transform 0.1s ease-out;
     }
 
     .video-overlay-text {
@@ -274,23 +277,25 @@
       text-align: center;
       padding: 0 2rem;
       pointer-events: none;
+      transition: transform 0.2s ease-out, opacity 0.2s ease-out;
     }
 
     .video-overlay-text h2 {
       font-family: var(--font-serif);
-      font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+      font-size: clamp(2.5rem, 6vw, 5rem);
       font-weight: 700;
-      letter-spacing: 4px;
+      letter-spacing: 5px;
       margin-bottom: 0.5rem;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+      text-shadow: 0 4px 30px rgba(0,0,0,0.9);
     }
 
     .video-overlay-text p {
       font-size: 1.1rem;
-      color: var(--text-muted);
-      letter-spacing: 3px;
+      color: var(--accent-gold);
+      letter-spacing: 4px;
       text-transform: uppercase;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      text-shadow: 0 2px 15px rgba(0,0,0,0.9);
+      font-weight: 600;
     }
 
     /* 5. PARALLAX HORIZONTAL STORE */
@@ -596,20 +601,22 @@
     </div>
   </section>
 
-  <!-- 4. SCROLL VIDEO -->
+  <!-- 4. SECCIÓN VIDEO CINEMÁTICO -->
   <section class="video-scroll-section" id="videoSec">
     <div class="video-sticky-container">
       <video 
         id="scrollVideo" 
-        src="./video.mp4" 
+        src="video.mp4"
+        autoplay 
+        loop 
         muted 
         playsinline 
         webkit-playsinline
         preload="auto"
       ></video>
-      <div class="video-overlay-text">
+      <div class="video-overlay-text" id="videoText">
         <h2>IRIDIUM DNA</h2>
-        <p>Desliza para explorar la confección</p>
+        <p>Confección Pesada & Estilo Superior</p>
       </div>
     </div>
   </section>
@@ -786,37 +793,38 @@
     <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT DE CONTROL FLUIDO -->
+  <!-- SCRIPT DE EFECTOS PARALLAX Y SCROLL -->
   <script>
     const video = document.getElementById('scrollVideo');
     const videoSection = document.getElementById('videoSec');
+    const videoText = document.getElementById('videoText');
     const horizContainer = document.getElementById('deckSec');
     const track = document.getElementById('track');
 
-    // Desbloquear decodificación en navegadores móviles/escritorio
-    let videoDuration = 0;
-
-    video.addEventListener('loadedmetadata', () => {
-      videoDuration = video.duration;
-      updateFrame();
-    });
-
-    // Forzar carga de metadatos si ya estaban en caché
-    if (video.readyState >= 1) {
-      videoDuration = video.duration;
+    // Forzar inicio inmediato del video al cargar o interactuar
+    function playSafe() {
+      if (video && video.paused) {
+        video.play().catch(() => {});
+      }
     }
+    window.addEventListener('load', playSafe);
+    window.addEventListener('touchstart', playSafe, { once: true });
+    window.addEventListener('scroll', playSafe, { once: true });
 
-    function updateFrame() {
-      // 1. Control de Video (Scroll Scrubbing)
+    function handleParallax() {
+      // 1. Efecto Cinemático en el Video (Zoom & Dinamismo con Scroll)
       const vRect = videoSection.getBoundingClientRect();
       const vScrollable = videoSection.offsetHeight - window.innerHeight;
 
       if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
         const fraction = Math.abs(vRect.top) / vScrollable;
-        const targetDuration = videoDuration || video.duration;
-        if (targetDuration && !isNaN(targetDuration)) {
-          video.currentTime = fraction * targetDuration;
-        }
+        // Escala sutil cinematográfica (de 1.0 a 1.25)
+        const scale = 1 + (fraction * 0.25);
+        video.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        
+        // Efecto de desvanecimiento en el texto central
+        videoText.style.opacity = `${1 - (fraction * 1.5)}`;
+        videoText.style.transform = `translateY(${fraction * 80}px)`;
       }
 
       // 2. Parallax Horizontal
@@ -833,11 +841,8 @@
     }
 
     window.addEventListener('scroll', () => {
-      window.requestAnimationFrame(updateFrame);
+      window.requestAnimationFrame(handleParallax);
     }, { passive: true });
-
-    // Primera ejecución al cargar la web
-    window.addEventListener('DOMContentLoaded', updateFrame);
   </script>
 </body>
 </html>
