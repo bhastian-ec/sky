@@ -3,293 +3,411 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Tienda Digital</title>
+  <title>ASHIRA — Studio & Store</title>
+  
+  <!-- Fuentes estilo editorial moderno -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0b0e14;
-      --card-bg: #161b22;
-      --accent: #0070d1; /* Azul PlayStation */
-      --text: #f0f6fc;
-      --muted: #8b949e;
+      --bg: #090a0d;
+      --card-bg: #12141a;
+      --accent: #d4af37; /* Toque dorado/champagne elegante */
+      --text: #f5f6f8;
+      --text-muted: #8e95a5;
+      --border: rgba(255, 255, 255, 0.08);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
       background-color: var(--bg);
       color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
-    /* Barra Superior y Menú Desplegable */
+    /* NAV / HEADER MINIMALISTA */
     header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 3rem;
-      background: rgba(11, 14, 20, 0.85);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      padding: 1.5rem 4rem;
+      background: rgba(9, 10, 13, 0.6);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
     }
 
     .logo {
-      font-size: 1.5rem;
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      letter-spacing: 4px;
       font-weight: 700;
-      letter-spacing: 1px;
     }
 
     .nav-links {
       display: flex;
-      align-items: center;
-      gap: 1.5rem;
+      gap: 2rem;
       list-style: none;
+      align-items: center;
     }
 
-    /* Desplegable */
     .dropdown {
       position: relative;
     }
 
     .dropbtn {
-      background: #21262d;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
       color: var(--text);
-      padding: 0.6rem 1.2rem;
-      border: 1px solid #30363d;
-      border-radius: 8px;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       cursor: pointer;
-      font-weight: 600;
-      transition: 0.2s;
+      border-radius: 50px;
+      transition: all 0.3s ease;
     }
 
     .dropbtn:hover {
-      background: var(--accent);
-      border-color: var(--accent);
+      border-color: var(--text);
+      background: rgba(255,255,255,0.1);
     }
 
     .dropdown-content {
       display: none;
       position: absolute;
       right: 0;
-      top: 110%;
-      background: var(--card-bg);
-      min-width: 180px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #30363d;
+      top: 130%;
+      background: rgba(18, 20, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      min-width: 200px;
+      padding: 0.5rem 0;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
     }
 
     .dropdown-content a {
-      color: var(--text);
-      padding: 0.8rem 1rem;
-      text-decoration: none;
+      color: var(--text-muted);
+      padding: 0.8rem 1.4rem;
       display: block;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
       transition: 0.2s;
     }
 
     .dropdown-content a:hover {
-      background: var(--accent);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+      padding-left: 1.8rem;
     }
 
     .dropdown:hover .dropdown-content {
       display: block;
     }
 
-    /* Sección Principal estilo PlayStation */
-    .ps-section {
-      padding: 3rem 0;
-    }
-
-    .section-title {
-      padding: 0 3rem 1.5rem;
-      font-size: 1.8rem;
-      font-weight: 600;
-    }
-
-    /* Contenedor del Carrusel */
-    .ps-carousel-wrapper {
+    /* HERO SECTION */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 2rem;
       position: relative;
+      background: radial-gradient(circle at center, #1b202e 0%, var(--bg) 70%);
+    }
+
+    .hero-subtitle {
+      font-size: 0.85rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      max-width: 900px;
+      margin-bottom: 2rem;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      animation: bounce 2s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    /* SECCIÓN HORIZONTAL PARALLAX */
+    .horizontal-scroll-container {
+      position: relative;
+      height: 400vh; /* Controla la duración del scroll horizontal */
+    }
+
+    .sticky-wrapper {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
       display: flex;
       align-items: center;
     }
 
-    .ps-carousel {
+    .horizontal-track {
       display: flex;
-      gap: 2rem;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      padding: 2rem 3rem;
-      scrollbar-width: none; /* Oculta barra en Firefox */
+      gap: 5vw;
+      padding: 0 10vw;
+      will-change: transform;
     }
 
-    .ps-carousel::-webkit-scrollbar {
-      display: none; /* Oculta barra en Chrome/Safari */
-    }
-
-    /* Tarjetas tipo PS Game Deck */
-    .ps-card {
-      flex: 0 0 240px;
-      height: 340px;
+    /* TARJETA CINEMATOGRÁFICA */
+    .showcase-card {
+      flex: 0 0 75vw;
+      max-width: 950px;
+      height: 70vh;
       background: var(--card-bg);
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;
+      border-radius: 20px;
+      border: 1px solid var(--border);
       position: relative;
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-      border: 2px solid transparent;
-    }
-
-    .ps-card img {
-      width: 100%;
-      height: 70%;
-      object-fit: cover;
-    }
-
-    .ps-card-info {
-      padding: 1rem;
-    }
-
-    .ps-card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-      white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 3rem;
+      transition: border-color 0.4s ease;
     }
 
-    .ps-card-price {
-      color: var(--muted);
-      font-size: 0.95rem;
+    .showcase-card:hover {
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
-    /* Efecto Hover estilo consola */
-    .ps-card:hover, .ps-card:focus {
-      transform: translateY(-12px) scale(1.05);
-      border-color: var(--accent);
-      box-shadow: 0 15px 30px rgba(0, 112, 209, 0.35);
-      outline: none;
-    }
-
-    /* Botones de navegación */
-    .scroll-btn {
+    .card-img-bg {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(22, 27, 34, 0.8);
-      color: white;
-      border: 1px solid #30363d;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 10;
-      backdrop-filter: blur(5px);
-      transition: 0.2s;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.55;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      z-index: 1;
     }
 
-    .scroll-btn:hover {
+    .showcase-card:hover .card-img-bg {
+      transform: scale(1.04);
+      opacity: 0.75;
+    }
+
+    .card-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, rgba(9, 10, 13, 0.4) 60%, transparent 100%);
+      z-index: 2;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 3;
+      max-width: 600px;
+    }
+
+    .card-tag {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .card-price {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .btn-action {
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
       background: var(--accent);
     }
 
-    .scroll-btn.left { left: 1rem; }
-    .scroll-btn.right { right: 1rem; }
+    /* FOOTER */
+    footer {
+      padding: 6rem 4rem;
+      background: #060709;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 1.2rem 1.5rem; }
+      .showcase-card { flex: 0 0 85vw; height: 60vh; padding: 1.5rem; }
+      .horizontal-track { padding: 0 5vw; gap: 4vw; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header>
-    <div class="logo">STORE // PS</div>
+    <div class="logo">ASHIRA</div>
     <ul class="nav-links">
       <li class="dropdown">
-        <button class="dropbtn">Categorías ▾</button>
+        <button class="dropbtn">Colección ▾</button>
         <div class="dropdown-content">
-          <a href="#destacados">Destacados</a>
-          <a href="#nuevos">Nuevos Ingresos</a>
-          <a href="#ofertas">Ofertas</a>
+          <a href="#parallax-sec">Ver Modelos</a>
+          <a href="#footer">Ediciones Especiales</a>
+          <a href="#footer">Contacto</a>
         </div>
       </li>
     </ul>
   </header>
 
-  <main>
-    <section class="ps-section" id="destacados">
-      <h2 class="section-title">Colección Principal</h2>
-      
-      <div class="ps-carousel-wrapper">
-        <button class="scroll-btn left" onclick="scrollDeck(-300)">❮</button>
-        
-        <div class="ps-carousel" id="carouselDeck">
-          <!-- Tarjeta 1 -->
-          <div class="ps-card" tabindex="0">
-            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="Producto 1" />
-            <div class="ps-card-info">
-              <div class="ps-card-title">Edición Oversize 01</div>
-              <div class="ps-card-price">$29.99</div>
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-subtitle">Engineering & Elegance</p>
+    <h1 class="hero-title">Elevate Your Journey</h1>
+    <div class="scroll-indicator">Haz Scroll Vertical ↓</div>
+  </section>
+
+  <!-- HORIZONTAL PARALLAX CONTAINER -->
+  <section class="horizontal-scroll-container" id="parallax-sec">
+    <div class="sticky-wrapper">
+      <div class="horizontal-track" id="track">
+
+        <!-- PRODUCTO 1 -->
+        <article class="showcase-card">
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1400" alt="Chimera Model" />
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-tag">Serie V8 • Performance</span>
+            <h2 class="card-title">Ashira Chimera</h2>
+            <p class="card-desc">Chasis de fibra de carbono ultra liviano con suspensión activa y motor híbrido de alto rendimiento.</p>
+            <div class="card-actions">
+              <span class="card-price">$185,000</span>
+              <button class="btn-action">Explorar</button>
             </div>
           </div>
+        </article>
 
-          <!-- Tarjeta 2 -->
-          <div class="ps-card" tabindex="0">
-            <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" alt="Producto 2" />
-            <div class="ps-card-info">
-              <div class="ps-card-title">Hoodie Stealth</div>
-              <div class="ps-card-price">$45.00</div>
+        <!-- PRODUCTO 2 -->
+        <article class="showcase-card">
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400" alt="Nova Stealth" />
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-tag">Aero Edition • GT</span>
+            <h2 class="card-title">Nova Stealth GT</h2>
+            <p class="card-desc">Líneas aerodinámicas refinadas en túnel de viento con interiores de tapicería Alcantara premium.</p>
+            <div class="card-actions">
+              <span class="card-price">$210,000</span>
+              <button class="btn-action">Explorar</button>
             </div>
           </div>
+        </article>
 
-          <!-- Tarjeta 3 -->
-          <div class="ps-card" tabindex="0">
-            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500" alt="Producto 3" />
-            <div class="ps-card-info">
-              <div class="ps-card-title">Campera Sport</div>
-              <div class="ps-card-price">$55.00</div>
+        <!-- PRODUCTO 3 -->
+        <article class="showcase-card">
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?w=1400" alt="Seraph Pure" />
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-tag">Pure Electric • Concept</span>
+            <h2 class="card-title">Seraph Vision EV</h2>
+            <p class="card-desc">Tracción integral inteligente con sistema de frenos cerámicos de titanio y autonomía extendida.</p>
+            <div class="card-actions">
+              <span class="card-price">$240,000</span>
+              <button class="btn-action">Explorar</button>
             </div>
           </div>
+        </article>
 
-          <!-- Tarjeta 4 -->
-          <div class="ps-card" tabindex="0">
-            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500" alt="Producto 4" />
-            <div class="ps-card-info">
-              <div class="ps-card-title">Graphic Tee V2</div>
-              <div class="ps-card-price">$24.50</div>
-            </div>
-          </div>
-
-          <!-- Tarjeta 5 -->
-          <div class="ps-card" tabindex="0">
-            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500" alt="Producto 5" />
-            <div class="ps-card-info">
-              <div class="ps-card-title">Crewneck Classic</div>
-              <div class="ps-card-price">$38.00</div>
-            </div>
-          </div>
-        </div>
-
-        <button class="scroll-btn right" onclick="scrollDeck(300)">❯</button>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
+  <!-- FOOTER -->
+  <footer id="footer">
+    <p>© 2026 Ashira Automobile Co. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- SCRIPT DE HORIZONTAL SCROLL CON PARALLAX PURO -->
   <script>
-    const deck = document.getElementById('carouselDeck');
+    const container = document.querySelector('.horizontal-scroll-container');
+    const track = document.getElementById('track');
 
-    function scrollDeck(distance) {
-      deck.scrollBy({ left: distance, behavior: 'smooth' });
-    }
+    window.addEventListener('scroll', () => {
+      const containerRect = container.getBoundingClientRect();
+      const containerTop = containerRect.top;
+      const totalScrollableDistance = container.offsetHeight - window.innerHeight;
 
-    // Soporte para scroll horizontal con la rueda del ratón
-    deck.addEventListener('wheel', (e) => {
-      if (e.deltaY !== 0) {
-        e.preventDefault();
-        deck.scrollLeft += e.deltaY;
+      if (containerTop <= 0 && Math.abs(containerTop) <= totalScrollableDistance) {
+        // Progreso de 0 a 1
+        const progress = Math.abs(containerTop) / totalScrollableDistance;
+        const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
+        track.style.transform = `translateX(-${progress * maxTranslate}px)`;
+      } else if (containerTop > 0) {
+        track.style.transform = `translateX(0px)`;
       }
     });
   </script>
