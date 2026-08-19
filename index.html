@@ -130,7 +130,7 @@
       display: block;
     }
 
-    /* 2. SUB-BARRA ESTILO APPLE */
+    /* 2. SUB-BARRA DE NAVEGACIÓN */
     .subnav-strip {
       margin-top: 52px;
       background: #000000;
@@ -264,7 +264,7 @@
       min-height: 100%;
       transform: translate(-50%, -50%);
       object-fit: cover;
-      opacity: 0.55;
+      opacity: 0.65;
       pointer-events: none;
     }
 
@@ -278,17 +278,19 @@
 
     .video-overlay-text h2 {
       font-family: var(--font-serif);
-      font-size: clamp(2rem, 5vw, 4rem);
+      font-size: clamp(2.2rem, 5.5vw, 4.5rem);
       font-weight: 700;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       margin-bottom: 0.5rem;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
     }
 
     .video-overlay-text p {
       font-size: 1.1rem;
       color: var(--text-muted);
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }
 
     /* 5. PARALLAX HORIZONTAL STORE */
@@ -597,10 +599,14 @@
   <!-- 4. SCROLL VIDEO -->
   <section class="video-scroll-section" id="videoSec">
     <div class="video-sticky-container">
-      <video id="scrollVideo" muted playsinline preload="auto" crossorigin="anonymous">
-        <source src="https://github.com/bhastian-ec/sky/blob/main/video.mp4" type="video/mp4">
-
-      </video>
+      <video 
+        id="scrollVideo" 
+        src="./video.mp4" 
+        muted 
+        playsinline 
+        webkit-playsinline
+        preload="auto"
+      ></video>
       <div class="video-overlay-text">
         <h2>IRIDIUM DNA</h2>
         <p>Desliza para explorar la confección</p>
@@ -780,60 +786,59 @@
     <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT CON CONTROL DE VIDEO Y SCROLL OPTIMIZADO -->
-
-
+  <!-- SCRIPT DE CONTROL FLUIDO -->
   <script>
-  const video = document.getElementById('scrollVideo');
-  const videoSection = document.getElementById('videoSec');
-  const horizContainer = document.getElementById('deckSec');
-  const track = document.getElementById('track');
+    const video = document.getElementById('scrollVideo');
+    const videoSection = document.getElementById('videoSec');
+    const horizContainer = document.getElementById('deckSec');
+    const track = document.getElementById('track');
 
-  // Intentar cargar el video
-  video.load();
+    // Desbloquear decodificación en navegadores móviles/escritorio
+    let videoDuration = 0;
 
-  // DEBUGGING: Si hay un error, nos avisará en la consola
-  video.addEventListener('error', function(e) {
-    console.error("Error cargando el video:", e);
-    alert("Error cargando el video. Revisa que el nombre del archivo en el código sea igual al nombre real.");
-  });
+    video.addEventListener('loadedmetadata', () => {
+      videoDuration = video.duration;
+      updateFrame();
+    });
 
-  video.addEventListener('loadedmetadata', () => {
-    video.pause();
-    console.log("Video cargado correctamente");
-  });
-
-  let isScrolling = false;
-
-  window.addEventListener('scroll', () => {
-    if (!isScrolling) {
-      window.requestAnimationFrame(() => {
-        // Control de Video
-        const vRect = videoSection.getBoundingClientRect();
-        const vScrollable = videoSection.offsetHeight - window.innerHeight;
-
-        if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
-          const fraction = Math.abs(vRect.top) / vScrollable;
-          if (video.duration && !isNaN(video.duration)) {
-            video.currentTime = fraction * video.duration;
-          }
-        }
-
-        // Control Parallax
-        const hRect = horizContainer.getBoundingClientRect();
-        const hScrollable = horizContainer.offsetHeight - window.innerHeight;
-
-        if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
-          const progress = Math.abs(hRect.top) / hScrollable;
-          const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
-          track.style.transform = `translateX(-${progress * maxTranslate}px)`;
-        }
-        isScrolling = false;
-      });
-      isScrolling = true;
+    // Forzar carga de metadatos si ya estaban en caché
+    if (video.readyState >= 1) {
+      videoDuration = video.duration;
     }
-  });
-</script>
 
+    function updateFrame() {
+      // 1. Control de Video (Scroll Scrubbing)
+      const vRect = videoSection.getBoundingClientRect();
+      const vScrollable = videoSection.offsetHeight - window.innerHeight;
+
+      if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
+        const fraction = Math.abs(vRect.top) / vScrollable;
+        const targetDuration = videoDuration || video.duration;
+        if (targetDuration && !isNaN(targetDuration)) {
+          video.currentTime = fraction * targetDuration;
+        }
+      }
+
+      // 2. Parallax Horizontal
+      const hRect = horizContainer.getBoundingClientRect();
+      const hScrollable = horizContainer.offsetHeight - window.innerHeight;
+
+      if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
+        const progress = Math.abs(hRect.top) / hScrollable;
+        const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
+        track.style.transform = `translateX(-${progress * maxTranslate}px)`;
+      } else if (hRect.top > 0) {
+        track.style.transform = `translateX(0px)`;
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      window.requestAnimationFrame(updateFrame);
+    }, { passive: true });
+
+    // Primera ejecución al cargar la web
+    window.addEventListener('DOMContentLoaded', updateFrame);
+  </script>
 </body>
 </html>
+
