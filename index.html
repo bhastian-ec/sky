@@ -1,73 +1,297 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Interacción AR - Cubos</title>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  </head>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Tienda Digital</title>
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --card-bg: #161b22;
+      --accent: #0070d1; /* Azul PlayStation */
+      --text: #f0f6fc;
+      --muted: #8b949e;
+    }
 
-  <body style="margin: 0; overflow: hidden;">
-    
-    <script>
-      // Lógica para cambiar el objeto central
-      AFRAME.registerComponent('controlador-botones', {
-        init: function () {
-          const principal = document.querySelector('#objeto-central');
-          const btn1 = document.querySelector('#btn-verde');
-          const btn2 = document.querySelector('#btn-naranja');
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-          // Al tocar el botón verde: Se vuelve una Esfera Verde
-          btn1.addEventListener('click', () => {
-            principal.setAttribute('geometry', 'primitive: sphere; radius: 0.4');
-            principal.setAttribute('color', '#2ecc71');
-          });
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-          // Al tocar el botón naranja: Se vuelve un Cubo Naranja
-          btn2.addEventListener('click', () => {
-            principal.setAttribute('geometry', 'primitive: box; width: 0.6; height: 0.6; depth: 0.6');
-            principal.setAttribute('color', '#f39c12');
-          });
-        }
-      });
-    </script>
+    /* Barra Superior y Menú Desplegable */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: rgba(11, 14, 20, 0.85);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-    <a-scene 
-      embedded 
-      arjs="sourceType: webcam; debugUIEnabled: false;" 
-      cursor="rayOrigin: mouse" 
-      raycaster="objects: .clickable">
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
 
-      <a-marker preset="hiro" controlador-botones>
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    /* Desplegable */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropbtn {
+      background: #21262d;
+      color: var(--text);
+      padding: 0.6rem 1.2rem;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    .dropbtn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 110%;
+      background: var(--card-bg);
+      min-width: 180px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #30363d;
+    }
+
+    .dropdown-content a {
+      color: var(--text);
+      padding: 0.8rem 1rem;
+      text-decoration: none;
+      display: block;
+      transition: 0.2s;
+    }
+
+    .dropdown-content a:hover {
+      background: var(--accent);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Sección Principal estilo PlayStation */
+    .ps-section {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      padding: 0 3rem 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    /* Contenedor del Carrusel */
+    .ps-carousel-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .ps-carousel {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 2rem 3rem;
+      scrollbar-width: none; /* Oculta barra en Firefox */
+    }
+
+    .ps-carousel::-webkit-scrollbar {
+      display: none; /* Oculta barra en Chrome/Safari */
+    }
+
+    /* Tarjetas tipo PS Game Deck */
+    .ps-card {
+      flex: 0 0 240px;
+      height: 340px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .ps-card img {
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+    }
+
+    .ps-card-info {
+      padding: 1rem;
+    }
+
+    .ps-card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ps-card-price {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Efecto Hover estilo consola */
+    .ps-card:hover, .ps-card:focus {
+      transform: translateY(-12px) scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 15px 30px rgba(0, 112, 209, 0.35);
+      outline: none;
+    }
+
+    /* Botones de navegación */
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(22, 27, 34, 0.8);
+      color: white;
+      border: 1px solid #30363d;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      backdrop-filter: blur(5px);
+      transition: 0.2s;
+    }
+
+    .scroll-btn:hover {
+      background: var(--accent);
+    }
+
+    .scroll-btn.left { left: 1rem; }
+    .scroll-btn.right { right: 1rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">STORE // PS</div>
+    <ul class="nav-links">
+      <li class="dropdown">
+        <button class="dropbtn">Categorías ▾</button>
+        <div class="dropdown-content">
+          <a href="#destacados">Destacados</a>
+          <a href="#nuevos">Nuevos Ingresos</a>
+          <a href="#ofertas">Ofertas</a>
+        </div>
+      </li>
+    </ul>
+  </header>
+
+  <main>
+    <section class="ps-section" id="destacados">
+      <h2 class="section-title">Colección Principal</h2>
+      
+      <div class="ps-carousel-wrapper">
+        <button class="scroll-btn left" onclick="scrollDeck(-300)">❮</button>
         
-        <a-entity 
-          id="objeto-central" 
-          geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5" 
-          position="0 0.5 0" 
-          material="color: #3498db; metalness: 0.5; roughness: 0.2"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000; easing: linear">
-        </a-entity>
+        <div class="ps-carousel" id="carouselDeck">
+          <!-- Tarjeta 1 -->
+          <div class="ps-card" tabindex="0">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="Producto 1" />
+            <div class="ps-card-info">
+              <div class="ps-card-title">Edición Oversize 01</div>
+              <div class="ps-card-price">$29.99</div>
+            </div>
+          </div>
 
-        <a-box 
-          id="btn-verde" 
-          class="clickable" 
-          position="-0.7 0.2 0.5" 
-          scale="0.25 0.25 0.25" 
-          color="#27ae60">
-          <a-text value="ESFERA" align="center" position="0 0.7 0" rotation="-90 0 0" width="2.5"></a-text>
-        </a-box>
+          <!-- Tarjeta 2 -->
+          <div class="ps-card" tabindex="0">
+            <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" alt="Producto 2" />
+            <div class="ps-card-info">
+              <div class="ps-card-title">Hoodie Stealth</div>
+              <div class="ps-card-price">$45.00</div>
+            </div>
+          </div>
 
-        <a-box 
-          id="btn-naranja" 
-          class="clickable" 
-          position="0.7 0.2 0.5" 
-          scale="0.25 0.25 0.25" 
-          color="#d35400">
-          <a-text value="CUBO" align="center" position="0 0.7 0" rotation="-90 0 0" width="2.5"></a-text>
-        </a-box>
+          <!-- Tarjeta 3 -->
+          <div class="ps-card" tabindex="0">
+            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500" alt="Producto 3" />
+            <div class="ps-card-info">
+              <div class="ps-card-title">Campera Sport</div>
+              <div class="ps-card-price">$55.00</div>
+            </div>
+          </div>
 
-      </a-marker>
+          <!-- Tarjeta 4 -->
+          <div class="ps-card" tabindex="0">
+            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500" alt="Producto 4" />
+            <div class="ps-card-info">
+              <div class="ps-card-title">Graphic Tee V2</div>
+              <div class="ps-card-price">$24.50</div>
+            </div>
+          </div>
 
-      <a-entity camera></a-entity>
-    </a-scene>
-  </body>
+          <!-- Tarjeta 5 -->
+          <div class="ps-card" tabindex="0">
+            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500" alt="Producto 5" />
+            <div class="ps-card-info">
+              <div class="ps-card-title">Crewneck Classic</div>
+              <div class="ps-card-price">$38.00</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="scroll-btn right" onclick="scrollDeck(300)">❯</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const deck = document.getElementById('carouselDeck');
+
+    function scrollDeck(distance) {
+      deck.scrollBy({ left: distance, behavior: 'smooth' });
+    }
+
+    // Soporte para scroll horizontal con la rueda del ratón
+    deck.addEventListener('wheel', (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        deck.scrollLeft += e.deltaY;
+      }
+    });
+  </script>
+</body>
 </html>
