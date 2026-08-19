@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ASHIRA — Scroll Video & Horizontal Store</title>
+  <title>ATELIER — Streetwear & Performance Wear</title>
   
+  <!-- Tipografías elegantes y modernas -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #090a0d;
-      --card-bg: #12141a;
-      --accent: #d4af37;
-      --text: #f5f6f8;
-      --text-muted: #8e95a5;
-      --border: rgba(255, 255, 255, 0.08);
+      --bg: #000000;
+      --surface: #121214;
+      --card-bg: #161618;
+      --accent: #2997ff; /* Azul Apple */
+      --accent-gold: #e5c158;
+      --text: #f5f5f7;
+      --text-muted: #86868b;
+      --border: rgba(255, 255, 255, 0.12);
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-serif: 'Cinzel', serif;
     }
 
     * {
@@ -28,92 +33,222 @@
     body {
       background-color: var(--bg);
       color: var(--text);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: var(--font-display);
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* HEADER */
+    /* 1. NAVEGACIÓN PRINCIPAL (APPLE FROSTED GLASS) */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
+      height: 52px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 4rem;
-      background: rgba(9, 10, 13, 0.6);
-      backdrop-filter: blur(15px);
+      padding: 0 4rem;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       z-index: 1000;
     }
 
-    .logo {
-      font-family: 'Cinzel', serif;
-      font-size: 1.4rem;
-      letter-spacing: 4px;
+    .brand-logo {
       font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    /* Menú Desplegable */
     .dropdown {
       position: relative;
     }
 
     .dropbtn {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.6rem 1.4rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
       font-size: 0.85rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      font-weight: 500;
       cursor: pointer;
-      border-radius: 50px;
-      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.2s;
     }
 
     .dropbtn:hover {
-      border-color: var(--text);
-      background: rgba(255,255,255,0.1);
+      color: var(--text);
     }
 
     .dropdown-content {
       display: none;
       position: absolute;
       right: 0;
-      top: 130%;
-      background: rgba(18, 20, 26, 0.95);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      min-width: 200px;
-      padding: 0.5rem 0;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      top: 100%;
+      padding-top: 10px;
+      min-width: 220px;
     }
 
-    .dropdown-content a {
+    .dropdown-inner {
+      background: rgba(22, 22, 24, 0.95);
+      backdrop-filter: blur(25px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.6rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .dropdown-inner a {
       color: var(--text-muted);
-      padding: 0.8rem 1.4rem;
+      padding: 0.7rem 1rem;
       display: block;
       text-decoration: none;
       font-size: 0.85rem;
-      transition: 0.2s;
+      border-radius: 8px;
+      transition: all 0.2s;
     }
 
-    .dropdown-content a:hover {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.05);
-      padding-left: 1.8rem;
+    .dropdown-inner a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      padding-left: 1.2rem;
     }
 
     .dropdown:hover .dropdown-content {
       display: block;
     }
 
-    /* 1. SECCIÓN SCROLL VIDEO (CONTROLADO POR SCROLL) */
+    /* 2. SUB-BARRA DE PRODUCTOS ESTILO APPLE (STRIP ICONS) */
+    .subnav-strip {
+      margin-top: 52px;
+      background: #000000;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 3.5rem;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .subnav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .subnav-item:hover {
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    .subnav-icon {
+      font-size: 1.4rem;
+    }
+
+    .subnav-tag {
+      color: #f56300;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* 3. HERO ESTILO KEYNOTE APPLE */
+    .hero-apple {
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f56300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      max-width: 900px;
+      margin-bottom: 1rem;
+      background: linear-gradient(180deg, #ffffff 0%, #86868b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subhead {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .btn-apple-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.8rem 1.6rem;
+      border-radius: 980px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .btn-apple-primary:hover {
+      background: #0077ed;
+      transform: scale(1.02);
+    }
+
+    .link-apple {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .link-apple:hover {
+      text-decoration: underline;
+    }
+
+    /* 4. SECCIÓN SCROLL VIDEO (CONTROLADO POR SCROLL) */
     .video-scroll-section {
       position: relative;
-      height: 350vh; /* Controla cuánto scroll necesitas para completar el video */
+      height: 320vh;
+      background: #000;
     }
 
     .video-sticky-container {
@@ -133,11 +268,9 @@
       left: 50%;
       min-width: 100%;
       min-height: 100%;
-      width: auto;
-      height: auto;
       transform: translate(-50%, -50%);
       object-fit: cover;
-      opacity: 0.65;
+      opacity: 0.6;
     }
 
     .video-overlay-text {
@@ -148,24 +281,23 @@
       pointer-events: none;
     }
 
-    .video-overlay-text h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      margin-bottom: 1rem;
-      letter-spacing: 3px;
+    .video-overlay-text h2 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
     }
 
     .video-overlay-text p {
-      font-size: 0.9rem;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--accent);
+      font-size: 1.1rem;
+      color: var(--text-muted);
     }
 
-    /* 2. SECCIÓN HORIZONTAL PARALLAX */
+    /* 5. SECCIÓN HORIZONTAL PARALLAX (ASHIRA CAR INSPIRATION) */
     .horizontal-scroll-container {
       position: relative;
       height: 400vh;
+      background: #090a0d;
     }
 
     .sticky-wrapper {
@@ -175,22 +307,33 @@
       width: 100%;
       overflow: hidden;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .horiz-header {
+      padding: 0 10vw 2rem;
+    }
+
+    .horiz-header h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
     }
 
     .horizontal-track {
       display: flex;
-      gap: 5vw;
+      gap: 4vw;
       padding: 0 10vw;
       will-change: transform;
     }
 
-    .showcase-card {
-      flex: 0 0 75vw;
-      max-width: 950px;
-      height: 70vh;
+    .product-deck-card {
+      flex: 0 0 70vw;
+      max-width: 850px;
+      height: 65vh;
       background: var(--card-bg);
-      border-radius: 20px;
+      border-radius: 28px;
       border: 1px solid var(--border);
       position: relative;
       overflow: hidden;
@@ -198,10 +341,10 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 3rem;
-      transition: border-color 0.4s ease;
+      transition: transform 0.4s ease, border-color 0.4s ease;
     }
 
-    .showcase-card:hover {
+    .product-deck-card:hover {
       border-color: rgba(255, 255, 255, 0.3);
     }
 
@@ -211,51 +354,75 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.55;
+      opacity: 0.6;
       transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
       z-index: 1;
     }
 
-    .showcase-card:hover .card-img-bg {
-      transform: scale(1.04);
-      opacity: 0.75;
+    .product-deck-card:hover .card-img-bg {
+      transform: scale(1.05);
+      opacity: 0.8;
     }
 
     .card-gradient {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, var(--bg) 0%, rgba(9, 10, 13, 0.4) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
       z-index: 2;
     }
 
     .card-content {
       position: relative;
       z-index: 3;
-      max-width: 600px;
+      max-width: 550px;
     }
 
-    .card-tag {
-      font-size: 0.8rem;
-      letter-spacing: 3px;
+    .card-badge {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #f56300;
+      font-weight: 700;
       margin-bottom: 0.5rem;
     }
 
     .card-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.8rem, 3.5vw, 3rem);
-      margin-bottom: 0.8rem;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
     }
 
     .card-desc {
       color: var(--text-muted);
       font-size: 0.95rem;
-      line-height: 1.6;
+      line-height: 1.5;
       margin-bottom: 1.5rem;
     }
 
-    .card-actions {
+    /* Selector de Colores Estilo Apple */
+    .color-swatches {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+
+    .color-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+      cursor: pointer;
+    }
+
+    .dot-black { background: #1a1a1a; }
+    .dot-cream { background: #e5dfd3; }
+    .dot-military { background: #3e4a3d; }
+    .dot-slate { background: #4a5363; }
+
+    .card-footer-action {
       display: flex;
       align-items: center;
       gap: 1.5rem;
@@ -263,107 +430,265 @@
 
     .card-price {
       font-size: 1.3rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    .btn-action {
-      background: #ffffff;
+    .btn-buy-wa {
+      background: #25d366; /* WhatsApp Green */
       color: #000000;
       border: none;
-      padding: 0.8rem 1.8rem;
-      border-radius: 50px;
-      font-weight: 600;
+      padding: 0.8rem 1.6rem;
+      border-radius: 980px;
+      font-weight: 700;
       font-size: 0.85rem;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
       cursor: pointer;
-      transition: transform 0.3s, background 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, background 0.2s;
     }
 
-    .btn-action:hover {
+    .btn-buy-wa:hover {
       transform: translateY(-2px);
-      background: var(--accent);
+      background: #1ebc59;
+    }
+
+    /* 6. TABLA COMPARATIVA ESTILO APPLE ("Which model is right for you?") */
+    .compare-section {
+      padding: 8rem 4rem;
+      background: #000;
+      text-align: center;
+    }
+
+    .compare-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 4rem;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .compare-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .compare-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+    }
+
+    .compare-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .compare-sub {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .spec-row {
+      border-top: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+
+    .spec-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .spec-value {
+      font-size: 1rem;
+      font-weight: 600;
     }
 
     /* FOOTER */
     footer {
-      padding: 5rem 4rem;
-      background: #060709;
+      padding: 4rem 2rem;
+      background: #0c0c0e;
       border-top: 1px solid var(--border);
       text-align: center;
       color: var(--text-muted);
       font-size: 0.85rem;
     }
+
+    @media (max-width: 768px) {
+      header { padding: 0 1.5rem; }
+      .subnav-strip { justify-content: flex-start; gap: 2rem; }
+      .product-deck-card { flex: 0 0 85vw; height: 60vh; padding: 1.5rem; }
+      .compare-section { padding: 4rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- 1. HEADER FROSTED GLASS -->
   <header>
-    <div class="logo">ASHIRA</div>
-    <div class="dropdown">
-      <button class="dropbtn">Colección ▾</button>
-      <div class="dropdown-content">
-        <a href="#videoSec">Inicio & Video</a>
-        <a href="#storeSec">Modelos Disponibles</a>
-        <a href="#footer">Contacto</a>
-      </div>
-    </div>
+    <div class="brand-logo">ATELIER</div>
+    <ul class="nav-menu">
+      <li class="dropdown">
+        <button class="dropbtn">Explorar Colecciones ▾</button>
+        <div class="dropdown-content">
+          <div class="dropdown-inner">
+            <a href="#videoSec">Video Editorial</a>
+            <a href="#deckSec">Heavyweight Hoodies</a>
+            <a href="#deckSec">Oversized T-Shirts</a>
+            <a href="#compareSec">Tabla de Especificaciones</a>
+          </div>
+        </div>
+      </li>
+    </ul>
   </header>
 
+  <!-- 2. APPLE SUBNAV STRIP CON ICONOS -->
+  <nav class="subnav-strip">
+    <a href="#deckSec" class="subnav-item">
+      <span class="subnav-icon">👕</span>
+      <span>Oversized Tees</span>
+      <span class="subnav-tag">Nuevo</span>
+    </a>
+    <a href="#deckSec" class="subnav-item">
+      <span class="subnav-icon">🧥</span>
+      <span>Pro Hoodies</span>
+      <span class="subnav-tag">Heavyweight</span>
+    </a>
+    <a href="#compareSec" class="subnav-item">
+      <span class="subnav-icon">⚖️</span>
+      <span>Comparar Telas</span>
+    </a>
+    <a href="#footer" class="subnav-item">
+      <span class="subnav-icon">📦</span>
+      <span>Guía de Tallas</span>
+    </a>
+  </nav>
+
+  <!-- 3. HERO ESTILO KEYNOTE -->
+  <section class="hero-apple">
+    <span class="hero-eyebrow">Serie Pro 2026</span>
+    <h1 class="hero-headline">Diseñado para impresionar. Forjado en algodón pesado.</h1>
+    <p class="hero-subhead">Prendas confeccionadas en 450 GSM con tratamiento siliconado antipilling y patronaje drop-shoulder.</p>
+    <div class="cta-group">
+      <a href="#deckSec" class="btn-apple-primary">Ver Colección</a>
+      <a href="#compareSec" class="link-apple">Comparar gramajes ›</a>
+    </div>
+  </section>
+
+  <!-- 4. SECCIÓN SCROLL VIDEO SCRUBBING -->
   <section class="video-scroll-section" id="videoSec">
     <div class="video-sticky-container">
       <video id="scrollVideo" muted playsinline preload="auto">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-sports-car-driving-on-a-road-in-the-forest-41132-large.mp4" type="video/mp4">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-fashion-model-posing-in-a-black-jacket-41551-large.mp4" type="video/mp4">
       </video>
       <div class="video-overlay-text">
-        <p>Experiencia Interactiva</p>
-        <h1>Ashira Reveal</h1>
+        <h2>Ingeniería Textil en Movimiento</h2>
+        <p>Desliza para ver la confección al detalle</p>
       </div>
     </div>
   </section>
 
-  <section class="horizontal-scroll-container" id="storeSec">
+  <!-- 5. PARALLAX HORIZONTAL STORE (ASHIRA STYLE) -->
+  <section class="horizontal-scroll-container" id="deckSec">
     <div class="sticky-wrapper">
+      <div class="horiz-header">
+        <h3>Línea Principal // Edición Limitada</h3>
+      </div>
       <div class="horizontal-track" id="track">
 
-        <article class="showcase-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1400" alt="Chimera" />
+        <!-- PRENDA 1: HOODIE HEAVYWEIGHT -->
+        <article class="product-deck-card">
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1200" alt="Hoodie Pro Heavyweight" />
           <div class="card-gradient"></div>
           <div class="card-content">
-            <span class="card-tag">Serie V8 • Performance</span>
-            <h2 class="card-title">Ashira Chimera</h2>
-            <p class="card-desc">Chasis de fibra de carbono ultra liviano con suspensión activa.</p>
-            <div class="card-actions">
-              <span class="card-price">$185,000</span>
-              <button class="btn-action">Comprar</button>
+            <span class="card-badge">Ultra-Heavy • 480 GSM</span>
+            <h2 class="card-title">Hoodie Pro Stealth</h2>
+            <p class="card-desc">Capucha de doble capa estructurada, costuras reforzadas con remalle plano y corte Boxy Fit.</p>
+            
+            <!-- Color Switcher -->
+            <div class="color-swatches">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
+              <div class="color-dot dot-black" title="Obsidian Black"></div>
+              <div class="color-dot dot-military" title="Army Khaki"></div>
+              <div class="color-dot dot-slate" title="Slate Grey"></div>
+            </div>
+
+            <div class="card-footer-action">
+              <span class="card-price">$65.00</span>
+              <a href="https://wa.me/?text=Hola,%20quiero%20ordenar%20el%20Hoodie%20Pro%20Stealth" target="_blank" class="btn-buy-wa">
+                <span>Comprar en WhatsApp</span>
+              </a>
             </div>
           </div>
         </article>
 
-        <article class="showcase-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400" alt="Nova Stealth" />
+        <!-- PRENDA 2: OVERSIZED TEE -->
+        <article class="product-deck-card">
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=1200" alt="Oversize Tee" />
           <div class="card-gradient"></div>
           <div class="card-content">
-            <span class="card-tag">Aero Edition • GT</span>
-            <h2 class="card-title">Nova Stealth GT</h2>
-            <p class="card-desc">Líneas aerodinámicas refinadas con tapicería Alcantara.</p>
-            <div class="card-actions">
-              <span class="card-price">$210,000</span>
-              <button class="btn-action">Comprar</button>
+            <span class="card-badge">100% Algodón Peruano • 260 GSM</span>
+            <h2 class="card-title">Oversized Signature Tee</h2>
+            <p class="card-desc">Cuello acanalado grueso de 3 cm indeformable. Caída pesada y hombros caídos ergonómicos.</p>
+            
+            <div class="color-swatches">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
+              <div class="color-dot dot-black" title="Obsidian Black"></div>
+              <div class="color-dot dot-cream" title="Off-White Cream"></div>
+            </div>
+
+            <div class="card-footer-action">
+              <span class="card-price">$35.00</span>
+              <a href="https://wa.me/?text=Hola,%20quiero%20ordenar%20la%20Oversized%20Signature%20Tee" target="_blank" class="btn-buy-wa">
+                <span>Comprar en WhatsApp</span>
+              </a>
             </div>
           </div>
         </article>
 
-        <article class="showcase-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?w=1400" alt="Seraph Pure" />
+        <!-- PRENDA 3: BOMBER JACKET / HOODIE ZIP -->
+        <article class="product-deck-card">
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1200" alt="Zip Hoodie" />
           <div class="card-gradient"></div>
           <div class="card-content">
-            <span class="card-tag">Pure Electric • Concept</span>
-            <h2 class="card-title">Seraph Vision EV</h2>
-            <p class="card-desc">Tracción integral inteligente con sistema de frenos cerámicos.</p>
-            <div class="card-actions">
-              <span class="card-price">$240,000</span>
-              <button class="btn-action">Comprar</button>
+            <span class="card-badge">Full Zip • Thermal Lining</span>
+            <h2 class="card-title">Cyber Zip Hoodie V2</h2>
+            <p class="card-desc">Cremallera metálica bidireccional YKK con tirador personalizado y bolsillos ocultos.</p>
+            
+            <div class="color-swatches">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
+              <div class="color-dot dot-black" title="Obsidian Black"></div>
+              <div class="color-dot dot-slate" title="Slate Grey"></div>
+            </div>
+
+            <div class="card-footer-action">
+              <span class="card-price">$75.00</span>
+              <a href="https://wa.me/?text=Hola,%20quiero%20ordenar%20el%20Cyber%20Zip%20Hoodie" target="_blank" class="btn-buy-wa">
+                <span>Comprar en WhatsApp</span>
+              </a>
             </div>
           </div>
         </article>
@@ -372,39 +697,122 @@
     </div>
   </section>
 
+  <!-- 6. TABLA COMPARATIVA ESTILO APPLE -->
+  <section class="compare-section" id="compareSec">
+    <h2 class="compare-title">¿Cuál es la prenda ideal para ti?</h2>
+    
+    <div class="compare-grid">
+      <!-- Columna 1 -->
+      <div class="compare-card">
+        <div>
+          <img class="compare-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600" alt="Tee" />
+          <h3 class="compare-name">Signature Tee</h3>
+          <p class="compare-sub">Uso diario con caída pesada</p>
+          
+          <div class="spec-row">
+            <div class="spec-label">Gramaje</div>
+            <div class="spec-value">260 GSM</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Fit / Patronaje</div>
+            <div class="spec-value">Drop Shoulder Oversize</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Composición</div>
+            <div class="spec-value">100% Algodón Peinado</div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="https://wa.me/?text=Consulta%20Signature%20Tee" class="btn-apple-primary" style="display:block; text-align:center;">Pedir • $35</a>
+        </div>
+      </div>
+
+      <!-- Columna 2 -->
+      <div class="compare-card">
+        <div>
+          <img class="compare-img" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600" alt="Hoodie" />
+          <h3 class="compare-name">Pro Hoodie</h3>
+          <p class="compare-sub">Máxima densidad y estructura</p>
+          
+          <div class="spec-row">
+            <div class="spec-label">Gramaje</div>
+            <div class="spec-value">480 GSM (Ultra Heavy)</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Fit / Patronaje</div>
+            <div class="spec-value">Boxy Cut con capucha rígida</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Composición</div>
+            <div class="spec-value">80% Algodón / 20% Poly Core</div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="https://wa.me/?text=Consulta%20Pro%20Hoodie" class="btn-apple-primary" style="display:block; text-align:center;">Pedir • $65</a>
+        </div>
+      </div>
+
+      <!-- Columna 3 -->
+      <div class="compare-card">
+        <div>
+          <img class="compare-img" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600" alt="Zip Hoodie" />
+          <h3 class="compare-name">Zip Hoodie V2</h3>
+          <p class="compare-sub">Versatilidad con cremallera YKK</p>
+          
+          <div class="spec-row">
+            <div class="spec-label">Gramaje</div>
+            <div class="spec-value">420 GSM</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Fit / Patronaje</div>
+            <div class="spec-value">Relaxed Street Fit</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Composición</div>
+            <div class="spec-value">Algodón Friza Premium</div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="https://wa.me/?text=Consulta%20Zip%20Hoodie" class="btn-apple-primary" style="display:block; text-align:center;">Pedir • $75</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer id="footer">
-    <p>© 2026 Ashira Automobile Co. Desarrollado en GitHub Pages.</p>
+    <p>© 2026 ATELIER Streetwear. Alojado 100% gratis en GitHub Pages.</p>
   </footer>
 
+  <!-- SCRIPT DE INTERACCIÓN Y CONTROL DE SCROLL -->
   <script>
     const video = document.getElementById('scrollVideo');
     const videoSection = document.getElementById('videoSec');
-    const horizContainer = document.querySelector('.horizontal-scroll-container');
+    const horizContainer = document.getElementById('deckSec');
     const track = document.getElementById('track');
 
-    // Asegurar que los metadatos del video estén cargados
     video.pause();
 
     window.addEventListener('scroll', () => {
-      // 1. Control de reproducción del video por scroll
+      // 1. Control de video al hacer scroll
       const vRect = videoSection.getBoundingClientRect();
       const vScrollable = videoSection.offsetHeight - window.innerHeight;
 
       if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
-        const vFraction = Math.abs(vRect.top) / vScrollable;
+        const fraction = Math.abs(vRect.top) / vScrollable;
         if (video.duration) {
-          video.currentTime = vFraction * video.duration;
+          video.currentTime = fraction * video.duration;
         }
       }
 
-      // 2. Control del Carrusel Horizontal
+      // 2. Parallax horizontal estilo Ashira
       const hRect = horizContainer.getBoundingClientRect();
       const hScrollable = horizContainer.offsetHeight - window.innerHeight;
 
       if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
-        const hFraction = Math.abs(hRect.top) / hScrollable;
+        const progress = Math.abs(hRect.top) / hScrollable;
         const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
-        track.style.transform = `translateX(-${hFraction * maxTranslate}px)`;
+        track.style.transform = `translateX(-${progress * maxTranslate}px)`;
       } else if (hRect.top > 0) {
         track.style.transform = `translateX(0px)`;
       }
