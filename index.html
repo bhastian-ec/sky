@@ -130,7 +130,7 @@
       display: block;
     }
 
-    /* 2. SUB-BARRA ESTILO APPLE */
+    /* 2. SUB-BARRA APPLE */
     .subnav-strip {
       margin-top: 52px;
       background: #000000;
@@ -238,10 +238,10 @@
       font-size: 0.95rem;
     }
 
-    /* 4. SECCIÓN SCROLL VIDEO CINEMÁTICO */
+    /* 4. SECCIÓN SCROLL VIDEO SCRUBBING (10s) */
     .video-scroll-section {
       position: relative;
-      height: 250vh;
+      height: 450vh; /* Altura ideal para controlar 10 segundos de video */
       background: #000;
     }
 
@@ -254,6 +254,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      background: #000;
     }
 
     #scrollVideo {
@@ -264,11 +265,11 @@
       min-height: 100%;
       width: 100vw;
       height: 100vh;
-      transform: translate(-50%, -50%) scale(1);
+      transform: translate(-50%, -50%);
       object-fit: cover;
-      opacity: 0.65;
+      opacity: 0.75;
       pointer-events: none;
-      transition: transform 0.1s ease-out;
+      z-index: 1;
     }
 
     .video-overlay-text {
@@ -277,7 +278,7 @@
       text-align: center;
       padding: 0 2rem;
       pointer-events: none;
-      transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
     }
 
     .video-overlay-text h2 {
@@ -458,7 +459,7 @@
       background: #1ebc59;
     }
 
-    /* 6. COMPARADOR */
+    /* 6. TABLA COMPARATIVA */
     .compare-section {
       padding: 8rem 4rem;
       background: #000;
@@ -601,14 +602,12 @@
     </div>
   </section>
 
-  <!-- 4. SECCIÓN VIDEO CINEMÁTICO -->
+  <!-- 4. SECCIÓN SCROLL VIDEO SCRUBBING -->
   <section class="video-scroll-section" id="videoSec">
     <div class="video-sticky-container">
       <video 
         id="scrollVideo" 
         src="video.mp4"
-        autoplay 
-        loop 
         muted 
         playsinline 
         webkit-playsinline
@@ -616,7 +615,7 @@
       ></video>
       <div class="video-overlay-text" id="videoText">
         <h2>IRIDIUM DNA</h2>
-        <p>Confección Pesada & Estilo Superior</p>
+        <p>Desliza para avanzar o retroceder el tiempo</p>
       </div>
     </div>
   </section>
@@ -793,7 +792,7 @@
     <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT DE EFECTOS PARALLAX Y SCROLL -->
+  <!-- SCRIPT DE ALTA PRECISIÓN: LERP + VIDEO SCRUBBING BIDIRECCIONAL -->
   <script>
     const video = document.getElementById('scrollVideo');
     const videoSection = document.getElementById('videoSec');
@@ -801,30 +800,53 @@
     const horizContainer = document.getElementById('deckSec');
     const track = document.getElementById('track');
 
-    // Forzar inicio inmediato del video al cargar o interactuar
-    function playSafe() {
-      if (video && video.paused) {
-        video.play().catch(() => {});
+    let targetTime = 0;
+    let isVideoReady = false;
+
+    // Despertar el decodificador de video para evitar la pantalla negra
+    function unlockVideo() {
+      if (!isVideoReady && video) {
+        video.play().then(() => {
+          video.pause();
+          isVideoReady = true;
+        }).catch(() => {
+          video.pause();
+          isVideoReady = true;
+        });
       }
     }
-    window.addEventListener('load', playSafe);
-    window.addEventListener('touchstart', playSafe, { once: true });
-    window.addEventListener('scroll', playSafe, { once: true });
 
-    function handleParallax() {
-      // 1. Efecto Cinemático en el Video (Zoom & Dinamismo con Scroll)
+    window.addEventListener('scroll', unlockVideo, { once: true });
+    window.addEventListener('touchstart', unlockVideo, { once: true });
+    window.addEventListener('click', unlockVideo, { once: true });
+
+    // Bucle constante a 60fps con interpolación suave
+    function renderLoop() {
+      // 1. Control del Video (Hacia adelante y hacia atrás)
       const vRect = videoSection.getBoundingClientRect();
       const vScrollable = videoSection.offsetHeight - window.innerHeight;
 
       if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
-        const fraction = Math.abs(vRect.top) / vScrollable;
-        // Escala sutil cinematográfica (de 1.0 a 1.25)
-        const scale = 1 + (fraction * 0.25);
-        video.style.transform = `translate(-50%, -50%) scale(${scale})`;
-        
-        // Efecto de desvanecimiento en el texto central
-        videoText.style.opacity = `${1 - (fraction * 1.5)}`;
-        videoText.style.transform = `translateY(${fraction * 80}px)`;
+        const fraction = Math.max(0, Math.min(1, Math.abs(vRect.top) / vScrollable));
+        const duration = video.duration || 10; // toma la duración real o 10s
+        targetTime = fraction * duration;
+
+        // Desvanecimiento del texto central
+        if (fraction > 0.6) {
+          videoText.style.opacity = '0';
+          videoText.style.transform = 'translateY(-30px)';
+        } else {
+          videoText.style.opacity = `${1 - (fraction * 1.6)}`;
+          videoText.style.transform = `translateY(${fraction * 40}px)`;
+        }
+      }
+
+      // Aplicar el cambio de tiempo de forma interpolada (Lerp) para máxima fluidez
+      if (video.duration && !video.seeking) {
+        const diff = targetTime - video.currentTime;
+        if (Math.abs(diff) > 0.04) {
+          video.currentTime += diff * 0.18; // Sensibilidad de respuesta
+        }
       }
 
       // 2. Parallax Horizontal
@@ -838,11 +860,12 @@
       } else if (hRect.top > 0) {
         track.style.transform = `translateX(0px)`;
       }
+
+      requestAnimationFrame(renderLoop);
     }
 
-    window.addEventListener('scroll', () => {
-      window.requestAnimationFrame(handleParallax);
-    }, { passive: true });
+    // Iniciar renderizado
+    requestAnimationFrame(renderLoop);
   </script>
 </body>
 </html>
