@@ -130,7 +130,7 @@
       display: block;
     }
 
-    /* 2. SUB-BARRA APPLE */
+    /* 2. SUB-BARRA DE NAVEGACIÓN */
     .subnav-strip {
       margin-top: 52px;
       background: #000000;
@@ -238,17 +238,10 @@
       font-size: 0.95rem;
     }
 
-    /* 4. SECCIÓN SCROLL VIDEO SCRUBBING (10s) */
-    .video-scroll-section {
+    /* 4. SECCIÓN VIDEO NORMAL EN AUTOPLAY */
+    .video-hero-section {
       position: relative;
-      height: 450vh; /* Altura ideal para controlar 10 segundos de video */
-      background: #000;
-    }
-
-    .video-sticky-container {
-      position: sticky;
-      top: 0;
-      height: 100vh;
+      height: 80vh;
       width: 100%;
       overflow: hidden;
       display: flex;
@@ -257,18 +250,17 @@
       background: #000;
     }
 
-    #scrollVideo {
+    #mainVideo {
       position: absolute;
       top: 50%;
       left: 50%;
       min-width: 100%;
       min-height: 100%;
-      width: 100vw;
-      height: 100vh;
+      width: auto;
+      height: auto;
       transform: translate(-50%, -50%);
       object-fit: cover;
-      opacity: 0.75;
-      pointer-events: none;
+      opacity: 0.65;
       z-index: 1;
     }
 
@@ -278,7 +270,6 @@
       text-align: center;
       padding: 0 2rem;
       pointer-events: none;
-      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
     }
 
     .video-overlay-text h2 {
@@ -459,7 +450,7 @@
       background: #1ebc59;
     }
 
-    /* 6. TABLA COMPARATIVA */
+    /* 6. COMPARADOR */
     .compare-section {
       padding: 8rem 4rem;
       background: #000;
@@ -602,21 +593,23 @@
     </div>
   </section>
 
-  <!-- 4. SECCIÓN SCROLL VIDEO SCRUBBING -->
-  <section class="video-scroll-section" id="videoSec">
-    <div class="video-sticky-container">
-      <video 
-        id="scrollVideo" 
-        src="video.mp4"
-        muted 
-        playsinline 
-        webkit-playsinline
-        preload="auto"
-      ></video>
-      <div class="video-overlay-text" id="videoText">
-        <h2>IRIDIUM DNA</h2>
-        <p>Desliza para avanzar o retroceder el tiempo</p>
-      </div>
+  <!-- 4. SECCIÓN VIDEO NORMAL AUTOPLAY -->
+  <section class="video-hero-section" id="videoSec">
+    <video 
+      id="mainVideo" 
+      src="video.mp4" 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      webkit-playsinline
+      preload="auto"
+    >
+      <source src="video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay-text">
+      <h2>IRIDIUM DNA</h2>
+      <p>Confección Pesada & Estilo Superior</p>
     </div>
   </section>
 
@@ -792,64 +785,21 @@
     <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT DE ALTA PRECISIÓN: LERP + VIDEO SCRUBBING BIDIRECCIONAL -->
+  <!-- SCRIPT SOLO PARA EL CARRUSEL HORIZONTAL -->
   <script>
-    const video = document.getElementById('scrollVideo');
-    const videoSection = document.getElementById('videoSec');
-    const videoText = document.getElementById('videoText');
     const horizContainer = document.getElementById('deckSec');
     const track = document.getElementById('track');
+    const video = document.getElementById('mainVideo');
 
-    let targetTime = 0;
-    let isVideoReady = false;
-
-    // Despertar el decodificador de video para evitar la pantalla negra
-    function unlockVideo() {
-      if (!isVideoReady && video) {
-        video.play().then(() => {
-          video.pause();
-          isVideoReady = true;
-        }).catch(() => {
-          video.pause();
-          isVideoReady = true;
-        });
+    // Asegurar que el video arranque
+    window.addEventListener('DOMContentLoaded', () => {
+      if (video) {
+        video.play().catch(() => {});
       }
-    }
+    });
 
-    window.addEventListener('scroll', unlockVideo, { once: true });
-    window.addEventListener('touchstart', unlockVideo, { once: true });
-    window.addEventListener('click', unlockVideo, { once: true });
-
-    // Bucle constante a 60fps con interpolación suave
-    function renderLoop() {
-      // 1. Control del Video (Hacia adelante y hacia atrás)
-      const vRect = videoSection.getBoundingClientRect();
-      const vScrollable = videoSection.offsetHeight - window.innerHeight;
-
-      if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
-        const fraction = Math.max(0, Math.min(1, Math.abs(vRect.top) / vScrollable));
-        const duration = video.duration || 10; // toma la duración real o 10s
-        targetTime = fraction * duration;
-
-        // Desvanecimiento del texto central
-        if (fraction > 0.6) {
-          videoText.style.opacity = '0';
-          videoText.style.transform = 'translateY(-30px)';
-        } else {
-          videoText.style.opacity = `${1 - (fraction * 1.6)}`;
-          videoText.style.transform = `translateY(${fraction * 40}px)`;
-        }
-      }
-
-      // Aplicar el cambio de tiempo de forma interpolada (Lerp) para máxima fluidez
-      if (video.duration && !video.seeking) {
-        const diff = targetTime - video.currentTime;
-        if (Math.abs(diff) > 0.04) {
-          video.currentTime += diff * 0.18; // Sensibilidad de respuesta
-        }
-      }
-
-      // 2. Parallax Horizontal
+    // Control del Parallax Horizontal
+    window.addEventListener('scroll', () => {
       const hRect = horizContainer.getBoundingClientRect();
       const hScrollable = horizContainer.offsetHeight - window.innerHeight;
 
@@ -860,12 +810,7 @@
       } else if (hRect.top > 0) {
         track.style.transform = `translateX(0px)`;
       }
-
-      requestAnimationFrame(renderLoop);
-    }
-
-    // Iniciar renderizado
-    requestAnimationFrame(renderLoop);
+    }, { passive: true });
   </script>
 </body>
 </html>
