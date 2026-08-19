@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ASHIRA — Studio & Store</title>
+  <title>ASHIRA — Scroll Video & Horizontal Store</title>
   
-  <!-- Fuentes estilo editorial moderno -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
@@ -14,7 +13,7 @@
     :root {
       --bg: #090a0d;
       --card-bg: #12141a;
-      --accent: #d4af37; /* Toque dorado/champagne elegante */
+      --accent: #d4af37;
       --text: #f5f6f8;
       --text-muted: #8e95a5;
       --border: rgba(255, 255, 255, 0.08);
@@ -31,10 +30,9 @@
       color: var(--text);
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
-      scroll-behavior: smooth;
     }
 
-    /* NAV / HEADER MINIMALISTA */
+    /* HEADER */
     header {
       position: fixed;
       top: 0;
@@ -55,13 +53,6 @@
       font-size: 1.4rem;
       letter-spacing: 4px;
       font-weight: 700;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      align-items: center;
     }
 
     .dropdown {
@@ -106,7 +97,6 @@
       display: block;
       text-decoration: none;
       font-size: 0.85rem;
-      letter-spacing: 0.5px;
       transition: 0.2s;
     }
 
@@ -120,56 +110,62 @@
       display: block;
     }
 
-    /* HERO SECTION */
-    .hero {
+    /* 1. SECCIÓN SCROLL VIDEO (CONTROLADO POR SCROLL) */
+    .video-scroll-section {
+      position: relative;
+      height: 350vh; /* Controla cuánto scroll necesitas para completar el video */
+    }
+
+    .video-sticky-container {
+      position: sticky;
+      top: 0;
       height: 100vh;
+      width: 100%;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+    }
+
+    #scrollVideo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      opacity: 0.65;
+    }
+
+    .video-overlay-text {
+      position: relative;
+      z-index: 10;
       text-align: center;
       padding: 0 2rem;
-      position: relative;
-      background: radial-gradient(circle at center, #1b202e 0%, var(--bg) 70%);
+      pointer-events: none;
     }
 
-    .hero-subtitle {
-      font-size: 0.85rem;
-      letter-spacing: 6px;
+    .video-overlay-text h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      margin-bottom: 1rem;
+      letter-spacing: 3px;
+    }
+
+    .video-overlay-text p {
+      font-size: 0.9rem;
+      letter-spacing: 5px;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 1rem;
     }
 
-    .hero-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.5rem, 6vw, 5.5rem);
-      font-weight: 700;
-      letter-spacing: 2px;
-      line-height: 1.1;
-      max-width: 900px;
-      margin-bottom: 2rem;
-    }
-
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2.5rem;
-      font-size: 0.75rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      animation: bounce 2s infinite ease-in-out;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
-    }
-
-    /* SECCIÓN HORIZONTAL PARALLAX */
+    /* 2. SECCIÓN HORIZONTAL PARALLAX */
     .horizontal-scroll-container {
       position: relative;
-      height: 400vh; /* Controla la duración del scroll horizontal */
+      height: 400vh;
     }
 
     .sticky-wrapper {
@@ -189,7 +185,6 @@
       will-change: transform;
     }
 
-    /* TARJETA CINEMATOGRÁFICA */
     .showcase-card {
       flex: 0 0 75vw;
       max-width: 950px;
@@ -269,7 +264,6 @@
     .card-price {
       font-size: 1.3rem;
       font-weight: 600;
-      letter-spacing: 1px;
     }
 
     .btn-action {
@@ -293,91 +287,83 @@
 
     /* FOOTER */
     footer {
-      padding: 6rem 4rem;
+      padding: 5rem 4rem;
       background: #060709;
       border-top: 1px solid var(--border);
       text-align: center;
       color: var(--text-muted);
       font-size: 0.85rem;
     }
-
-    @media (max-width: 768px) {
-      header { padding: 1.2rem 1.5rem; }
-      .showcase-card { flex: 0 0 85vw; height: 60vh; padding: 1.5rem; }
-      .horizontal-track { padding: 0 5vw; gap: 4vw; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <div class="logo">ASHIRA</div>
-    <ul class="nav-links">
-      <li class="dropdown">
-        <button class="dropbtn">Colección ▾</button>
-        <div class="dropdown-content">
-          <a href="#parallax-sec">Ver Modelos</a>
-          <a href="#footer">Ediciones Especiales</a>
-          <a href="#footer">Contacto</a>
-        </div>
-      </li>
-    </ul>
+    <div class="dropdown">
+      <button class="dropbtn">Colección ▾</button>
+      <div class="dropdown-content">
+        <a href="#videoSec">Inicio & Video</a>
+        <a href="#storeSec">Modelos Disponibles</a>
+        <a href="#footer">Contacto</a>
+      </div>
+    </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <p class="hero-subtitle">Engineering & Elegance</p>
-    <h1 class="hero-title">Elevate Your Journey</h1>
-    <div class="scroll-indicator">Haz Scroll Vertical ↓</div>
+  <section class="video-scroll-section" id="videoSec">
+    <div class="video-sticky-container">
+      <video id="scrollVideo" muted playsinline preload="auto">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-sports-car-driving-on-a-road-in-the-forest-41132-large.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay-text">
+        <p>Experiencia Interactiva</p>
+        <h1>Ashira Reveal</h1>
+      </div>
+    </div>
   </section>
 
-  <!-- HORIZONTAL PARALLAX CONTAINER -->
-  <section class="horizontal-scroll-container" id="parallax-sec">
+  <section class="horizontal-scroll-container" id="storeSec">
     <div class="sticky-wrapper">
       <div class="horizontal-track" id="track">
 
-        <!-- PRODUCTO 1 -->
         <article class="showcase-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1400" alt="Chimera Model" />
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1400" alt="Chimera" />
           <div class="card-gradient"></div>
           <div class="card-content">
             <span class="card-tag">Serie V8 • Performance</span>
             <h2 class="card-title">Ashira Chimera</h2>
-            <p class="card-desc">Chasis de fibra de carbono ultra liviano con suspensión activa y motor híbrido de alto rendimiento.</p>
+            <p class="card-desc">Chasis de fibra de carbono ultra liviano con suspensión activa.</p>
             <div class="card-actions">
               <span class="card-price">$185,000</span>
-              <button class="btn-action">Explorar</button>
+              <button class="btn-action">Comprar</button>
             </div>
           </div>
         </article>
 
-        <!-- PRODUCTO 2 -->
         <article class="showcase-card">
           <img class="card-img-bg" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400" alt="Nova Stealth" />
           <div class="card-gradient"></div>
           <div class="card-content">
             <span class="card-tag">Aero Edition • GT</span>
             <h2 class="card-title">Nova Stealth GT</h2>
-            <p class="card-desc">Líneas aerodinámicas refinadas en túnel de viento con interiores de tapicería Alcantara premium.</p>
+            <p class="card-desc">Líneas aerodinámicas refinadas con tapicería Alcantara.</p>
             <div class="card-actions">
               <span class="card-price">$210,000</span>
-              <button class="btn-action">Explorar</button>
+              <button class="btn-action">Comprar</button>
             </div>
           </div>
         </article>
 
-        <!-- PRODUCTO 3 -->
         <article class="showcase-card">
           <img class="card-img-bg" src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?w=1400" alt="Seraph Pure" />
           <div class="card-gradient"></div>
           <div class="card-content">
             <span class="card-tag">Pure Electric • Concept</span>
             <h2 class="card-title">Seraph Vision EV</h2>
-            <p class="card-desc">Tracción integral inteligente con sistema de frenos cerámicos de titanio y autonomía extendida.</p>
+            <p class="card-desc">Tracción integral inteligente con sistema de frenos cerámicos.</p>
             <div class="card-actions">
               <span class="card-price">$240,000</span>
-              <button class="btn-action">Explorar</button>
+              <button class="btn-action">Comprar</button>
             </div>
           </div>
         </article>
@@ -386,27 +372,40 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer id="footer">
-    <p>© 2026 Ashira Automobile Co. Todos los derechos reservados.</p>
+    <p>© 2026 Ashira Automobile Co. Desarrollado en GitHub Pages.</p>
   </footer>
 
-  <!-- SCRIPT DE HORIZONTAL SCROLL CON PARALLAX PURO -->
   <script>
-    const container = document.querySelector('.horizontal-scroll-container');
+    const video = document.getElementById('scrollVideo');
+    const videoSection = document.getElementById('videoSec');
+    const horizContainer = document.querySelector('.horizontal-scroll-container');
     const track = document.getElementById('track');
 
-    window.addEventListener('scroll', () => {
-      const containerRect = container.getBoundingClientRect();
-      const containerTop = containerRect.top;
-      const totalScrollableDistance = container.offsetHeight - window.innerHeight;
+    // Asegurar que los metadatos del video estén cargados
+    video.pause();
 
-      if (containerTop <= 0 && Math.abs(containerTop) <= totalScrollableDistance) {
-        // Progreso de 0 a 1
-        const progress = Math.abs(containerTop) / totalScrollableDistance;
+    window.addEventListener('scroll', () => {
+      // 1. Control de reproducción del video por scroll
+      const vRect = videoSection.getBoundingClientRect();
+      const vScrollable = videoSection.offsetHeight - window.innerHeight;
+
+      if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
+        const vFraction = Math.abs(vRect.top) / vScrollable;
+        if (video.duration) {
+          video.currentTime = vFraction * video.duration;
+        }
+      }
+
+      // 2. Control del Carrusel Horizontal
+      const hRect = horizContainer.getBoundingClientRect();
+      const hScrollable = horizContainer.offsetHeight - window.innerHeight;
+
+      if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
+        const hFraction = Math.abs(hRect.top) / hScrollable;
         const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
-        track.style.transform = `translateX(-${progress * maxTranslate}px)`;
-      } else if (containerTop > 0) {
+        track.style.transform = `translateX(-${hFraction * maxTranslate}px)`;
+      } else if (hRect.top > 0) {
         track.style.transform = `translateX(0px)`;
       }
     });
