@@ -781,52 +781,59 @@
   </footer>
 
   <!-- SCRIPT CON CONTROL DE VIDEO Y SCROLL OPTIMIZADO -->
+
+
   <script>
-    const video = document.getElementById('scrollVideo');
-    const videoSection = document.getElementById('videoSec');
-    const horizContainer = document.getElementById('deckSec');
-    const track = document.getElementById('track');
+  const video = document.getElementById('scrollVideo');
+  const videoSection = document.getElementById('videoSec');
+  const horizContainer = document.getElementById('deckSec');
+  const track = document.getElementById('track');
 
-    // Inicializar video asegurando soporte de reproducción
-    video.addEventListener('loadedmetadata', () => {
-      video.pause();
-    });
+  // Intentar cargar el video
+  video.load();
 
-    let isScrolling = false;
+  // DEBUGGING: Si hay un error, nos avisará en la consola
+  video.addEventListener('error', function(e) {
+    console.error("Error cargando el video:", e);
+    alert("Error cargando el video. Revisa que el nombre del archivo en el código sea igual al nombre real.");
+  });
 
-    function handleScroll() {
-      // 1. Control del Video por Scroll
-      const vRect = videoSection.getBoundingClientRect();
-      const vScrollable = videoSection.offsetHeight - window.innerHeight;
+  video.addEventListener('loadedmetadata', () => {
+    video.pause();
+    console.log("Video cargado correctamente");
+  });
 
-      if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
-        const fraction = Math.abs(vRect.top) / vScrollable;
-        if (video.duration && !isNaN(video.duration)) {
-          video.currentTime = fraction * video.duration;
+  let isScrolling = false;
+
+  window.addEventListener('scroll', () => {
+    if (!isScrolling) {
+      window.requestAnimationFrame(() => {
+        // Control de Video
+        const vRect = videoSection.getBoundingClientRect();
+        const vScrollable = videoSection.offsetHeight - window.innerHeight;
+
+        if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
+          const fraction = Math.abs(vRect.top) / vScrollable;
+          if (video.duration && !isNaN(video.duration)) {
+            video.currentTime = fraction * video.duration;
+          }
         }
-      }
 
-      // 2. Parallax Horizontal
-      const hRect = horizContainer.getBoundingClientRect();
-      const hScrollable = horizContainer.offsetHeight - window.innerHeight;
+        // Control Parallax
+        const hRect = horizContainer.getBoundingClientRect();
+        const hScrollable = horizContainer.offsetHeight - window.innerHeight;
 
-      if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
-        const progress = Math.abs(hRect.top) / hScrollable;
-        const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
-        track.style.transform = `translateX(-${progress * maxTranslate}px)`;
-      } else if (hRect.top > 0) {
-        track.style.transform = `translateX(0px)`;
-      }
-
-      isScrolling = false;
+        if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
+          const progress = Math.abs(hRect.top) / hScrollable;
+          const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
+          track.style.transform = `translateX(-${progress * maxTranslate}px)`;
+        }
+        isScrolling = false;
+      });
+      isScrolling = true;
     }
+  });
+</script>
 
-    window.addEventListener('scroll', () => {
-      if (!isScrolling) {
-        window.requestAnimationFrame(handleScroll);
-        isScrolling = true;
-      }
-    });
-  </script>
 </body>
 </html>
