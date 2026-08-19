@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATELIER — Streetwear & Performance Wear</title>
+  <title>IRIDIUM — High Performance Apparel</title>
   
-  <!-- Tipografías elegantes y modernas -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
@@ -15,8 +14,8 @@
       --bg: #000000;
       --surface: #121214;
       --card-bg: #161618;
-      --accent: #2997ff; /* Azul Apple */
-      --accent-gold: #e5c158;
+      --accent: #2997ff;
+      --accent-gold: #d4af37;
       --text: #f5f5f7;
       --text-muted: #86868b;
       --border: rgba(255, 255, 255, 0.12);
@@ -38,7 +37,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. NAVEGACIÓN PRINCIPAL (APPLE FROSTED GLASS) */
+    /* 1. HEADER */
     header {
       position: fixed;
       top: 0;
@@ -57,10 +56,12 @@
     }
 
     .brand-logo {
+      font-family: var(--font-serif);
       font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 2px;
+      font-size: 1.3rem;
+      letter-spacing: 4px;
       text-transform: uppercase;
+      color: #fff;
     }
 
     .nav-menu {
@@ -70,7 +71,6 @@
       list-style: none;
     }
 
-    /* Menú Desplegable */
     .dropdown {
       position: relative;
     }
@@ -130,7 +130,7 @@
       display: block;
     }
 
-    /* 2. SUB-BARRA DE PRODUCTOS ESTILO APPLE (STRIP ICONS) */
+    /* 2. SUB-BARRA ESTILO APPLE */
     .subnav-strip {
       margin-top: 52px;
       background: #000000;
@@ -170,7 +170,7 @@
       text-transform: uppercase;
     }
 
-    /* 3. HERO ESTILO KEYNOTE APPLE */
+    /* 3. HERO */
     .hero-apple {
       padding: 5rem 2rem 3rem;
       text-align: center;
@@ -189,11 +189,12 @@
     }
 
     .hero-headline {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      max-width: 900px;
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      font-weight: 700;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      max-width: 950px;
       margin-bottom: 1rem;
       background: linear-gradient(180deg, #ffffff 0%, #86868b 100%);
       -webkit-background-clip: text;
@@ -201,7 +202,7 @@
     }
 
     .hero-subhead {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: var(--text-muted);
       max-width: 650px;
       line-height: 1.5;
@@ -235,16 +236,9 @@
       text-decoration: none;
       font-weight: 500;
       font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
-    .link-apple:hover {
-      text-decoration: underline;
-    }
-
-    /* 4. SECCIÓN SCROLL VIDEO (CONTROLADO POR SCROLL) */
+    /* 4. SCROLL VIDEO */
     .video-scroll-section {
       position: relative;
       height: 320vh;
@@ -270,7 +264,8 @@
       min-height: 100%;
       transform: translate(-50%, -50%);
       object-fit: cover;
-      opacity: 0.6;
+      opacity: 0.55;
+      pointer-events: none;
     }
 
     .video-overlay-text {
@@ -282,18 +277,21 @@
     }
 
     .video-overlay-text h2 {
+      font-family: var(--font-serif);
       font-size: clamp(2rem, 5vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      font-weight: 700;
+      letter-spacing: 3px;
       margin-bottom: 0.5rem;
     }
 
     .video-overlay-text p {
       font-size: 1.1rem;
       color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
-    /* 5. SECCIÓN HORIZONTAL PARALLAX (ASHIRA CAR INSPIRATION) */
+    /* 5. PARALLAX HORIZONTAL STORE */
     .horizontal-scroll-container {
       position: relative;
       height: 400vh;
@@ -316,9 +314,9 @@
     }
 
     .horiz-header h3 {
+      font-family: var(--font-serif);
       font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: 2px;
     }
 
     .horizontal-track {
@@ -387,9 +385,8 @@
     }
 
     .card-title {
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
       margin-bottom: 0.5rem;
     }
 
@@ -400,7 +397,6 @@
       margin-bottom: 1.5rem;
     }
 
-    /* Selector de Colores Estilo Apple */
     .color-swatches {
       display: flex;
       gap: 10px;
@@ -434,7 +430,7 @@
     }
 
     .btn-buy-wa {
-      background: #25d366; /* WhatsApp Green */
+      background: #25d366;
       color: #000000;
       border: none;
       padding: 0.8rem 1.6rem;
@@ -443,7 +439,6 @@
       font-size: 0.85rem;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -456,7 +451,7 @@
       background: #1ebc59;
     }
 
-    /* 6. TABLA COMPARATIVA ESTILO APPLE ("Which model is right for you?") */
+    /* 6. COMPARADOR */
     .compare-section {
       padding: 8rem 4rem;
       background: #000;
@@ -464,9 +459,10 @@
     }
 
     .compare-title {
+      font-family: var(--font-serif);
       font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      font-weight: 700;
+      letter-spacing: 2px;
       margin-bottom: 4rem;
     }
 
@@ -498,8 +494,8 @@
     }
 
     .compare-name {
+      font-family: var(--font-serif);
       font-size: 1.5rem;
-      font-weight: 700;
       margin-bottom: 0.3rem;
     }
 
@@ -547,88 +543,87 @@
 </head>
 <body>
 
-  <!-- 1. HEADER FROSTED GLASS -->
+  <!-- 1. HEADER -->
   <header>
-    <div class="brand-logo">ATELIER</div>
+    <div class="brand-logo">IRIDIUM</div>
     <ul class="nav-menu">
       <li class="dropdown">
-        <button class="dropbtn">Explorar Colecciones ▾</button>
+        <button class="dropbtn">Colecciones IRIDIUM ▾</button>
         <div class="dropdown-content">
           <div class="dropdown-inner">
             <a href="#videoSec">Video Editorial</a>
             <a href="#deckSec">Heavyweight Hoodies</a>
             <a href="#deckSec">Oversized T-Shirts</a>
-            <a href="#compareSec">Tabla de Especificaciones</a>
+            <a href="#compareSec">Guía de Gramajes</a>
           </div>
         </div>
       </li>
     </ul>
   </header>
 
-  <!-- 2. APPLE SUBNAV STRIP CON ICONOS -->
+  <!-- 2. SUB-BARRA DE NAVEGACIÓN -->
   <nav class="subnav-strip">
     <a href="#deckSec" class="subnav-item">
       <span class="subnav-icon">👕</span>
-      <span>Oversized Tees</span>
+      <span>IRIDIUM Tees</span>
       <span class="subnav-tag">Nuevo</span>
     </a>
     <a href="#deckSec" class="subnav-item">
       <span class="subnav-icon">🧥</span>
-      <span>Pro Hoodies</span>
+      <span>IRIDIUM Hoodies</span>
       <span class="subnav-tag">Heavyweight</span>
     </a>
     <a href="#compareSec" class="subnav-item">
       <span class="subnav-icon">⚖️</span>
       <span>Comparar Telas</span>
     </a>
-    <a href="#footer" class="subnav-item">
-      <span class="subnav-icon">📦</span>
-      <span>Guía de Tallas</span>
+    <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20asesoria%20personalizada" target="_blank" class="subnav-item">
+      <span class="subnav-icon">💬</span>
+      <span>Contacto Directo</span>
     </a>
   </nav>
 
-  <!-- 3. HERO ESTILO KEYNOTE -->
+  <!-- 3. HERO -->
   <section class="hero-apple">
-    <span class="hero-eyebrow">Serie Pro 2026</span>
-    <h1 class="hero-headline">Diseñado para impresionar. Forjado en algodón pesado.</h1>
-    <p class="hero-subhead">Prendas confeccionadas en 450 GSM con tratamiento siliconado antipilling y patronaje drop-shoulder.</p>
+    <span class="hero-eyebrow">Colección Oficial 2026</span>
+    <h1 class="hero-headline">IRIDIUM. Diseñado para resistir. Forjado con precisión.</h1>
+    <p class="hero-subhead">Indumentaria con tejidos de 480 GSM, patronaje drop-shoulder y acabados industriales de máxima durabilidad.</p>
     <div class="cta-group">
-      <a href="#deckSec" class="btn-apple-primary">Ver Colección</a>
-      <a href="#compareSec" class="link-apple">Comparar gramajes ›</a>
+      <a href="#deckSec" class="btn-apple-primary">Ver Catálogo</a>
+      <a href="#compareSec" class="link-apple">Comparar especificaciones ›</a>
     </div>
   </section>
 
-  <!-- 4. SECCIÓN SCROLL VIDEO SCRUBBING -->
+  <!-- 4. SCROLL VIDEO -->
   <section class="video-scroll-section" id="videoSec">
     <div class="video-sticky-container">
-      <video id="scrollVideo" muted playsinline preload="auto">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-fashion-model-posing-in-a-black-jacket-41551-large.mp4" type="video/mp4">
+      <video id="scrollVideo" muted playsinline preload="auto" crossorigin="anonymous">
+        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
       </video>
       <div class="video-overlay-text">
-        <h2>Ingeniería Textil en Movimiento</h2>
-        <p>Desliza para ver la confección al detalle</p>
+        <h2>IRIDIUM DNA</h2>
+        <p>Desliza para explorar la confección</p>
       </div>
     </div>
   </section>
 
-  <!-- 5. PARALLAX HORIZONTAL STORE (ASHIRA STYLE) -->
+  <!-- 5. PARALLAX HORIZONTAL STORE -->
   <section class="horizontal-scroll-container" id="deckSec">
     <div class="sticky-wrapper">
       <div class="horiz-header">
-        <h3>Línea Principal // Edición Limitada</h3>
+        <h3>Línea Principal // IRIDIUM Series</h3>
       </div>
       <div class="horizontal-track" id="track">
 
         <!-- PRENDA 1: HOODIE HEAVYWEIGHT -->
         <article class="product-deck-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1200" alt="Hoodie Pro Heavyweight" />
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1200" alt="IRIDIUM Stealth Hoodie" />
           <div class="card-gradient"></div>
           <div class="card-content">
             <span class="card-badge">Ultra-Heavy • 480 GSM</span>
-            <h2 class="card-title">Hoodie Pro Stealth</h2>
+            <h2 class="card-title">IRIDIUM Stealth Hoodie</h2>
             <p class="card-desc">Capucha de doble capa estructurada, costuras reforzadas con remalle plano y corte Boxy Fit.</p>
             
-            <!-- Color Switcher -->
             <div class="color-swatches">
               <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
               <div class="color-dot dot-black" title="Obsidian Black"></div>
@@ -638,8 +633,8 @@
 
             <div class="card-footer-action">
               <span class="card-price">$65.00</span>
-              <a href="https://wa.me/?text=Hola,%20quiero%20ordenar%20el%20Hoodie%20Pro%20Stealth" target="_blank" class="btn-buy-wa">
-                <span>Comprar en WhatsApp</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20ordenar%20el%20IRIDIUM%20Stealth%20Hoodie%20($65.00)" target="_blank" class="btn-buy-wa">
+                <span>Pedir por WhatsApp</span>
               </a>
             </div>
           </div>
@@ -647,11 +642,11 @@
 
         <!-- PRENDA 2: OVERSIZED TEE -->
         <article class="product-deck-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=1200" alt="Oversize Tee" />
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=1200" alt="IRIDIUM Signature Tee" />
           <div class="card-gradient"></div>
           <div class="card-content">
-            <span class="card-badge">100% Algodón Peruano • 260 GSM</span>
-            <h2 class="card-title">Oversized Signature Tee</h2>
+            <span class="card-badge">100% Algodón Peinado • 260 GSM</span>
+            <h2 class="card-title">IRIDIUM Signature Tee</h2>
             <p class="card-desc">Cuello acanalado grueso de 3 cm indeformable. Caída pesada y hombros caídos ergonómicos.</p>
             
             <div class="color-swatches">
@@ -662,21 +657,21 @@
 
             <div class="card-footer-action">
               <span class="card-price">$35.00</span>
-              <a href="https://wa.me/?text=Hola,%20quiero%20ordenar%20la%20Oversized%20Signature%20Tee" target="_blank" class="btn-buy-wa">
-                <span>Comprar en WhatsApp</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20ordenar%20la%20IRIDIUM%20Signature%20Tee%20($35.00)" target="_blank" class="btn-buy-wa">
+                <span>Pedir por WhatsApp</span>
               </a>
             </div>
           </div>
         </article>
 
-        <!-- PRENDA 3: BOMBER JACKET / HOODIE ZIP -->
+        <!-- PRENDA 3: BOMBER / ZIP HOODIE -->
         <article class="product-deck-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1200" alt="Zip Hoodie" />
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1200" alt="IRIDIUM Cyber Zip" />
           <div class="card-gradient"></div>
           <div class="card-content">
             <span class="card-badge">Full Zip • Thermal Lining</span>
-            <h2 class="card-title">Cyber Zip Hoodie V2</h2>
-            <p class="card-desc">Cremallera metálica bidireccional YKK con tirador personalizado y bolsillos ocultos.</p>
+            <h2 class="card-title">IRIDIUM Cyber Zip V2</h2>
+            <p class="card-desc">Cremallera metálica bidireccional YKK con tirador personalizado y bolsillos reforzados ocultos.</p>
             
             <div class="color-swatches">
               <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
@@ -686,8 +681,8 @@
 
             <div class="card-footer-action">
               <span class="card-price">$75.00</span>
-              <a href="https://wa.me/?text=Hola,%20quiero%20ordenar%20el%20Cyber%20Zip%20Hoodie" target="_blank" class="btn-buy-wa">
-                <span>Comprar en WhatsApp</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20ordenar%20el%20IRIDIUM%20Cyber%20Zip%20V2%20($75.00)" target="_blank" class="btn-buy-wa">
+                <span>Pedir por WhatsApp</span>
               </a>
             </div>
           </div>
@@ -697,9 +692,9 @@
     </div>
   </section>
 
-  <!-- 6. TABLA COMPARATIVA ESTILO APPLE -->
+  <!-- 6. TABLA COMPARATIVA -->
   <section class="compare-section" id="compareSec">
-    <h2 class="compare-title">¿Cuál es la prenda ideal para ti?</h2>
+    <h2 class="compare-title">¿Cuál es tu prenda IRIDIUM ideal?</h2>
     
     <div class="compare-grid">
       <!-- Columna 1 -->
@@ -723,7 +718,7 @@
           </div>
         </div>
         <div style="margin-top: 2rem;">
-          <a href="https://wa.me/?text=Consulta%20Signature%20Tee" class="btn-apple-primary" style="display:block; text-align:center;">Pedir • $35</a>
+          <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20la%20Signature%20Tee%20($35)" class="btn-apple-primary" style="display:block; text-align:center;">Pedir • $35</a>
         </div>
       </div>
 
@@ -731,7 +726,7 @@
       <div class="compare-card">
         <div>
           <img class="compare-img" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600" alt="Hoodie" />
-          <h3 class="compare-name">Pro Hoodie</h3>
+          <h3 class="compare-name">Stealth Hoodie</h3>
           <p class="compare-sub">Máxima densidad y estructura</p>
           
           <div class="spec-row">
@@ -748,7 +743,7 @@
           </div>
         </div>
         <div style="margin-top: 2rem;">
-          <a href="https://wa.me/?text=Consulta%20Pro%20Hoodie" class="btn-apple-primary" style="display:block; text-align:center;">Pedir • $65</a>
+          <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20el%20Stealth%20Hoodie%20($65)" class="btn-apple-primary" style="display:block; text-align:center;">Pedir • $65</a>
         </div>
       </div>
 
@@ -756,7 +751,7 @@
       <div class="compare-card">
         <div>
           <img class="compare-img" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600" alt="Zip Hoodie" />
-          <h3 class="compare-name">Zip Hoodie V2</h3>
+          <h3 class="compare-name">Cyber Zip V2</h3>
           <p class="compare-sub">Versatilidad con cremallera YKK</p>
           
           <div class="spec-row">
@@ -773,7 +768,7 @@
           </div>
         </div>
         <div style="margin-top: 2rem;">
-          <a href="https://wa.me/?text=Consulta%20Zip%20Hoodie" class="btn-apple-primary" style="display:block; text-align:center;">Pedir • $75</a>
+          <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20el%20Cyber%20Zip%20V2%20($75)" class="btn-apple-primary" style="display:block; text-align:center;">Pedir • $75</a>
         </div>
       </div>
     </div>
@@ -781,31 +776,36 @@
 
   <!-- FOOTER -->
   <footer id="footer">
-    <p>© 2026 ATELIER Streetwear. Alojado 100% gratis en GitHub Pages.</p>
+    <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT DE INTERACCIÓN Y CONTROL DE SCROLL -->
+  <!-- SCRIPT CON CONTROL DE VIDEO Y SCROLL OPTIMIZADO -->
   <script>
     const video = document.getElementById('scrollVideo');
     const videoSection = document.getElementById('videoSec');
     const horizContainer = document.getElementById('deckSec');
     const track = document.getElementById('track');
 
-    video.pause();
+    // Inicializar video asegurando soporte de reproducción
+    video.addEventListener('loadedmetadata', () => {
+      video.pause();
+    });
 
-    window.addEventListener('scroll', () => {
-      // 1. Control de video al hacer scroll
+    let isScrolling = false;
+
+    function handleScroll() {
+      // 1. Control del Video por Scroll
       const vRect = videoSection.getBoundingClientRect();
       const vScrollable = videoSection.offsetHeight - window.innerHeight;
 
       if (vRect.top <= 0 && Math.abs(vRect.top) <= vScrollable) {
         const fraction = Math.abs(vRect.top) / vScrollable;
-        if (video.duration) {
+        if (video.duration && !isNaN(video.duration)) {
           video.currentTime = fraction * video.duration;
         }
       }
 
-      // 2. Parallax horizontal estilo Ashira
+      // 2. Parallax Horizontal
       const hRect = horizContainer.getBoundingClientRect();
       const hScrollable = horizContainer.offsetHeight - window.innerHeight;
 
@@ -815,6 +815,15 @@
         track.style.transform = `translateX(-${progress * maxTranslate}px)`;
       } else if (hRect.top > 0) {
         track.style.transform = `translateX(0px)`;
+      }
+
+      isScrolling = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!isScrolling) {
+        window.requestAnimationFrame(handleScroll);
+        isScrolling = true;
       }
     });
   </script>
