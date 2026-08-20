@@ -14,10 +14,9 @@
     :root {
       --bg: #050608;
       --surface: #0e1014;
-      --card-bg: #13161c;
-      --accent: #d4af37;
+      --card-bg: #12141a;
       --silver: #e2e8f0;
-      --silver-glow: rgba(226, 232, 240, 0.4);
+      --silver-glow: rgba(226, 232, 240, 0.35);
       --text: #f8f9fa;
       --text-muted: #8a909d;
       --border: rgba(255, 255, 255, 0.08);
@@ -39,10 +38,9 @@
       font-family: var(--font-body);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* 1. NAVEGACIÓN PRINCIPAL */
+    /* 1. HEADER CON LOGO CROMO */
     header {
       position: fixed;
       top: 0;
@@ -58,7 +56,6 @@
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       z-index: 1000;
-      transition: all 0.3s ease;
     }
 
     .brand-container {
@@ -93,72 +90,21 @@
       list-style: none;
     }
 
-    .dropdown {
-      position: relative;
-    }
-
-    .dropbtn {
-      background: none;
-      border: none;
-      color: #e2e8f0;
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
       font-family: var(--font-title);
       font-size: 0.85rem;
-      font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
       transition: color 0.3s;
     }
 
-    .dropbtn:hover {
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(255,255,255,0.6);
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      padding-top: 12px;
-      min-width: 240px;
-    }
-
-    .dropdown-inner {
-      background: rgba(14, 16, 20, 0.95);
-      backdrop-filter: blur(30px);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 0.75rem;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-    }
-
-    .dropdown-inner a {
-      color: var(--text-muted);
-      padding: 0.8rem 1.2rem;
-      display: block;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-
-    .dropdown-inner a:hover {
+    .nav-link:hover {
       color: #fff;
-      background: rgba(226, 232, 240, 0.1);
-      padding-left: 1.4rem;
     }
 
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    /* 2. HERO VIDEO ULTRA HD (OPTIMIZADO GPU Y RESPONSIVE) */
+    /* 2. HERO VIDEO (ALTA DEFINICIÓN Y SIN MÁSCARA PESADA) */
     .hero-video-section {
       position: relative;
       width: 100%;
@@ -169,7 +115,6 @@
       align-items: center;
       justify-content: center;
       background: #000;
-      transform: translate3d(0, 0, 0);
     }
 
     .video-bg {
@@ -185,8 +130,6 @@
       opacity: 1;
       filter: brightness(1.08) contrast(1.05);
       image-rendering: -webkit-optimize-contrast;
-      backface-visibility: hidden;
-      perspective: 1000px;
       will-change: transform;
       z-index: 1;
     }
@@ -240,18 +183,10 @@
       text-shadow: 0 4px 15px rgba(0,0,0,0.9);
     }
 
-    .cta-group {
-      display: flex;
-      gap: 1.2rem;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
     .btn-primary-luxury {
       background: #ffffff;
       color: #000000;
-      padding: 0.95rem 2.2rem;
+      padding: 0.95rem 2.4rem;
       border-radius: 50px;
       font-weight: 700;
       font-size: 0.85rem;
@@ -260,6 +195,7 @@
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: inline-block;
     }
 
     .btn-primary-luxury:hover {
@@ -268,326 +204,252 @@
       box-shadow: 0 10px 30px var(--silver-glow);
     }
 
-    .link-luxury {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.2s;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    /* 3. PESTAÑAS DE MARCAS (ESTILO CROMO / GLASSMORPHISM) */
+    .brands-section {
+      padding: 3rem 2rem 2rem;
+      background: linear-gradient(180deg, var(--bg) 0%, #090a0d 100%);
+      text-align: center;
     }
 
-    .link-luxury:hover {
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(255,255,255,0.6);
+    .section-eyebrow {
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      color: var(--silver);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0.8;
     }
 
-    /* 3. SUB-BARRA PRODUCTOS */
-    .subnav-strip {
-      background: #090b0e;
-      padding: 1.2rem 2rem;
+    .brand-tabs-container {
       display: flex;
-      justify-content: center;
-      gap: 4rem;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      gap: 1.2rem;
       overflow-x: auto;
+      padding: 1rem 2rem 2rem;
+      scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
+      justify-content: flex-start;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    .subnav-item {
+    .brand-tabs-container::-webkit-scrollbar {
+      height: 4px;
+    }
+    .brand-tabs-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+    }
+
+    .brand-tab {
+      flex: 0 0 95px;
+      height: 95px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.08) 0%, rgba(18,20,26,0.9) 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4rem;
+      justify-content: center;
+      cursor: pointer;
       text-decoration: none;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .subnav-item:hover {
-      color: #fff;
-      transform: translateY(-2px);
-    }
-
-    .subnav-icon {
-      font-size: 1.3rem;
-    }
-
-    .subnav-tag {
-      color: #e2e8f0;
-      font-size: 0.65rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-
-    /* 4. CATÁLOGO HORIZONTAL PARALLAX */
-    .horizontal-scroll-container {
+      color: var(--silver);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
-      height: 400vh;
-      background: var(--bg);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
     }
 
-    .sticky-wrapper {
-      position: sticky;
-      top: 0;
-      height: 100vh;
+    .brand-tab::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .brand-tab:hover, .brand-tab.active {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(226, 232, 240, 0.2);
+    }
+
+    .brand-tab:hover::before, .brand-tab.active::before {
+      opacity: 1;
+    }
+
+    .brand-tab span.brand-text {
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-align: center;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 0%, #a4abb8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-tab small {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      margin-top: 3px;
+      text-transform: uppercase;
+    }
+
+    /* 4. CARRUSEL INFINITO: ÚLTIMOS LANZAMIENTOS (DERECHA A IZQUIERDA) */
+    .releases-section {
+      padding: 4rem 0 6rem;
+      background: #050608;
+      overflow: hidden;
+    }
+
+    .releases-header {
+      padding: 0 4rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .releases-header h2 {
+      font-family: var(--font-title);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .releases-marquee {
       width: 100%;
       overflow: hidden;
+      position: relative;
+    }
+
+    .releases-track {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      gap: 2.5rem;
+      width: max-content;
+      animation: marqueeScroll 35s linear infinite;
     }
 
-    .horiz-header {
-      padding: 0 10vw 2rem;
+    .releases-track:hover {
+      animation-play-state: paused;
     }
 
-    .horiz-header h3 {
-      font-family: var(--font-title);
-      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-      letter-spacing: 3px;
-      font-weight: 700;
-      text-transform: uppercase;
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
-    .horizontal-track {
-      display: flex;
-      gap: 4vw;
-      padding: 0 10vw;
-      will-change: transform;
-      transform: translate3d(0, 0, 0);
-    }
-
-    .product-deck-card {
-      flex: 0 0 70vw;
-      max-width: 850px;
-      height: 65vh;
+    .product-card {
+      flex: 0 0 380px;
+      height: 540px;
       background: var(--card-bg);
-      border-radius: 28px;
       border: 1px solid var(--border);
+      border-radius: 24px;
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 3.5rem;
-      transition: border-color 0.4s ease;
+      padding: 2.2rem;
+      transition: border-color 0.4s, transform 0.4s;
     }
 
-    .product-deck-card:hover {
+    .product-card:hover {
       border-color: var(--border-active);
+      transform: translateY(-4px);
     }
 
-    .card-img-bg {
+    .product-card img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.55;
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      opacity: 0.6;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
       z-index: 1;
     }
 
-    .product-deck-card:hover .card-img-bg {
-      transform: scale(1.04);
-      opacity: 0.75;
+    .product-card:hover img {
+      transform: scale(1.05);
+      opacity: 0.8;
     }
 
-    .card-gradient {
+    .card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(5,6,8,0.98) 0%, rgba(5,6,8,0.4) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(5,6,8,0.95) 0%, rgba(5,6,8,0.3) 60%, transparent 100%);
       z-index: 2;
     }
 
-    .card-content {
+    .card-info {
       position: relative;
       z-index: 3;
-      max-width: 550px;
     }
 
-    .card-badge {
+    .card-tag {
       font-size: 0.75rem;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: #e2e8f0;
+      color: var(--silver);
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
     .card-title {
       font-family: var(--font-title);
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
 
-    .card-desc {
+    .card-meta {
       color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-bottom: 1.2rem;
     }
 
-    .color-swatches {
+    .card-bottom {
       display: flex;
-      gap: 10px;
-      margin-bottom: 1.8rem;
+      justify-content: space-between;
       align-items: center;
-    }
-
-    .color-dot {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 2px solid #000;
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .color-dot:hover {
-      transform: scale(1.15);
-    }
-
-    .dot-black { background: #111113; }
-    .dot-cream { background: #e8e2d5; }
-    .dot-military { background: #3b4238; }
-    .dot-slate { background: #3c4452; }
-
-    .card-footer-action {
-      display: flex;
-      align-items: center;
-      gap: 1.8rem;
-      flex-wrap: wrap;
     }
 
     .card-price {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 800;
       letter-spacing: 1px;
     }
 
-    .btn-buy-wa {
-      background: #25d366;
-      color: #000000;
-      border: none;
-      padding: 0.85rem 1.8rem;
+    .btn-card-wa {
+      background: #ffffff;
+      color: #000;
+      padding: 0.65rem 1.4rem;
       border-radius: 50px;
+      font-size: 0.75rem;
       font-weight: 800;
-      font-size: 0.85rem;
       letter-spacing: 1px;
       text-transform: uppercase;
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       transition: all 0.3s;
     }
 
-    .btn-buy-wa:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
-      background: #20ba5a;
-    }
-
-    /* 5. COMPARATIVA APPLE STORE */
-    .compare-section {
-      padding: 8rem 4rem;
-      background: #000;
-      text-align: center;
-    }
-
-    .compare-title {
-      font-family: var(--font-title);
-      font-size: clamp(1.8rem, 4vw, 3.5rem);
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 4rem;
-    }
-
-    .compare-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: left;
-    }
-
-    .compare-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 2.5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: border-color 0.3s;
-    }
-
-    .compare-card:hover {
-      border-color: var(--border-active);
-    }
-
-    .compare-img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 16px;
-      margin-bottom: 1.5rem;
-    }
-
-    .compare-name {
-      font-family: var(--font-title);
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-    }
-
-    .compare-sub {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .spec-row {
-      border-top: 1px solid var(--border);
-      padding: 1rem 0;
-    }
-
-    .spec-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      margin-bottom: 0.3rem;
-    }
-
-    .spec-value {
-      font-size: 1rem;
-      font-weight: 600;
+    .btn-card-wa:hover {
+      background: #25d366;
+      color: #000;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
     }
 
     /* FOOTER */
     footer {
-      padding: 4rem 2rem;
+      padding: 3.5rem 2rem;
       background: #030405;
       border-top: 1px solid var(--border);
       text-align: center;
@@ -600,19 +462,17 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ADAPTACIÓN PARA MÓVILES (SMARTPHONES Y TABLETS) */
     @media (max-width: 768px) {
       header { padding: 0 1.5rem; }
-      .subnav-strip { justify-content: flex-start; gap: 2rem; padding: 1rem 1.5rem; }
-      .product-deck-card { flex: 0 0 85vw; height: 60vh; padding: 1.8rem; }
-      .compare-section { padding: 4rem 1.5rem; }
-      .compare-title { margin-bottom: 2.5rem; }
+      .releases-header { padding: 0 1.5rem 1.5rem; }
+      .product-card { flex: 0 0 290px; height: 440px; padding: 1.5rem; }
+      .brand-tab { flex: 0 0 85px; height: 85px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. HEADER CON LOGO CROMO PLATEADO -->
+  <!-- 1. HEADER -->
   <header>
     <a href="#" class="brand-container">
       <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -633,34 +493,15 @@
     </a>
 
     <ul class="nav-menu">
-      <li class="dropdown">
-        <button class="dropbtn">Colecciones ▾</button>
-        <div class="dropdown-content">
-          <div class="dropdown-inner">
-            <a href="#deckSec">Heavyweight Hoodies</a>
-            <a href="#deckSec">Oversized T-Shirts</a>
-            <a href="#compareSec">Guía Comparativa</a>
-          </div>
-        </div>
-      </li>
+      <li><a href="#marcas" class="nav-link">Escuderías</a></li>
+      <li><a href="#lanzamientos" class="nav-link">Lanzamientos</a></li>
     </ul>
   </header>
 
-  <!-- 2. HERO VIDEO FULL RESPONSIVE & ULTRA HD OPTIMIZED -->
+  <!-- 2. HERO VIDEO (ULTRA HD & LUMINOSO) -->
   <section class="hero-video-section">
-    <video 
-      class="video-bg" 
-      autoplay 
-      loop 
-      muted 
-      playsinline 
-      webkit-playsinline
-      x5-playsinline
-      preload="auto"
-    >
-      <!-- Formato WebM para navegadores modernos y menor peso -->
+    <video class="video-bg" autoplay loop muted playsinline webkit-playsinline x5-playsinline preload="auto">
       <source src="video.webm" type="video/webm">
-      <!-- Formato MP4 con soporte universal (iOS / Android / Safari / Chrome) -->
       <source src="video.mp4" type="video/mp4">
     </video>
     <div class="video-vignette"></div>
@@ -683,198 +524,188 @@
 
       <h1 class="hero-title">IRIDIUM</h1>
       <p class="hero-tagline">Luxury Streetwear Performance</p>
-      <div class="cta-group">
-        <a href="#deckSec" class="btn-primary-luxury">Explorar Colección</a>
-        <a href="#compareSec" class="link-luxury">Comparar modelos ›</a>
-      </div>
+      <a href="#lanzamientos" class="btn-primary-luxury">Explorar Colección</a>
     </div>
   </section>
 
-  <!-- 3. SUB-BARRA PRODUCTOS -->
-  <nav class="subnav-strip">
-    <a href="#deckSec" class="subnav-item">
-      <span class="subnav-icon">👕</span>
-      <span>T-Shirts</span>
-      <span class="subnav-tag">Signature</span>
-    </a>
-    <a href="#deckSec" class="subnav-item">
-      <span class="subnav-icon">🧥</span>
-      <span>Hoodies</span>
-      <span class="subnav-tag">Heavyweight</span>
-    </a>
-    <a href="#compareSec" class="subnav-item">
-      <span class="subnav-icon">⚖️</span>
-      <span>Comparar Telas</span>
-    </a>
-    <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20hacer%20un%20pedido" target="_blank" class="subnav-item">
-      <span class="subnav-icon">💬</span>
-      <span>WhatsApp Oficial</span>
-    </a>
-  </nav>
-
-  <!-- 4. CATÁLOGO HORIZONTAL ASHIRA PARALLAX -->
-  <section class="horizontal-scroll-container" id="deckSec">
-    <div class="sticky-wrapper">
-      <div class="horiz-header">
-        <h3>Línea Principal // Edición Limitada</h3>
-      </div>
-      <div class="horizontal-track" id="track">
-
-        <!-- PRENDA 1 -->
-        <article class="product-deck-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1400" alt="IRIDIUM Stealth Hoodie" />
-          <div class="card-gradient"></div>
-          <div class="card-content">
-            <span class="card-badge">Ultra-Heavy • 480 GSM</span>
-            <h2 class="card-title">Stealth Pro Hoodie</h2>
-            <p class="card-desc">Capucha doble estructurada sin cordones, hombros caídos y tacto ultra pesado.</p>
-            
-            <div class="color-swatches">
-              <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
-              <div class="color-dot dot-black" title="Obsidian Black"></div>
-              <div class="color-dot dot-military" title="Army Khaki"></div>
-              <div class="color-dot dot-slate" title="Slate Grey"></div>
-            </div>
-
-            <div class="card-footer-action">
-              <span class="card-price">$65.00</span>
-              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20el%20Stealth%20Pro%20Hoodie%20($65.00)" target="_blank" class="btn-buy-wa">
-                <span>Pedir en WhatsApp</span>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- PRENDA 2 -->
-        <article class="product-deck-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=1400" alt="IRIDIUM Signature Tee" />
-          <div class="card-gradient"></div>
-          <div class="card-content">
-            <span class="card-badge">100% Algodón Peinado • 260 GSM</span>
-            <h2 class="card-title">Signature Oversize Tee</h2>
-            <p class="card-desc">Cuello grueso indeformable de 3.2 cm, caída pesada y patronaje Boxy Fit.</p>
-            
-            <div class="color-swatches">
-              <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
-              <div class="color-dot dot-black" title="Obsidian Black"></div>
-              <div class="color-dot dot-cream" title="Off-White Cream"></div>
-            </div>
-
-            <div class="card-footer-action">
-              <span class="card-price">$35.00</span>
-              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20la%20Signature%20Oversize%20Tee%20($35.00)" target="_blank" class="btn-buy-wa">
-                <span>Pedir en WhatsApp</span>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- PRENDA 3 -->
-        <article class="product-deck-card">
-          <img class="card-img-bg" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1400" alt="IRIDIUM Cyber Zip" />
-          <div class="card-gradient"></div>
-          <div class="card-content">
-            <span class="card-badge">Full Zip • 420 GSM</span>
-            <h2 class="card-title">Cyber Zip Jacket</h2>
-            <p class="card-desc">Cremallera metálica bidireccional YKK con tirador personalizado y bolsillos reforzados.</p>
-            
-            <div class="color-swatches">
-              <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
-              <div class="color-dot dot-black" title="Obsidian Black"></div>
-              <div class="color-dot dot-slate" title="Slate Grey"></div>
-            </div>
-
-            <div class="card-footer-action">
-              <span class="card-price">$75.00</span>
-              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20la%20Cyber%20Zip%20Jacket%20($75.00)" target="_blank" class="btn-buy-wa">
-                <span>Pedir en WhatsApp</span>
-              </a>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. COMPARATIVA ESTILO APPLE -->
-  <section class="compare-section" id="compareSec">
-    <h2 class="compare-title">¿Cuál es tu prenda ideal?</h2>
+  <!-- 3. PESTAÑAS DE LOGOS Y MARCAS (ESTILO ELEGANTE / CROMO) -->
+  <section class="brands-section" id="marcas">
+    <div class="section-eyebrow">// Selecciona tu División //</div>
     
-    <div class="compare-grid">
-      <!-- Columna 1 -->
-      <div class="compare-card">
-        <div>
-          <img class="compare-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=700" alt="Signature Tee" />
-          <h3 class="compare-name">Signature Tee</h3>
-          <p class="compare-sub">Uso diario con caída pesada</p>
-          
-          <div class="spec-row">
-            <div class="spec-label">Gramaje</div>
-            <div class="spec-value">260 GSM</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-label">Patronaje</div>
-            <div class="spec-value">Drop Shoulder Oversize</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-label">Composición</div>
-            <div class="spec-value">100% Algodón Peinado</div>
-          </div>
-        </div>
-        <div style="margin-top: 2rem;">
-          <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20la%20Signature%20Tee%20($35)" class="btn-primary-luxury" style="display:block; text-align:center;">Pedir • $35</a>
-        </div>
-      </div>
+    <div class="brand-tabs-container">
+      <a href="javascript:void(0)" onclick="filterCategory('ALL')" class="brand-tab active">
+        <span class="brand-text">NEW</span>
+        <small>Drop 2026</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('F1')" class="brand-tab">
+        <span class="brand-text">F1</span>
+        <small>Racing</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('GT-R')" class="brand-tab">
+        <span class="brand-text">GT-R</span>
+        <small>Nismo</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('PORSCHE')" class="brand-tab">
+        <span class="brand-text">Porsche</span>
+        <small>Stuttgart</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('FERRARI')" class="brand-tab">
+        <span class="brand-text">Ferrari</span>
+        <small>Maranello</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('LAMBORGHINI')" class="brand-tab">
+        <span class="brand-text">Lambo</span>
+        <small>Bolognese</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('MCLAREN')" class="brand-tab">
+        <span class="brand-text">McLaren</span>
+        <small>Woking</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('MERCEDES')" class="brand-tab">
+        <span class="brand-text">AMG</span>
+        <small>Mercedes</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('AUDI')" class="brand-tab">
+        <span class="brand-text">Audi</span>
+        <small>Sport</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('BMW')" class="brand-tab">
+        <span class="brand-text">BMW</span>
+        <small>M Power</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('NISSAN')" class="brand-tab">
+        <span class="brand-text">Nissan</span>
+        <small>JDM Spec</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('HONDA')" class="brand-tab">
+        <span class="brand-text">Honda</span>
+        <small>Type R</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('FORD')" class="brand-tab">
+        <span class="brand-text">Ford</span>
+        <small>Performance</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('DODGE')" class="brand-tab">
+        <span class="brand-text">Dodge</span>
+        <small>SRT</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('BUGATTI')" class="brand-tab">
+        <span class="brand-text">Bugatti</span>
+        <small>Molsheim</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('FAST')" class="brand-tab">
+        <span class="brand-text">F&F</span>
+        <small>Legacy</small>
+      </a>
+      <a href="javascript:void(0)" onclick="filterCategory('CARS')" class="brand-tab">
+        <span class="brand-text">Cars</span>
+        <small>Pixar Spec</small>
+      </a>
+    </div>
+  </section>
 
-      <!-- Columna 2 -->
-      <div class="compare-card">
-        <div>
-          <img class="compare-img" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=700" alt="Stealth Hoodie" />
-          <h3 class="compare-name">Stealth Hoodie</h3>
-          <p class="compare-sub">Estructura rígida y densidad máxima</p>
-          
-          <div class="spec-row">
-            <div class="spec-label">Gramaje</div>
-            <div class="spec-value">480 GSM (Ultra Heavy)</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-label">Patronaje</div>
-            <div class="spec-value">Boxy Cut con capucha rígida</div>
-          </div>
-          <div class="spec-row">
-            <div class="spec-label">Composición</div>
-            <div class="spec-value">80% Algodón / 20% Poly Core</div>
-          </div>
-        </div>
-        <div style="margin-top: 2rem;">
-          <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20el%20Stealth%20Hoodie%20($65)" class="btn-primary-luxury" style="display:block; text-align:center;">Pedir • $65</a>
-        </div>
+  <!-- 4. ÚLTIMOS LANZAMIENTOS (MOVIMIENTO DE DERECHA A IZQUIERDA CONTINUO) -->
+  <section class="releases-section" id="lanzamientos">
+    <div class="releases-header">
+      <div>
+        <span style="font-size: 0.8rem; letter-spacing: 3px; color: var(--silver); text-transform: uppercase; font-weight: 700;">Catálogo Exclusivo</span>
+        <h2 id="galleryTitle">Últimos Lanzamientos</h2>
       </div>
+    </div>
 
-      <!-- Columna 3 -->
-      <div class="compare-card">
-        <div>
-          <img class="compare-img" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=700" alt="Cyber Zip" />
-          <h3 class="compare-name">Cyber Zip</h3>
-          <p class="compare-sub">Versatilidad con cremallera YKK</p>
-          
-          <div class="spec-row">
-            <div class="spec-label">Gramaje</div>
-            <div class="spec-value">420 GSM</div>
+    <div class="releases-marquee">
+      <div class="releases-track" id="productTrack">
+        
+        <!-- Prenda 1 -->
+        <article class="product-card" data-brand="ALL PORSCHE F1">
+          <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800" alt="IRIDIUM Stealth Hoodie" />
+          <div class="card-overlay"></div>
+          <div class="card-info">
+            <span class="card-tag">Heavyweight • 480 GSM</span>
+            <h3 class="card-title">Stealth Pro Hoodie</h3>
+            <p class="card-meta">Capucha doble estructurada y hombros caídos.</p>
+            <div class="card-bottom">
+              <span class="card-price">$65.00</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20el%20Stealth%20Pro%20Hoodie" target="_blank" class="btn-card-wa">Pedir</a>
+            </div>
           </div>
-          <div class="spec-row">
-            <div class="spec-label">Patronaje</div>
-            <div class="spec-value">Relaxed Street Fit</div>
+        </article>
+
+        <!-- Prenda 2 -->
+        <article class="product-card" data-brand="ALL GT-R NISSAN">
+          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800" alt="IRIDIUM Signature Tee" />
+          <div class="card-overlay"></div>
+          <div class="card-info">
+            <span class="card-tag">100% Algodón • 260 GSM</span>
+            <h3 class="card-title">Signature Oversize Tee</h3>
+            <p class="card-meta">Cuello grueso indeformable y patronaje Boxy.</p>
+            <div class="card-bottom">
+              <span class="card-price">$35.00</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20la%20Signature%20Tee" target="_blank" class="btn-card-wa">Pedir</a>
+            </div>
           </div>
-          <div class="spec-row">
-            <div class="spec-label">Composición</div>
-            <div class="spec-value">Algodón Friza Premium</div>
+        </article>
+
+        <!-- Prenda 3 -->
+        <article class="product-card" data-brand="ALL FERRARI LAMBORGHINI">
+          <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800" alt="IRIDIUM Cyber Zip" />
+          <div class="card-overlay"></div>
+          <div class="card-info">
+            <span class="card-tag">Full Zip • 420 GSM</span>
+            <h3 class="card-title">Cyber Track Jacket</h3>
+            <p class="card-meta">Cremallera metálica bidireccional YKK de alto rendimiento.</p>
+            <div class="card-bottom">
+              <span class="card-price">$75.00</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20la%20Cyber%20Track%20Jacket" target="_blank" class="btn-card-wa">Pedir</a>
+            </div>
           </div>
-        </div>
-        <div style="margin-top: 2rem;">
-          <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20el%20Cyber%20Zip%20($75)" class="btn-primary-luxury" style="display:block; text-align:center;">Pedir • $75</a>
-        </div>
+        </article>
+
+        <!-- Prenda 4 -->
+        <article class="product-card" data-brand="ALL MCLAREN MERCEDES">
+          <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800" alt="IRIDIUM Apex Tee" />
+          <div class="card-overlay"></div>
+          <div class="card-info">
+            <span class="card-tag">Drop Shoulder • 280 GSM</span>
+            <h3 class="card-title">Apex Spec T-Shirt</h3>
+            <p class="card-meta">Estampado de alta densidad con acabado cromo.</p>
+            <div class="card-bottom">
+              <span class="card-price">$38.00</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20la%20Apex%20Spec%20T-Shirt" target="_blank" class="btn-card-wa">Pedir</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Prenda 5 (Duplicadas para efecto bucle continuo suave) -->
+        <article class="product-card" data-brand="ALL PORSCHE F1">
+          <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800" alt="IRIDIUM Stealth Hoodie" />
+          <div class="card-overlay"></div>
+          <div class="card-info">
+            <span class="card-tag">Heavyweight • 480 GSM</span>
+            <h3 class="card-title">Stealth Pro Hoodie</h3>
+            <p class="card-meta">Capucha doble estructurada y hombros caídos.</p>
+            <div class="card-bottom">
+              <span class="card-price">$65.00</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20el%20Stealth%20Pro%20Hoodie" target="_blank" class="btn-card-wa">Pedir</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Prenda 6 -->
+        <article class="product-card" data-brand="ALL GT-R NISSAN">
+          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800" alt="IRIDIUM Signature Tee" />
+          <div class="card-overlay"></div>
+          <div class="card-info">
+            <span class="card-tag">100% Algodón • 260 GSM</span>
+            <h3 class="card-title">Signature Oversize Tee</h3>
+            <p class="card-meta">Cuello grueso indeformable y patronaje Boxy.</p>
+            <div class="card-bottom">
+              <span class="card-price">$35.00</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20la%20Signature%20Tee" target="_blank" class="btn-card-wa">Pedir</a>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -884,50 +715,42 @@
     <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. Pedidos directos vía WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT OPTIMIZADO (AUTOPLAY TOTAL Y PARALLAX FLUIDO) -->
+  <!-- SCRIPT DE FILTRADO Y REPRODUCCIÓN -->
   <script>
-    const horizContainer = document.getElementById('deckSec');
-    const track = document.getElementById('track');
+    // 1. Desbloqueo universal de Video
     const video = document.querySelector('.video-bg');
+    if (video) {
+      video.muted = true;
+      video.play().catch(() => {
+        document.addEventListener('touchstart', () => video.play(), { once: true });
+      });
+    }
 
-    // Desbloqueo universal de Autoplay para iOS / Android
-    const playVideoSafely = () => {
-      if (video) {
-        video.muted = true;
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            // Intento secundario si el navegador bloquea en modo de bajo consumo
-            document.addEventListener('touchstart', () => video.play(), { once: true });
-            document.addEventListener('click', () => video.play(), { once: true });
-          });
+    // 2. Filtrado por marca al hacer click en las pestañas
+    function filterCategory(brand) {
+      const cards = document.querySelectorAll('.product-card');
+      const tabs = document.querySelectorAll('.brand-tab');
+      const title = document.getElementById('galleryTitle');
+
+      // Actualizar estilo de pestaña activa
+      tabs.forEach(tab => tab.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      title.innerText = brand === 'ALL' ? 'Últimos Lanzamientos' : `Colección // ${brand}`;
+
+      // Desplazar vista a los productos suavemente
+      document.getElementById('lanzamientos').scrollIntoView({ behavior: 'smooth' });
+
+      // Filtrar prendas
+      cards.forEach(card => {
+        const brands = card.getAttribute('data-brand') || '';
+        if (brand === 'ALL' || brands.includes(brand)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
         }
-      }
-    };
-
-    window.addEventListener('load', playVideoSafely);
-    document.addEventListener('DOMContentLoaded', playVideoSafely);
-
-    // Parallax Scroll con RequestAnimationFrame para 60-120fps en móviles
-    let isTicking = false;
-    window.addEventListener('scroll', () => {
-      if (!isTicking) {
-        window.requestAnimationFrame(() => {
-          const hRect = horizContainer.getBoundingClientRect();
-          const hScrollable = horizContainer.offsetHeight - window.innerHeight;
-
-          if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
-            const progress = Math.abs(hRect.top) / hScrollable;
-            const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
-            track.style.transform = `translate3d(-${progress * maxTranslate}px, 0, 0)`;
-          } else if (hRect.top > 0) {
-            track.style.transform = `translate3d(0, 0, 0)`;
-          }
-          isTicking = false;
-        });
-        isTicking = true;
-      }
-    }, { passive: true });
+      });
+    }
   </script>
 </body>
 </html>
