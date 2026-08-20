@@ -16,11 +16,12 @@
       --surface: #0e1014;
       --card-bg: #13161c;
       --accent: #d4af37;
-      --accent-glow: rgba(212, 175, 55, 0.25);
+      --silver: #e2e8f0;
+      --silver-glow: rgba(226, 232, 240, 0.4);
       --text: #f8f9fa;
       --text-muted: #8a909d;
       --border: rgba(255, 255, 255, 0.08);
-      --border-active: rgba(212, 175, 55, 0.5);
+      --border-active: rgba(226, 232, 240, 0.5);
       --font-title: 'Cinzel', serif;
       --font-body: 'Plus Jakarta Sans', sans-serif;
     }
@@ -50,9 +51,9 @@
       justify-content: space-between;
       align-items: center;
       padding: 0 4rem;
-      background: rgba(5, 6, 8, 0.65);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
+      background: rgba(5, 6, 8, 0.45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       z-index: 1000;
       transition: all 0.3s ease;
@@ -67,17 +68,18 @@
     }
 
     .brand-logo-svg {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
     }
 
     .brand-name {
       font-family: var(--font-title);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 1.4rem;
       letter-spacing: 6px;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+      background: linear-gradient(135deg, #ffffff 15%, #b0b5be 60%, #e2e8f0 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -96,7 +98,7 @@
     .dropbtn {
       background: none;
       border: none;
-      color: var(--text-muted);
+      color: #e2e8f0;
       font-family: var(--font-title);
       font-size: 0.85rem;
       font-weight: 600;
@@ -110,7 +112,8 @@
     }
 
     .dropbtn:hover {
-      color: var(--accent);
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255,255,255,0.6);
     }
 
     .dropdown-content {
@@ -145,7 +148,7 @@
 
     .dropdown-inner a:hover {
       color: #fff;
-      background: rgba(212, 175, 55, 0.1);
+      background: rgba(226, 232, 240, 0.1);
       padding-left: 1.4rem;
     }
 
@@ -153,7 +156,7 @@
       display: block;
     }
 
-    /* 2. HERO VIDEO (UBICACIÓN AL INICIO - 100VH) */
+    /* 2. HERO VIDEO (BRILLANTE, NÍTIDO Y SIN MÁSCARA PESADA) */
     .hero-video-section {
       position: relative;
       width: 100%;
@@ -174,15 +177,18 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      opacity: 0.45;
+      opacity: 0.95; /* Total visibilidad */
+      filter: brightness(1.12) contrast(1.08) saturate(1.05); /* Incremento de luminosidad y viveza */
     }
 
+    /* Gradiente mínimo solo para legibilidad del texto */
     .video-vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, transparent 30%, rgba(5, 6, 8, 0.8) 100%),
-                  linear-gradient(to bottom, transparent 60%, var(--bg) 100%);
+      background: radial-gradient(circle at center, transparent 40%, rgba(5, 6, 8, 0.4) 90%),
+                  linear-gradient(to bottom, transparent 75%, var(--bg) 100%);
       z-index: 2;
+      pointer-events: none;
     }
 
     .hero-content {
@@ -191,36 +197,38 @@
       text-align: center;
       padding: 0 2rem;
       max-width: 900px;
-      animation: fadeIn 1.8s ease;
+      animation: fadeIn 1.5s ease;
     }
 
     .hero-badge-symbol {
-      width: 54px;
-      height: 54px;
+      width: 60px;
+      height: 60px;
       margin: 0 auto 1.5rem;
-      filter: drop-shadow(0 0 15px var(--accent));
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 35px rgba(200, 210, 225, 0.4));
     }
 
     .hero-title {
       font-family: var(--font-title);
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      font-weight: 800;
-      letter-spacing: 8px;
+      font-size: clamp(3.2rem, 7.5vw, 6rem);
+      font-weight: 900;
+      letter-spacing: 10px;
       text-transform: uppercase;
       margin-bottom: 0.8rem;
-      background: linear-gradient(180deg, #ffffff 30%, #a4abb8 100%);
+      background: linear-gradient(180deg, #ffffff 30%, #a4abb8 80%, #767d8a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.8);
     }
 
     .hero-tagline {
       font-family: var(--font-title);
-      font-size: clamp(0.9rem, 2vw, 1.2rem);
-      color: var(--accent);
-      letter-spacing: 5px;
+      font-size: clamp(0.9rem, 2vw, 1.25rem);
+      color: #e2e8f0;
+      letter-spacing: 6px;
       text-transform: uppercase;
       font-weight: 600;
       margin-bottom: 2.5rem;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.9);
     }
 
     .cta-group {
@@ -233,7 +241,7 @@
     .btn-primary-luxury {
       background: #ffffff;
       color: #000000;
-      padding: 0.9rem 2.2rem;
+      padding: 0.95rem 2.4rem;
       border-radius: 50px;
       font-weight: 700;
       font-size: 0.85rem;
@@ -241,13 +249,13 @@
       text-transform: uppercase;
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     .btn-primary-luxury:hover {
-      background: var(--accent);
-      color: #000;
+      background: #e2e8f0;
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px var(--accent-glow);
+      box-shadow: 0 10px 30px var(--silver-glow);
     }
 
     .link-luxury {
@@ -260,13 +268,15 @@
       align-items: center;
       gap: 6px;
       transition: color 0.2s;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }
 
     .link-luxury:hover {
-      color: var(--accent);
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255,255,255,0.6);
     }
 
-    /* 3. SUB-BARRA APPLE STRIP */
+    /* 3. SUB-BARRA PRODUCTOS */
     .subnav-strip {
       background: #090b0e;
       padding: 1.2rem 2rem;
@@ -293,7 +303,7 @@
     }
 
     .subnav-item:hover {
-      color: var(--accent);
+      color: #fff;
       transform: translateY(-2px);
     }
 
@@ -302,12 +312,13 @@
     }
 
     .subnav-tag {
-      color: var(--accent);
+      color: #e2e8f0;
       font-size: 0.65rem;
       font-weight: 800;
+      letter-spacing: 0.5px;
     }
 
-    /* 4. PARALLAX HORIZONTAL STORE */
+    /* 4. CATÁLOGO HORIZONTAL PARALLAX */
     .horizontal-scroll-container {
       position: relative;
       height: 400vh;
@@ -397,7 +408,7 @@
       font-size: 0.75rem;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #e2e8f0;
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
@@ -479,7 +490,7 @@
       background: #20ba5a;
     }
 
-    /* 5. COMPARATIVA APPLE STORE */
+    /* 5. COMPARATIVA */
     .compare-section {
       padding: 8rem 4rem;
       background: #000;
@@ -585,14 +596,22 @@
 </head>
 <body>
 
-  <!-- 1. HEADER CON LOGO CINZEL -->
+  <!-- 1. HEADER CON LOGO CROMO PLATEADO -->
   <header>
     <a href="#" class="brand-container">
       <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="#d4af37" stroke-width="4" fill="rgba(212,175,55,0.05)"/>
-        <path d="M50 16 L80 34 L80 66 L50 84 L20 66 L20 34 Z" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4"/>
-        <path d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z" fill="#ffffff"/>
-        <circle cx="50" cy="50" r="3" fill="#d4af37"/>
+        <defs>
+          <linearGradient id="silverGradHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="40%" stop-color="#cfd4dc"/>
+            <stop offset="70%" stop-color="#8a909d"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+          </linearGradient>
+        </defs>
+        <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="url(#silverGradHeader)" stroke-width="4" fill="rgba(255,255,255,0.04)"/>
+        <path d="M50 16 L80 34 L80 66 L50 84 L20 66 L20 34 Z" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.6"/>
+        <path d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z" fill="url(#silverGradHeader)"/>
+        <circle cx="50" cy="50" r="3" fill="#ffffff"/>
       </svg>
       <span class="brand-name">IRIDIUM</span>
     </a>
@@ -611,17 +630,29 @@
     </ul>
   </header>
 
-  <!-- 2. HERO VIDEO (FONDO PRINCIPAL AL INICIO) -->
+  <!-- 2. HERO VIDEO (ALTA LUMINOSIDAD) -->
   <section class="hero-video-section">
     <video class="video-bg" autoplay loop muted playsinline preload="auto">
       <source src="video.mp4" type="video/mp4">
     </video>
     <div class="video-vignette"></div>
+    
     <div class="hero-content">
       <svg class="hero-badge-symbol" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="#d4af37" stroke-width="3"/>
-        <path d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z" fill="#d4af37"/>
+        <defs>
+          <linearGradient id="silverGradHero" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="35%" stop-color="#e0e3e8"/>
+            <stop offset="65%" stop-color="#9aa0ad"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+          </linearGradient>
+        </defs>
+        <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="url(#silverGradHero)" stroke-width="3.5"/>
+        <path d="M50 16 L80 34 L80 66 L50 84 L20 66 L20 34 Z" stroke="#ffffff" stroke-width="1.2" stroke-opacity="0.8"/>
+        <path d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z" fill="url(#silverGradHero)"/>
+        <circle cx="50" cy="50" r="3.5" fill="#ffffff"/>
       </svg>
+
       <h1 class="hero-title">IRIDIUM</h1>
       <p class="hero-tagline">Luxury Streetwear Performance</p>
       <div class="cta-group">
