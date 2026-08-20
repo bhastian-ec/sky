@@ -1,24 +1,621 @@
-  <!-- SCRIPT CORREGIDO Y ROBUSTO -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>IRIDIUM — Luxury Streetwear & Apparel</title>
+
+  <!-- Tipografías: Cinzel + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050608;
+      --surface: #0e1014;
+      --card-bg: #12141a;
+      --silver: #e2e8f0;
+      --silver-glow: rgba(226, 232, 240, 0.35);
+      --text: #f8f9fa;
+      --text-muted: #8a909d;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(226, 232, 240, 0.5);
+      --font-title: 'Cinzel', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 1. NAVEGACIÓN SUPERIOR FLOTANTE */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3.5rem;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      pointer-events: auto;
+    }
+
+    .brand-logo-svg {
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+    }
+
+    .brand-name {
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 20%, #b0b5be 60%, #e2e8f0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-pill-wrapper {
+      pointer-events: auto;
+      background: rgba(18, 20, 26, 0.65);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50px;
+      padding: 0.4rem 0.6rem 0.4rem 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .nav-links-list {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+      list-style: none;
+    }
+
+    .nav-pill-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      transition: color 0.25s ease;
+    }
+
+    .nav-pill-link:hover, .nav-pill-link.active {
+      color: #ffffff;
+    }
+
+    .header-actions {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .icon-btn {
+      background: rgba(18, 20, 26, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--border-active);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--silver-glow);
+    }
+
+    /* 2. HERO SECTION CON RESOLUCIÓN EXACTA 1280x720 */
+    .hero-container {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      padding-top: 80px;
+    }
+
+    .hero-video-box {
+      position: relative;
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      max-height: 720px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 1;
+      filter: brightness(1.08) contrast(1.05);
+    }
+
+    .video-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 40%, rgba(5, 6, 8, 0.35) 95%),
+                  linear-gradient(to bottom, transparent 75%, var(--bg) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 1.5rem;
+      max-width: 800px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .hero-badge-symbol {
+      width: 55px;
+      height: 55px;
+      margin: 0 auto 1rem;
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+    }
+
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      background: linear-gradient(180deg, #ffffff 30%, #a4abb8 80%, #767d8a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    .hero-tagline {
+      font-family: var(--font-title);
+      font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+      color: #e2e8f0;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 1.8rem;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.9);
+    }
+
+    .btn-primary-luxury {
+      background: #ffffff;
+      color: #000000;
+      padding: 0.85rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: inline-block;
+    }
+
+    .btn-primary-luxury:hover {
+      background: #e2e8f0;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--silver-glow);
+    }
+
+    /* 3. PESTAÑAS DINÁMICAS POR CARPETA */
+    .brands-section {
+      padding: 4rem 2rem 3rem;
+      background: linear-gradient(180deg, var(--bg) 0%, #090a0d 100%);
+      text-align: center;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      color: var(--silver);
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      opacity: 0.8;
+    }
+
+    .brand-tabs-container {
+      display: flex;
+      gap: 1.4rem;
+      overflow-x: auto;
+      padding: 1rem 2rem 2.5rem;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      justify-content: flex-start;
+      max-width: 1550px;
+      margin: 0 auto;
+    }
+
+    .brand-tabs-container::-webkit-scrollbar { height: 4px; }
+    .brand-tabs-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+    }
+
+    .brand-tab {
+      flex: 0 0 120px;
+      height: 120px;
+      background: radial-gradient(circle at 40% 30%, rgba(255,255,255,0.06) 0%, rgba(14,16,22,0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--silver);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .brand-tab:hover, .brand-tab.active {
+      transform: translateY(-6px);
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(226, 232, 240, 0.25);
+    }
+
+    .brand-tab span.brand-text {
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 0%, #a4abb8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* 4. CARRUSEL DINÁMICO DE PRODUCTOS */
+    .releases-section {
+      padding: 4rem 0 6rem;
+      background: #050608;
+      overflow: hidden;
+    }
+
+    .releases-header {
+      padding: 0 4rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .releases-header h2 {
+      font-family: var(--font-title);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .releases-marquee {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .releases-track {
+      display: flex;
+      gap: 2.5rem;
+      width: max-content;
+      animation: marqueeScroll 35s linear infinite;
+    }
+
+    .releases-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .product-card {
+      flex: 0 0 380px;
+      height: 540px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.2rem;
+      transition: border-color 0.4s, transform 0.4s;
+    }
+
+    .product-card:hover {
+      border-color: var(--border-active);
+      transform: translateY(-4px);
+    }
+
+    .product-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+      z-index: 1;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,6,8,0.95) 0%, rgba(5,6,8,0.3) 60%, transparent 100%);
+      z-index: 2;
+    }
+
+    .card-info {
+      position: relative;
+      z-index: 3;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--silver);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .card-title {
+      font-family: var(--font-title);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .card-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .btn-card-wa {
+      background: #ffffff;
+      color: #000;
+      padding: 0.65rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-card-wa:hover {
+      background: #25d366;
+      color: #000;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    }
+
+    footer {
+      padding: 3.5rem 2rem;
+      background: #030405;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 992px) {
+      .nav-pill-wrapper { display: none; }
+      header { padding: 0 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-video-box { border-radius: 0; border: none; }
+      .releases-header { padding: 0 1.5rem 1.5rem; }
+      .product-card { flex: 0 0 290px; height: 440px; padding: 1.5rem; }
+      .brand-tab { flex: 0 0 100px; height: 105px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="#" class="brand-container">
+      <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="silverGradHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="40%" stop-color="#cfd4dc"/>
+            <stop offset="70%" stop-color="#8a909d"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+          </linearGradient>
+        </defs>
+        <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="url(#silverGradHeader)" stroke-width="4" fill="rgba(255,255,255,0.04)"/>
+        <path d="M50 16 L80 34 L80 66 L50 84 L20 66 L20 34 Z" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.6"/>
+        <path d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z" fill="url(#silverGradHeader)"/>
+        <circle cx="50" cy="50" r="3" fill="#ffffff"/>
+      </svg>
+      <span class="brand-name">IRIDIUM</span>
+    </a>
+
+    <nav class="nav-pill-wrapper">
+      <ul class="nav-links-list">
+        <li><a href="#marcas" class="nav-pill-link active">Lanzamientos</a></li>
+        <li><a href="#marcas" class="nav-pill-link">Escuderías</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20hacer%20un%20pedido" target="_blank" class="icon-btn" title="Carrito / Pedido">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO VIDEO 1280x720 -->
+  <div class="hero-container">
+    <section class="hero-video-box">
+      <video class="video-bg" autoplay loop muted playsinline webkit-playsinline x5-playsinline preload="auto">
+        <source src="video.mp4" type="video/mp4">
+      </video>
+      <div class="video-vignette"></div>
+      
+      <div class="hero-content">
+        <svg class="hero-badge-symbol" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="silverGradHero" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="35%" stop-color="#e0e3e8"/>
+              <stop offset="65%" stop-color="#9aa0ad"/>
+              <stop offset="100%" stop-color="#ffffff"/>
+            </linearGradient>
+          </defs>
+          <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="url(#silverGradHero)" stroke-width="3.5"/>
+          <path d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z" fill="url(#silverGradHero)"/>
+        </svg>
+
+        <h1 class="hero-title">IRIDIUM</h1>
+        <p class="hero-tagline">Luxury Streetwear Performance</p>
+        <a href="#lanzamientos" class="btn-primary-luxury">Explorar Colección</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- PESTAÑAS GENERADAS AUTOMÁTICAMENTE -->
+  <section class="brands-section" id="marcas">
+    <div class="section-eyebrow">// Selecciona tu División //</div>
+    <div class="brand-tabs-container" id="brandTabsContainer">
+      <!-- Se llenará solo desde GitHub -->
+    </div>
+  </section>
+
+  <!-- CATÁLOGO DINÁMICO -->
+  <section class="releases-section" id="lanzamientos">
+    <div class="releases-header">
+      <div>
+        <span style="font-size: 0.8rem; letter-spacing: 3px; color: var(--silver); text-transform: uppercase; font-weight: 700;">Catálogo Exclusivo</span>
+        <h2 id="galleryTitle">Últimos Lanzamientos</h2>
+      </div>
+    </div>
+
+    <div class="releases-marquee">
+      <div class="releases-track" id="productTrack">
+        <!-- Las prendas se cargan solas aquí -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. WhatsApp: +593 99 502 3674</p>
+  </footer>
+
+  <!-- SCRIPT DE AUTO-LECTURA DE GITHUB -->
   <script>
-    // Configuración directa de tu repositorio
-    const GITHUB_USER = "bhastian-ec";
-    const GITHUB_REPO = "sky";
-    const GITHUB_BRANCH = "main"; // Si tu rama principal es 'master', cámbialo a "master"
+    // ==========================================
+    // INGRESA AQUÍ TUS DATOS DE GITHUB:
+    // ==========================================
+    const GITHUB_USER = "TU_USUARIO_GITHUB";
+    const GITHUB_REPO = "NOMBRE_DE_TU_REPOSITORIO";
+    const GITHUB_BRANCH = "main"; // o "master"
 
-    let groupedProducts = [];
+    let allProducts = [];
 
-    // Nomenclatura: Nombre_Del_Producto-Precio-Secuencia.ext (o variaciones simples)
+    // Limpia el nombre del archivo para convertirlo en Título y Precio
     function parseFileName(fileName) {
-      const clean = fileName.replace(/\.[^/.]+$/, "");
-      const parts = clean.split("-");
+      const cleanName = fileName.replace(/\.[^/.]+$/, ""); // Quita extensión (.jpg, .png)
+      let title = cleanName;
+      let price = "35.00";
 
-      const titleRaw = parts[0] || "Prenda IRIDIUM";
-      const title = titleRaw.replace(/_/g, " ");
-      const price = parts[1] || "35.00";
-      const sequence = parts[2] ? parseInt(parts[2], 10) : 1;
-
-      const productKey = `${titleRaw}-${price}`.toUpperCase();
-      return { productKey, title, price, sequence };
+      if (cleanName.includes("-")) {
+        const parts = cleanName.split("-");
+        title = parts[0].replace(/_/g, " ");
+        price = parts[1];
+      } else {
+        title = cleanName.replace(/_/g, " ");
+      }
+      return { title, price };
     }
 
     async function loadGitHubCatalog() {
@@ -26,86 +623,56 @@
       const track = document.getElementById("productTrack");
 
       try {
-        // Obtenemos todo el árbol de archivos en 1 sola llamada API
-        const treeUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
-        const res = await fetch(treeUrl);
-        
-        if (!res.ok) {
-          throw new Error(`GitHub API Error: ${res.status} ${res.statusText}`);
-        }
-        
-        const data = await res.json();
-        const files = data.tree || [];
+        // 1. Obtener carpetas dentro de /products
+        const rootUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/products?ref=${GITHUB_BRANCH}`;
+        const rootRes = await fetch(rootUrl);
+        const folders = await rootRes.json();
 
-        const productsMap = {};
-        const brandsSet = new Set();
+        if (!Array.isArray(folders)) return;
 
-        files.forEach(item => {
-          // Filtramos archivos dentro de cualquier ruta products/ o Products/
-          const match = item.path.match(/^products\/([^\/]+)\/(.+)$/i);
-          if (match && item.type === "blob") {
-            const brandName = match[1].toUpperCase();
-            const fileName = match[2];
-
-            // Comprobar formato de imagen
-            if (/\.(jpg|jpeg|png|webp|avif)$/i.test(fileName)) {
-              brandsSet.add(brandName);
-              const { productKey, title, price, sequence } = parseFileName(fileName);
-              const fullKey = `${brandName}_${productKey}`;
-
-              // URL raw directa para evitar bloqueos
-              const directImageUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${item.path}`;
-
-              if (!productsMap[fullKey]) {
-                productsMap[fullKey] = {
-                  id: fullKey.replace(/[^a-zA-Z0-9]/g, "_"),
-                  brand: brandName,
-                  title: title,
-                  price: price,
-                  images: []
-                };
-              }
-
-              productsMap[fullKey].images.push({
-                url: directImageUrl,
-                sequence: isNaN(sequence) ? 1 : sequence
-              });
-            }
-          }
-        });
-
-        // 1. Renderizar Pestañas dinámicas
+        // Pestaña "TODOS"
         tabsContainer.innerHTML = `
           <a href="javascript:void(0)" onclick="filterCategory('ALL')" class="brand-tab active">
             <span class="brand-text">TODOS</span>
           </a>
         `;
 
-        brandsSet.forEach(brand => {
-          tabsContainer.innerHTML += `
-            <a href="javascript:void(0)" onclick="filterCategory('${brand}')" class="brand-tab">
-              <span class="brand-text">${brand}</span>
-            </a>
-          `;
-        });
+        // 2. Recorrer cada carpeta de marca
+        for (const folder of folders) {
+          if (folder.type === "dir") {
+            const brandName = folder.name;
 
-        // 2. Ordenar fotos secuenciales por producto
-        groupedProducts = Object.values(productsMap).map(product => {
-          product.images.sort((a, b) => a.sequence - b.sequence);
-          product.imageUrls = product.images.map(img => img.url);
-          return product;
-        });
+            // Inyectar Pestaña de Marca
+            tabsContainer.innerHTML += `
+              <a href="javascript:void(0)" onclick="filterCategory('${brandName}')" class="brand-tab">
+                <span class="brand-text">${brandName}</span>
+              </a>
+            `;
 
-        if (groupedProducts.length === 0) {
-          track.innerHTML = `<p style="padding: 2rem; color: var(--text-muted);">No se encontraron imágenes dentro de la carpeta /products/. Asegúrate de subir fotos en formato .jpg o .webp.</p>`;
-          return;
+            // 3. Leer las fotos dentro de la carpeta
+            const filesRes = await fetch(folder.url);
+            const files = await filesRes.json();
+
+            if (Array.isArray(files)) {
+              files.forEach(file => {
+                if (file.type === "file" && /\.(jpg|jpeg|png|webp|avif)$/i.test(file.name)) {
+                  const { title, price } = parseFileName(file.name);
+                  allProducts.push({
+                    brand: brandName,
+                    imgUrl: file.download_url,
+                    title: title,
+                    price: price
+                  });
+                }
+              });
+            }
+          }
         }
 
         renderProducts("ALL");
 
       } catch (error) {
-        console.error("Error al leer el catálogo de GitHub:", error);
-        track.innerHTML = `<p style="padding: 2rem; color: #ff6b6b;">Error al conectar con el repositorio. Revisa la consola para más detalles.</p>`;
+        console.error("Error al cargar productos desde GitHub:", error);
       }
     }
 
@@ -114,39 +681,19 @@
       track.innerHTML = "";
 
       const filtered = filterBrand === "ALL" 
-        ? groupedProducts 
-        : groupedProducts.filter(p => p.brand.toUpperCase() === filterBrand.toUpperCase());
+        ? allProducts 
+        : allProducts.filter(p => p.brand.toUpperCase() === filterBrand.toUpperCase());
 
-      if (filtered.length === 0) {
-        track.innerHTML = `<p style="padding: 2rem; color: var(--text-muted);">No hay productos en la categoría ${filterBrand}.</p>`;
-        return;
-      }
+      // Duplicamos la lista si hay pocos productos para mantener el carrusel infinito continuo
+      const listToRender = filtered.length > 0 && filtered.length < 5 
+        ? [...filtered, ...filtered, ...filtered] 
+        : filtered;
 
-      // Duplicar si hay pocas prendas para mantener el bucle visual fluido
-      const listToRender = filtered.length < 5 ? [...filtered, ...filtered, ...filtered] : filtered;
-
-      listToRender.forEach((p, idx) => {
-        const uniqueCardId = `card_${p.id}_${idx}`;
-        const hasMultiple = p.imageUrls.length > 1;
-
+      listToRender.forEach(p => {
         const card = document.createElement("article");
         card.className = "product-card";
-        card.id = uniqueCardId;
-
-        let dotsHtml = "";
-        if (hasMultiple) {
-          dotsHtml = `
-            <div class="card-dots-indicator" id="dots_${uniqueCardId}">
-              ${p.imageUrls.map((_, i) => `<span class="card-dot ${i === 0 ? 'active' : ''}"></span>`).join('')}
-            </div>
-            <button class="card-nav-arrow arrow-prev" onclick="changeProductImage('${uniqueCardId}', -1, event)">‹</button>
-            <button class="card-nav-arrow arrow-next" onclick="changeProductImage('${uniqueCardId}', 1, event)">›</button>
-          `;
-        }
-
         card.innerHTML = `
-          <img class="card-img-main" src="${p.imageUrls[0]}" alt="${p.title}" loading="lazy" />
-          ${dotsHtml}
+          <img src="${p.imgUrl}" alt="${p.title}" loading="lazy" />
           <div class="card-overlay"></div>
           <div class="card-info">
             <span class="card-tag">// ${p.brand}</span>
@@ -157,32 +704,8 @@
             </div>
           </div>
         `;
-
-        card.dataset.images = JSON.stringify(p.imageUrls);
-        card.dataset.currentIndex = "0";
-
         track.appendChild(card);
       });
-    }
-
-    function changeProductImage(cardId, direction, event) {
-      event.stopPropagation();
-      event.preventDefault();
-
-      const card = document.getElementById(cardId);
-      if (!card) return;
-
-      const images = JSON.parse(card.dataset.images || "[]");
-      let currentIndex = parseInt(card.dataset.currentIndex, 10);
-
-      currentIndex = (currentIndex + direction + images.length) % images.length;
-      card.dataset.currentIndex = currentIndex.toString();
-
-      const imgEl = card.querySelector(".card-img-main");
-      if (imgEl) imgEl.src = images[currentIndex];
-
-      const dots = card.querySelectorAll(".card-dot");
-      dots.forEach((d, i) => d.classList.toggle("active", i === currentIndex));
     }
 
     function filterCategory(brand) {
@@ -199,3 +722,5 @@
 
     window.addEventListener("DOMContentLoaded", loadGitHubCatalog);
   </script>
+</body>
+</html>
