@@ -3,90 +3,850 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRIDIUM — High Performance Apparel</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <title>IRIDIUM — Luxury Streetwear & Apparel</title>
+
+  <!-- Tipografías: Cinzel (Títulos/Lujo) + Plus Jakarta Sans (Cuerpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #050505;
+      --bg: #050608;
+      --surface: #0e1014;
+      --card-bg: #13161c;
       --accent: #d4af37;
-      --text: #ffffff;
-      --border: rgba(255,255,255,0.1);
+      --accent-glow: rgba(212, 175, 55, 0.25);
+      --text: #f8f9fa;
+      --text-muted: #8a909d;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(212, 175, 55, 0.5);
+      --font-title: 'Cinzel', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
 
-    /* HEADER */
-    header { position: fixed; top: 0; width: 100%; padding: 2rem; display: flex; justify-content: space-between; z-index: 100; }
-    .logo { font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 4px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    /* HERO VIDEO */
-    .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-    .hero-content { position: relative; text-align: center; z-index: 2; animation: fadeIn 2s ease; }
-    h1 { font-family: 'Cinzel', serif; font-size: 4rem; letter-spacing: 8px; margin-bottom: 1rem; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    /* TIENDA HORIZONTAL */
-    .store { padding: 4rem 0; }
-    .carousel { display: flex; gap: 2rem; overflow-x: auto; padding: 2rem 4rem; scroll-behavior: smooth; }
-    .card { flex: 0 0 350px; background: #111; border: 1px solid var(--border); padding: 2rem; border-radius: 20px; transition: 0.4s; }
-    .card:hover { border-color: var(--accent); transform: translateY(-10px); }
-    .card img { width: 100%; height: 300px; object-fit: cover; border-radius: 10px; filter: grayscale(100%); transition: 0.5s; }
-    .card:hover img { filter: grayscale(0%); }
-    
-    /* BOTÓN LUJO */
-    .btn { display: inline-block; margin-top: 1.5rem; padding: 1rem 2rem; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; border-radius: 50px; transition: 0.3s; }
-    .btn:hover { background: var(--accent); color: #000; }
+    /* 1. NAVEGACIÓN PRINCIPAL */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4rem;
+      background: rgba(5, 6, 8, 0.65);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand-logo-svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .brand-name {
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropbtn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s;
+    }
+
+    .dropbtn:hover {
+      color: var(--accent);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      padding-top: 12px;
+      min-width: 240px;
+    }
+
+    .dropdown-inner {
+      background: rgba(14, 16, 20, 0.95);
+      backdrop-filter: blur(30px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0.75rem;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+    }
+
+    .dropdown-inner a {
+      color: var(--text-muted);
+      padding: 0.8rem 1.2rem;
+      display: block;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .dropdown-inner a:hover {
+      color: #fff;
+      background: rgba(212, 175, 55, 0.1);
+      padding-left: 1.4rem;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* 2. HERO VIDEO (UBICACIÓN AL INICIO - 100VH) */
+    .hero-video-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    .video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.45;
+    }
+
+    .video-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 30%, rgba(5, 6, 8, 0.8) 100%),
+                  linear-gradient(to bottom, transparent 60%, var(--bg) 100%);
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 2rem;
+      max-width: 900px;
+      animation: fadeIn 1.8s ease;
+    }
+
+    .hero-badge-symbol {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 1.5rem;
+      filter: drop-shadow(0 0 15px var(--accent));
+    }
+
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(180deg, #ffffff 30%, #a4abb8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-title);
+      font-size: clamp(0.9rem, 2vw, 1.2rem);
+      color: var(--accent);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1.4rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-primary-luxury {
+      background: #ffffff;
+      color: #000000;
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-primary-luxury:hover {
+      background: var(--accent);
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px var(--accent-glow);
+    }
+
+    .link-luxury {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .link-luxury:hover {
+      color: var(--accent);
+    }
+
+    /* 3. SUB-BARRA APPLE STRIP */
+    .subnav-strip {
+      background: #090b0e;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    .subnav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .subnav-item:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .subnav-icon {
+      font-size: 1.3rem;
+    }
+
+    .subnav-tag {
+      color: var(--accent);
+      font-size: 0.65rem;
+      font-weight: 800;
+    }
+
+    /* 4. PARALLAX HORIZONTAL STORE */
+    .horizontal-scroll-container {
+      position: relative;
+      height: 400vh;
+      background: var(--bg);
+    }
+
+    .sticky-wrapper {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .horiz-header {
+      padding: 0 10vw 2rem;
+    }
+
+    .horiz-header h3 {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .horizontal-track {
+      display: flex;
+      gap: 4vw;
+      padding: 0 10vw;
+      will-change: transform;
+    }
+
+    .product-deck-card {
+      flex: 0 0 70vw;
+      max-width: 850px;
+      height: 65vh;
+      background: var(--card-bg);
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 3.5rem;
+      transition: border-color 0.4s ease;
+    }
+
+    .product-deck-card:hover {
+      border-color: var(--border-active);
+    }
+
+    .card-img-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.55;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .product-deck-card:hover .card-img-bg {
+      transform: scale(1.04);
+      opacity: 0.75;
+    }
+
+    .card-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,6,8,0.98) 0%, rgba(5,6,8,0.4) 60%, transparent 100%);
+      z-index: 2;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 3;
+      max-width: 550px;
+    }
+
+    .card-badge {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-family: var(--font-title);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.8rem;
+      align-items: center;
+    }
+
+    .color-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .color-dot:hover {
+      transform: scale(1.15);
+    }
+
+    .dot-black { background: #111113; }
+    .dot-cream { background: #e8e2d5; }
+    .dot-military { background: #3b4238; }
+    .dot-slate { background: #3c4452; }
+
+    .card-footer-action {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+    }
+
+    .card-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .btn-buy-wa {
+      background: #25d366;
+      color: #000000;
+      border: none;
+      padding: 0.85rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+
+    .btn-buy-wa:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+      background: #20ba5a;
+    }
+
+    /* 5. COMPARATIVA APPLE STORE */
+    .compare-section {
+      padding: 8rem 4rem;
+      background: #000;
+      text-align: center;
+    }
+
+    .compare-title {
+      font-family: var(--font-title);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 4rem;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .compare-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.3s;
+    }
+
+    .compare-card:hover {
+      border-color: var(--border-active);
+    }
+
+    .compare-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+    }
+
+    .compare-name {
+      font-family: var(--font-title);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .compare-sub {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .spec-row {
+      border-top: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+
+    .spec-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .spec-value {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 4rem 2rem;
+      background: #030405;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0 1.5rem; }
+      .subnav-strip { justify-content: flex-start; gap: 2rem; }
+      .product-deck-card { flex: 0 0 85vw; height: 60vh; padding: 1.8rem; }
+      .compare-section { padding: 4rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- 1. HEADER CON LOGO CINZEL -->
   <header>
-    <div class="logo">IRIDIUM</div>
+    <a href="#" class="brand-container">
+      <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="#d4af37" stroke-width="4" fill="rgba(212,175,55,0.05)"/>
+        <path d="M50 16 L80 34 L80 66 L50 84 L20 66 L20 34 Z" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4"/>
+        <path d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z" fill="#ffffff"/>
+        <circle cx="50" cy="50" r="3" fill="#d4af37"/>
+      </svg>
+      <span class="brand-name">IRIDIUM</span>
+    </a>
+
+    <ul class="nav-menu">
+      <li class="dropdown">
+        <button class="dropbtn">Colecciones ▾</button>
+        <div class="dropdown-content">
+          <div class="dropdown-inner">
+            <a href="#deckSec">Heavyweight Hoodies</a>
+            <a href="#deckSec">Oversized T-Shirts</a>
+            <a href="#compareSec">Guía Comparativa</a>
+          </div>
+        </div>
+      </li>
+    </ul>
   </header>
 
-  <section class="hero">
-    <video class="video-bg" src="video.mp4" autoplay loop muted playsinline></video>
+  <!-- 2. HERO VIDEO (FONDO PRINCIPAL AL INICIO) -->
+  <section class="hero-video-section">
+    <video class="video-bg" autoplay loop muted playsinline preload="auto">
+      <source src="video.mp4" type="video/mp4">
+    </video>
+    <div class="video-vignette"></div>
     <div class="hero-content">
-      <h1>IRIDIUM</h1>
-      <p>Luxury Streetwear Performance</p>
-    </div>
-  </section>
-
-  <section class="store">
-    <div class="carousel" id="track">
-      <!-- Producto 1 -->
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800" alt="Hoodie">
-        <h2>Stealth Hoodie</h2>
-        <p>$65.00</p>
-        <a href="https://wa.me/593995023674?text=Hola,%20quiero%20el%20Stealth%20Hoodie" class="btn">PEDIR POR WHATSAPP</a>
-      </div>
-      <!-- Producto 2 -->
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800" alt="Tee">
-        <h2>Signature Tee</h2>
-        <p>$35.00</p>
-        <a href="https://wa.me/593995023674?text=Hola,%20quiero%20la%20Signature%20Tee" class="btn">PEDIR POR WHATSAPP</a>
-      </div>
-      <!-- Producto 3 -->
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800" alt="Zip">
-        <h2>Cyber Zip</h2>
-        <p>$75.00</p>
-        <a href="https://wa.me/593995023674?text=Hola,%20quiero%20el%20Cyber%20Zip" class="btn">PEDIR POR WHATSAPP</a>
+      <svg class="hero-badge-symbol" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="#d4af37" stroke-width="3"/>
+        <path d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z" fill="#d4af37"/>
+      </svg>
+      <h1 class="hero-title">IRIDIUM</h1>
+      <p class="hero-tagline">Luxury Streetwear Performance</p>
+      <div class="cta-group">
+        <a href="#deckSec" class="btn-primary-luxury">Explorar Colección</a>
+        <a href="#compareSec" class="link-luxury">Comparar modelos ›</a>
       </div>
     </div>
   </section>
 
+  <!-- 3. SUB-BARRA PRODUCTOS -->
+  <nav class="subnav-strip">
+    <a href="#deckSec" class="subnav-item">
+      <span class="subnav-icon">👕</span>
+      <span>T-Shirts</span>
+      <span class="subnav-tag">Signature</span>
+    </a>
+    <a href="#deckSec" class="subnav-item">
+      <span class="subnav-icon">🧥</span>
+      <span>Hoodies</span>
+      <span class="subnav-tag">Heavyweight</span>
+    </a>
+    <a href="#compareSec" class="subnav-item">
+      <span class="subnav-icon">⚖️</span>
+      <span>Comparar Telas</span>
+    </a>
+    <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20hacer%20un%20pedido" target="_blank" class="subnav-item">
+      <span class="subnav-icon">💬</span>
+      <span>WhatsApp Oficial</span>
+    </a>
+  </nav>
+
+  <!-- 4. CATÁLOGO HORIZONTAL ASHIRA PARALLAX -->
+  <section class="horizontal-scroll-container" id="deckSec">
+    <div class="sticky-wrapper">
+      <div class="horiz-header">
+        <h3>Línea Principal // Edición Limitada</h3>
+      </div>
+      <div class="horizontal-track" id="track">
+
+        <!-- PRENDA 1 -->
+        <article class="product-deck-card">
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1400" alt="IRIDIUM Stealth Hoodie" />
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-badge">Ultra-Heavy • 480 GSM</span>
+            <h2 class="card-title">Stealth Pro Hoodie</h2>
+            <p class="card-desc">Capucha doble estructurada sin cordones, hombros caídos y tacto ultra pesado.</p>
+            
+            <div class="color-swatches">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
+              <div class="color-dot dot-black" title="Obsidian Black"></div>
+              <div class="color-dot dot-military" title="Army Khaki"></div>
+              <div class="color-dot dot-slate" title="Slate Grey"></div>
+            </div>
+
+            <div class="card-footer-action">
+              <span class="card-price">$65.00</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20el%20Stealth%20Pro%20Hoodie%20($65.00)" target="_blank" class="btn-buy-wa">
+                <span>Pedir en WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PRENDA 2 -->
+        <article class="product-deck-card">
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=1400" alt="IRIDIUM Signature Tee" />
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-badge">100% Algodón Peinado • 260 GSM</span>
+            <h2 class="card-title">Signature Oversize Tee</h2>
+            <p class="card-desc">Cuello grueso indeformable de 3.2 cm, caída pesada y patronaje Boxy Fit.</p>
+            
+            <div class="color-swatches">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
+              <div class="color-dot dot-black" title="Obsidian Black"></div>
+              <div class="color-dot dot-cream" title="Off-White Cream"></div>
+            </div>
+
+            <div class="card-footer-action">
+              <span class="card-price">$35.00</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20la%20Signature%20Oversize%20Tee%20($35.00)" target="_blank" class="btn-buy-wa">
+                <span>Pedir en WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PRENDA 3 -->
+        <article class="product-deck-card">
+          <img class="card-img-bg" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1400" alt="IRIDIUM Cyber Zip" />
+          <div class="card-gradient"></div>
+          <div class="card-content">
+            <span class="card-badge">Full Zip • 420 GSM</span>
+            <h2 class="card-title">Cyber Zip Jacket</h2>
+            <p class="card-desc">Cremallera metálica bidireccional YKK con tirador personalizado y bolsillos reforzados.</p>
+            
+            <div class="color-swatches">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Colores:</span>
+              <div class="color-dot dot-black" title="Obsidian Black"></div>
+              <div class="color-dot dot-slate" title="Slate Grey"></div>
+            </div>
+
+            <div class="card-footer-action">
+              <span class="card-price">$75.00</span>
+              <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20la%20Cyber%20Zip%20Jacket%20($75.00)" target="_blank" class="btn-buy-wa">
+                <span>Pedir en WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. COMPARATIVA ESTILO APPLE -->
+  <section class="compare-section" id="compareSec">
+    <h2 class="compare-title">¿Cuál es tu prenda ideal?</h2>
+    
+    <div class="compare-grid">
+      <!-- Columna 1 -->
+      <div class="compare-card">
+        <div>
+          <img class="compare-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=700" alt="Signature Tee" />
+          <h3 class="compare-name">Signature Tee</h3>
+          <p class="compare-sub">Uso diario con caída pesada</p>
+          
+          <div class="spec-row">
+            <div class="spec-label">Gramaje</div>
+            <div class="spec-value">260 GSM</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Patronaje</div>
+            <div class="spec-value">Drop Shoulder Oversize</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Composición</div>
+            <div class="spec-value">100% Algodón Peinado</div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20la%20Signature%20Tee%20($35)" class="btn-primary-luxury" style="display:block; text-align:center;">Pedir • $35</a>
+        </div>
+      </div>
+
+      <!-- Columna 2 -->
+      <div class="compare-card">
+        <div>
+          <img class="compare-img" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=700" alt="Stealth Hoodie" />
+          <h3 class="compare-name">Stealth Hoodie</h3>
+          <p class="compare-sub">Estructura rígida y densidad máxima</p>
+          
+          <div class="spec-row">
+            <div class="spec-label">Gramaje</div>
+            <div class="spec-value">480 GSM (Ultra Heavy)</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Patronaje</div>
+            <div class="spec-value">Boxy Cut con capucha rígida</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Composición</div>
+            <div class="spec-value">80% Algodón / 20% Poly Core</div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20el%20Stealth%20Hoodie%20($65)" class="btn-primary-luxury" style="display:block; text-align:center;">Pedir • $65</a>
+        </div>
+      </div>
+
+      <!-- Columna 3 -->
+      <div class="compare-card">
+        <div>
+          <img class="compare-img" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=700" alt="Cyber Zip" />
+          <h3 class="compare-name">Cyber Zip</h3>
+          <p class="compare-sub">Versatilidad con cremallera YKK</p>
+          
+          <div class="spec-row">
+            <div class="spec-label">Gramaje</div>
+            <div class="spec-value">420 GSM</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Patronaje</div>
+            <div class="spec-value">Relaxed Street Fit</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-label">Composición</div>
+            <div class="spec-value">Algodón Friza Premium</div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20deseo%20el%20Cyber%20Zip%20($75)" class="btn-primary-luxury" style="display:block; text-align:center;">Pedir • $75</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. Pedidos directos vía WhatsApp: +593 99 502 3674</p>
+  </footer>
+
+  <!-- SCRIPT PARALLAX HORIZONTAL -->
   <script>
-    // Scroll horizontal suave con mouse
+    const horizContainer = document.getElementById('deckSec');
     const track = document.getElementById('track');
-    track.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      track.scrollLeft += e.deltaY;
-    });
+    const video = document.querySelector('.video-bg');
+
+    if (video) {
+      video.play().catch(() => {});
+    }
+
+    window.addEventListener('scroll', () => {
+      const hRect = horizContainer.getBoundingClientRect();
+      const hScrollable = horizContainer.offsetHeight - window.innerHeight;
+
+      if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
+        const progress = Math.abs(hRect.top) / hScrollable;
+        const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
+        track.style.transform = `translateX(-${progress * maxTranslate}px)`;
+      } else if (hRect.top > 0) {
+        track.style.transform = `translateX(0px)`;
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
