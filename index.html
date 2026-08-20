@@ -145,7 +145,7 @@
       box-shadow: 0 0 15px var(--silver-glow);
     }
 
-    /* 2. HERO SECTION CON RESOLUCIÓN EXACTA 1280x720 */
+    /* 2. HERO SECTION */
     .hero-container {
       position: relative;
       width: 100%;
@@ -254,7 +254,7 @@
       box-shadow: 0 10px 30px var(--silver-glow);
     }
 
-    /* 3. PESTAÑAS DINÁMICAS POR CARPETA */
+    /* 3. PESTAÑAS DINÁMICAS */
     .brands-section {
       padding: 4rem 2rem 3rem;
       background: linear-gradient(180deg, var(--bg) 0%, #090a0d 100%);
@@ -327,7 +327,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* 4. CARRUSEL DINÁMICO DE PRODUCTOS */
+    /* 4. SECCIÓN Y PRODUCTOS */
     .releases-section {
       padding: 4rem 0 6rem;
       background: #050608;
@@ -359,10 +359,11 @@
       display: flex;
       gap: 2.5rem;
       width: max-content;
-      animation: marqueeScroll 35s linear infinite;
+      animation: marqueeScroll 45s linear infinite;
     }
 
-    .releases-track:hover {
+    .releases-track:hover,
+    .releases-track:focus-within {
       animation-play-state: paused;
     }
 
@@ -391,20 +392,99 @@
       transform: translateY(-4px);
     }
 
-    .product-card img {
+    /* Galería interna de la tarjeta */
+    .card-gallery-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .card-img-slide {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.7;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
-      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: zoom-in;
     }
 
-    .product-card:hover img {
+    .card-img-slide.active {
+      opacity: 0.75;
+    }
+
+    .product-card:hover .card-img-slide.active {
       transform: scale(1.05);
-      opacity: 0.9;
+      opacity: 0.95;
+    }
+
+    /* Flechas de navegación interna */
+    .gallery-arrow {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(18, 20, 26, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      opacity: 0;
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    .product-card:hover .gallery-arrow {
+      opacity: 1;
+    }
+
+    .gallery-arrow:hover {
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+      box-shadow: 0 0 12px var(--silver-glow);
+    }
+
+    .gallery-arrow.prev { left: 14px; }
+    .gallery-arrow.next { right: 14px; }
+
+    /* Indicadores de puntos */
+    .gallery-dots {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 5px 9px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .gallery-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery-dot.active {
+      background: #ffffff;
+      width: 16px;
+      border-radius: 10px;
+      box-shadow: 0 0 6px rgba(255,255,255,0.8);
     }
 
     .card-overlay {
@@ -412,6 +492,7 @@
       inset: 0;
       background: linear-gradient(to top, rgba(5,6,8,0.95) 0%, rgba(5,6,8,0.3) 60%, transparent 100%);
       z-index: 2;
+      pointer-events: none;
     }
 
     .card-info {
@@ -431,11 +512,12 @@
 
     .card-title {
       font-family: var(--font-title);
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
       margin-bottom: 0.5rem;
+      line-height: 1.2;
     }
 
     .card-bottom {
@@ -470,6 +552,49 @@
       box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
     }
 
+    /* Modal / Lightbox de visualización rápida */
+    .image-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 4, 5, 0.92);
+      backdrop-filter: blur(15px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .image-modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      max-width: 90vw;
+      max-height: 85vh;
+      position: relative;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 12px;
+      border: 1px solid var(--border-active);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      object-fit: contain;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
     footer {
       padding: 3.5rem 2rem;
       background: #030405;
@@ -494,6 +619,7 @@
       .releases-header { padding: 0 1.5rem 1.5rem; }
       .product-card { flex: 0 0 290px; height: 440px; padding: 1.5rem; }
       .brand-tab { flex: 0 0 100px; height: 105px; }
+      .gallery-arrow { opacity: 1; }
     }
   </style>
 </head>
@@ -533,7 +659,7 @@
     </div>
   </header>
 
-  <!-- HERO VIDEO 1280x720 -->
+  <!-- HERO VIDEO -->
   <div class="hero-container">
     <section class="hero-video-box">
       <video class="video-bg" autoplay loop muted playsinline webkit-playsinline x5-playsinline preload="auto">
@@ -562,12 +688,10 @@
     </section>
   </div>
 
-  <!-- PESTAÑAS GENERADAS AUTOMÁTICAMENTE -->
+  <!-- PESTAÑAS DINÁMICAS -->
   <section class="brands-section" id="marcas">
     <div class="section-eyebrow">// Selecciona tu División //</div>
-    <div class="brand-tabs-container" id="brandTabsContainer">
-      <!-- Se llenará solo desde GitHub -->
-    </div>
+    <div class="brand-tabs-container" id="brandTabsContainer"></div>
   </section>
 
   <!-- CATÁLOGO DINÁMICO -->
@@ -580,94 +704,116 @@
     </div>
 
     <div class="releases-marquee">
-      <div class="releases-track" id="productTrack">
-        <!-- Las prendas se cargan solas aquí -->
-      </div>
+      <div class="releases-track" id="productTrack"></div>
     </div>
   </section>
+
+  <!-- MODAL PARA VER FOTOS EN TAMAÑO COMPLETO -->
+  <div class="image-modal" id="imageModal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <img id="modalImg" src="" alt="Vista previa de producto" />
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer>
     <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT DE AUTO-LECTURA DE GITHUB -->
   <script>
-    // ==========================================
-    // INGRESA AQUÍ TUS DATOS DE GITHUB:
-    // ==========================================
     const GITHUB_USER = "TU_USUARIO_GITHUB";
     const GITHUB_REPO = "NOMBRE_DE_TU_REPOSITORIO";
     const GITHUB_BRANCH = "main"; // o "master"
 
-    let allProducts = [];
+    let groupedProducts = [];
 
-    // Limpia el nombre del archivo para convertirlo en Título y Precio
+    // Parseo de archivos con soporte: Nombre-Precio-Numero.ext
     function parseFileName(fileName) {
-      const cleanName = fileName.replace(/\.[^/.]+$/, ""); // Quita extensión (.jpg, .png)
-      let title = cleanName;
+      const cleanName = fileName.replace(/\.[^/.]+$/, "");
+      const parts = cleanName.split("-");
+      
+      let title = "Prenda Iridium";
       let price = "35.00";
+      let orderIndex = 1;
 
-      if (cleanName.includes("-")) {
-        const parts = cleanName.split("-");
+      if (parts.length >= 3) {
+        title = parts[0].replace(/_/g, " ");
+        price = parts[1];
+        orderIndex = parseInt(parts[2], 10) || 1;
+      } else if (parts.length === 2) {
         title = parts[0].replace(/_/g, " ");
         price = parts[1];
       } else {
         title = cleanName.replace(/_/g, " ");
       }
-      return { title, price };
+
+      return { title, price, orderIndex };
     }
 
     async function loadGitHubCatalog() {
       const tabsContainer = document.getElementById("brandTabsContainer");
-      const track = document.getElementById("productTrack");
 
       try {
-        // 1. Obtener carpetas dentro de /products
         const rootUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/products?ref=${GITHUB_BRANCH}`;
         const rootRes = await fetch(rootUrl);
         const folders = await rootRes.json();
 
         if (!Array.isArray(folders)) return;
 
-        // Pestaña "TODOS"
         tabsContainer.innerHTML = `
-          <a href="javascript:void(0)" onclick="filterCategory('ALL')" class="brand-tab active">
+          <a href="javascript:void(0)" onclick="filterCategory('ALL', this)" class="brand-tab active">
             <span class="brand-text">TODOS</span>
           </a>
         `;
 
-        // 2. Recorrer cada carpeta de marca
+        const tempCatalog = {};
+
         for (const folder of folders) {
           if (folder.type === "dir") {
             const brandName = folder.name;
 
-            // Inyectar Pestaña de Marca
             tabsContainer.innerHTML += `
-              <a href="javascript:void(0)" onclick="filterCategory('${brandName}')" class="brand-tab">
+              <a href="javascript:void(0)" onclick="filterCategory('${brandName}', this)" class="brand-tab">
                 <span class="brand-text">${brandName}</span>
               </a>
             `;
 
-            // 3. Leer las fotos dentro de la carpeta
             const filesRes = await fetch(folder.url);
             const files = await filesRes.json();
 
             if (Array.isArray(files)) {
               files.forEach(file => {
                 if (file.type === "file" && /\.(jpg|jpeg|png|webp|avif)$/i.test(file.name)) {
-                  const { title, price } = parseFileName(file.name);
-                  allProducts.push({
-                    brand: brandName,
-                    imgUrl: file.download_url,
-                    title: title,
-                    price: price
+                  const { title, price, orderIndex } = parseFileName(file.name);
+                  const groupKey = `${brandName}__${title}__${price}`;
+
+                  if (!tempCatalog[groupKey]) {
+                    tempCatalog[groupKey] = {
+                      id: 'prod_' + Math.random().toString(36).substr(2, 9),
+                      brand: brandName,
+                      title: title,
+                      price: price,
+                      images: []
+                    };
+                  }
+
+                  tempCatalog[groupKey].images.push({
+                    url: file.download_url,
+                    order: orderIndex
                   });
                 }
               });
             }
           }
         }
+
+        // Ordenar fotos por su índice (1, 2, 3...)
+        groupedProducts = Object.values(tempCatalog).map(product => {
+          product.images.sort((a, b) => a.order - b.order);
+          product.images = product.images.map(img => img.url);
+          return product;
+        });
 
         renderProducts("ALL");
 
@@ -681,19 +827,58 @@
       track.innerHTML = "";
 
       const filtered = filterBrand === "ALL" 
-        ? allProducts 
-        : allProducts.filter(p => p.brand.toUpperCase() === filterBrand.toUpperCase());
+        ? groupedProducts 
+        : groupedProducts.filter(p => p.brand.toUpperCase() === filterBrand.toUpperCase());
 
-      // Duplicamos la lista si hay pocos productos para mantener el carrusel infinito continuo
-      const listToRender = filtered.length > 0 && filtered.length < 5 
+      if (filtered.length === 0) {
+        track.innerHTML = `<p style="padding: 2rem; color: var(--text-muted);">No hay productos en esta división.</p>`;
+        return;
+      }
+
+      // Duplicamos si son pocos para asegurar el flujo continuo de marquee
+      const listToRender = filtered.length < 5 
         ? [...filtered, ...filtered, ...filtered] 
         : filtered;
 
-      listToRender.forEach(p => {
+      listToRender.forEach((p, pIndex) => {
+        const uniqueCardId = `${p.id}_${pIndex}`;
+        const hasMultiple = p.images.length > 1;
+
         const card = document.createElement("article");
         card.className = "product-card";
+        card.id = uniqueCardId;
+
+        // Renderizado de imágenes
+        let imagesHTML = '<div class="card-gallery-wrapper">';
+        p.images.forEach((imgUrl, i) => {
+          imagesHTML += `
+            <img 
+              src="${imgUrl}" 
+              alt="${p.title}" 
+              class="card-img-slide ${i === 0 ? 'active' : ''}" 
+              data-index="${i}" 
+              loading="lazy" 
+              onclick="openModal('${imgUrl}')" 
+            />
+          `;
+        });
+        imagesHTML += '</div>';
+
+        // Renderizado de flechas y puntos si tiene más de 1 imagen
+        let controlsHTML = '';
+        if (hasMultiple) {
+          controlsHTML = `
+            <button class="gallery-arrow prev" onclick="changeSlide('${uniqueCardId}', -1, event)">&#10094;</button>
+            <button class="gallery-arrow next" onclick="changeSlide('${uniqueCardId}', 1, event)">&#10095;</button>
+            <div class="gallery-dots">
+              ${p.images.map((_, i) => `<span class="gallery-dot ${i === 0 ? 'active' : ''}" onclick="setSlide('${uniqueCardId}', ${i}, event)"></span>`).join('')}
+            </div>
+          `;
+        }
+
         card.innerHTML = `
-          <img src="${p.imgUrl}" alt="${p.title}" loading="lazy" />
+          ${imagesHTML}
+          ${controlsHTML}
           <div class="card-overlay"></div>
           <div class="card-info">
             <span class="card-tag">// ${p.brand}</span>
@@ -704,16 +889,60 @@
             </div>
           </div>
         `;
+
         track.appendChild(card);
       });
     }
 
-    function filterCategory(brand) {
+    // Funciones de navegación de galería interna
+    function changeSlide(cardId, step, evt) {
+      if (evt) evt.stopPropagation();
+      const card = document.getElementById(cardId);
+      const slides = card.querySelectorAll(".card-img-slide");
+      const dots = card.querySelectorAll(".gallery-dot");
+
+      let activeIndex = Array.from(slides).findIndex(s => s.classList.contains("active"));
+      slides[activeIndex].classList.remove("active");
+      if (dots.length) dots[activeIndex].classList.remove("active");
+
+      activeIndex = (activeIndex + step + slides.length) % slides.length;
+
+      slides[activeIndex].classList.add("active");
+      if (dots.length) dots[activeIndex].classList.add("active");
+    }
+
+    function setSlide(cardId, targetIndex, evt) {
+      if (evt) evt.stopPropagation();
+      const card = document.getElementById(cardId);
+      const slides = card.querySelectorAll(".card-img-slide");
+      const dots = card.querySelectorAll(".gallery-dot");
+
+      slides.forEach(s => s.classList.remove("active"));
+      dots.forEach(d => d.classList.remove("active"));
+
+      slides[targetIndex].classList.add("active");
+      dots[targetIndex].classList.add("active");
+    }
+
+    // Modal para ampliar fotos
+    function openModal(src) {
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImg");
+      modalImg.src = src;
+      modal.classList.add("active");
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("imageModal");
+      modal.classList.remove("active");
+    }
+
+    function filterCategory(brand, element) {
       const tabs = document.querySelectorAll(".brand-tab");
       const title = document.getElementById("galleryTitle");
 
       tabs.forEach(t => t.classList.remove("active"));
-      event.currentTarget.classList.add("active");
+      if (element) element.classList.add("active");
 
       title.innerText = brand === "ALL" ? "Últimos Lanzamientos" : `Colección // ${brand}`;
       renderProducts(brand);
@@ -724,3 +953,4 @@
   </script>
 </body>
 </html>
+
