@@ -40,7 +40,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. NAVEGACIÓN SUPERIOR FLOTANTE */
+    /* 1. NAVEGACIÓN FLOTANTE */
     header {
       position: fixed;
       top: 0;
@@ -145,7 +145,7 @@
       box-shadow: 0 0 15px var(--silver-glow);
     }
 
-    /* 2. HERO SECTION CON RESOLUCIÓN EXACTA 1280x720 */
+    /* 2. HERO VIDEO (1280x720 / 16:9) */
     .hero-container {
       position: relative;
       width: 100%;
@@ -254,7 +254,7 @@
       box-shadow: 0 10px 30px var(--silver-glow);
     }
 
-    /* 3. PESTAÑAS DINÁMICAS POR CARPETA */
+    /* 3. PESTAÑAS DINÁMICAS */
     .brands-section {
       padding: 4rem 2rem 3rem;
       background: linear-gradient(180deg, var(--bg) 0%, #090a0d 100%);
@@ -327,7 +327,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* 4. CARRUSEL DINÁMICO DE PRODUCTOS */
+    /* 4. CARRUSEL Y TARJETA CON SOPORTE MULTI-FOTO */
     .releases-section {
       padding: 4rem 0 6rem;
       background: #050608;
@@ -391,20 +391,75 @@
       transform: translateY(-4px);
     }
 
-    .product-card img {
+    .card-img-main {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       opacity: 0.7;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
       z-index: 1;
     }
 
-    .product-card:hover img {
-      transform: scale(1.05);
+    .product-card:hover .card-img-main {
+      transform: scale(1.04);
       opacity: 0.9;
+    }
+
+    /* Galería Multi-foto en Tarjeta */
+    .card-nav-arrow {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      background: rgba(14, 16, 20, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.3s, background 0.2s;
+    }
+
+    .product-card:hover .card-nav-arrow {
+      opacity: 1;
+    }
+
+    .card-nav-arrow:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .arrow-prev { left: 14px; }
+    .arrow-next { right: 14px; }
+
+    .card-dots-indicator {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      display: flex;
+      gap: 5px;
+      z-index: 5;
+    }
+
+    .card-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.3s;
+    }
+
+    .card-dot.active {
+      background: #ffffff;
+      width: 16px;
+      border-radius: 10px;
     }
 
     .card-overlay {
@@ -562,15 +617,13 @@
     </section>
   </div>
 
-  <!-- PESTAÑAS GENERADAS AUTOMÁTICAMENTE -->
+  <!-- PESTAÑAS DINÁMICAS -->
   <section class="brands-section" id="marcas">
     <div class="section-eyebrow">// Selecciona tu División //</div>
-    <div class="brand-tabs-container" id="brandTabsContainer">
-      <!-- Se llenará solo desde GitHub -->
-    </div>
+    <div class="brand-tabs-container" id="brandTabsContainer"></div>
   </section>
 
-  <!-- CATÁLOGO DINÁMICO -->
+  <!-- CATÁLOGO DINÁMICO MULTI-FOTO -->
   <section class="releases-section" id="lanzamientos">
     <div class="releases-header">
       <div>
@@ -580,9 +633,7 @@
     </div>
 
     <div class="releases-marquee">
-      <div class="releases-track" id="productTrack">
-        <!-- Las prendas se cargan solas aquí -->
-      </div>
+      <div class="releases-track" id="productTrack"></div>
     </div>
   </section>
 
@@ -591,77 +642,80 @@
     <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT DE AUTO-LECTURA DE GITHUB -->
+  <!-- SCRIPT DE PROCESAMIENTO Y AGRUPACIÓN MULTI-FOTO -->
   <script>
-    // ==========================================
-    // INGRESA AQUÍ TUS DATOS DE GITHUB:
-    // ==========================================
     const GITHUB_USER = "TU_USUARIO_GITHUB";
     const GITHUB_REPO = "NOMBRE_DE_TU_REPOSITORIO";
-    const GITHUB_BRANCH = "main"; // o "master"
+    const GITHUB_BRANCH = "main";
 
-    let allProducts = [];
+    let groupedProducts = [];
 
-    // Limpia el nombre del archivo para convertirlo en Título y Precio
+    // Nomenclatura: Nombre_Del_Producto-Precio-Secuencia.ext
     function parseFileName(fileName) {
-      const cleanName = fileName.replace(/\.[^/.]+$/, ""); // Quita extensión (.jpg, .png)
-      let title = cleanName;
-      let price = "35.00";
+      const clean = fileName.replace(/\.[^/.]+$/, "");
+      const parts = clean.split("-");
 
-      if (cleanName.includes("-")) {
-        const parts = cleanName.split("-");
-        title = parts[0].replace(/_/g, " ");
-        price = parts[1];
-      } else {
-        title = cleanName.replace(/_/g, " ");
-      }
-      return { title, price };
+      const titleRaw = parts[0] || "Producto";
+      const title = titleRaw.replace(/_/g, " ");
+      const price = parts[1] || "35.00";
+      const sequence = parts[2] ? parseInt(parts[2], 10) : 1;
+
+      // Llave única para agrupar fotos del mismo artículo
+      const productKey = `${titleRaw}-${price}`.toUpperCase();
+
+      return { productKey, title, price, sequence };
     }
 
     async function loadGitHubCatalog() {
       const tabsContainer = document.getElementById("brandTabsContainer");
-      const track = document.getElementById("productTrack");
 
       try {
-        // 1. Obtener carpetas dentro de /products
         const rootUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/products?ref=${GITHUB_BRANCH}`;
         const rootRes = await fetch(rootUrl);
         const folders = await rootRes.json();
 
         if (!Array.isArray(folders)) return;
 
-        // Pestaña "TODOS"
         tabsContainer.innerHTML = `
           <a href="javascript:void(0)" onclick="filterCategory('ALL')" class="brand-tab active">
             <span class="brand-text">TODOS</span>
           </a>
         `;
 
-        // 2. Recorrer cada carpeta de marca
+        const productsMap = {};
+
         for (const folder of folders) {
           if (folder.type === "dir") {
             const brandName = folder.name;
 
-            // Inyectar Pestaña de Marca
             tabsContainer.innerHTML += `
               <a href="javascript:void(0)" onclick="filterCategory('${brandName}')" class="brand-tab">
                 <span class="brand-text">${brandName}</span>
               </a>
             `;
 
-            // 3. Leer las fotos dentro de la carpeta
             const filesRes = await fetch(folder.url);
             const files = await filesRes.json();
 
             if (Array.isArray(files)) {
               files.forEach(file => {
                 if (file.type === "file" && /\.(jpg|jpeg|png|webp|avif)$/i.test(file.name)) {
-                  const { title, price } = parseFileName(file.name);
-                  allProducts.push({
-                    brand: brandName,
-                    imgUrl: file.download_url,
-                    title: title,
-                    price: price
+                  const { productKey, title, price, sequence } = parseFileName(file.name);
+                  const fullKey = `${brandName}_${productKey}`;
+
+                  if (!productsMap[fullKey]) {
+                    productsMap[fullKey] = {
+                      id: fullKey.replace(/[^a-zA-Z0-9]/g, "_"),
+                      brand: brandName,
+                      title: title,
+                      price: price,
+                      images: []
+                    };
+                  }
+
+                  productsMap[fullKey].images.push({
+                    url: file.download_url,
+                    sequence: isNaN(sequence) ? 1 : sequence
                   });
                 }
               });
@@ -669,10 +723,17 @@
           }
         }
 
+        // Ordenar las fotos de cada producto por su secuencia (1, 2, 3...)
+        groupedProducts = Object.values(productsMap).map(product => {
+          product.images.sort((a, b) => a.sequence - b.sequence);
+          product.imageUrls = product.images.map(img => img.url);
+          return product;
+        });
+
         renderProducts("ALL");
 
       } catch (error) {
-        console.error("Error al cargar productos desde GitHub:", error);
+        console.error("Error al leer desde GitHub:", error);
       }
     }
 
@@ -681,19 +742,36 @@
       track.innerHTML = "";
 
       const filtered = filterBrand === "ALL" 
-        ? allProducts 
-        : allProducts.filter(p => p.brand.toUpperCase() === filterBrand.toUpperCase());
+        ? groupedProducts 
+        : groupedProducts.filter(p => p.brand.toUpperCase() === filterBrand.toUpperCase());
 
-      // Duplicamos la lista si hay pocos productos para mantener el carrusel infinito continuo
       const listToRender = filtered.length > 0 && filtered.length < 5 
         ? [...filtered, ...filtered, ...filtered] 
         : filtered;
 
-      listToRender.forEach(p => {
+      listToRender.forEach((p, idx) => {
+        const uniqueCardId = `card_${p.id}_${idx}`;
+        const hasMultiple = p.imageUrls.length > 1;
+
         const card = document.createElement("article");
         card.className = "product-card";
+        card.id = uniqueCardId;
+
+        // Puntos indicadores
+        let dotsHtml = "";
+        if (hasMultiple) {
+          dotsHtml = `
+            <div class="card-dots-indicator" id="dots_${uniqueCardId}">
+              ${p.imageUrls.map((_, i) => `<span class="card-dot ${i === 0 ? 'active' : ''}"></span>`).join('')}
+            </div>
+            <button class="card-nav-arrow arrow-prev" onclick="changeProductImage('${uniqueCardId}', -1, event)">‹</button>
+            <button class="card-nav-arrow arrow-next" onclick="changeProductImage('${uniqueCardId}', 1, event)">›</button>
+          `;
+        }
+
         card.innerHTML = `
-          <img src="${p.imgUrl}" alt="${p.title}" loading="lazy" />
+          <img class="card-img-main" src="${p.imageUrls[0]}" alt="${p.title}" loading="lazy" />
+          ${dotsHtml}
           <div class="card-overlay"></div>
           <div class="card-info">
             <span class="card-tag">// ${p.brand}</span>
@@ -704,8 +782,34 @@
             </div>
           </div>
         `;
+
+        // Datos en memoria para slider
+        card.dataset.images = JSON.stringify(p.imageUrls);
+        card.dataset.currentIndex = "0";
+
         track.appendChild(card);
       });
+    }
+
+    // Cambiar foto individual de la tarjeta
+    function changeProductImage(cardId, direction, event) {
+      event.stopPropagation();
+      event.preventDefault();
+
+      const card = document.getElementById(cardId);
+      if (!card) return;
+
+      const images = JSON.parse(card.dataset.images || "[]");
+      let currentIndex = parseInt(card.dataset.currentIndex, 10);
+
+      currentIndex = (currentIndex + direction + images.length) % images.length;
+      card.dataset.currentIndex = currentIndex.toString();
+
+      const imgEl = card.querySelector(".card-img-main");
+      if (imgEl) imgEl.src = images[currentIndex];
+
+      const dots = card.querySelectorAll(".card-dot");
+      dots.forEach((d, i) => d.classList.toggle("active", i === currentIndex));
     }
 
     function filterCategory(brand) {
