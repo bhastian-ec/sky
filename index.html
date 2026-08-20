@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IRIDIUM — Luxury Streetwear & Apparel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>IRIDIUM — Luxury Apparel</title>
 
   <!-- Tipografías de Lujo Modernas (Syne + Plus Jakarta Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -31,31 +31,31 @@
       padding: 0;
     }
 
-    body {
+    html, body {
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      width: 100%;
     }
 
-    /* 1. NAVEGACIÓN PRINCIPAL */
+    /* 1. NAVEGACIÓN SUPERIOR TRANSLÚCIDA */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 64px;
+      height: 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 4rem;
-      background: rgba(5, 6, 8, 0.7);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
+      padding: 0 3rem;
+      background: rgba(5, 6, 8, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       z-index: 1000;
-      transition: all 0.3s ease;
     }
 
     .brand-container {
@@ -67,14 +67,14 @@
     }
 
     .brand-logo-svg {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
     }
 
     .brand-name {
       font-family: var(--font-title);
       font-weight: 800;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       letter-spacing: 5px;
       text-transform: uppercase;
       background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
@@ -85,7 +85,7 @@
     .nav-menu {
       display: flex;
       align-items: center;
-      gap: 2.5rem;
+      gap: 2rem;
       list-style: none;
     }
 
@@ -97,7 +97,7 @@
       background: none;
       border: none;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -117,8 +117,8 @@
       position: absolute;
       right: 0;
       top: 100%;
-      padding-top: 12px;
-      min-width: 240px;
+      padding-top: 10px;
+      min-width: 220px;
     }
 
     .dropdown-inner {
@@ -136,8 +136,6 @@
       display: block;
       text-decoration: none;
       font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
       border-radius: 8px;
       transition: all 0.2s;
     }
@@ -152,16 +150,115 @@
       display: block;
     }
 
-    /* 2. SUB-BARRA DE PRODUCTOS (APPLE STRIP) */
+    /* 2. HERO PRINCIPAL: VIDEO SCROLL-SCRUBBING */
+    .video-hero-scroll-container {
+      position: relative;
+      height: 380vh; /* Altura de desplazamiento para controlar el video */
+      width: 100%;
+      background: #000;
+    }
+
+    .video-sticky-viewport {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+
+    .hero-video-element {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: 1;
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .video-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 35%, rgba(5, 6, 8, 0.85) 100%),
+                  linear-gradient(to bottom, rgba(5,6,8,0.4) 0%, transparent 20%, transparent 80%, var(--bg) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .video-overlay-ui {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 2rem;
+      pointer-events: none;
+      transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    }
+
+    .hero-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 800;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.9);
+      background: linear-gradient(180deg, #ffffff 30%, #a8b0c0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .scroll-indicator {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: floatPrompt 2s infinite ease-in-out;
+    }
+
+    @keyframes floatPrompt {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50% { transform: translateY(8px); opacity: 1; }
+    }
+
+    /* 3. SUB-BARRA APPLE STRIP */
     .subnav-strip {
-      margin-top: 64px;
       background: #000;
       padding: 1.2rem 2rem;
       display: flex;
       justify-content: center;
       gap: 4rem;
+      border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       overflow-x: auto;
+      position: relative;
+      z-index: 10;
     }
 
     .subnav-item {
@@ -193,156 +290,7 @@
       font-weight: 800;
     }
 
-    /* 3. HERO KEYNOTE */
-    .hero-section {
-      padding: 5rem 2rem 3.5rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
-    }
-
-    .hero-eyebrow {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-
-    .hero-headline {
-      font-family: var(--font-title);
-      font-size: clamp(2.8rem, 6.5vw, 5.2rem);
-      font-weight: 800;
-      letter-spacing: 2px;
-      line-height: 1.08;
-      max-width: 1000px;
-      margin-bottom: 1.2rem;
-      background: linear-gradient(180deg, #ffffff 20%, #7d8494 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subhead {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      max-width: 680px;
-      line-height: 1.6;
-      margin-bottom: 2.2rem;
-    }
-
-    .cta-group {
-      display: flex;
-      gap: 1.4rem;
-      align-items: center;
-    }
-
-    .btn-primary-luxury {
-      background: #ffffff;
-      color: #000000;
-      padding: 0.9rem 2.2rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-primary-luxury:hover {
-      background: var(--accent);
-      color: #000;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px var(--accent-glow);
-    }
-
-    .link-luxury {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.2s;
-    }
-
-    .link-luxury:hover {
-      color: var(--accent);
-    }
-
-    /* 4. SECCIÓN VIDEO FULL HD SIN DISTORSIÓN */
-    .video-viewport-wrapper {
-      position: relative;
-      width: 100%;
-      height: 90vh;
-      min-height: 550px;
-      max-height: 1080px;
-      overflow: hidden;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .video-element {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      min-width: 100%;
-      min-height: 100%;
-      transform: translate3d(-50%, -50%, 0);
-      object-fit: cover; /* Garantiza 0 distorsión en cualquier ratio */
-      object-position: center center;
-      opacity: 0.7;
-    }
-
-    .video-vignette {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, transparent 40%, rgba(5, 6, 8, 0.85) 100%),
-                  linear-gradient(to bottom, var(--bg) 0%, transparent 15%, transparent 85%, var(--bg) 100%);
-      z-index: 2;
-    }
-
-    .video-overlay-content {
-      position: relative;
-      z-index: 3;
-      text-align: center;
-      padding: 0 2rem;
-    }
-
-    .video-badge-symbol {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 1.5rem;
-      filter: drop-shadow(0 0 20px var(--accent));
-    }
-
-    .video-overlay-content h2 {
-      font-family: var(--font-title);
-      font-size: clamp(2.2rem, 5vw, 4.2rem);
-      font-weight: 800;
-      letter-spacing: 6px;
-      margin-bottom: 0.6rem;
-      text-transform: uppercase;
-    }
-
-    .video-overlay-content p {
-      font-size: 1rem;
-      color: var(--accent);
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    /* 5. PARALLAX HORIZONTAL STORE (ASHIRA / APPLE STYLE) */
+    /* 4. PARALLAX HORIZONTAL STORE */
     .horizontal-scroll-container {
       position: relative;
       height: 400vh;
@@ -353,7 +301,8 @@
       position: sticky;
       top: 0;
       height: 100vh;
-      width: 100%;
+      height: 100dvh;
+      width: 100vw;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -511,7 +460,7 @@
       background: #20ba5a;
     }
 
-    /* 6. COMPARATIVA APPLE STORE */
+    /* 5. COMPARATIVA APPLE STORE */
     .compare-section {
       padding: 8rem 4rem;
       background: #000;
@@ -589,6 +538,24 @@
       font-weight: 600;
     }
 
+    .btn-primary-luxury {
+      background: #ffffff;
+      color: #000000;
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-primary-luxury:hover {
+      background: var(--accent);
+      box-shadow: 0 10px 25px var(--accent-glow);
+    }
+
     /* FOOTER */
     footer {
       padding: 4rem 2rem;
@@ -609,10 +576,9 @@
 </head>
 <body>
 
-  <!-- 1. HEADER CON LOGO DE LUJO AUTOMOTRIZ -->
+  <!-- 1. HEADER TRANSLÚCIDO -->
   <header>
     <a href="#" class="brand-container">
-      <!-- Emblema de Lujo Vectorial IRIDIUM -->
       <svg class="brand-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="#d4af37" stroke-width="4" fill="rgba(212,175,55,0.05)"/>
         <path d="M50 16 L80 34 L80 66 L50 84 L20 66 L20 34 Z" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4"/>
@@ -627,7 +593,7 @@
         <button class="dropbtn">Colecciones ▾</button>
         <div class="dropdown-content">
           <div class="dropdown-inner">
-            <a href="#videoSec">Video Premiere</a>
+            <a href="#videoHero">Video Premiere</a>
             <a href="#deckSec">Heavyweight Hoodies</a>
             <a href="#deckSec">Oversized T-Shirts</a>
             <a href="#compareSec">Guía Comparativa</a>
@@ -637,7 +603,31 @@
     </ul>
   </header>
 
-  <!-- 2. SUB-BARRA APPLE STRIP -->
+  <!-- 2. HERO PRINCIPAL: VIDEO SCROLL-SCRUBBING -->
+  <section class="video-hero-scroll-container" id="videoHero">
+    <div class="video-sticky-viewport">
+      <video 
+        id="scrubVideo"
+        class="hero-video-element"
+        src="video.mp4"
+        muted 
+        playsinline 
+        webkit-playsinline
+        preload="auto"
+      ></video>
+      
+      <div class="video-vignette"></div>
+
+      <div class="video-overlay-ui" id="videoText">
+        <p class="hero-badge">Edición Exclusiva 2026</p>
+        <h1 class="hero-title">IRIDIUM</h1>
+        <p class="hero-sub">Pura Presencia // Luxury Streetwear</p>
+        <div class="scroll-indicator">Desliza para explorar ↓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SUB-BARRA APPLE STRIP -->
   <nav class="subnav-strip">
     <a href="#deckSec" class="subnav-item">
       <span class="subnav-icon">👕</span>
@@ -659,42 +649,7 @@
     </a>
   </nav>
 
-  <!-- 3. HERO KEYNOTE -->
-  <section class="hero-section">
-    <span class="hero-eyebrow">Edición Exclusiva 2026</span>
-    <h1 class="hero-headline">Pura Presencia. Diseñado para dominar.</h1>
-    <p class="hero-subhead">Camisetas Oversize y Hoodies de alto gramaje con acabados de precisión y caída estructurada.</p>
-    <div class="cta-group">
-      <a href="#deckSec" class="btn-primary-luxury">Explorar Colección</a>
-      <a href="#compareSec" class="link-luxury">Comparar modelos ›</a>
-    </div>
-  </section>
-
-  <!-- 4. SECCIÓN VIDEO FULL HD ADAPTATIVO -->
-  <section class="video-viewport-wrapper" id="videoSec">
-    <video 
-      class="video-element"
-      autoplay 
-      loop 
-      muted 
-      playsinline 
-      webkit-playsinline
-      preload="auto"
-    >
-      <source src="video.mp4" type="video/mp4">
-    </video>
-    <div class="video-vignette"></div>
-    <div class="video-overlay-content">
-      <svg class="video-badge-symbol" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z" stroke="#d4af37" stroke-width="3"/>
-        <path d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z" fill="#d4af37"/>
-      </svg>
-      <h2>IRIDIUM DNA</h2>
-      <p>Luxury & Street Performance</p>
-    </div>
-  </section>
-
-  <!-- 5. CATÁLOGO HORIZONTAL ASHIRA PARALLAX -->
+  <!-- 4. CATÁLOGO HORIZONTAL PARALLAX -->
   <section class="horizontal-scroll-container" id="deckSec">
     <div class="sticky-wrapper">
       <div class="horiz-header">
@@ -779,7 +734,7 @@
     </div>
   </section>
 
-  <!-- 6. COMPARATIVA ESTILO APPLE -->
+  <!-- 5. COMPARATIVA ESTILO APPLE -->
   <section class="compare-section" id="compareSec">
     <h2 class="compare-title">¿Cuál es tu prenda ideal?</h2>
     
@@ -866,19 +821,63 @@
     <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. Pedidos directos vía WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT PARALLAX HORIZONTAL -->
+  <!-- SCRIPT: CONTROL DE SCROLLING BIDIRECCIONAL & PARALLAX -->
   <script>
+    const video = document.getElementById('scrubVideo');
+    const heroContainer = document.getElementById('videoHero');
+    const videoText = document.getElementById('videoText');
     const horizContainer = document.getElementById('deckSec');
     const track = document.getElementById('track');
-    const video = document.querySelector('.video-element');
 
-    // Desbloquear autoplay instantáneo
-    if (video) {
-      video.play().catch(() => {});
+    let targetTime = 0;
+    let isUnlocked = false;
+
+    // Desbloquear decodificador en móvil / escritorio al interactuar
+    function unlock() {
+      if (!isUnlocked && video) {
+        video.play().then(() => {
+          video.pause();
+          isUnlocked = true;
+        }).catch(() => {
+          video.pause();
+          isUnlocked = true;
+        });
+      }
     }
 
-    // Control del Parallax Horizontal
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', unlock, { once: true });
+    window.addEventListener('touchstart', unlock, { once: true });
+    window.addEventListener('click', unlock, { once: true });
+
+    function render() {
+      // 1. SCROLL SCRUBBING DEL VIDEO (Hacia adelante y hacia atrás)
+      const heroRect = heroContainer.getBoundingClientRect();
+      const heroScrollable = heroContainer.offsetHeight - window.innerHeight;
+
+      if (heroRect.top <= 0 && Math.abs(heroRect.top) <= heroScrollable) {
+        const fraction = Math.max(0, Math.min(1, Math.abs(heroRect.top) / heroScrollable));
+        const duration = video.duration || 10;
+        targetTime = fraction * duration;
+
+        // Desvanecimiento progresivo del texto
+        if (fraction > 0.45) {
+          videoText.style.opacity = '0';
+          videoText.style.transform = 'translateY(-40px)';
+        } else {
+          videoText.style.opacity = `${1 - (fraction * 2.2)}`;
+          videoText.style.transform = `translateY(${fraction * 50}px)`;
+        }
+      }
+
+      // Aplicar interpolación suave al video
+      if (video.duration && !video.seeking) {
+        const diff = targetTime - video.currentTime;
+        if (Math.abs(diff) > 0.03) {
+          video.currentTime += diff * 0.22;
+        }
+      }
+
+      // 2. PARALLAX HORIZONTAL STORE
       const hRect = horizContainer.getBoundingClientRect();
       const hScrollable = horizContainer.offsetHeight - window.innerHeight;
 
@@ -889,7 +888,11 @@
       } else if (hRect.top > 0) {
         track.style.transform = `translateX(0px)`;
       }
-    }, { passive: true });
+
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
   </script>
 </body>
 </html>
