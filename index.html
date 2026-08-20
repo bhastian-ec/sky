@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>IRIDIUM — Luxury Streetwear & Apparel</title>
 
   <!-- Tipografías: Cinzel (Títulos/Lujo) + Plus Jakarta Sans (Cuerpo) -->
@@ -30,14 +30,16 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    body {
+    html, body {
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* 1. NAVEGACIÓN PRINCIPAL */
@@ -156,36 +158,43 @@
       display: block;
     }
 
-    /* 2. HERO VIDEO (BRILLANTE, NÍTIDO Y SIN MÁSCARA PESADA) */
+    /* 2. HERO VIDEO ULTRA HD (OPTIMIZADO GPU Y RESPONSIVE) */
     .hero-video-section {
       position: relative;
       width: 100%;
       height: 100vh;
-      min-height: 600px;
+      min-height: 550px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       background: #000;
+      transform: translate3d(0, 0, 0);
     }
 
     .video-bg {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%) translateZ(0);
       object-fit: cover;
-      object-position: center;
-      opacity: 0.95; /* Total visibilidad */
-      filter: brightness(1.12) contrast(1.08) saturate(1.05); /* Incremento de luminosidad y viveza */
+      opacity: 1;
+      filter: brightness(1.08) contrast(1.05);
+      image-rendering: -webkit-optimize-contrast;
+      backface-visibility: hidden;
+      perspective: 1000px;
+      will-change: transform;
+      z-index: 1;
     }
 
-    /* Gradiente mínimo solo para legibilidad del texto */
     .video-vignette {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, transparent 40%, rgba(5, 6, 8, 0.4) 90%),
+      background: radial-gradient(circle at center, transparent 35%, rgba(5, 6, 8, 0.35) 90%),
                   linear-gradient(to bottom, transparent 75%, var(--bg) 100%);
       z-index: 2;
       pointer-events: none;
@@ -195,7 +204,7 @@
       position: relative;
       z-index: 3;
       text-align: center;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
       max-width: 900px;
       animation: fadeIn 1.5s ease;
     }
@@ -209,7 +218,7 @@
 
     .hero-title {
       font-family: var(--font-title);
-      font-size: clamp(3.2rem, 7.5vw, 6rem);
+      font-size: clamp(2.8rem, 8vw, 6rem);
       font-weight: 900;
       letter-spacing: 10px;
       text-transform: uppercase;
@@ -222,26 +231,27 @@
 
     .hero-tagline {
       font-family: var(--font-title);
-      font-size: clamp(0.9rem, 2vw, 1.25rem);
+      font-size: clamp(0.85rem, 2.2vw, 1.25rem);
       color: #e2e8f0;
-      letter-spacing: 6px;
+      letter-spacing: 5px;
       text-transform: uppercase;
       font-weight: 600;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.2rem;
       text-shadow: 0 4px 15px rgba(0,0,0,0.9);
     }
 
     .cta-group {
       display: flex;
-      gap: 1.4rem;
+      gap: 1.2rem;
       justify-content: center;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .btn-primary-luxury {
       background: #ffffff;
       color: #000000;
-      padding: 0.95rem 2.4rem;
+      padding: 0.95rem 2.2rem;
       border-radius: 50px;
       font-weight: 700;
       font-size: 0.85rem;
@@ -286,6 +296,7 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .subnav-item {
@@ -299,6 +310,7 @@
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
+      white-space: nowrap;
       transition: color 0.2s, transform 0.2s;
     }
 
@@ -342,7 +354,7 @@
 
     .horiz-header h3 {
       font-family: var(--font-title);
-      font-size: 2.2rem;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
       letter-spacing: 3px;
       font-weight: 700;
       text-transform: uppercase;
@@ -353,6 +365,7 @@
       gap: 4vw;
       padding: 0 10vw;
       will-change: transform;
+      transform: translate3d(0, 0, 0);
     }
 
     .product-deck-card {
@@ -415,7 +428,7 @@
 
     .card-title {
       font-family: var(--font-title);
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
       margin-bottom: 0.5rem;
       font-weight: 700;
       letter-spacing: 2px;
@@ -459,6 +472,7 @@
       display: flex;
       align-items: center;
       gap: 1.8rem;
+      flex-wrap: wrap;
     }
 
     .card-price {
@@ -490,7 +504,7 @@
       background: #20ba5a;
     }
 
-    /* 5. COMPARATIVA */
+    /* 5. COMPARATIVA APPLE STORE */
     .compare-section {
       padding: 8rem 4rem;
       background: #000;
@@ -499,7 +513,7 @@
 
     .compare-title {
       font-family: var(--font-title);
-      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-size: clamp(1.8rem, 4vw, 3.5rem);
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -586,11 +600,13 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* ADAPTACIÓN PARA MÓVILES (SMARTPHONES Y TABLETS) */
     @media (max-width: 768px) {
       header { padding: 0 1.5rem; }
-      .subnav-strip { justify-content: flex-start; gap: 2rem; }
+      .subnav-strip { justify-content: flex-start; gap: 2rem; padding: 1rem 1.5rem; }
       .product-deck-card { flex: 0 0 85vw; height: 60vh; padding: 1.8rem; }
       .compare-section { padding: 4rem 1.5rem; }
+      .compare-title { margin-bottom: 2.5rem; }
     }
   </style>
 </head>
@@ -630,9 +646,21 @@
     </ul>
   </header>
 
-  <!-- 2. HERO VIDEO (ALTA LUMINOSIDAD) -->
+  <!-- 2. HERO VIDEO FULL RESPONSIVE & ULTRA HD OPTIMIZED -->
   <section class="hero-video-section">
-    <video class="video-bg" autoplay loop muted playsinline preload="auto">
+    <video 
+      class="video-bg" 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      webkit-playsinline
+      x5-playsinline
+      preload="auto"
+    >
+      <!-- Formato WebM para navegadores modernos y menor peso -->
+      <source src="video.webm" type="video/webm">
+      <!-- Formato MP4 con soporte universal (iOS / Android / Safari / Chrome) -->
       <source src="video.mp4" type="video/mp4">
     </video>
     <div class="video-vignette"></div>
@@ -856,26 +884,48 @@
     <p>© 2026 IRIDIUM Clothing. Todos los derechos reservados. Pedidos directos vía WhatsApp: +593 99 502 3674</p>
   </footer>
 
-  <!-- SCRIPT PARALLAX HORIZONTAL -->
+  <!-- SCRIPT OPTIMIZADO (AUTOPLAY TOTAL Y PARALLAX FLUIDO) -->
   <script>
     const horizContainer = document.getElementById('deckSec');
     const track = document.getElementById('track');
     const video = document.querySelector('.video-bg');
 
-    if (video) {
-      video.play().catch(() => {});
-    }
+    // Desbloqueo universal de Autoplay para iOS / Android
+    const playVideoSafely = () => {
+      if (video) {
+        video.muted = true;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Intento secundario si el navegador bloquea en modo de bajo consumo
+            document.addEventListener('touchstart', () => video.play(), { once: true });
+            document.addEventListener('click', () => video.play(), { once: true });
+          });
+        }
+      }
+    };
 
+    window.addEventListener('load', playVideoSafely);
+    document.addEventListener('DOMContentLoaded', playVideoSafely);
+
+    // Parallax Scroll con RequestAnimationFrame para 60-120fps en móviles
+    let isTicking = false;
     window.addEventListener('scroll', () => {
-      const hRect = horizContainer.getBoundingClientRect();
-      const hScrollable = horizContainer.offsetHeight - window.innerHeight;
+      if (!isTicking) {
+        window.requestAnimationFrame(() => {
+          const hRect = horizContainer.getBoundingClientRect();
+          const hScrollable = horizContainer.offsetHeight - window.innerHeight;
 
-      if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
-        const progress = Math.abs(hRect.top) / hScrollable;
-        const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
-        track.style.transform = `translateX(-${progress * maxTranslate}px)`;
-      } else if (hRect.top > 0) {
-        track.style.transform = `translateX(0px)`;
+          if (hRect.top <= 0 && Math.abs(hRect.top) <= hScrollable) {
+            const progress = Math.abs(hRect.top) / hScrollable;
+            const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
+            track.style.transform = `translate3d(-${progress * maxTranslate}px, 0, 0)`;
+          } else if (hRect.top > 0) {
+            track.style.transform = `translate3d(0, 0, 0)`;
+          }
+          isTicking = false;
+        });
+        isTicking = true;
       }
     }, { passive: true });
   </script>
