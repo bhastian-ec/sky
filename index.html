@@ -1,1753 +1,2037 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 
-<title>IRIDIUM — Luxury Streetwear</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta
+    name="theme-color"
+    content="#050608"
+>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>
+IRIDIUM — Luxury Streetwear & Apparel
+</title>
+
+
+<!-- =====================================================
+     TIPOGRAFÍAS
+===================================================== -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
 
 <style>
 
-/* =========================================================
+/* =====================================================
    VARIABLES
-========================================================= */
+===================================================== */
 
-:root{
-    --bg:#050608;
-    --bg2:#080a0d;
-    --surface:#0d0f13;
-    --card:#111318;
+:root {
 
-    --silver:#e2e8f0;
-    --silver2:#aeb5c0;
+    --bg: #050608;
+    --black: #000000;
 
-    --white:#ffffff;
-    --muted:#858c99;
+    --surface: #0b0d11;
+    --card: #111319;
 
-    --border:rgba(255,255,255,.09);
-    --border2:rgba(255,255,255,.20);
+    --silver: #e2e8f0;
+    --silver-light: #ffffff;
+    --silver-dark: #8b929d;
 
-    --title:'Cinzel',serif;
-    --body:'Plus Jakarta Sans',sans-serif;
+    --text: #f8f9fa;
+    --muted: #858b96;
+
+    --border: rgba(255,255,255,.09);
+    --border-light: rgba(255,255,255,.25);
+
+    --title: 'Cinzel', serif;
+    --body: 'Plus Jakarta Sans', sans-serif;
+
 }
 
-/* =========================================================
+
+/* =====================================================
    RESET
-========================================================= */
+===================================================== */
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+    -webkit-tap-highlight-color: transparent;
+
 }
 
-html{
-    scroll-behavior:smooth;
-    background:#050608;
+html {
+
+    background: var(--bg);
+
+    scroll-behavior: smooth;
+
 }
 
-body{
-    background:var(--bg);
-    color:white;
-    font-family:var(--body);
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
+body {
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    font-family: var(--body);
+
+    overflow-x: hidden;
+
+    -webkit-font-smoothing: antialiased;
+
 }
 
 button,
-a{
-    font-family:inherit;
+a {
+
+    font-family: inherit;
+
 }
 
-button{
-    border:0;
+button {
+
+    border: none;
+
 }
 
-/* =========================================================
+img {
+
+    max-width: 100%;
+
+}
+
+
+/* =====================================================
    HEADER
-========================================================= */
+===================================================== */
 
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:78px;
+header {
 
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+    position: fixed;
 
-    padding:0 3.5rem;
+    top: 0;
+    left: 0;
 
-    z-index:5000;
+    width: 100%;
 
-    pointer-events:none;
+    height: 78px;
+
+    padding: 0 3.5rem;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    z-index: 5000;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.85),
+            rgba(0,0,0,0)
+        );
+
 }
 
-.brand{
-    pointer-events:auto;
 
-    display:flex;
-    align-items:center;
-    gap:12px;
+/* LOGO */
 
-    color:white;
-    text-decoration:none;
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: white;
+
+    text-decoration: none;
+
+    pointer-events: auto;
+
 }
 
-.brand-logo{
-    width:34px;
-    height:34px;
+.brand-logo {
+
+    width: 34px;
+    height: 34px;
 
     filter:
-        drop-shadow(0 0 7px rgba(255,255,255,.4));
+        drop-shadow(
+            0 0 7px rgba(255,255,255,.4)
+        );
+
 }
 
-.brand-name{
-    font-family:var(--title);
-    font-size:1.25rem;
-    font-weight:800;
-    letter-spacing:5px;
+.brand-name {
+
+    font-family: var(--title);
+
+    font-size: 1.25rem;
+
+    font-weight: 800;
+
+    letter-spacing: 5px;
 
     background:
         linear-gradient(
             135deg,
-            #fff 20%,
+            #ffffff 20%,
             #aeb4bf 60%,
-            #fff 100%
+            #ffffff 100%
         );
 
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
 }
 
-/* MENU */
 
-.top-menu{
-    pointer-events:auto;
+/* =====================================================
+   CINTA DE OPCIONES SUPERIOR DERECHA (TOP MENU)
+===================================================== */
 
-    display:flex;
-    align-items:center;
+.top-menu {
 
-    gap:1.8rem;
+    pointer-events: auto;
 
-    padding:10px 18px;
+    display: flex;
 
-    border-radius:50px;
+    align-items: center;
 
-    background:rgba(14,16,20,.72);
+    gap: 1.8rem;
 
-    border:1px solid rgba(255,255,255,.13);
+    padding: 10px 18px;
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    border-radius: 50px;
+
+    background: rgba(14,16,20,.72);
+
+    border: 1px solid rgba(255,255,255,.13);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
 
     box-shadow:
         0 10px 35px rgba(0,0,0,.45),
         inset 0 1px 0 rgba(255,255,255,.08);
+
 }
 
-.top-menu a{
-    color:#9da4af;
+.top-menu a {
 
-    text-decoration:none;
+    color: #9da4af;
 
-    font-size:.76rem;
-    font-weight:600;
+    text-decoration: none;
 
-    letter-spacing:1px;
+    font-size: .76rem;
 
-    transition:.25s;
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    transition: .25s;
+
 }
 
 .top-menu a:hover,
-.top-menu a.active{
-    color:white;
+.top-menu a.active {
+
+    color: white;
+
 }
 
-/* =========================================================
+
+/* =====================================================
+   APP
+===================================================== */
+
+#app {
+
+    min-height: 100vh;
+
+}
+
+.view {
+
+    min-height: 100vh;
+
+    animation:
+        pageIn .45s ease;
+
+}
+
+@keyframes pageIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =====================================================
    HERO
-========================================================= */
+===================================================== */
 
-.hero{
-    width:100%;
+.hero {
 
-    background:#000;
+    width: 100%;
 
-    padding-top:78px;
-    padding-bottom:0;
-}
+    min-height: auto;
 
-.hero-video-container{
-    width:min(1280px,100%);
+    padding:
+        76px 0 8px;
 
-    aspect-ratio:16/9;
+    display: flex;
 
-    max-height:720px;
+    justify-content: center;
 
-    margin:0 auto;
-
-    position:relative;
-
-    overflow:hidden;
-
-    background:#000;
-
-    border-radius:20px;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.8);
-}
-
-/*
-   MUY IMPORTANTE:
-   El video conserva siempre 16:9.
-   No se estira.
-*/
-
-.hero-video{
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    object-position:center;
-
-    display:block;
-}
-
-.hero-overlay{
-    position:absolute;
-
-    inset:0;
+    align-items: center;
 
     background:
-        radial-gradient(
-            circle at center,
-            transparent 30%,
-            rgba(0,0,0,.4) 100%
-        ),
+        #000;
 
+}
+
+.hero-video-wrapper {
+
+    position: relative;
+
+    width: min(1280px, 100vw);
+
+    aspect-ratio: 16 / 9;
+
+    max-height: 720px;
+
+    overflow: hidden;
+
+    background: #000;
+
+    border-radius: 20px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.9);
+
+}
+
+.hero-video {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    background: #000;
+
+}
+
+.hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
         linear-gradient(
             to bottom,
-            transparent 65%,
-            #050608 100%
+            rgba(0,0,0,.02),
+            rgba(0,0,0,.15) 50%,
+            rgba(0,0,0,.9) 100%
         );
+
+    pointer-events: none;
+
 }
 
-.hero-content{
-    position:absolute;
+.hero-content {
 
-    inset:0;
+    position: absolute;
 
-    z-index:2;
+    left: 50%;
 
-    display:flex;
-    flex-direction:column;
+    bottom: 10%;
 
-    align-items:center;
-    justify-content:center;
+    transform:
+        translateX(-50%);
 
-    text-align:center;
+    width: 90%;
 
-    padding:20px;
+    text-align: center;
+
 }
 
-.hero-symbol{
-    width:55px;
-    height:55px;
+.hero-symbol {
 
-    margin-bottom:15px;
+    width: 52px;
+    height: 52px;
+
+    margin-bottom: 12px;
 
     filter:
-        drop-shadow(0 0 18px rgba(255,255,255,.55));
+        drop-shadow(
+            0 0 20px rgba(255,255,255,.5)
+        );
+
 }
 
-.hero-title{
-    font-family:var(--title);
+.hero-title {
 
-    font-size:clamp(2.3rem,6vw,4.8rem);
+    font-family: var(--title);
 
-    font-weight:900;
+    font-size:
+        clamp(
+            2.5rem,
+            7vw,
+            5rem
+        );
 
-    letter-spacing:8px;
+    font-weight: 900;
+
+    letter-spacing: 9px;
 
     background:
         linear-gradient(
             180deg,
-            #fff 20%,
-            #b3bac5 70%,
-            #747b88 100%
+            #ffffff 20%,
+            #b1b7c0 70%,
+            #737984 100%
         );
 
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
 }
 
-.hero-subtitle{
-    margin-top:8px;
+.hero-subtitle {
 
-    font-family:var(--title);
+    margin-top: 8px;
 
-    font-size:clamp(.7rem,1.6vw,1rem);
+    color: #e1e5e9;
 
-    letter-spacing:4px;
+    font-family: var(--title);
 
-    color:#e2e8f0;
+    font-size:
+        clamp(
+            .7rem,
+            1.6vw,
+            1rem
+        );
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
 }
 
-.hero-button{
-    margin-top:25px;
 
-    padding:13px 28px;
+/* =====================================================
+   EXPLORAR
+===================================================== */
 
-    border-radius:50px;
+.explore {
 
-    background:#050608;
+    padding:
+        35px 20px 65px;
 
-    border:1px solid rgba(255,255,255,.35);
-
-    color:#dfe4eb;
-
-    text-decoration:none;
-
-    font-size:.75rem;
-
-    font-weight:700;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-
-    transition:.3s;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.5);
-}
-
-.hero-button:hover{
-    color:white;
-
-    border-color:white;
-
-    box-shadow:
-        0 0 20px rgba(226,232,240,.25);
-
-    transform:translateY(-2px);
-}
-
-/* =========================================================
-   CATEGORIAS
-========================================================= */
-
-.categories{
-    padding:35px 20px 40px;
+    text-align: center;
 
     background:
         linear-gradient(
             180deg,
-            #050608 0%,
-            #090b0e 100%
+            #000000 0%,
+            #07090c 50%,
+            #000000 100%
         );
 
-    text-align:center;
 }
 
-.section-label{
-    font-family:var(--title);
+.explore-label {
 
-    font-size:.8rem;
+    color: #aeb4be;
 
-    letter-spacing:4px;
+    font-size: .7rem;
 
-    color:#cfd5dd;
+    letter-spacing: 4px;
 
-    margin-bottom:25px;
+    text-transform: uppercase;
 
-    text-transform:uppercase;
+    margin-bottom: 16px;
+
 }
 
-.category-list{
-    width:100%;
+.explore-title {
 
-    max-width:1500px;
+    font-family: var(--title);
 
-    margin:auto;
+    font-size:
+        clamp(
+            2rem,
+            5vw,
+            3.6rem
+        );
 
-    display:flex;
+    letter-spacing: 5px;
 
-    gap:18px;
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #aeb4be,
+            #ffffff
+        );
 
-    overflow-x:auto;
+    -webkit-background-clip: text;
 
-    padding:5px 10px 15px;
+    -webkit-text-fill-color: transparent;
 
-    scrollbar-width:thin;
-
-    scrollbar-color:#555 transparent;
 }
 
-.category-list::-webkit-scrollbar{
-    height:4px;
+.explore-text {
+
+    max-width: 650px;
+
+    margin:
+        20px auto 30px;
+
+    color: var(--muted);
+
+    line-height: 1.8;
+
+    font-size: .9rem;
+
 }
 
-.category-list::-webkit-scrollbar-thumb{
-    background:#555;
-    border-radius:10px;
+.explore-btn {
+
+    display: inline-flex;
+
+    padding:
+        15px 35px;
+
+    border-radius: 50px;
+
+    color: #000;
+
+    background: white;
+
+    text-decoration: none;
+
+    font-size: .75rem;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    transition: .3s;
+
 }
 
-.category{
-    flex:0 0 125px;
+.explore-btn:hover {
 
-    height:125px;
+    transform:
+        translateY(-3px);
 
-    border-radius:25px;
+    background:
+        #dce1e7;
 
-    position:relative;
+    box-shadow:
+        0 12px 35px
+        rgba(255,255,255,.2);
 
-    overflow:hidden;
+}
 
-    cursor:pointer;
+
+/* =====================================================
+   CATEGORÍAS
+===================================================== */
+
+.categories {
+
+    padding:
+        65px 20px 100px;
+
+    background: #050608;
+
+}
+
+.section-heading {
+
+    text-align: center;
+
+    margin-bottom: 42px;
+
+}
+
+.section-heading small {
+
+    color: var(--silver-dark);
+
+    font-size: .7rem;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+}
+
+.section-heading h2 {
+
+    margin-top: 10px;
+
+    font-family: var(--title);
+
+    font-size:
+        clamp(
+            1.8rem,
+            4vw,
+            2.8rem
+        );
+
+    letter-spacing: 4px;
+
+}
+
+.category-grid {
+
+    max-width: 1300px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(180px,1fr)
+        );
+
+    gap: 20px;
+
+}
+
+.category-card {
+
+    min-height: 210px;
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    padding: 25px;
+
+    border-radius: 22px;
+
+    border:
+        1px solid var(--border);
 
     background:
         radial-gradient(
             circle at center,
-            rgba(255,255,255,.08),
-            rgba(10,12,16,.98)
+            rgba(255,255,255,.055),
+            rgba(10,11,14,.96)
         );
 
-    border:1px solid rgba(255,255,255,.1);
+    color: white;
 
-    display:flex;
+    cursor: pointer;
 
-    flex-direction:column;
+    transition:
+        transform .35s,
+        border-color .35s,
+        box-shadow .35s;
 
-    justify-content:center;
-
-    align-items:center;
-
-    gap:8px;
-
-    transition:.35s;
-
-    text-decoration:none;
-
-    color:white;
 }
 
-.category:hover{
-    transform:translateY(-5px);
+.category-card:hover {
 
-    border-color:rgba(255,255,255,.55);
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(255,255,255,.45);
 
     box-shadow:
-        0 15px 35px rgba(0,0,0,.6),
-        0 0 20px rgba(255,255,255,.1);
+        0 20px 50px rgba(0,0,0,.7),
+        0 0 30px
+        rgba(255,255,255,.06);
+
 }
 
-.category-logo{
-    width:60px;
-    height:60px;
+.category-logo {
 
-    object-fit:contain;
+    width: 90px;
+    height: 90px;
+
+    object-fit: contain;
 
     filter:
-        drop-shadow(0 0 8px rgba(255,255,255,.25));
-}
-
-.category-fallback{
-    width:55px;
-    height:55px;
-
-    border:1px solid rgba(255,255,255,.5);
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    font-family:var(--title);
-
-    font-size:1rem;
-
-    color:#fff;
-}
-
-.category-name{
-    font-family:var(--title);
-
-    font-size:.68rem;
-
-    letter-spacing:1px;
-
-    color:#e6e9ed;
-
-    text-transform:uppercase;
-}
-
-/* =========================================================
-   CATALOGO
-========================================================= */
-
-.catalog{
-    background:#050608;
-
-    padding:30px 0 80px;
-
-    min-height:400px;
-}
-
-.catalog-header{
-    padding:0 4rem 25px;
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:space-between;
-}
-
-.catalog-small{
-    color:#aeb5c0;
-
-    font-size:.7rem;
-
-    letter-spacing:3px;
-
-    text-transform:uppercase;
-
-    font-weight:700;
-}
-
-.catalog-title{
-    margin-top:6px;
-
-    font-family:var(--title);
-
-    font-size:clamp(1.7rem,3vw,2.5rem);
-
-    letter-spacing:4px;
-
-    text-transform:uppercase;
-}
-
-.product-grid{
-    max-width:1500px;
-
-    margin:auto;
-
-    padding:0 25px;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,minmax(0,1fr));
-
-    gap:22px;
-}
-
-.product-card{
-    background:#111318;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    position:relative;
-
-    transition:.35s;
-
-    cursor:pointer;
-}
-
-.product-card:hover{
-    transform:translateY(-5px);
-
-    border-color:rgba(255,255,255,.3);
-
-    box-shadow:
-        0 20px 40px rgba(0,0,0,.5);
-}
-
-.product-image{
-    width:100%;
-
-    aspect-ratio:4/5;
-
-    object-fit:cover;
-
-    display:block;
-
-    background:#090a0d;
-}
-
-.product-info{
-    padding:18px;
-}
-
-.product-brand{
-    color:#9da5b0;
-
-    font-size:.65rem;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-}
-
-.product-name{
-    font-family:var(--title);
-
-    font-size:1rem;
-
-    margin-top:6px;
-
-    line-height:1.3;
-
-    text-transform:uppercase;
-}
-
-.product-bottom{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-top:14px;
-}
-
-.product-price{
-    font-size:1.05rem;
-
-    font-weight:800;
-}
-
-.product-button{
-    background:white;
-
-    color:#000;
-
-    padding:8px 13px;
-
-    border-radius:30px;
-
-    font-size:.65rem;
-
-    font-weight:800;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-}
-
-/* =========================================================
-   PRODUCT DETAIL
-========================================================= */
-
-.product-page{
-    display:none;
-
-    min-height:100vh;
-
-    padding-top:110px;
-
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            #11151b 0%,
-            #050608 45%
+        drop-shadow(
+            0 5px 15px rgba(0,0,0,.7)
         );
 
-    padding-bottom:80px;
 }
 
-.product-page.active{
-    display:block;
+.category-name {
+
+    font-family: var(--title);
+
+    font-size: .9rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
 }
 
-.product-detail{
-    max-width:1300px;
 
-    margin:auto;
+/* =====================================================
+   HEADER DE PÁGINAS INTERNAS
+===================================================== */
 
-    padding:0 30px;
+.page-header {
 
-    display:grid;
-
-    grid-template-columns:
-        minmax(0,1.1fr)
-        minmax(360px,.9fr);
-
-    gap:60px;
-}
-
-/* GALLERY */
-
-.product-gallery{
-    position:relative;
-}
-
-.detail-main-image{
-    width:100%;
-
-    aspect-ratio:4/5;
-
-    object-fit:contain;
-
-    background:#090a0d;
-
-    border-radius:22px;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    display:block;
-}
-
-.gallery-arrow{
-    position:absolute;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:42px;
-    height:42px;
-
-    border-radius:50%;
-
-    background:rgba(0,0,0,.65);
-
-    border:1px solid rgba(255,255,255,.25);
-
-    color:white;
-
-    cursor:pointer;
-
-    z-index:3;
-
-    font-size:1.1rem;
-}
-
-.gallery-arrow:hover{
-    background:white;
-    color:black;
-}
-
-.gallery-prev{
-    left:15px;
-}
-
-.gallery-next{
-    right:15px;
-}
-
-.thumbnails{
-    display:flex;
-
-    gap:10px;
-
-    margin-top:12px;
-
-    overflow-x:auto;
-
-    padding-bottom:5px;
-}
-
-.thumbnail{
-    width:75px;
-    height:90px;
-
-    object-fit:cover;
-
-    border-radius:10px;
-
-    border:1px solid rgba(255,255,255,.12);
-
-    cursor:pointer;
-
-    opacity:.55;
-
-    transition:.25s;
-
-    flex:0 0 auto;
-}
-
-.thumbnail.active{
-    opacity:1;
-
-    border-color:#fff;
-}
-
-/* TOUCH SWIPE */
-
-.touch-gallery{
-    touch-action:pan-y;
-}
-
-/* DETAILS */
-
-.detail-info{
-    padding-top:15px;
-}
-
-.detail-category{
-    color:#aeb5c0;
-
-    font-size:.7rem;
-
-    letter-spacing:3px;
-
-    text-transform:uppercase;
-
-    font-weight:700;
-}
-
-.detail-title{
-    font-family:var(--title);
-
-    font-size:clamp(1.8rem,4vw,3rem);
-
-    letter-spacing:3px;
-
-    line-height:1.15;
-
-    text-transform:uppercase;
-
-    margin-top:12px;
-}
-
-.detail-price{
-    font-size:1.7rem;
-
-    font-weight:800;
-
-    margin-top:20px;
-
-    color:#fff;
-}
-
-.detail-line{
-    width:100%;
-
-    height:1px;
-
-    background:rgba(255,255,255,.1);
-
-    margin:25px 0;
-}
-
-.detail-description{
-    color:#aeb4be;
-
-    line-height:1.8;
-
-    font-size:.9rem;
-}
-
-.detail-section-title{
-    font-family:var(--title);
-
-    font-size:.8rem;
-
-    letter-spacing:2px;
-
-    margin-top:25px;
-
-    margin-bottom:12px;
-
-    text-transform:uppercase;
-}
-
-/* TALLAS */
-
-.sizes{
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:9px;
-}
-
-.size{
-    min-width:48px;
-
-    height:42px;
-
-    padding:0 12px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border:1px solid rgba(255,255,255,.2);
-
-    color:#ddd;
-
-    border-radius:5px;
-
-    font-size:.75rem;
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.size:hover,
-.size.selected{
-    background:white;
-
-    color:black;
-
-    border-color:white;
-}
-
-/* WHATSAPP */
-
-.detail-whatsapp{
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    width:100%;
-
-    padding:16px;
-
-    border-radius:50px;
-
-    background:white;
-
-    color:black;
-
-    text-decoration:none;
-
-    font-size:.75rem;
-
-    font-weight:800;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-
-    margin-top:28px;
-
-    transition:.3s;
-}
-
-.detail-whatsapp:hover{
-    background:#25d366;
-
-    box-shadow:
-        0 10px 30px rgba(37,211,102,.2);
-}
-
-/* BACK */
-
-.back-button{
-    max-width:1300px;
-
-    margin:0 auto 25px;
-
-    padding:0 30px;
-}
-
-.back-button button{
-    background:transparent;
-
-    color:#aeb5c0;
-
-    cursor:pointer;
-
-    font-size:.75rem;
-
-    letter-spacing:1px;
-}
-
-.back-button button:hover{
-    color:white;
-}
-
-/* =========================================================
-   NOSOTROS
-========================================================= */
-
-.info-page{
-    display:none;
-
-    min-height:100vh;
-
-    padding:130px 25px 90px;
-
-    background:
-        radial-gradient(
-            circle at top,
-            #11151b,
-            #050608 55%
-        );
-}
-
-.info-page.active{
-    display:block;
-}
-
-.info-container{
-    max-width:950px;
-
-    margin:auto;
-
-    text-align:center;
-}
-
-.info-eyebrow{
-    color:#aeb5c0;
-
-    font-size:.7rem;
-
-    letter-spacing:4px;
-
-    text-transform:uppercase;
-}
-
-.info-title{
-    font-family:var(--title);
-
-    font-size:clamp(2rem,5vw,4rem);
-
-    letter-spacing:5px;
-
-    margin-top:15px;
-
-    text-transform:uppercase;
+    padding:
+        125px 5% 45px;
 
     background:
         linear-gradient(
             180deg,
-            #fff,
-            #8d95a2
+            #0b0d11,
+            #050608
         );
 
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
 }
 
-.info-text{
-    margin-top:25px;
+.back-btn {
 
-    color:#aeb5c0;
+    display: inline-flex;
 
-    line-height:2;
+    align-items: center;
 
-    font-size:.95rem;
+    gap: 10px;
+
+    color: #aeb4be;
+
+    background: none;
+
+    cursor: pointer;
+
+    font-size: .75rem;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 30px;
+
+    transition: .25s;
+
 }
 
-.info-boxes{
-    margin-top:45px;
+.back-btn:hover {
 
-    display:grid;
+    color: white;
+
+    transform:
+        translateX(-4px);
+
+}
+
+.page-header small {
+
+    color:
+        var(--silver-dark);
+
+    letter-spacing: 4px;
+
+    font-size: .7rem;
+
+    text-transform: uppercase;
+
+}
+
+.page-header h1 {
+
+    margin-top: 10px;
+
+    font-family: var(--title);
+
+    font-size:
+        clamp(
+            2rem,
+            5vw,
+            3.8rem
+        );
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #a4abb5
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+}
+
+
+/* =====================================================
+   PRODUCTOS
+===================================================== */
+
+.products-page {
+
+    padding:
+        0 5% 100px;
+
+    background:
+        #050608;
+
+}
+
+.products-grid {
+
+    max-width: 1450px;
+
+    margin: auto;
+
+    display: grid;
 
     grid-template-columns:
-        repeat(3,1fr);
+        repeat(
+            auto-fill,
+            minmax(250px,1fr)
+        );
 
-    gap:18px;
+    gap: 24px;
+
 }
 
-.info-box{
-    padding:30px 20px;
+.product-card {
 
-    background:#0e1014;
+    position: relative;
 
-    border:1px solid rgba(255,255,255,.08);
+    min-height: 460px;
 
-    border-radius:18px;
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        var(--card);
+
+    cursor: pointer;
+
+    transition:
+        transform .35s,
+        border-color .35s;
+
 }
 
-.info-box h3{
-    font-family:var(--title);
+.product-card:hover {
 
-    font-size:.9rem;
+    transform:
+        translateY(-6px);
 
-    letter-spacing:2px;
+    border-color:
+        rgba(255,255,255,.4);
 
-    margin-bottom:12px;
 }
 
-.info-box p{
-    color:#858c99;
+.product-gallery {
 
-    font-size:.8rem;
+    position: absolute;
 
-    line-height:1.7;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #111;
+
 }
 
-/* =========================================================
-   CONTACTO
-========================================================= */
+.product-gallery-image {
 
-.contact-page{
-    display:none;
+    position: absolute;
 
-    min-height:100vh;
+    inset: 0;
 
-    padding:130px 25px 90px;
+    width: 100%;
+    height: 100%;
 
-    background:#050608;
+    object-fit: cover;
+
+    opacity: 0;
+
+    transition:
+        opacity .35s ease,
+        transform .5s ease;
+
 }
 
-.contact-page.active{
-    display:block;
+.product-gallery-image.active {
+
+    opacity: 1;
+
 }
 
-.contact-container{
-    max-width:800px;
+.product-card:hover
+.product-gallery-image.active {
 
-    margin:auto;
+    transform:
+        scale(1.04);
 
-    text-align:center;
 }
 
-.contact-link{
-    display:block;
+.product-gallery-arrow {
 
-    margin-top:20px;
+    position: absolute;
 
-    padding:18px;
+    top: 42%;
 
-    border:1px solid rgba(255,255,255,.1);
+    transform:
+        translateY(-50%);
 
-    border-radius:50px;
+    width: 38px;
+    height: 38px;
 
-    color:white;
+    border-radius: 50%;
 
-    text-decoration:none;
+    background:
+        rgba(0,0,0,.65);
 
-    transition:.3s;
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    backdrop-filter: blur(10px);
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    transition:
+        opacity .25s,
+        background .25s,
+        transform .25s;
+
 }
 
-.contact-link:hover{
-    background:white;
+.product-card:hover
+.product-gallery-arrow {
 
-    color:black;
+    opacity: 1;
+
 }
 
-/* =========================================================
-   LOADING
-========================================================= */
+.product-gallery-arrow:hover {
 
-.loading{
-    grid-column:1/-1;
+    background:
+        rgba(255,255,255,.95);
 
-    text-align:center;
+    color: #000;
 
-    padding:70px 20px;
-
-    color:#858c99;
-
-    letter-spacing:2px;
-
-    font-size:.75rem;
 }
 
-/* =========================================================
+.product-gallery-arrow.prev {
+
+    left: 12px;
+
+}
+
+.product-gallery-arrow.next {
+
+    right: 12px;
+
+}
+
+.product-gallery-dots {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 105px;
+
+    transform:
+        translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding:
+        5px 9px;
+
+    background:
+        rgba(0,0,0,.55);
+
+    border-radius: 20px;
+
+    z-index: 20;
+
+}
+
+.product-gallery-dot {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.4);
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+.product-gallery-dot.active {
+
+    width: 17px;
+
+    border-radius: 10px;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px
+        rgba(255,255,255,.8);
+
+}
+
+.product-gradient {
+
+    position: absolute;
+
+    inset:
+        auto 0 0 0;
+
+    height: 230px;
+
+    background:
+        linear-gradient(
+            to top,
+            #090a0d 10%,
+            rgba(9,10,13,.85) 55%,
+            transparent
+        );
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
+.product-info {
+
+    position: absolute;
+
+    left: 22px;
+    right: 22px;
+
+    bottom: 20px;
+
+    z-index: 30;
+
+}
+
+.product-brand {
+
+    color: #aeb4be;
+
+    font-size: .65rem;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+}
+
+.product-name {
+
+    margin-top: 7px;
+
+    font-family: var(--title);
+
+    font-size: 1.05rem;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+}
+
+.product-price {
+
+    margin-top: 8px;
+
+    font-size: 1.15rem;
+
+    font-weight: 800;
+
+}
+
+.product-view {
+
+    display: inline-flex;
+
+    margin-top: 13px;
+
+    padding:
+        9px 17px;
+
+    border-radius: 30px;
+
+    background: white;
+
+    color: black;
+
+    font-size: .65rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =====================================================
+   DETALLE PRODUCTO
+===================================================== */
+
+.detail-page {
+
+    padding:
+        110px 5% 100px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #0a0c10,
+            #050608 30%
+        );
+
+}
+
+.detail-container {
+
+    max-width: 1400px;
+
+    margin: auto;
+
+}
+
+.detail-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0,1.15fr)
+        minmax(330px,.85fr);
+
+    gap: 60px;
+
+    align-items: start;
+
+}
+
+.detail-gallery {
+
+    position: relative;
+
+}
+
+.main-product-image {
+
+    width: 100%;
+
+    aspect-ratio:
+        1 / 1.15;
+
+    object-fit: contain;
+
+    background:
+        #0b0d10;
+
+    border-radius: 20px;
+
+    border:
+        1px solid var(--border);
+
+    cursor: zoom-in;
+
+}
+
+.thumbnails {
+
+    display: flex;
+
+    gap: 10px;
+
+    overflow-x: auto;
+
+    margin-top: 15px;
+
+    padding-bottom: 5px;
+
+}
+
+.thumbnail {
+
+    flex:
+        0 0 80px;
+
+    width: 80px;
+    height: 80px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    border:
+        1px solid var(--border);
+
+    cursor: pointer;
+
+    opacity: .5;
+
+    transition: .25s;
+
+}
+
+.thumbnail.active,
+.thumbnail:hover {
+
+    opacity: 1;
+
+    border-color:
+        rgba(255,255,255,.6);
+
+}
+
+.detail-info {
+
+    padding-top: 15px;
+
+}
+
+.detail-brand {
+
+    color:
+        var(--silver-dark);
+
+    font-size: .7rem;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+}
+
+.detail-title {
+
+    margin-top: 12px;
+
+    font-family: var(--title);
+
+    font-size:
+        clamp(
+            2rem,
+            4vw,
+            3.2rem
+        );
+
+    line-height: 1.15;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #a5abb5
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+}
+
+.detail-price {
+
+    margin-top: 20px;
+
+    font-size: 1.5rem;
+
+    font-weight: 800;
+
+}
+
+.detail-description {
+
+    margin-top: 25px;
+
+    color: #9298a2;
+
+    line-height: 1.8;
+
+    font-size: .88rem;
+
+}
+
+
+/* =====================================================
+   TALLAS
+===================================================== */
+
+.size-title {
+
+    margin-top: 35px;
+
+    font-size: .72rem;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+}
+
+.sizes {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+}
+
+.size-btn {
+
+    min-width: 55px;
+
+    padding:
+        12px 16px;
+
+    border-radius: 8px;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        #0d0f13;
+
+    color:
+        #dce0e5;
+
+    cursor: pointer;
+
+    font-size: .75rem;
+
+    font-weight: 700;
+
+    transition: .25s;
+
+}
+
+.size-btn:hover,
+.size-btn.selected {
+
+    color: #000;
+
+    background: white;
+
+    border-color: white;
+
+}
+
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
+
+.order-btn {
+
+    width: 100%;
+
+    margin-top: 30px;
+
+    padding: 17px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50px;
+
+    background: white;
+
+    color: black;
+
+    text-decoration: none;
+
+    font-size: .75rem;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    transition: .3s;
+
+}
+
+.order-btn:hover {
+
+    background:
+        #dfe3e8;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =====================================================
+   LOADING / EMPTY
+===================================================== */
+
+.loading {
+
+    min-height: 400px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    letter-spacing: 2px;
+
+    font-size: .75rem;
+
+}
+
+.empty {
+
+    grid-column:
+        1 / -1;
+
+    padding: 80px 20px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0,0,0,.94);
+
+}
+
+.modal.active {
+
+    display: flex;
+
+}
+
+.modal img {
+
+    max-width: 95vw;
+
+    max-height: 90vh;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+}
+
+.modal-close {
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 25px;
+
+    color: white;
+
+    background: none;
+
+    font-size: 35px;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
    FOOTER
-========================================================= */
+===================================================== */
 
-footer{
-    background:#030405;
+footer {
 
-    border-top:1px solid rgba(255,255,255,.08);
+    padding: 55px 20px;
 
-    padding:35px 20px;
+    text-align: center;
 
-    text-align:center;
+    color: #676d77;
 
-    color:#686f7b;
+    font-size: .72rem;
 
-    font-size:.75rem;
+    letter-spacing: 1px;
+
+    background: #020304;
+
+    border-top:
+        1px solid var(--border);
+
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
 
-@media(max-width:1100px){
+/* =====================================================
+   RESPONSIVE (TABLET & MÓVIL)
+===================================================== */
 
-    .product-grid{
+@media(max-width:900px) {
+
+    header {
+
+        padding: 0 1.5rem;
+
+        height: 68px;
+
+    }
+
+    .top-menu {
+
+        gap: 12px;
+
+        padding: 8px 14px;
+
+    }
+
+    .top-menu a {
+
+        font-size: .65rem;
+
+    }
+
+    .hero {
+
+        padding:
+            76px 0 5px;
+
+    }
+
+    .hero-video-wrapper {
+
+        width: 100%;
+
+        border-radius: 0;
+
+        border-left: 0;
+
+        border-right: 0;
+
+    }
+
+    .hero-content {
+
+        bottom: 8%;
+
+    }
+
+    .hero-title {
+
+        letter-spacing: 5px;
+
+    }
+
+    .detail-layout {
+
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+    }
+
+    .detail-info {
+
+        padding: 0 5px;
+
+    }
+
+}
+
+@media(max-width:600px) {
+
+    header {
+
+        padding: 0 15px;
+
+        height: 68px;
+
+    }
+
+    .top-menu {
+
+        gap: 8px;
+
+        padding: 6px 10px;
+
+    }
+
+    .top-menu a {
+
+        font-size: .55rem;
+
+        letter-spacing: .5px;
+
+    }
+
+    .brand-name {
+
+        display: none;
+
+    }
+
+    .brand-logo {
+
+        width: 28px;
+
+        height: 28px;
+
+    }
+
+    .hero-video-wrapper {
+
+        width: 100%;
+
+        aspect-ratio:
+            16 / 9;
+
+    }
+
+    .hero-symbol {
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
+    .hero-title {
+
+        font-size: 2.2rem;
+
+    }
+
+    .hero-subtitle {
+
+        font-size: .58rem;
+
+        letter-spacing: 2px;
+
+    }
+
+    .explore {
+
+        padding:
+            28px 18px 50px;
+
+    }
+
+    .categories {
+
+        padding:
+            50px 15px 80px;
+
+    }
+
+    .category-grid {
+
         grid-template-columns:
-            repeat(3,minmax(0,1fr));
+            repeat(2,1fr);
+
+        gap: 12px;
+
     }
 
-    .product-detail{
-        gap:35px;
+    .category-card {
+
+        min-height: 165px;
+
+        padding: 15px;
+
     }
 
-}
+    .category-logo {
 
-@media(max-width:800px){
+        width: 65px;
 
-    header{
-        height:68px;
+        height: 65px;
 
-        padding:0 15px;
     }
 
-    .top-menu{
-        gap:12px;
+    .category-name {
 
-        padding:8px 12px;
+        font-size: .72rem;
+
+        text-align: center;
+
     }
 
-    .top-menu a{
-        font-size:.6rem;
+    .products-page {
+
+        padding:
+            0 12px 80px;
+
     }
 
-    .brand-name{
-        font-size:1rem;
-        letter-spacing:3px;
-    }
+    .products-grid {
 
-    .brand-logo{
-        width:28px;
-        height:28px;
-    }
-
-    .hero{
-        padding-top:68px;
-    }
-
-    .hero-video-container{
-        border-radius:0;
-
-        border-left:0;
-        border-right:0;
-    }
-
-    .hero-title{
-        letter-spacing:5px;
-    }
-
-    .hero-subtitle{
-        letter-spacing:2px;
-    }
-
-    .catalog-header{
-        padding:0 20px 20px;
-    }
-
-    .product-grid{
         grid-template-columns:
-            repeat(2,minmax(0,1fr));
+            repeat(2,1fr);
 
-        padding:0 12px;
+        gap: 12px;
 
-        gap:12px;
     }
 
-    .product-info{
-        padding:13px;
+    .product-card {
+
+        min-height: 340px;
+
     }
 
-    .product-name{
-        font-size:.78rem;
+    .product-gallery-arrow {
+
+        opacity: 1;
+
+        width: 32px;
+
+        height: 32px;
+
     }
 
-    .product-price{
-        font-size:.9rem;
+    .product-gallery-dots {
+
+        bottom: 105px;
+
     }
 
-    .product-button{
-        font-size:.55rem;
+    .product-info {
 
-        padding:7px 9px;
+        left: 13px;
+
+        right: 13px;
+
+        bottom: 13px;
+
     }
 
-    .product-detail{
-        grid-template-columns:1fr;
+    .product-name {
 
-        padding:0 15px;
+        font-size: .72rem;
 
-        gap:25px;
     }
 
-    .detail-info{
-        padding:0;
+    .product-price {
+
+        font-size: .9rem;
+
     }
 
-    .back-button{
-        padding:0 15px;
+    .product-view {
+
+        font-size: .53rem;
+
+        padding:
+            7px 10px;
+
     }
 
-    .info-boxes{
-        grid-template-columns:1fr;
+    .page-header {
+
+        padding:
+            110px 20px 40px;
+
     }
 
-}
-
-@media(max-width:550px){
-
-    .top-menu{
-        gap:8px;
-    }
-
-    .top-menu a{
-        font-size:.53rem;
-
-        letter-spacing:.4px;
-    }
-
-    .brand-name{
-        display:none;
-    }
-
-    .category{
-        flex-basis:105px;
-
-        height:105px;
-    }
-
-    .category-logo{
-        width:48px;
-        height:48px;
-    }
-
-    .hero-button{
-        margin-top:18px;
-    }
-
-}
-
-/* =========================================================
-   ANIMACIONES
-========================================================= */
-
-.fade{
-    animation:fade .45s ease;
-}
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<!-- ========================================================
-     HEADER
-========================================================= -->
+
+<!-- =====================================================
+     HEADER (LOGO IZQUIERDO Y CINTA DE OPCIONES DERECHA)
+===================================================== -->
 
 <header>
 
-<a href="#inicio" class="brand" onclick="navigateHome()">
+<a
+    href="#/"
+    class="brand"
+    onclick="navigateHome()"
+>
 
-<svg class="brand-logo" viewBox="0 0 100 100" fill="none">
+<svg
+    class="brand-logo"
+    viewBox="0 0 100 100"
+    fill="none"
+>
 
 <defs>
 
 <linearGradient
-id="silverLogo"
-x1="0%"
-y1="0%"
-x2="100%"
-y2="100%"
+    id="silverLogo"
+    x1="0%"
+    y1="0%"
+    x2="100%"
+    y2="100%"
 >
 
-<stop offset="0%" stop-color="#fff"/>
+<stop offset="0%" stop-color="#ffffff"/>
 <stop offset="45%" stop-color="#cfd4dc"/>
 <stop offset="70%" stop-color="#858c98"/>
-<stop offset="100%" stop-color="#fff"/>
+<stop offset="100%" stop-color="#ffffff"/>
 
 </linearGradient>
 
 </defs>
 
 <path
-d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z"
-stroke="url(#silverLogo)"
-stroke-width="4"
-fill="rgba(255,255,255,.04)"
+    d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z"
+    stroke="url(#silverLogo)"
+    stroke-width="4"
+    fill="rgba(255,255,255,.04)"
 />
 
 <path
-d="M50 16 L80 34 L80 66 L50 84 L20 66 L20 34 Z"
-stroke="#fff"
-stroke-width="1.5"
-stroke-opacity=".6"
+    d="M50 16 L80 34 L80 66 L50 84 L20 66 L20 34 Z"
+    stroke="#ffffff"
+    stroke-width="1.5"
+    stroke-opacity=".6"
 />
 
 <path
-d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z"
-fill="url(#silverLogo)"
+    d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z"
+    fill="url(#silverLogo)"
 />
 
-<circle cx="50" cy="50" r="3" fill="#fff"/>
+<circle cx="50" cy="50" r="3" fill="#ffffff"/>
 
 </svg>
 
-<span class="brand-name">IRIDIUM</span>
+<span class="brand-name">
+IRIDIUM
+</span>
 
 </a>
 
 
+<!-- CINTA DE OPCIONES SUPERIOR DERECHA -->
+
 <nav class="top-menu">
 
-<a href="#inicio" onclick="navigateHome()">Inicio</a>
+<a href="#/">Inicio</a>
 
-<a href="#colecciones" onclick="showHome()">Colecciones</a>
+<a href="#/colecciones">Colecciones</a>
 
-<a href="#nosotros" onclick="showPage('nosotros')">Nosotros</a>
+<a href="#/nosotros">Nosotros</a>
 
-<a href="#contacto" onclick="showPage('contacto')">Contacto</a>
+<a href="#/contacto">Contacto</a>
 
 </nav>
 
 </header>
 
 
-<!-- ========================================================
-     HOME
-========================================================= -->
+<!-- =====================================================
+     APP (ROUTER DINÁMICO)
+===================================================== -->
 
-<main id="homePage">
-
-
-<!-- HERO -->
-
-<section class="hero" id="inicio">
-
-<div class="hero-video-container">
-
-<video
-class="hero-video"
-autoplay
-loop
-muted
-playsinline
-webkit-playsinline
-preload="auto"
->
-
-<source src="video.mp4" type="video/mp4">
-
-</video>
-
-<div class="hero-overlay"></div>
-
-
-<div class="hero-content">
-
-<svg class="hero-symbol" viewBox="0 0 100 100" fill="none">
-
-<defs>
-
-<linearGradient
-id="heroGrad"
-x1="0%"
-y1="0%"
-x2="100%"
-y2="100%"
->
-
-<stop offset="0%" stop-color="#fff"/>
-<stop offset="50%" stop-color="#aeb5c0"/>
-<stop offset="100%" stop-color="#fff"/>
-
-</linearGradient>
-
-</defs>
-
-<path
-d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z"
-stroke="url(#heroGrad)"
-stroke-width="3.5"
-/>
-
-<path
-d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z"
-fill="url(#heroGrad)"
-/>
-
-</svg>
-
-<h1 class="hero-title">IRIDIUM</h1>
-
-<p class="hero-subtitle">
-LUXURY STREETWEAR PERFORMANCE
-</p>
-
-<a
-href="#colecciones"
-class="hero-button"
-onclick="showHome()"
->
-Explorar Colección
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- CATEGORIAS -->
-
-<section class="categories" id="colecciones">
-
-<div class="section-label">
-// Selecciona tu categoría //
-</div>
-
-<div
-class="category-list"
-id="categoryList"
->
+<main id="app">
 
 <div class="loading">
-Cargando categorías...
-</div>
+
+Cargando IRIDIUM...
 
 </div>
-
-</section>
-
-
-<!-- CATALOGO -->
-
-<section class="catalog">
-
-<div class="catalog-header">
-
-<div>
-
-<div class="catalog-small">
-Catálogo exclusivo
-</div>
-
-<h2
-class="catalog-title"
-id="catalogTitle"
->
-Últimos Lanzamientos
-</h2>
-
-</div>
-
-</div>
-
-
-<div
-class="product-grid"
-id="productGrid"
->
-
-<div class="loading">
-Cargando productos...
-</div>
-
-</div>
-
-</section>
 
 </main>
 
 
-<!-- ========================================================
-     PRODUCT DETAIL
-========================================================= -->
-
-<section
-class="product-page"
-id="productPage"
->
-
-<div class="back-button">
-
-<button onclick="showHome()">
-← VOLVER A LA COLECCIÓN
-</button>
-
-</div>
-
+<!-- =====================================================
+     MODAL
+===================================================== -->
 
 <div
-class="product-detail fade"
-id="productDetail"
+    class="modal"
+    id="imageModal"
+    onclick="closeImageModal()"
+>
+
+<button
+    class="modal-close"
+    onclick="closeImageModal()"
+>
+×
+</button>
+
+<img
+    id="modalImage"
+    src=""
+    alt="Imagen ampliada"
 >
 
 </div>
 
-</section>
 
-
-<!-- ========================================================
-     NOSOTROS
-========================================================= -->
-
-<section
-class="info-page"
-id="nosotrosPage"
->
-
-<div class="info-container">
-
-<div class="info-eyebrow">
-// Nosotros //
-</div>
-
-<h1 class="info-title">
-IRIDIUM
-</h1>
-
-<p class="info-text">
-
-IRIDIUM nace de la unión entre el streetwear contemporáneo,
-la estética del motorsport y una visión de diseño premium.
-
-Creamos prendas pensadas para quienes buscan expresar
-su identidad a través de diseños exclusivos, materiales
-seleccionados y una estética inspirada en el mundo de la
-velocidad y el rendimiento.
-
-Nuestra filosofía es simple:
-
-<strong>
-DISEÑO. ACTITUD. PERFORMANCE.
-</strong>
-
-</p>
-
-
-<div class="info-boxes">
-
-<div class="info-box">
-
-<h3>
-DISEÑO
-</h3>
-
-<p>
-Diseños exclusivos inspirados en la cultura automotriz,
-el motorsport y el streetwear contemporáneo.
-</p>
-
-</div>
-
-
-<div class="info-box">
-
-<h3>
-CALIDAD
-</h3>
-
-<p>
-Seleccionamos materiales y procesos de fabricación
-buscando comodidad, durabilidad y acabados premium.
-</p>
-
-</div>
-
-
-<div class="info-box">
-
-<h3>
-IDENTIDAD
-</h3>
-
-<p>
-Cada colección representa una forma diferente de
-vivir la velocidad, la moda y la cultura urbana.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ========================================================
-     CONTACTO
-========================================================= -->
-
-<section
-class="contact-page"
-id="contactoPage"
->
-
-<div class="contact-container">
-
-<div class="info-eyebrow">
-// Contacto //
-</div>
-
-<h1 class="info-title">
-HABLEMOS
-</h1>
-
-<p class="info-text">
-
-¿Quieres realizar un pedido, consultar disponibilidad
-o conocer nuestras próximas colecciones?
-
-Escríbenos directamente.
-
-</p>
-
-
-<a
-class="contact-link"
-target="_blank"
-href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20información%20sobre%20sus%20productos"
->
-WHATSAPP · +593 99 502 3674
-</a>
-
-<a
-class="contact-link"
-href="mailto:contacto@iridium.com"
->
-EMAIL
-</a>
-
-</div>
-
-</section>
-
-
-<!-- ========================================================
+<!-- =====================================================
      FOOTER
-========================================================= -->
+===================================================== -->
 
 <footer>
 
@@ -1764,9 +2048,9 @@ WhatsApp:
 
 <script>
 
-/* =========================================================
-   CONFIGURACIÓN GITHUB
-========================================================= */
+/* =====================================================
+   CONFIGURACIÓN
+===================================================== */
 
 const GITHUB_USER = "bhastian-ec";
 
@@ -1774,598 +2058,506 @@ const GITHUB_REPO = "sky";
 
 const GITHUB_BRANCH = "main";
 
-const PRODUCTS_PATH = "products";
+const PRODUCTS_FOLDER = "products";
 
 const WHATSAPP = "593995023674";
 
 
-/* =========================================================
+/* =====================================================
    VARIABLES
-========================================================= */
+===================================================== */
 
-let categories = [];
+let catalog = [];
 
-let allProducts = [];
-
-let currentProduct = null;
-
-let currentImageIndex = 0;
+let selectedSize = "";
 
 
-/* =========================================================
-   API GITHUB
-========================================================= */
+/* =====================================================
+   GITHUB API
+===================================================== */
 
-const githubAPI =
-`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/`;
+async function githubAPI(path) {
+
+    const url =
+        `https://api.github.com/repos/` +
+        `${GITHUB_USER}/${GITHUB_REPO}/contents/` +
+        `${path}?ref=${GITHUB_BRANCH}`;
+
+    const response =
+        await fetch(url);
+
+    if (!response.ok) {
+
+        throw new Error(
+            `GitHub API error: ${response.status}`
+        );
+
+    }
+
+    return await response.json();
+
+}
 
 
-/* =========================================================
-   EXTENSIONES
-========================================================= */
-
-const imageExtensions =
-/\.(jpg|jpeg|png|webp|avif)$/i;
-
-
-/* =========================================================
+/* =====================================================
    LIMPIAR TEXTO
-========================================================= */
+===================================================== */
 
-function cleanText(text){
+function cleanText(text) {
 
-    return text
-        .replace(/_/g," ")
+    return String(text)
+
+        .replace(/\.[^/.]+$/, "")
+
+        .replace(/_/g, " ")
+
         .trim();
 
 }
 
 
-/* =========================================================
-   CODIFICACIÓN DEL NOMBRE
-=========================================================
+/* =====================================================
+   ANALIZAR NOMBRE
+===================================================== */
 
-   Ejemplo:
+function parseProductFile(filename) {
 
-   FERRARI_MONZA-35-1.jpg
-   FERRARI_MONZA-35-2.jpg
-   FERRARI_MONZA-35-3.jpg
+    const withoutExtension =
+        filename.replace(/\.[^/.]+$/, "");
 
-   Producto:
-   FERRARI MONZA
+    const parts =
+        withoutExtension.split("-");
 
-   Precio:
-   35
 
-   Imágenes:
-   1,2,3
+    let productName =
+        cleanText(
+            parts[0] || "Producto"
+        );
 
-========================================================= */
 
-function parseProductFile(filename){
+    let price = "0";
 
-    const extension =
-        filename.match(/\.[^/.]+$/);
 
-    const clean =
-        filename.replace(/\.[^/.]+$/,"");
+    let photoNumber = 1;
 
-    const firstDash =
-        clean.indexOf("-");
 
-    if(firstDash === -1){
+    if (parts.length >= 2) {
 
-        return {
-
-            title:cleanText(clean),
-
-            price:"35.00",
-
-            order:1
-
-        };
+        price =
+            parts[1]
+                .replace(",", ".")
+                .trim();
 
     }
 
 
-    const title =
-        clean.substring(0,firstDash);
+    if (parts.length >= 3) {
 
+        const number =
+            parseInt(parts[2], 10);
 
-    const remaining =
-        clean.substring(firstDash + 1);
+        if (!isNaN(number)) {
 
+            photoNumber = number;
 
-    const parts =
-        remaining.split("-");
-
-
-    const price =
-        parts[0] || "35.00";
-
-
-    let order = 1;
-
-
-    if(parts.length > 1){
-
-        order =
-            parseInt(parts[1]) || 1;
+        }
 
     }
 
 
     return {
 
-        title:cleanText(title),
+        productName,
 
-        price:price,
+        price,
 
-        order:order
+        photoNumber
 
     };
 
 }
 
 
-/* =========================================================
-   CARGAR CATEGORIAS
-========================================================= */
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
 
-async function loadCategories(){
+function escapeHTML(text) {
 
-    const container =
-        document.getElementById("categoryList");
+    return String(text)
 
-    try{
+        .replace(/&/g, "&amp;")
 
-        const response =
-            await fetch(
-                githubAPI +
-                PRODUCTS_PATH +
-                `?ref=${GITHUB_BRANCH}`
-            );
+        .replace(/</g, "&lt;")
 
+        .replace(/>/g, "&gt;")
 
-        if(!response.ok){
+        .replace(/"/g, "&quot;")
 
-            throw new Error(
-                "No se pudo acceder a products"
-            );
-
-        }
-
-
-        const folders =
-            await response.json();
-
-
-        categories =
-            folders.filter(
-                item =>
-                    item.type === "dir"
-            );
-
-
-        container.innerHTML = "";
-
-
-        if(categories.length === 0){
-
-            container.innerHTML =
-                `<div class="loading">
-                    No hay categorías.
-                </div>`;
-
-            return;
-
-        }
-
-
-        for(const category of categories){
-
-            await createCategory(
-                category,
-                container
-            );
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        container.innerHTML =
-            `<div class="loading">
-                Error cargando categorías.
-            </div>`;
-
-    }
+        .replace(/'/g, "&#039;");
 
 }
 
 
-/* =========================================================
-   CREAR CATEGORIA
-========================================================= */
+/* =====================================================
+   ESCAPAR ATRIBUTOS
+===================================================== */
 
-async function createCategory(category, container){
+function escapeAttr(text) {
 
-    const categoryName =
-        category.name;
+    return String(text)
 
+        .replace(/\\/g, "\\\\")
 
-    const folderURL =
-        githubAPI +
-        PRODUCTS_PATH +
-        "/" +
-        encodeURIComponent(categoryName) +
-        `?ref=${GITHUB_BRANCH}`;
+        .replace(/'/g, "\\'")
 
+        .replace(/"/g, "&quot;");
 
-    let files = [];
+}
 
 
-    try{
+/* =====================================================
+   CREAR ID
+===================================================== */
 
-        const response =
-            await fetch(folderURL);
+function createId(text) {
 
-        files =
-            await response.json();
+    return String(text)
 
-    }
+        .toLowerCase()
 
-    catch(error){
+        .normalize("NFD")
 
-        console.error(error);
+        .replace(/[\u0300-\u036f]/g, "")
 
-    }
+        .replace(/[^a-z0-9]+/g, "-")
 
+        .replace(/^-|-$/g, "");
 
-    /*
-       Buscamos logo con el MISMO nombre
-       de la categoría.
-
-       Ejemplo:
-
-       products/
-       └── Ferrari/
-           ├── Ferrari.png
-           ├── F40-35-1.jpg
-           └── F40-35-2.jpg
-    */
-
-    const logoFile =
-        files.find(file =>
-
-            file.type === "file" &&
-
-            file.name
-                .replace(/\.[^/.]+$/,"")
-                .toLowerCase()
-                ===
-            categoryName.toLowerCase()
-
-            &&
-
-            imageExtensions.test(file.name)
-
-        );
+}
 
 
-    const link =
-        document.createElement("a");
+/* =====================================================
+   LOGO FALLBACK
+===================================================== */
 
-    link.className =
-        "category";
+function createFallbackLogo(name) {
 
-
-    link.href =
-        "#categoria/" +
-        encodeURIComponent(categoryName);
-
-
-    link.onclick =
-        function(){
-
-            showCategory(categoryName);
-
-        };
+    const initials =
+        String(name)
+            .split(/[\s_-]+/)
+            .map(word => word.charAt(0))
+            .join("")
+            .substring(0,3)
+            .toUpperCase();
 
 
-    let logoHTML;
+    const svg = `
 
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="300"
+            height="300"
+            viewBox="0 0 300 300">
 
-    if(logoFile){
+            <rect
+                width="300"
+                height="300"
+                fill="#0b0d11"/>
 
-        logoHTML =
-            `<img
-                class="category-logo"
-                src="${logoFile.download_url}"
-                alt="${categoryName}"
-            >`;
+            <circle
+                cx="150"
+                cy="150"
+                r="105"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="3"/>
 
-    }
+            <text
+                x="150"
+                y="170"
+                text-anchor="middle"
+                font-family="Arial"
+                font-size="55"
+                fill="#ffffff">
 
-    else{
+                ${initials}
 
-        logoHTML =
-            `<div class="category-fallback">
-                ${cleanText(categoryName)
-                    .substring(0,2)
-                    .toUpperCase()}
-            </div>`;
+            </text>
 
-    }
-
-
-    link.innerHTML = `
-
-        ${logoHTML}
-
-        <span class="category-name">
-            ${cleanText(categoryName)}
-        </span>
-
+        </svg>
     `;
 
 
-    container.appendChild(link);
+    return "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(svg);
 
 }
 
 
-/* =========================================================
-   CARGAR TODOS LOS PRODUCTOS
-========================================================= */
+/* =====================================================
+   CARGAR CATÁLOGO
+===================================================== */
 
-async function loadProducts(){
+async function loadCatalog() {
 
-    allProducts = [];
+    try {
 
-
-    for(const category of categories){
-
-        const categoryURL =
-            githubAPI +
-            PRODUCTS_PATH +
-            "/" +
-            encodeURIComponent(category.name) +
-            `?ref=${GITHUB_BRANCH}`;
+        const folders =
+            await githubAPI(
+                PRODUCTS_FOLDER
+            );
 
 
-        try{
+        if (!Array.isArray(folders)) {
 
-            const response =
-                await fetch(categoryURL);
+            throw new Error(
+                "La carpeta products no existe."
+            );
+
+        }
 
 
-            const files =
-                await response.json();
+        const result = [];
 
 
-            if(!Array.isArray(files))
+        for (const folder of folders) {
+
+            if (folder.type !== "dir") {
+
                 continue;
 
-
-            /*
-               Agrupamos por:
-
-               categoría + producto + precio
-
-               Por eso:
-
-               CAMISETA-20-1.jpg
-               CAMISETA-20-2.jpg
-               CAMISETA-20-3.jpg
-
-               será un solo producto.
-            */
-
-            const grouped = {};
+            }
 
 
-            files.forEach(file => {
-
-                if(
-                    file.type !== "file" ||
-                    !imageExtensions.test(file.name)
-                )
-                    return;
+            const category =
+                folder.name;
 
 
-                /*
-                   No usar el logo de categoría
-                   como producto.
-                */
-
-                const withoutExt =
-                    file.name
-                        .replace(/\.[^/.]+$/,"")
-                        .toLowerCase();
+            let files = [];
 
 
-                if(
-                    withoutExt ===
-                    category.name.toLowerCase()
-                )
-                    return;
+            try {
+
+                files =
+                    await githubAPI(
+                        `${PRODUCTS_FOLDER}/${encodeURIComponent(category)}`
+                    );
+
+            } catch (error) {
+
+                console.error(
+                    "Error cargando categoría:",
+                    category,
+                    error
+                );
+
+                continue;
+
+            }
+
+
+            if (!Array.isArray(files)) {
+
+                continue;
+
+            }
+
+
+            const possibleLogoNames = [
+
+                `${category}.png`,
+                `${category}.jpg`,
+                `${category}.jpeg`,
+                `${category}.webp`,
+                `${category}.svg`
+
+            ];
+
+
+            const logoFile =
+                files.find(file =>
+
+                    possibleLogoNames.some(
+                        name =>
+                            name.toLowerCase() ===
+                            file.name.toLowerCase()
+                    )
+
+                );
+
+
+            let categoryLogo = null;
+
+
+            if (logoFile) {
+
+                categoryLogo =
+                    logoFile.download_url;
+
+            }
+
+
+            const productsMap = {};
+
+
+            for (const file of files) {
+
+                if (
+                    file.type !== "file"
+                ) {
+
+                    continue;
+
+                }
+
+
+                if (
+                    !/\.(jpg|jpeg|png|webp|avif)$/i
+                        .test(file.name)
+                ) {
+
+                    continue;
+
+                }
+
+
+                if (
+                    logoFile &&
+                    file.name.toLowerCase() ===
+                    logoFile.name.toLowerCase()
+                ) {
+
+                    continue;
+
+                }
 
 
                 const parsed =
-                    parseProductFile(file.name);
+                    parseProductFile(
+                        file.name
+                    );
 
 
                 const key =
-                    parsed.title +
-                    "__" +
-                    parsed.price;
+                    `${category}__` +
+                    `${parsed.productName}__` +
+                    `${parsed.price}`;
 
 
-                if(!grouped[key]){
+                if (!productsMap[key]) {
 
-                    grouped[key] = {
+                    productsMap[key] = {
 
                         id:
-                            category.name +
-                            "__" +
-                            key,
+                            createId(
+                                `${category}-${parsed.productName}-${parsed.price}`
+                            ),
 
-                        category:
-                            category.name,
+                        category,
 
-                        title:
-                            parsed.title,
+                        name:
+                            parsed.productName,
 
                         price:
                             parsed.price,
 
-                        images:[]
+                        images: []
 
                     };
 
                 }
 
 
-                grouped[key].images.push({
+                productsMap[key]
+                    .images
+                    .push({
 
-                    url:
-                        file.download_url,
+                        url:
+                            file.download_url,
 
-                    order:
-                        parsed.order,
+                        order:
+                            parsed.photoNumber
 
-                    name:
-                        file.name
+                    });
 
-                });
+            }
+
+
+            const products =
+                Object.values(productsMap);
+
+
+            products.forEach(product => {
+
+                product.images.sort(
+                    (a,b) =>
+                        a.order - b.order
+                );
+
+
+                product.images =
+                    product.images.map(
+                        image =>
+                            image.url
+                    );
 
             });
 
 
-            Object.values(grouped)
-                .forEach(product => {
+            result.push({
 
-                    product.images.sort(
-                        (a,b) =>
-                            a.order - b.order
-                    );
+                name:
+                    category,
 
+                logo:
+                    categoryLogo,
 
-                    product.images =
-                        product.images.map(
-                            img => img.url
-                        );
+                products
 
-
-                    allProducts.push(product);
-
-                });
+            });
 
         }
 
-        catch(error){
 
-            console.error(
-                "Error categoría:",
-                category.name,
-                error
-            );
-
-        }
-
-    }
+        catalog = result;
 
 
-    renderProducts(
-        allProducts.slice(0,12)
-    );
-
-}
+        router();
 
 
-/* =========================================================
-   RENDER PRODUCTOS
-========================================================= */
+    } catch (error) {
 
-function renderProducts(products){
-
-    const grid =
-        document.getElementById(
-            "productGrid"
+        console.error(
+            "Error cargando catálogo:",
+            error
         );
 
 
-    grid.innerHTML = "";
+        document.getElementById(
+            "app"
+        ).innerHTML = `
 
+            <div class="loading">
 
-    if(products.length === 0){
+                <div>
 
-        grid.innerHTML =
-            `<div class="loading">
-                No hay productos disponibles.
-            </div>`;
+                    No se pudo cargar el catálogo.
 
-        return;
+                    <br><br>
 
-    }
+                    Revisa que exista:
 
+                    <br><br>
 
-    products.forEach(product => {
+                    <strong>
+                        /products
+                    </strong>
 
-        const card =
-            document.createElement("article");
+                    <br><br>
 
-
-        card.className =
-            "product-card";
-
-
-        card.onclick =
-            function(){
-
-                openProduct(
-                    product.id
-                );
-
-            };
-
-
-        const firstImage =
-            product.images[0] || "";
-
-
-        card.innerHTML = `
-
-            <img
-                class="product-image"
-                src="${firstImage}"
-                alt="${escapeHTML(product.title)}"
-                loading="lazy"
-            >
-
-            <div class="product-info">
-
-                <div class="product-brand">
-                    // ${escapeHTML(product.category)}
-                </div>
-
-                <h3 class="product-name">
-                    ${escapeHTML(product.title)}
-                </h3>
-
-                <div class="product-bottom">
-
-                    <span class="product-price">
-                        $${escapeHTML(product.price)}
-                    </span>
-
-                    <span class="product-button">
-                        Ver producto
-                    </span>
+                    y que las categorías
+                    estén dentro.
 
                 </div>
 
@@ -2373,80 +2565,893 @@ function renderProducts(products){
 
         `;
 
-
-        grid.appendChild(card);
-
-    });
+    }
 
 }
 
 
-/* =========================================================
-   MOSTRAR CATEGORIA
-========================================================= */
+/* =====================================================
+   HOME
+===================================================== */
 
-function showCategory(categoryName){
+function renderHome() {
 
-    const products =
-        allProducts.filter(
-            product =>
-                product.category.toLowerCase()
-                ===
+    const app =
+        document.getElementById("app");
+
+
+    app.innerHTML = `
+
+        <div class="view">
+
+
+            <!-- HERO -->
+
+            <section class="hero">
+
+                <div
+                    class="hero-video-wrapper"
+                >
+
+                    <video
+                        class="hero-video"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        webkit-playsinline
+                        preload="auto"
+                    >
+
+                        <source
+                            src="video.mp4"
+                            type="video/mp4"
+                        >
+
+                    </video>
+
+
+                    <div
+                        class="hero-overlay"
+                    ></div>
+
+
+                    <div
+                        class="hero-content"
+                    >
+
+                        <svg
+                            class="hero-symbol"
+                            viewBox="0 0 100 100"
+                            fill="none"
+                        >
+
+                            <path
+                                d="
+                                M50 5
+                                L90 28
+                                L90 72
+                                L50 95
+                                L10 72
+                                L10 28
+                                Z
+                                "
+                                stroke="#ffffff"
+                                stroke-width="3"
+                            />
+
+                            <path
+                                d="
+                                M44 32
+                                H56
+                                V44
+                                H53
+                                V56
+                                H56
+                                V68
+                                H44
+                                V56
+                                H47
+                                V44
+                                H44
+                                Z
+                                "
+                                fill="#ffffff"
+                            />
+
+                        </svg>
+
+
+                        <h1 class="hero-title">
+
+                            IRIDIUM
+
+                        </h1>
+
+
+                        <p
+                            class="hero-subtitle"
+                        >
+
+                            Luxury Streetwear
+                            Performance
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- EXPLORAR -->
+
+            <section class="explore">
+
+                <div
+                    class="explore-label"
+                >
+
+                    IRIDIUM COLLECTION
+
+                </div>
+
+
+                <h2
+                    class="explore-title"
+                >
+
+                    EXPLORAR COLECCIÓN
+
+                </h2>
+
+
+                <p
+                    class="explore-text"
+                >
+
+                    Descubre una selección
+                    exclusiva de prendas
+                    inspiradas en la velocidad,
+                    el diseño y la cultura
+                    del motorsport.
+
+                </p>
+
+
+                <a
+                    href="#/colecciones"
+                    class="explore-btn"
+                >
+
+                    Ver colecciones
+
+                </a>
+
+            </section>
+
+
+            <!-- CATEGORÍAS -->
+
+            <section
+                class="categories"
+                id="categorias"
+            >
+
+                <div
+                    class="section-heading"
+                >
+
+                    <small>
+
+                        // Selecciona tu categoría //
+
+                    </small>
+
+
+                    <h2>
+
+                        COLECCIONES
+
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="category-grid"
+                    id="categoryGrid"
+                >
+
+                    ${renderCategoryCards()}
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   TARJETAS CATEGORÍAS
+===================================================== */
+
+function renderCategoryCards() {
+
+    if (!catalog.length) {
+
+        return `
+
+            <div class="empty">
+
+                No hay categorías
+                disponibles.
+
+            </div>
+
+        `;
+
+    }
+
+
+    return catalog.map(category => {
+
+        const logo =
+            category.logo ||
+            createFallbackLogo(
+                category.name
+            );
+
+
+        return `
+
+            <div
+                class="category-card"
+                onclick="
+                    openCategory(
+                        '${escapeAttr(category.name)}'
+                    )
+                "
+            >
+
+                <img
+                    class="category-logo"
+                    src="${logo}"
+                    alt="${escapeAttr(category.name)}"
+                    onerror="
+                        this.src='${createFallbackLogo(category.name)}'
+                    "
+                >
+
+
+                <span
+                    class="category-name"
+                >
+
+                    ${escapeHTML(category.name)}
+
+                </span>
+
+            </div>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   COLECCIONES
+===================================================== */
+
+function renderCollections() {
+
+    const app =
+        document.getElementById("app");
+
+
+    app.innerHTML = `
+
+        <div class="view">
+
+
+            <section class="page-header">
+
+                <button
+                    class="back-btn"
+                    onclick="navigateHome()"
+                >
+
+                    ← Volver
+
+                </button>
+
+
+                <small>
+
+                    IRIDIUM COLLECTION
+
+                </small>
+
+
+                <h1>
+
+                    Colecciones
+
+                </h1>
+
+            </section>
+
+
+            <section class="categories">
+
+                <div
+                    class="category-grid"
+                >
+
+                    ${renderCategoryCards()}
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   ABRIR CATEGORÍA
+===================================================== */
+
+function openCategory(categoryName) {
+
+    window.location.hash =
+        `/categoria/${encodeURIComponent(categoryName)}`;
+
+}
+
+
+/* =====================================================
+   PÁGINA CATEGORÍA
+===================================================== */
+
+function renderCategory(categoryName) {
+
+    const category =
+        catalog.find(
+            c =>
+                c.name.toLowerCase() ===
                 categoryName.toLowerCase()
         );
 
 
-    /*
-       Nos aseguramos de estar
-       en la página principal.
-    */
+    if (!category) {
 
-    showOnly("homePage");
+        renderCollections();
 
+        return;
 
-    document.getElementById(
-        "catalogTitle"
-    ).innerText =
-        cleanText(categoryName);
+    }
 
 
-    renderProducts(products);
+    const app =
+        document.getElementById("app");
 
 
-    document.getElementById(
-        "colecciones"
-    ).scrollIntoView({
-        behavior:"smooth"
-    });
+    app.innerHTML = `
+
+        <div class="view">
 
 
-    history.replaceState(
-        null,
-        "",
-        "#categoria/" +
-        encodeURIComponent(categoryName)
-    );
+            <section class="page-header">
+
+                <button
+                    class="back-btn"
+                    onclick="navigateHome()"
+                >
+
+                    ← Volver
+
+                </button>
+
+
+                <small>
+
+                    COLECCIÓN
+
+                </small>
+
+
+                <h1>
+
+                    ${escapeHTML(category.name)}
+
+                </h1>
+
+            </section>
+
+
+            <section class="products-page">
+
+
+                <div
+                    class="products-grid"
+                >
+
+                    ${
+                        category.products.length
+
+                        ?
+
+                        category.products
+                            .map(
+                                product =>
+                                    renderProductCard(product)
+                            )
+                            .join("")
+
+                        :
+
+                        `
+
+                            <div class="empty">
+
+                                No hay productos
+                                disponibles
+                                en esta categoría.
+
+                            </div>
+
+                        `
+                    }
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+    `;
 
 }
 
 
-/* =========================================================
-   ABRIR PRODUCTO
-========================================================= */
+/* =====================================================
+   TARJETA DE PRODUCTO
+===================================================== */
 
-function openProduct(productId){
+function renderProductCard(product) {
 
-    const product =
-        allProducts.find(
-            p => p.id === productId
+    const images =
+        product.images || [];
+
+
+    const cardId =
+        "gallery_" +
+        product.id;
+
+
+    let galleryHTML = `
+
+        <div
+            class="product-gallery"
+            id="${cardId}"
+        >
+
+    `;
+
+
+    images.forEach(
+        (image,index) => {
+
+            galleryHTML += `
+
+                <img
+                    class="
+                        product-gallery-image
+                        ${index === 0 ? "active" : ""}
+                    "
+                    src="${image}"
+                    alt="${escapeAttr(product.name)}"
+                    loading="lazy"
+                    onclick="
+                        event.stopPropagation();
+                        openImageModal('${escapeAttr(image)}');
+                    "
+                >
+
+            `;
+
+        }
+    );
+
+
+    if (images.length > 1) {
+
+        galleryHTML += `
+
+            <button
+                class="
+                    product-gallery-arrow
+                    prev
+                "
+                onclick="
+                    event.stopPropagation();
+                    changeProductGallery(
+                        '${cardId}',
+                        -1
+                    );
+                "
+                aria-label="Foto anterior"
+            >
+
+                &#10094;
+
+            </button>
+
+
+            <button
+                class="
+                    product-gallery-arrow
+                    next
+                "
+                onclick="
+                    event.stopPropagation();
+                    changeProductGallery(
+                        '${cardId}',
+                        1
+                    );
+                "
+                aria-label="Foto siguiente"
+            >
+
+                &#10095;
+
+            </button>
+
+
+            <div
+                class="product-gallery-dots"
+            >
+
+                ${
+
+                    images.map(
+                        (_,index) => `
+
+                            <span
+                                class="
+                                    product-gallery-dot
+                                    ${index === 0 ? "active" : ""}
+                                "
+                                onclick="
+                                    event.stopPropagation();
+                                    setProductGallery(
+                                        '${cardId}',
+                                        ${index}
+                                    );
+                                "
+                            ></span>
+
+                        `
+                    ).join("")
+
+                }
+
+            </div>
+
+        `;
+
+    }
+
+
+    galleryHTML += `
+
+        </div>
+
+    `;
+
+
+    return `
+
+        <article
+            class="product-card"
+            onclick="
+                openProduct(
+                    '${escapeAttr(product.category)}',
+                    '${escapeAttr(product.id)}'
+                )
+            "
+        >
+
+
+            ${galleryHTML}
+
+
+            <div
+                class="product-gradient"
+            ></div>
+
+
+            <div
+                class="product-info"
+            >
+
+                <div
+                    class="product-brand"
+                >
+
+                    ${escapeHTML(product.category)}
+
+                </div>
+
+
+                <h2
+                    class="product-name"
+                >
+
+                    ${escapeHTML(product.name)}
+
+                </h2>
+
+
+                <div
+                    class="product-price"
+                >
+
+                    $${escapeHTML(product.price)}
+
+                </div>
+
+
+                <span
+                    class="product-view"
+                >
+
+                    Ver producto
+
+                </span>
+
+            </div>
+
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   CAMBIAR FOTO
+===================================================== */
+
+function changeProductGallery(
+    cardId,
+    direction
+) {
+
+    const gallery =
+        document.getElementById(cardId);
+
+
+    if (!gallery) return;
+
+
+    const images =
+        gallery.querySelectorAll(
+            ".product-gallery-image"
         );
 
 
-    if(!product){
+    const dots =
+        gallery.querySelectorAll(
+            ".product-gallery-dot"
+        );
 
-        console.error(
-            "Producto no encontrado:",
-            productId
+
+    if (images.length <= 1) {
+
+        return;
+
+    }
+
+
+    let current =
+        Array.from(images)
+            .findIndex(
+                image =>
+                    image.classList.contains(
+                        "active"
+                    )
+            );
+
+
+    if (current < 0) {
+
+        current = 0;
+
+    }
+
+
+    images[current]
+        .classList
+        .remove("active");
+
+
+    if (dots[current]) {
+
+        dots[current]
+            .classList
+            .remove("active");
+
+    }
+
+
+    let next =
+        current + direction;
+
+
+    if (next >= images.length) {
+
+        next = 0;
+
+    }
+
+
+    if (next < 0) {
+
+        next =
+            images.length - 1;
+
+    }
+
+
+    images[next]
+        .classList
+        .add("active");
+
+
+    if (dots[next]) {
+
+        dots[next]
+            .classList
+            .add("active");
+
+    }
+
+}
+
+
+/* =====================================================
+   SELECCIONAR FOTO
+===================================================== */
+
+function setProductGallery(
+    cardId,
+    index
+) {
+
+    const gallery =
+        document.getElementById(cardId);
+
+
+    if (!gallery) return;
+
+
+    const images =
+        gallery.querySelectorAll(
+            ".product-gallery-image"
+        );
+
+
+    const dots =
+        gallery.querySelectorAll(
+            ".product-gallery-dot"
+        );
+
+
+    images.forEach(
+        image =>
+            image.classList
+                .remove("active")
+    );
+
+
+    dots.forEach(
+        dot =>
+            dot.classList
+                .remove("active")
+    );
+
+
+    if (images[index]) {
+
+        images[index]
+            .classList
+            .add("active");
+
+    }
+
+
+    if (dots[index]) {
+
+        dots[index]
+            .classList
+            .add("active");
+
+    }
+
+}
+
+
+/* =====================================================
+   ABRIR PRODUCTO
+===================================================== */
+
+function openProduct(
+    categoryName,
+    productId
+) {
+
+    window.location.hash =
+        `/producto/` +
+        `${encodeURIComponent(categoryName)}/` +
+        `${encodeURIComponent(productId)}`;
+
+}
+
+
+/* =====================================================
+   DETALLE DEL PRODUCTO
+===================================================== */
+
+function renderProduct(
+    categoryName,
+    productId
+) {
+
+    const category =
+        catalog.find(
+            c =>
+                c.name.toLowerCase() ===
+                categoryName.toLowerCase()
+        );
+
+
+    if (!category) {
+
+        renderCollections();
+
+        return;
+
+    }
+
+
+    const product =
+        category.products.find(
+            p =>
+                p.id === productId
+        );
+
+
+    if (!product) {
+
+        renderCategory(
+            categoryName
         );
 
         return;
@@ -2454,318 +3459,251 @@ function openProduct(productId){
     }
 
 
-    currentProduct =
-        product;
+    selectedSize = "";
 
 
-    currentImageIndex = 0;
+    const app =
+        document.getElementById("app");
 
 
-    renderProductDetail();
+    app.innerHTML = `
+
+        <div class="view">
 
 
-    showOnly("productPage");
+            <section
+                class="detail-page"
+            >
 
-
-    /*
-       Esto evita el 404 en GitHub Pages.
-
-       Ejemplo:
-
-       #producto/Ferrari__F40__35
-
-       Sigue siendo index.html.
-    */
-
-    history.pushState(
-        null,
-        "",
-        "#producto/" +
-        encodeURIComponent(product.id)
-    );
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =========================================================
-   RENDER PRODUCT DETAIL
-========================================================= */
-
-function renderProductDetail(){
-
-    if(!currentProduct)
-        return;
-
-
-    const container =
-        document.getElementById(
-            "productDetail"
-        );
-
-
-    const product =
-        currentProduct;
-
-
-    const images =
-        product.images;
-
-
-    const mainImage =
-        images[currentImageIndex] ||
-        images[0];
-
-
-    const thumbnails =
-        images.map(
-            (image,index) => `
-
-                <img
-                    src="${image}"
-                    class="thumbnail
-                    ${index === currentImageIndex
-                        ? "active"
-                        : ""}"
-                    onclick="setProductImage(${index})"
-                    alt="${escapeHTML(product.title)}"
+                <div
+                    class="detail-container"
                 >
 
-            `
-        ).join("");
+
+                    <button
+                        class="back-btn"
+                        onclick="
+                            openCategory(
+                                '${escapeAttr(category.name)}'
+                            )
+                        "
+                    >
+
+                        ← Volver a
+                        ${escapeHTML(category.name)}
+
+                    </button>
 
 
-    const arrows =
-        images.length > 1
-        ? `
-
-            <button
-                class="gallery-arrow gallery-prev"
-                onclick="changeProductImage(-1)"
-            >
-                ❮
-            </button>
-
-            <button
-                class="gallery-arrow gallery-next"
-                onclick="changeProductImage(1)"
-            >
-                ❯
-            </button>
-
-          `
-        : "";
+                    <div
+                        class="detail-layout"
+                    >
 
 
-    /*
-       Tallas.
+                        <!-- GALERÍA -->
 
-       Puedes cambiar estas tallas
-       si alguna categoría maneja otras.
-    */
+                        <div
+                            class="detail-gallery"
+                        >
 
-    const sizes = [
-        "S",
-        "M",
-        "L",
-        "XL",
-        "XXL"
-    ];
-
-
-    const sizesHTML =
-        sizes.map(
-            size =>
-                `<button
-                    class="size"
-                    onclick="selectSize(this,'${size}')"
-                >
-                    ${size}
-                </button>`
-        ).join("");
+                            <img
+                                id="mainProductImage"
+                                class="main-product-image"
+                                src="${product.images[0] || ""}"
+                                alt="${escapeAttr(product.name)}"
+                                onclick="
+                                    openImageModal(this.src)
+                                "
+                            >
 
 
-    const whatsappText =
-        encodeURIComponent(
-            `Hola IRIDIUM, quiero comprar ${product.title} de la categoría ${product.category}. Precio $${product.price}.`
-        );
+                            <div
+                                class="thumbnails"
+                            >
+
+                                ${
+                                    product.images
+                                        .map(
+                                            (img,index) => `
+
+                                                <img
+                                                    class="
+                                                        thumbnail
+                                                        ${index === 0 ? "active" : ""}
+                                                    "
+                                                    src="${img}"
+                                                    alt="${escapeAttr(product.name)}"
+                                                    onclick="
+                                                        selectProductImage(
+                                                            this,
+                                                            '${escapeAttr(img)}'
+                                                        )
+                                                    "
+                                                >
+
+                                            `
+                                        )
+                                        .join("")
+                                }
+
+                            </div>
+
+                        </div>
 
 
-    container.innerHTML = `
+                        <!-- INFORMACIÓN -->
 
-        <div class="product-gallery touch-gallery"
-             id="touchGallery">
+                        <div
+                            class="detail-info"
+                        >
 
-            <img
-                id="detailMainImage"
-                class="detail-main-image"
-                src="${mainImage}"
-                alt="${escapeHTML(product.title)}"
-            >
+                            <div
+                                class="detail-brand"
+                            >
 
-            ${arrows}
+                                ${escapeHTML(category.name)}
 
-            <div class="thumbnails">
-                ${thumbnails}
-            </div>
-
-        </div>
+                            </div>
 
 
-        <div class="detail-info">
+                            <h1
+                                class="detail-title"
+                            >
 
-            <div class="detail-category">
-                // ${escapeHTML(product.category)}
-            </div>
+                                ${escapeHTML(product.name)}
 
-            <h1 class="detail-title">
-                ${escapeHTML(product.title)}
-            </h1>
-
-            <div class="detail-price">
-                $${escapeHTML(product.price)}
-            </div>
-
-            <div class="detail-line"></div>
-
-            <p class="detail-description">
-
-                Prenda exclusiva de IRIDIUM diseñada
-                para nuestra colección
-                <strong>
-                    ${escapeHTML(product.category)}
-                </strong>.
-
-                Diseño inspirado en el universo
-                del motorsport y el streetwear
-                premium.
-
-            </p>
+                            </h1>
 
 
-            <div class="detail-section-title">
-                Tallas disponibles
-            </div>
+                            <div
+                                class="detail-price"
+                            >
 
-            <div class="sizes">
+                                $${escapeHTML(product.price)}
 
-                ${sizesHTML}
-
-            </div>
+                            </div>
 
 
-            <div class="detail-section-title">
-                Características
-            </div>
+                            <p
+                                class="detail-description"
+                            >
 
-            <p class="detail-description">
+                                Prenda exclusiva
+                                IRIDIUM.
 
-                • Diseño exclusivo IRIDIUM<br>
-                • Acabado premium<br>
-                • Disponible en varias tallas<br>
-                • Envíos y entregas según disponibilidad<br>
-                • Producto sujeto a stock
+                                <br><br>
 
-            </p>
+                                Diseño inspirado en
+                                el motorsport y la
+                                cultura streetwear
+                                contemporánea.
+
+                                <br><br>
+
+                                Consulta disponibilidad,
+                                colores y tallas
+                                directamente por
+                                WhatsApp.
+
+                            </p>
 
 
-            <a
-                class="detail-whatsapp"
-                target="_blank"
-                href="https://wa.me/${WHATSAPP}?text=${whatsappText}"
-            >
-                PEDIR POR WHATSAPP
-            </a>
+                            <div
+                                class="size-title"
+                            >
+
+                                Selecciona tu talla
+
+                            </div>
+
+
+                            <div
+                                class="sizes"
+                            >
+
+                                ${
+                                    [
+                                        "XS",
+                                        "S",
+                                        "M",
+                                        "L",
+                                        "XL",
+                                        "XXL"
+                                    ]
+                                    .map(
+                                        size => `
+
+                                            <button
+                                                class="size-btn"
+                                                onclick="
+                                                    selectSize(
+                                                        '${size}',
+                                                        this
+                                                    )
+                                                "
+                                            >
+
+                                                ${size}
+
+                                            </button>
+
+                                        `
+                                    )
+                                    .join("")
+                                }
+
+                            </div>
+
+
+                            <a
+                                id="orderButton"
+                                class="order-btn"
+                                href="
+                                    https://wa.me/${WHATSAPP}?text=${createWhatsAppMessage(product)}
+                                "
+                                target="_blank"
+                            >
+
+                                Pedir por WhatsApp
+
+                            </a>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
 
         </div>
 
     `;
 
-
-    activateSwipe();
-
 }
 
 
-/* =========================================================
-   CAMBIAR IMAGEN PRODUCTO
-========================================================= */
+/* =====================================================
+   SELECCIONAR IMAGEN DEL DETALLE
+===================================================== */
 
-function changeProductImage(direction){
+function selectProductImage(
+    element,
+    src
+) {
 
-    if(!currentProduct)
-        return;
-
-
-    const total =
-        currentProduct.images.length;
-
-
-    if(total <= 1)
-        return;
-
-
-    currentImageIndex += direction;
-
-
-    if(currentImageIndex < 0)
-        currentImageIndex =
-            total - 1;
-
-
-    if(currentImageIndex >= total)
-        currentImageIndex = 0;
-
-
-    updateMainProductImage();
-
-}
-
-
-/* =========================================================
-   SELECCIONAR IMAGEN
-========================================================= */
-
-function setProductImage(index){
-
-    if(!currentProduct)
-        return;
-
-
-    currentImageIndex =
-        index;
-
-
-    updateMainProductImage();
-
-}
-
-
-/* =========================================================
-   ACTUALIZAR IMAGEN
-========================================================= */
-
-function updateMainProductImage(){
-
-    const image =
+    const main =
         document.getElementById(
-            "detailMainImage"
+            "mainProductImage"
         );
 
 
-    if(!image)
-        return;
+    if (!main) return;
 
 
-    image.src =
-        currentProduct.images[
-            currentImageIndex
-        ];
+    main.src = src;
 
 
     document
@@ -2773,414 +3711,560 @@ function updateMainProductImage(){
             ".thumbnail"
         )
         .forEach(
-            (thumb,index) => {
-
-                thumb.classList.toggle(
-                    "active",
-                    index === currentImageIndex
-                );
-
-            }
+            thumbnail =>
+                thumbnail.classList
+                    .remove("active")
         );
+
+
+    element.classList
+        .add("active");
 
 }
 
 
-/* =========================================================
-   SWIPE EN CELULAR
-========================================================= */
-
-let touchStartX = 0;
-
-let touchEndX = 0;
-
-
-function activateSwipe(){
-
-    const gallery =
-        document.getElementById(
-            "touchGallery"
-        );
-
-
-    if(!gallery)
-        return;
-
-
-    gallery.ontouchstart =
-        function(event){
-
-            touchStartX =
-                event.changedTouches[0].screenX;
-
-        };
-
-
-    gallery.ontouchend =
-        function(event){
-
-            touchEndX =
-                event.changedTouches[0].screenX;
-
-
-            const distance =
-                touchEndX -
-                touchStartX;
-
-
-            /*
-               Solo cambiamos de foto
-               si el movimiento es
-               suficientemente grande.
-            */
-
-            if(Math.abs(distance) < 45)
-                return;
-
-
-            if(distance < 0){
-
-                changeProductImage(1);
-
-            }
-            else{
-
-                changeProductImage(-1);
-
-            }
-
-        };
-
-}
-
-
-/* =========================================================
+/* =====================================================
    SELECCIONAR TALLA
-========================================================= */
+===================================================== */
 
-let selectedSize = "";
+function selectSize(
+    size,
+    button
+) {
 
+    selectedSize = size;
 
-function selectSize(button,size){
 
     document
-        .querySelectorAll(".size")
+        .querySelectorAll(
+            ".size-btn"
+        )
         .forEach(
             btn =>
-                btn.classList.remove(
-                    "selected"
-                )
+                btn.classList
+                    .remove("selected")
         );
 
 
-    button.classList.add(
-        "selected"
-    );
+    button.classList
+        .add("selected");
 
 
-    selectedSize =
-        size;
+    const orderButton =
+        document.getElementById(
+            "orderButton"
+        );
+
+
+    if (!orderButton) return;
+
+
+    const parts =
+        getHashParts();
+
+
+    const categoryName =
+        decodeURIComponent(
+            parts[1] || ""
+        );
+
+
+    const productId =
+        decodeURIComponent(
+            parts[2] || ""
+        );
+
+
+    const category =
+        catalog.find(
+            c =>
+                c.name.toLowerCase() ===
+                categoryName.toLowerCase()
+        );
+
+
+    if (!category) return;
+
+
+    const product =
+        category.products.find(
+            p =>
+                p.id === productId
+        );
+
+
+    if (!product) return;
+
+
+    orderButton.href =
+        `https://wa.me/${WHATSAPP}?text=` +
+        createWhatsAppMessage(
+            product,
+            size
+        );
 
 }
 
 
-/* =========================================================
-   NOSOTROS / CONTACTO
-========================================================= */
+/* =====================================================
+   WHATSAPP
+===================================================== */
 
-function showPage(page){
+function createWhatsAppMessage(
+    product,
+    size = ""
+) {
 
-    showOnly(
-        page === "nosotros"
-            ? "nosotrosPage"
-            : "contactPage"
+    let message =
+        `Hola IRIDIUM, quiero pedir el producto: ` +
+        `${product.name} ` +
+        `($${product.price})`;
+
+
+    if (size) {
+
+        message +=
+            `, talla ${size}`;
+
+    }
+
+
+    return encodeURIComponent(
+        message
     );
-
-
-    history.replaceState(
-        null,
-        "",
-        "#" + page
-    );
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
 
 }
 
 
-/* =========================================================
-   MOSTRAR HOME
-========================================================= */
+/* =====================================================
+   NOSOTROS
+===================================================== */
 
-function showHome(){
-
-    showOnly("homePage");
-
+function renderAbout() {
 
     document.getElementById(
-        "catalogTitle"
-    ).innerText =
-        "Últimos Lanzamientos";
+        "app"
+    ).innerHTML = `
+
+        <div class="view">
+
+            <section
+                class="page-header"
+            >
+
+                <button
+                    class="back-btn"
+                    onclick="navigateHome()"
+                >
+
+                    ← Volver
+
+                </button>
 
 
-    renderProducts(
-        allProducts.slice(0,12)
-    );
+                <small>
+
+                    IRIDIUM
+
+                </small>
 
 
-    history.replaceState(
-        null,
-        "",
-        "#inicio"
-    );
+                <h1>
+
+                    Nosotros
+
+                </h1>
+
+            </section>
 
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    );
+            <section
+                class="explore"
+            >
+
+                <h2
+                    class="explore-title"
+                >
+
+                    MÁS QUE STREETWEAR
+
+                </h2>
+
+
+                <p
+                    class="explore-text"
+                >
+
+                    IRIDIUM nace de la combinación
+                    entre diseño, velocidad y cultura
+                    urbana.
+
+                    <br><br>
+
+                    Creamos prendas pensadas para
+                    quienes buscan expresar su
+                    personalidad a través de piezas
+                    con carácter, estética premium
+                    y espíritu de competición.
+
+                </p>
+
+            </section>
+
+        </div>
+
+    `;
 
 }
 
 
-/* =========================================================
-   NAVEGAR HOME
-========================================================= */
+/* =====================================================
+   CONTACTO
+===================================================== */
 
-function navigateHome(){
+function renderContact() {
 
-    showHome();
+    document.getElementById(
+        "app"
+    ).innerHTML = `
+
+        <div class="view">
+
+
+            <section
+                class="page-header"
+            >
+
+                <button
+                    class="back-btn"
+                    onclick="navigateHome()"
+                >
+
+                    ← Volver
+
+                </button>
+
+
+                <small>
+
+                    IRIDIUM
+
+                </small>
+
+
+                <h1>
+
+                    Contacto
+
+                </h1>
+
+            </section>
+
+
+            <section
+                class="explore"
+            >
+
+                <h2
+                    class="explore-title"
+                >
+
+                    HABLEMOS
+
+                </h2>
+
+
+                <p
+                    class="explore-text"
+                >
+
+                    ¿Quieres realizar un pedido,
+                    consultar disponibilidad o
+                    conocer nuestras próximas
+                    colecciones?
+
+                    <br><br>
+
+                    Escríbenos directamente.
+
+                </p>
+
+
+                <a
+                    href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20información"
+                    target="_blank"
+                    class="explore-btn"
+                >
+
+                    WhatsApp
+
+                </a>
+
+            </section>
+
+
+        </div>
+
+    `;
 
 }
 
 
-/* =========================================================
-   MOSTRAR SOLO UNA SECCION
-========================================================= */
+/* =====================================================
+   HOME
+===================================================== */
 
-function showOnly(id){
+function navigateHome() {
 
-    const sections = [
+    window.location.hash = "/";
 
-        "homePage",
-        "productPage",
-        "nosotrosPage",
-        "contactPage"
-
-    ];
+}
 
 
-    sections.forEach(sectionId => {
+/* =====================================================
+   ROUTER
+===================================================== */
 
-        const element =
-            document.getElementById(
-                sectionId
+function router() {
+
+    const parts =
+        getHashParts();
+
+
+    const route =
+        parts[0] || "";
+
+
+    // Actualizar estado activo en la cinta de navegación
+    const navLinks = document.querySelectorAll(".top-menu a");
+    navLinks.forEach(link => {
+        const href = link.getAttribute("href");
+        if (
+            (route === "" || route === "/") && href === "#/" ||
+            route === "colecciones" && href === "#/colecciones" ||
+            route === "nosotros" && href === "#/nosotros" ||
+            route === "contacto" && href === "#/contacto"
+        ) {
+            link.classList.add("active");
+        } else {
+            link.classList.remove("active");
+        }
+    });
+
+
+    /* HOME */
+
+    if (
+        !route ||
+        route === "/"
+    ) {
+
+        renderHome();
+
+        return;
+
+    }
+
+
+    /* COLECCIONES */
+
+    if (
+        route === "colecciones"
+    ) {
+
+        renderCollections();
+
+        return;
+
+    }
+
+
+    /* CATEGORÍA */
+
+    if (
+        route === "categoria"
+    ) {
+
+        const category =
+            decodeURIComponent(
+                parts[1] || ""
             );
 
 
-        if(!element)
-            return;
-
-
-        if(sectionId === id){
-
-            if(
-                sectionId === "homePage"
-            ){
-
-                element.style.display =
-                    "block";
-
-            }
-            else{
-
-                element.classList.add(
-                    "active"
-                );
-
-            }
-
-        }
-
-        else{
-
-            if(
-                sectionId === "homePage"
-            ){
-
-                element.style.display =
-                    "none";
-
-            }
-            else{
-
-                element.classList.remove(
-                    "active"
-                );
-
-            }
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   ROUTER DE GITHUB PAGES
-========================================================= */
-
-function handleRoute(){
-
-    const hash =
-        decodeURIComponent(
-            window.location.hash
+        renderCategory(
+            category
         );
 
 
-    if(hash.startsWith("#producto/")){
+        return;
 
-        const id =
-            hash.substring(
-                "#producto/".length
+    }
+
+
+    /* PRODUCTO */
+
+    if (
+        route === "producto"
+    ) {
+
+        const category =
+            decodeURIComponent(
+                parts[1] || ""
             );
 
 
         const product =
-            allProducts.find(
-                p => p.id === id
+            decodeURIComponent(
+                parts[2] || ""
             );
 
 
-        if(product){
-
-            currentProduct =
-                product;
-
-            currentImageIndex = 0;
-
-            renderProductDetail();
-
-            showOnly(
-                "productPage"
-            );
-
-            window.scrollTo(0,0);
-
-            return;
-
-        }
-
-    }
-
-
-    if(hash.startsWith("#categoria/")){
-
-        const category =
-            hash.substring(
-                "#categoria/".length
-            );
-
-
-        showCategory(
-            category
+        renderProduct(
+            category,
+            product
         );
 
-        return;
-
-    }
-
-
-    if(hash === "#nosotros"){
-
-        showPage("nosotros");
 
         return;
 
     }
 
 
-    if(hash === "#contacto"){
+    /* NOSOTROS */
 
-        showPage("contacto");
+    if (
+        route === "nosotros"
+    ) {
+
+        renderAbout();
 
         return;
 
     }
 
 
-    showOnly("homePage");
+    /* CONTACTO */
+
+    if (
+        route === "contacto"
+    ) {
+
+        renderContact();
+
+        return;
+
+    }
+
+
+    renderHome();
 
 }
 
 
-/* =========================================================
-   ESCAPAR HTML
-========================================================= */
+/* =====================================================
+   HASH
+===================================================== */
 
-function escapeHTML(text){
+function getHashParts() {
 
-    return String(text)
+    let hash =
+        window.location.hash
 
-        .replace(/&/g,"&amp;")
+            .replace(/^#/, "")
 
-        .replace(/</g,"&lt;")
-
-        .replace(/>/g,"&gt;")
-
-        .replace(/"/g,"&quot;")
-
-        .replace(/'/g,"&#039;");
-
-}
+            .replace(/^\/+/, "");
 
 
-/* =========================================================
-   INICIO
-========================================================= */
+    if (!hash) {
 
-async function initialize(){
+        return ["/"];
 
-    await loadCategories();
+    }
 
-    await loadProducts();
 
-    handleRoute();
+    return hash
+        .split("/")
+        .filter(Boolean);
 
 }
 
 
-/* =========================================================
-   HISTORIAL DEL NAVEGADOR
-========================================================= */
+/* =====================================================
+   MODAL
+===================================================== */
 
-window.addEventListener(
-    "popstate",
-    handleRoute
-);
+function openImageModal(src) {
 
+    const modal =
+        document.getElementById(
+            "imageModal"
+        );
+
+
+    const image =
+        document.getElementById(
+            "modalImage"
+        );
+
+
+    image.src = src;
+
+
+    modal.classList
+        .add("active");
+
+}
+
+
+function closeImageModal() {
+
+    const modal =
+        document.getElementById(
+            "imageModal"
+        );
+
+
+    modal.classList
+        .remove("active");
+
+}
+
+
+/* =====================================================
+   CAMBIO DE HASH
+===================================================== */
 
 window.addEventListener(
     "hashchange",
-    handleRoute
+    function() {
+
+        router();
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+    }
 );
 
 
-/* =========================================================
-   EJECUTAR
-========================================================= */
+/* =====================================================
+   INICIAR
+===================================================== */
 
 window.addEventListener(
     "DOMContentLoaded",
-    initialize
+    function() {
+
+        loadCatalog();
+
+    }
 );
 
 </script>
 
 </body>
+
 </html>
+
