@@ -19,7 +19,6 @@
 IRIDIUM — Luxury Streetwear & Apparel
 </title>
 
-
 <!-- =====================================================
      TIPOGRAFÍAS
 ===================================================== -->
@@ -39,7 +38,6 @@ IRIDIUM — Luxury Streetwear & Apparel
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet"
 >
-
 
 <style>
 
@@ -69,7 +67,6 @@ IRIDIUM — Luxury Streetwear & Apparel
     --body: 'Plus Jakarta Sans', sans-serif;
 
 }
-
 
 /* =====================================================
    RESET
@@ -127,7 +124,6 @@ img {
 
 }
 
-
 /* =====================================================
    HEADER
 ===================================================== */
@@ -163,9 +159,6 @@ header {
         );
 
 }
-
-
-/* LOGO */
 
 .brand {
 
@@ -219,14 +212,23 @@ header {
 
 }
 
-
 /* =====================================================
-   CINTA DE OPCIONES SUPERIOR DERECHA (TOP MENU)
+   HEADER ACTIONS (MENU + CARRITO)
 ===================================================== */
 
-.top-menu {
+.header-right {
 
     pointer-events: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
+
+.top-menu {
 
     display: flex;
 
@@ -275,6 +277,452 @@ header {
 
 }
 
+.cart-icon-btn {
+
+    position: relative;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: rgba(14,16,20,.72);
+
+    border: 1px solid rgba(255,255,255,.13);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.cart-icon-btn:hover {
+
+    border-color: rgba(255,255,255,.45);
+
+    transform: scale(1.05);
+
+}
+
+.cart-badge {
+
+    position: absolute;
+
+    top: -3px;
+
+    right: -3px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-size: .65rem;
+
+    font-weight: 800;
+
+    width: 18px;
+
+    height: 18px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-shadow: 0 0 10px rgba(255,255,255,.6);
+
+}
+
+/* =====================================================
+   CARRITO LATERAL (DRAWER)
+===================================================== */
+
+.cart-backdrop {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.7);
+
+    backdrop-filter: blur(8px);
+
+    z-index: 6000;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity .35s ease;
+
+}
+
+.cart-backdrop.open {
+
+    opacity: 1;
+
+    pointer-events: auto;
+
+}
+
+.cart-drawer {
+
+    position: fixed;
+
+    top: 0;
+
+    right: 0;
+
+    width: min(440px, 92vw);
+
+    height: 100%;
+
+    background: #090b0f;
+
+    border-left: 1px solid var(--border);
+
+    z-index: 6001;
+
+    transform: translateX(100%);
+
+    transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
+
+    display: flex;
+
+    flex-direction: column;
+
+    box-shadow: -20px 0 60px rgba(0,0,0,.9);
+
+}
+
+.cart-drawer.open {
+
+    transform: translateX(0);
+
+}
+
+.cart-header {
+
+    padding: 24px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+.cart-header h3 {
+
+    font-family: var(--title);
+
+    letter-spacing: 2px;
+
+    font-size: 1.1rem;
+
+}
+
+.cart-close-btn {
+
+    background: none;
+
+    color: #858b96;
+
+    font-size: 1.8rem;
+
+    cursor: pointer;
+
+    line-height: 1;
+
+    transition: color .2s;
+
+}
+
+.cart-close-btn:hover {
+
+    color: #ffffff;
+
+}
+
+.cart-items {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 20px 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+
+}
+
+.cart-item {
+
+    display: flex;
+
+    gap: 14px;
+
+    padding: 12px;
+
+    background: #0f1218;
+
+    border-radius: 14px;
+
+    border: 1px solid var(--border);
+
+    align-items: center;
+
+}
+
+.cart-item img {
+
+    width: 65px;
+
+    height: 75px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+
+    background: #050608;
+
+}
+
+.cart-item-info {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+.cart-item-category {
+
+    font-size: .6rem;
+
+    letter-spacing: 1.5px;
+
+    color: var(--silver-dark);
+
+    text-transform: uppercase;
+
+}
+
+.cart-item-title {
+
+    font-family: var(--title);
+
+    font-size: .85rem;
+
+    margin: 3px 0;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+.cart-item-size {
+
+    font-size: .7rem;
+
+    color: #aeb4be;
+
+}
+
+.cart-item-price {
+
+    font-size: .85rem;
+
+    font-weight: 800;
+
+    margin-top: 4px;
+
+}
+
+.cart-item-controls {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 8px;
+
+}
+
+.cart-qty-wrapper {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: #050608;
+
+    padding: 3px 8px;
+
+    border-radius: 6px;
+
+    border: 1px solid var(--border);
+
+}
+
+.cart-qty-btn {
+
+    background: none;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-size: .85rem;
+
+    padding: 0 4px;
+
+}
+
+.cart-qty-val {
+
+    font-size: .75rem;
+
+    font-weight: 700;
+
+}
+
+.cart-remove-btn {
+
+    background: none;
+
+    color: #ff5e5e;
+
+    font-size: .65rem;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    text-transform: uppercase;
+
+}
+
+.cart-empty {
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    color: var(--muted);
+
+    font-size: .85rem;
+
+    letter-spacing: 1px;
+
+}
+
+.cart-footer {
+
+    padding: 24px;
+
+    border-top: 1px solid var(--border);
+
+    background: #07080b;
+
+}
+
+.cart-total-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: .95rem;
+
+    font-weight: 700;
+
+    margin-bottom: 18px;
+
+    letter-spacing: 1px;
+
+}
+
+.cart-total-row span:last-child {
+
+    font-size: 1.2rem;
+
+    font-weight: 800;
+
+}
+
+.cart-checkout-btn {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border-radius: 50px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    font-size: .75rem;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    transition: .3s;
+
+}
+
+.cart-checkout-btn:hover {
+
+    background: #dfe3e8;
+
+    transform: translateY(-2px);
+
+}
 
 /* =====================================================
    APP
@@ -316,7 +764,6 @@ header {
     }
 
 }
-
 
 /* =====================================================
    HERO
@@ -373,6 +820,7 @@ header {
     inset: 0;
 
     width: 100%;
+
     height: 100%;
 
     object-fit: contain;
@@ -419,6 +867,7 @@ header {
 .hero-symbol {
 
     width: 52px;
+
     height: 52px;
 
     margin-bottom: 12px;
@@ -479,7 +928,6 @@ header {
     text-transform: uppercase;
 
 }
-
 
 /* =====================================================
    EXPLORAR
@@ -598,7 +1046,6 @@ header {
         rgba(255,255,255,.2);
 
 }
-
 
 /* =====================================================
    CATEGORÍAS
@@ -727,6 +1174,7 @@ header {
 .category-logo {
 
     width: 90px;
+
     height: 90px;
 
     object-fit: contain;
@@ -749,7 +1197,6 @@ header {
     text-transform: uppercase;
 
 }
-
 
 /* =====================================================
    HEADER DE PÁGINAS INTERNAS
@@ -846,7 +1293,6 @@ header {
     -webkit-text-fill-color: transparent;
 
 }
-
 
 /* =====================================================
    PRODUCTOS
@@ -1197,7 +1643,6 @@ header {
 
 }
 
-
 /* =====================================================
    DETALLE PRODUCTO
 ===================================================== */
@@ -1388,9 +1833,8 @@ header {
 
 }
 
-
 /* =====================================================
-   TALLAS
+   TALLAS Y BOTONES DE ACCIÓN EN DETALLE
 ===================================================== */
 
 .size-title {
@@ -1458,16 +1902,63 @@ header {
 
 }
 
+.detail-actions {
 
-/* =====================================================
-   WHATSAPP
-===================================================== */
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 30px;
+
+}
+
+.add-cart-btn {
+
+    width: 100%;
+
+    padding: 17px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50px;
+
+    background: #0d0f13;
+
+    border: 1px solid rgba(255,255,255,.3);
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+    font-size: .75rem;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    transition: .3s;
+
+}
+
+.add-cart-btn:hover {
+
+    background: #171b22;
+
+    border-color: #ffffff;
+
+}
 
 .order-btn {
 
     width: 100%;
-
-    margin-top: 30px;
 
     padding: 17px;
 
@@ -1507,6 +1998,161 @@ header {
 
 }
 
+/* =====================================================
+   VISTA DE COTIZACIÓN DINÁMICA
+===================================================== */
+
+.invoice-container {
+
+    max-width: 800px;
+
+    margin: 40px auto;
+
+    background: #0d0f14;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 40px;
+
+    box-shadow: 0 30px 80px rgba(0,0,0,.8);
+
+}
+
+.invoice-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+.invoice-brand {
+
+    font-family: var(--title);
+
+    font-size: 1.5rem;
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+
+}
+
+.invoice-badge {
+
+    background: rgba(255,255,255,.1);
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: .7rem;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+}
+
+.invoice-details-meta {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin: 25px 0;
+
+    font-size: .8rem;
+
+    color: var(--muted);
+
+}
+
+.invoice-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin: 20px 0;
+
+}
+
+.invoice-table th {
+
+    text-align: left;
+
+    padding: 12px 10px;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: .7rem;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: var(--silver-dark);
+
+}
+
+.invoice-table td {
+
+    padding: 16px 10px;
+
+    border-bottom: 1px solid rgba(255,255,255,.04);
+
+    font-size: .85rem;
+
+}
+
+.invoice-summary {
+
+    margin-top: 30px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid var(--border);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 8px;
+
+}
+
+.invoice-total-highlight {
+
+    font-size: 1.5rem;
+
+    font-weight: 800;
+
+    color: #ffffff;
+
+    margin-top: 5px;
+
+}
+
+.invoice-actions {
+
+    margin-top: 35px;
+
+    display: flex;
+
+    gap: 15px;
+
+}
 
 /* =====================================================
    LOADING / EMPTY
@@ -1545,7 +2191,6 @@ header {
 
 }
 
-
 /* =====================================================
    FOOTER
 ===================================================== */
@@ -1568,7 +2213,6 @@ footer {
         1px solid var(--border);
 
 }
-
 
 /* =====================================================
    RESPONSIVE (TABLET & MÓVIL)
@@ -1640,6 +2284,12 @@ footer {
     .detail-info {
 
         padding: 0 5px;
+
+    }
+
+    .invoice-container {
+
+        padding: 20px;
 
     }
 
@@ -1839,18 +2489,22 @@ footer {
 
     }
 
+    .invoice-actions {
+
+        flex-direction: column;
+
+    }
+
 }
 
 </style>
 
 </head>
 
-
 <body>
 
-
 <!-- =====================================================
-     HEADER (LOGO IZQUIERDO Y CINTA DE OPCIONES DERECHA)
+     HEADER (LOGO + TOP MENU + CARRITO)
 ===================================================== -->
 
 <header>
@@ -1915,23 +2569,81 @@ IRIDIUM
 
 </a>
 
+<div class="header-right">
 
-<!-- CINTA DE OPCIONES SUPERIOR DERECHA -->
+    <nav class="top-menu">
 
-<nav class="top-menu">
+        <a href="#/">Inicio</a>
 
-<a href="#/">Inicio</a>
+        <a href="#/colecciones">Colecciones</a>
 
-<a href="#/colecciones">Colecciones</a>
+        <a href="#/nosotros">Nosotros</a>
 
-<a href="#/nosotros">Nosotros</a>
+        <a href="#/contacto">Contacto</a>
 
-<a href="#/contacto">Contacto</a>
+    </nav>
 
-</nav>
+    <button class="cart-icon-btn" onclick="toggleCart()" aria-label="Ver Carrito">
+
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+            <path d="M3 6h18"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+
+        <span class="cart-badge" id="cartBadge">0</span>
+
+    </button>
+
+</div>
 
 </header>
 
+<!-- =====================================================
+     DRAWER DEL CARRITO DE COMPRAS
+===================================================== -->
+
+<div class="cart-backdrop" id="cartBackdrop" onclick="toggleCart()"></div>
+
+<aside class="cart-drawer" id="cartDrawer">
+
+    <div class="cart-header">
+
+        <h3>BOLSA DE COMPRAS</h3>
+
+        <button class="cart-close-btn" onclick="toggleCart()">×</button>
+
+    </div>
+
+    <div class="cart-items" id="cartItemsContainer">
+
+        <!-- Inyectado por JS -->
+
+    </div>
+
+    <div class="cart-footer">
+
+        <div class="cart-total-row">
+
+            <span>TOTAL ESTIMADO:</span>
+
+            <span id="cartTotalDisplay">$0.00</span>
+
+        </div>
+
+        <button class="cart-checkout-btn" onclick="checkoutCart()">
+
+            <span>Comprar por WhatsApp</span>
+
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+
+        </button>
+
+    </div>
+
+</aside>
 
 <!-- =====================================================
      APP (ROUTER DINÁMICO)
@@ -1946,7 +2658,6 @@ Cargando IRIDIUM...
 </div>
 
 </main>
-
 
 <!-- =====================================================
      FOOTER
@@ -1964,7 +2675,6 @@ WhatsApp:
 
 </footer>
 
-
 <script>
 
 /* =====================================================
@@ -1981,15 +2691,265 @@ const PRODUCTS_FOLDER = "products";
 
 const WHATSAPP = "593995023674";
 
-
 /* =====================================================
-   VARIABLES
+   ESTADO GLOBAL Y CARRITO
 ===================================================== */
 
 let catalog = [];
 
 let selectedSize = "";
 
+let cart = JSON.parse(localStorage.getItem("iridium_cart")) || [];
+
+function saveCart() {
+
+    localStorage.setItem("iridium_cart", JSON.stringify(cart));
+
+    updateCartUI();
+
+}
+
+function addToCart(product, size) {
+
+    if (!size) {
+
+        alert("Por favor, selecciona una talla antes de agregar a la bolsa.");
+
+        return;
+
+    }
+
+    const itemKey = `${product.id}__${size}`;
+
+    const existingIndex = cart.findIndex(item => item.itemKey === itemKey);
+
+    if (existingIndex > -1) {
+
+        cart[existingIndex].qty += 1;
+
+    } else {
+
+        cart.push({
+
+            itemKey,
+
+            id: product.id,
+
+            name: product.name,
+
+            category: product.category,
+
+            price: parseFloat(product.price) || 0,
+
+            image: product.images[0] || "",
+
+            size: size,
+
+            qty: 1
+
+        });
+
+    }
+
+    saveCart();
+
+    toggleCart(true);
+
+}
+
+function changeCartQty(itemKey, delta) {
+
+    const index = cart.findIndex(item => item.itemKey === itemKey);
+
+    if (index > -1) {
+
+        cart[index].qty += delta;
+
+        if (cart[index].qty <= 0) {
+
+            cart.splice(index, 1);
+
+        }
+
+        saveCart();
+
+    }
+
+}
+
+function removeFromCart(itemKey) {
+
+    cart = cart.filter(item => item.itemKey !== itemKey);
+
+    saveCart();
+
+}
+
+function toggleCart(forceOpen = false) {
+
+    const drawer = document.getElementById("cartDrawer");
+
+    const backdrop = document.getElementById("cartBackdrop");
+
+    if (forceOpen) {
+
+        drawer.classList.add("open");
+
+        backdrop.classList.add("open");
+
+    } else {
+
+        drawer.classList.toggle("open");
+
+        backdrop.classList.toggle("open");
+
+    }
+
+}
+
+function updateCartUI() {
+
+    const badge = document.getElementById("cartBadge");
+
+    const container = document.getElementById("cartItemsContainer");
+
+    const totalDisplay = document.getElementById("cartTotalDisplay");
+
+    const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+
+    const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+    if (badge) badge.innerText = totalQty;
+
+    if (totalDisplay) totalDisplay.innerText = `$${totalPrice.toFixed(2)}`;
+
+    if (!container) return;
+
+    if (cart.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="cart-empty">
+
+                Tu bolsa está vacía.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML = cart.map(item => `
+
+        <div class="cart-item">
+
+            <img src="${item.image}" alt="${escapeAttr(item.name)}">
+
+            <div class="cart-item-info">
+
+                <div class="cart-item-category">${escapeHTML(item.category)}</div>
+
+                <div class="cart-item-title">${escapeHTML(item.name)}</div>
+
+                <div class="cart-item-size">Talla: <strong>${item.size}</strong></div>
+
+                <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+
+            </div>
+
+            <div class="cart-item-controls">
+
+                <div class="cart-qty-wrapper">
+
+                    <button class="cart-qty-btn" onclick="changeCartQty('${item.itemKey}', -1)">-</button>
+
+                    <span class="cart-qty-val">${item.qty}</span>
+
+                    <button class="cart-qty-btn" onclick="changeCartQty('${item.itemKey}', 1)">+</button>
+
+                </div>
+
+                <button class="cart-remove-btn" onclick="removeFromCart('${item.itemKey}')">Eliminar</button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+/* =====================================================
+   CHECKOUT: GENERADOR DE COTIZACIÓN Y LINK WHATSAPP
+===================================================== */
+
+function checkoutCart() {
+
+    if (cart.length === 0) {
+
+        alert("Tu bolsa de compras está vacía.");
+
+        return;
+
+    }
+
+    const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+
+    const payload = {
+
+        id: orderId,
+
+        date: new Date().toLocaleDateString('es-EC', { year: 'numeric', month: 'short', day: 'numeric' }),
+
+        items: cart.map(i => ({
+
+            name: i.name,
+
+            category: i.category,
+
+            size: i.size,
+
+            qty: i.qty,
+
+            price: i.price,
+
+            subtotal: i.price * i.qty
+
+        })),
+
+        total: cart.reduce((acc, i) => acc + (i.price * i.qty), 0)
+
+    };
+
+    const encodedData = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(payload)))));
+
+    const quoteURL = `${window.location.origin}${window.location.pathname}#/cotizacion/${encodedData}`;
+
+    let waMessage = `*IRIDIUM — NUEVO PEDIDO / COTIZACIÓN*\n`;
+
+    waMessage += `*Orden:* #${orderId}\n`;
+
+    waMessage += `--------------------------------------\n`;
+
+    payload.items.forEach(item => {
+
+        waMessage += `▪ *${item.name}* (Talla ${item.size}) x${item.qty} — $${item.subtotal.toFixed(2)}\n`;
+
+    });
+
+    waMessage += `--------------------------------------\n`;
+
+    waMessage += `*TOTAL ESTIMADO:* $${payload.total.toFixed(2)}\n\n`;
+
+    waMessage += `📄 *Ver Cotización Digital Oficial:*\n${quoteURL}`;
+
+    toggleCart();
+
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waMessage)}`, "_blank");
+
+}
 
 /* =====================================================
    GITHUB API
@@ -2017,7 +2977,6 @@ async function githubAPI(path) {
 
 }
 
-
 /* =====================================================
    LIMPIAR TEXTO
 ===================================================== */
@@ -2034,7 +2993,6 @@ function cleanText(text) {
 
 }
 
-
 /* =====================================================
    ANALIZAR NOMBRE
 ===================================================== */
@@ -2047,18 +3005,14 @@ function parseProductFile(filename) {
     const parts =
         withoutExtension.split("-");
 
-
     let productName =
         cleanText(
             parts[0] || "Producto"
         );
 
-
     let price = "0";
 
-
     let photoNumber = 1;
-
 
     if (parts.length >= 2) {
 
@@ -2068,7 +3022,6 @@ function parseProductFile(filename) {
                 .trim();
 
     }
-
 
     if (parts.length >= 3) {
 
@@ -2083,7 +3036,6 @@ function parseProductFile(filename) {
 
     }
 
-
     return {
 
         productName,
@@ -2096,9 +3048,8 @@ function parseProductFile(filename) {
 
 }
 
-
 /* =====================================================
-   ESCAPAR HTML
+   ESCAPAR HTML / ATRIBUTOS / ID
 ===================================================== */
 
 function escapeHTML(text) {
@@ -2117,11 +3068,6 @@ function escapeHTML(text) {
 
 }
 
-
-/* =====================================================
-   ESCAPAR ATRIBUTOS
-===================================================== */
-
 function escapeAttr(text) {
 
     return String(text)
@@ -2133,11 +3079,6 @@ function escapeAttr(text) {
         .replace(/"/g, "&quot;");
 
 }
-
-
-/* =====================================================
-   CREAR ID
-===================================================== */
 
 function createId(text) {
 
@@ -2155,11 +3096,6 @@ function createId(text) {
 
 }
 
-
-/* =====================================================
-   LOGO FALLBACK
-===================================================== */
-
 function createFallbackLogo(name) {
 
     const initials =
@@ -2170,49 +3106,17 @@ function createFallbackLogo(name) {
             .substring(0,3)
             .toUpperCase();
 
-
     const svg = `
-
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="300"
-            height="300"
-            viewBox="0 0 300 300">
-
-            <rect
-                width="300"
-                height="300"
-                fill="#0b0d11"/>
-
-            <circle
-                cx="150"
-                cy="150"
-                r="105"
-                fill="none"
-                stroke="#ffffff"
-                stroke-width="3"/>
-
-            <text
-                x="150"
-                y="170"
-                text-anchor="middle"
-                font-family="Arial"
-                font-size="55"
-                fill="#ffffff">
-
-                ${initials}
-
-            </text>
-
+        <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+            <rect width="300" height="300" fill="#0b0d11"/>
+            <circle cx="150" cy="150" r="105" fill="none" stroke="#ffffff" stroke-width="3"/>
+            <text x="150" y="170" text-anchor="middle" font-family="Arial" font-size="55" fill="#ffffff">${initials}</text>
         </svg>
     `;
 
-
-    return "data:image/svg+xml;charset=UTF-8," +
-        encodeURIComponent(svg);
+    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
 
 }
-
 
 /* =====================================================
    CARGAR CATÁLOGO
@@ -2227,7 +3131,6 @@ async function loadCatalog() {
                 PRODUCTS_FOLDER
             );
 
-
         if (!Array.isArray(folders)) {
 
             throw new Error(
@@ -2236,9 +3139,7 @@ async function loadCatalog() {
 
         }
 
-
         const result = [];
-
 
         for (const folder of folders) {
 
@@ -2248,13 +3149,10 @@ async function loadCatalog() {
 
             }
 
-
             const category =
                 folder.name;
 
-
             let files = [];
-
 
             try {
 
@@ -2275,13 +3173,11 @@ async function loadCatalog() {
 
             }
 
-
             if (!Array.isArray(files)) {
 
                 continue;
 
             }
-
 
             const possibleLogoNames = [
 
@@ -2292,7 +3188,6 @@ async function loadCatalog() {
                 `${category}.svg`
 
             ];
-
 
             const logoFile =
                 files.find(file =>
@@ -2305,9 +3200,7 @@ async function loadCatalog() {
 
                 );
 
-
             let categoryLogo = null;
-
 
             if (logoFile) {
 
@@ -2316,9 +3209,7 @@ async function loadCatalog() {
 
             }
 
-
             const productsMap = {};
-
 
             for (const file of files) {
 
@@ -2330,7 +3221,6 @@ async function loadCatalog() {
 
                 }
 
-
                 if (
                     !/\.(jpg|jpeg|png|webp|avif)$/i
                         .test(file.name)
@@ -2339,7 +3229,6 @@ async function loadCatalog() {
                     continue;
 
                 }
-
 
                 if (
                     logoFile &&
@@ -2351,18 +3240,15 @@ async function loadCatalog() {
 
                 }
 
-
                 const parsed =
                     parseProductFile(
                         file.name
                     );
 
-
                 const key =
                     `${category}__` +
                     `${parsed.productName}__` +
                     `${parsed.price}`;
-
 
                 if (!productsMap[key]) {
 
@@ -2387,7 +3273,6 @@ async function loadCatalog() {
 
                 }
 
-
                 productsMap[key]
                     .images
                     .push({
@@ -2402,10 +3287,8 @@ async function loadCatalog() {
 
             }
 
-
             const products =
                 Object.values(productsMap);
-
 
             products.forEach(product => {
 
@@ -2414,7 +3297,6 @@ async function loadCatalog() {
                         a.order - b.order
                 );
 
-
                 product.images =
                     product.images.map(
                         image =>
@@ -2422,7 +3304,6 @@ async function loadCatalog() {
                     );
 
             });
-
 
             result.push({
 
@@ -2438,12 +3319,9 @@ async function loadCatalog() {
 
         }
 
-
         catalog = result;
 
-
         router();
-
 
     } catch (error) {
 
@@ -2451,7 +3329,6 @@ async function loadCatalog() {
             "Error cargando catálogo:",
             error
         );
-
 
         document.getElementById(
             "app"
@@ -2488,7 +3365,6 @@ async function loadCatalog() {
 
 }
 
-
 /* =====================================================
    HOME
 ===================================================== */
@@ -2498,19 +3374,13 @@ function renderHome() {
     const app =
         document.getElementById("app");
 
-
     app.innerHTML = `
 
         <div class="view">
 
-
-            <!-- HERO -->
-
             <section class="hero">
 
-                <div
-                    class="hero-video-wrapper"
-                >
+                <div class="hero-video-wrapper">
 
                     <video
                         class="hero-video"
@@ -2529,72 +3399,31 @@ function renderHome() {
 
                     </video>
 
+                    <div class="hero-overlay"></div>
 
-                    <div
-                        class="hero-overlay"
-                    ></div>
+                    <div class="hero-content">
 
-
-                    <div
-                        class="hero-content"
-                    >
-
-                        <svg
-                            class="hero-symbol"
-                            viewBox="0 0 100 100"
-                            fill="none"
-                        >
+                        <svg class="hero-symbol" viewBox="0 0 100 100" fill="none">
 
                             <path
-                                d="
-                                M50 5
-                                L90 28
-                                L90 72
-                                L50 95
-                                L10 72
-                                L10 28
-                                Z
-                                "
+                                d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z"
                                 stroke="#ffffff"
                                 stroke-width="3"
                             />
 
                             <path
-                                d="
-                                M44 32
-                                H56
-                                V44
-                                H53
-                                V56
-                                H56
-                                V68
-                                H44
-                                V56
-                                H47
-                                V44
-                                H44
-                                Z
-                                "
+                                d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z"
                                 fill="#ffffff"
                             />
 
                         </svg>
 
-
                         <h1 class="hero-title">
-
                             IRIDIUM
-
                         </h1>
 
-
-                        <p
-                            class="hero-subtitle"
-                        >
-
-                            Luxury Streetwear
-                            Performance
-
+                        <p class="hero-subtitle">
+                            Luxury Streetwear Performance
                         </p>
 
                     </div>
@@ -2603,85 +3432,37 @@ function renderHome() {
 
             </section>
 
-
-            <!-- EXPLORAR -->
-
             <section class="explore">
 
-                <div
-                    class="explore-label"
-                >
-
+                <div class="explore-label">
                     IRIDIUM COLLECTION
-
                 </div>
 
-
-                <h2
-                    class="explore-title"
-                >
-
+                <h2 class="explore-title">
                     EXPLORAR COLECCIÓN
-
                 </h2>
 
-
-                <p
-                    class="explore-text"
-                >
-
-                    Descubre una selección
-                    exclusiva de prendas
-                    inspiradas en la velocidad,
-                    el diseño y la cultura
-                    del motorsport.
-
+                <p class="explore-text">
+                    Descubre una selección exclusiva de prendas inspiradas en la velocidad, el diseño y la cultura del motorsport.
                 </p>
 
-
-                <a
-                    href="#/colecciones"
-                    class="explore-btn"
-                >
-
+                <a href="#/colecciones" class="explore-btn">
                     Ver colecciones
-
                 </a>
 
             </section>
 
+            <section class="categories" id="categorias">
 
-            <!-- CATEGORÍAS -->
+                <div class="section-heading">
 
-            <section
-                class="categories"
-                id="categorias"
-            >
+                    <small>// Selecciona tu categoría //</small>
 
-                <div
-                    class="section-heading"
-                >
-
-                    <small>
-
-                        // Selecciona tu categoría //
-
-                    </small>
-
-
-                    <h2>
-
-                        COLECCIONES
-
-                    </h2>
+                    <h2>COLECCIONES</h2>
 
                 </div>
 
-
-                <div
-                    class="category-grid"
-                    id="categoryGrid"
-                >
+                <div class="category-grid" id="categoryGrid">
 
                     ${renderCategoryCards()}
 
@@ -2689,35 +3470,19 @@ function renderHome() {
 
             </section>
 
-
         </div>
 
     `;
 
 }
 
-
-/* =====================================================
-   TARJETAS CATEGORÍAS
-===================================================== */
-
 function renderCategoryCards() {
 
     if (!catalog.length) {
 
-        return `
-
-            <div class="empty">
-
-                No hay categorías
-                disponibles.
-
-            </div>
-
-        `;
+        return `<div class="empty">No hay categorías disponibles.</div>`;
 
     }
-
 
     return catalog.map(category => {
 
@@ -2727,34 +3492,22 @@ function renderCategoryCards() {
                 category.name
             );
 
-
         return `
 
             <div
                 class="category-card"
-                onclick="
-                    openCategory(
-                        '${escapeAttr(category.name)}'
-                    )
-                "
+                onclick="openCategory('${escapeAttr(category.name)}')"
             >
 
                 <img
                     class="category-logo"
                     src="${logo}"
                     alt="${escapeAttr(category.name)}"
-                    onerror="
-                        this.src='${createFallbackLogo(category.name)}'
-                    "
+                    onerror="this.src='${createFallbackLogo(category.name)}'"
                 >
 
-
-                <span
-                    class="category-name"
-                >
-
+                <span class="category-name">
                     ${escapeHTML(category.name)}
-
                 </span>
 
             </div>
@@ -2765,55 +3518,30 @@ function renderCategoryCards() {
 
 }
 
-
-/* =====================================================
-   COLECCIONES
-===================================================== */
-
 function renderCollections() {
 
     const app =
         document.getElementById("app");
 
-
     app.innerHTML = `
 
         <div class="view">
 
-
             <section class="page-header">
 
-                <button
-                    class="back-btn"
-                    onclick="navigateHome()"
-                >
-
+                <button class="back-btn" onclick="navigateHome()">
                     ← Volver
-
                 </button>
 
+                <small>IRIDIUM COLLECTION</small>
 
-                <small>
-
-                    IRIDIUM COLLECTION
-
-                </small>
-
-
-                <h1>
-
-                    Colecciones
-
-                </h1>
+                <h1>Colecciones</h1>
 
             </section>
 
-
             <section class="categories">
 
-                <div
-                    class="category-grid"
-                >
+                <div class="category-grid">
 
                     ${renderCategoryCards()}
 
@@ -2821,17 +3549,11 @@ function renderCollections() {
 
             </section>
 
-
         </div>
 
     `;
 
 }
-
-
-/* =====================================================
-   ABRIR CATEGORÍA
-===================================================== */
 
 function openCategory(categoryName) {
 
@@ -2839,11 +3561,6 @@ function openCategory(categoryName) {
         `/categoria/${encodeURIComponent(categoryName)}`;
 
 }
-
-
-/* =====================================================
-   PÁGINA CATEGORÍA
-===================================================== */
 
 function renderCategory(categoryName) {
 
@@ -2854,7 +3571,6 @@ function renderCategory(categoryName) {
                 categoryName.toLowerCase()
         );
 
-
     if (!category) {
 
         renderCollections();
@@ -2863,83 +3579,38 @@ function renderCategory(categoryName) {
 
     }
 
-
     const app =
         document.getElementById("app");
-
 
     app.innerHTML = `
 
         <div class="view">
 
-
             <section class="page-header">
 
-                <button
-                    class="back-btn"
-                    onclick="navigateHome()"
-                >
-
+                <button class="back-btn" onclick="navigateHome()">
                     ← Volver
-
                 </button>
 
+                <small>COLECCIÓN</small>
 
-                <small>
-
-                    COLECCIÓN
-
-                </small>
-
-
-                <h1>
-
-                    ${escapeHTML(category.name)}
-
-                </h1>
+                <h1>${escapeHTML(category.name)}</h1>
 
             </section>
 
-
             <section class="products-page">
 
-
-                <div
-                    class="products-grid"
-                >
+                <div class="products-grid">
 
                     ${
                         category.products.length
-
-                        ?
-
-                        category.products
-                            .map(
-                                product =>
-                                    renderProductCard(product)
-                            )
-                            .join("")
-
-                        :
-
-                        `
-
-                            <div class="empty">
-
-                                No hay productos
-                                disponibles
-                                en esta categoría.
-
-                            </div>
-
-                        `
+                        ? category.products.map(product => renderProductCard(product)).join("")
+                        : `<div class="empty">No hay productos disponibles en esta categoría.</div>`
                     }
 
                 </div>
 
-
             </section>
-
 
         </div>
 
@@ -2947,124 +3618,57 @@ function renderCategory(categoryName) {
 
 }
 
-
-/* =====================================================
-   TARJETA DE PRODUCTO
-===================================================== */
-
 function renderProductCard(product) {
 
-    const images =
-        product.images || [];
+    const images = product.images || [];
 
+    const cardId = "gallery_" + product.id;
 
-    const cardId =
-        "gallery_" +
-        product.id;
+    let galleryHTML = `<div class="product-gallery" id="${cardId}">`;
 
+    images.forEach((image, index) => {
 
-    let galleryHTML = `
+        galleryHTML += `
 
-        <div
-            class="product-gallery"
-            id="${cardId}"
-        >
+            <img
+                class="product-gallery-image ${index === 0 ? "active" : ""}"
+                src="${image}"
+                alt="${escapeAttr(product.name)}"
+                loading="lazy"
+            >
 
-    `;
+        `;
 
-
-    images.forEach(
-        (image,index) => {
-
-            galleryHTML += `
-
-                <img
-                    class="
-                        product-gallery-image
-                        ${index === 0 ? "active" : ""}
-                    "
-                    src="${image}"
-                    alt="${escapeAttr(product.name)}"
-                    loading="lazy"
-                >
-
-            `;
-
-        }
-    );
-
+    });
 
     if (images.length > 1) {
 
         galleryHTML += `
 
             <button
-                class="
-                    product-gallery-arrow
-                    prev
-                "
-                onclick="
-                    event.stopPropagation();
-                    changeProductGallery(
-                        '${cardId}',
-                        -1
-                    );
-                "
+                class="product-gallery-arrow prev"
+                onclick="event.stopPropagation(); changeProductGallery('${cardId}', -1);"
                 aria-label="Foto anterior"
             >
-
                 &#10094;
-
             </button>
-
 
             <button
-                class="
-                    product-gallery-arrow
-                    next
-                "
-                onclick="
-                    event.stopPropagation();
-                    changeProductGallery(
-                        '${cardId}',
-                        1
-                    );
-                "
+                class="product-gallery-arrow next"
+                onclick="event.stopPropagation(); changeProductGallery('${cardId}', 1);"
                 aria-label="Foto siguiente"
             >
-
                 &#10095;
-
             </button>
 
+            <div class="product-gallery-dots">
 
-            <div
-                class="product-gallery-dots"
-            >
-
-                ${
-
-                    images.map(
-                        (_,index) => `
-
-                            <span
-                                class="
-                                    product-gallery-dot
-                                    ${index === 0 ? "active" : ""}
-                                "
-                                onclick="
-                                    event.stopPropagation();
-                                    setProductGallery(
-                                        '${cardId}',
-                                        ${index}
-                                    );
-                                "
-                            ></span>
-
-                        `
-                    ).join("")
-
-                }
+                ${images.map((_,index) => `
+                    <span
+                        class="product-gallery-dot ${index === 0 ? "active" : ""}"
+                        onclick="event.stopPropagation(); setProductGallery('${cardId}', ${index});"
+                    ></span>
+                `).join("")}
 
             </div>
 
@@ -3072,76 +3676,38 @@ function renderProductCard(product) {
 
     }
 
-
-    galleryHTML += `
-
-        </div>
-
-    `;
-
+    galleryHTML += `</div>`;
 
     return `
 
         <article
             class="product-card"
-            onclick="
-                openProduct(
-                    '${escapeAttr(product.category)}',
-                    '${escapeAttr(product.id)}'
-                )
-            "
+            onclick="openProduct('${escapeAttr(product.category)}', '${escapeAttr(product.id)}')"
         >
-
 
             ${galleryHTML}
 
+            <div class="product-gradient"></div>
 
-            <div
-                class="product-gradient"
-            ></div>
+            <div class="product-info">
 
-
-            <div
-                class="product-info"
-            >
-
-                <div
-                    class="product-brand"
-                >
-
+                <div class="product-brand">
                     ${escapeHTML(product.category)}
-
                 </div>
 
-
-                <h2
-                    class="product-name"
-                >
-
+                <h2 class="product-name">
                     ${escapeHTML(product.name)}
-
                 </h2>
 
-
-                <div
-                    class="product-price"
-                >
-
+                <div class="product-price">
                     $${escapeHTML(product.price)}
-
                 </div>
 
-
-                <span
-                    class="product-view"
-                >
-
+                <span class="product-view">
                     Ver producto
-
                 </span>
 
             </div>
-
 
         </article>
 
@@ -3149,203 +3715,72 @@ function renderProductCard(product) {
 
 }
 
+function changeProductGallery(cardId, direction) {
 
-/* =====================================================
-   CAMBIAR FOTO
-===================================================== */
-
-function changeProductGallery(
-    cardId,
-    direction
-) {
-
-    const gallery =
-        document.getElementById(cardId);
-
+    const gallery = document.getElementById(cardId);
 
     if (!gallery) return;
 
+    const images = gallery.querySelectorAll(".product-gallery-image");
 
-    const images =
-        gallery.querySelectorAll(
-            ".product-gallery-image"
-        );
+    const dots = gallery.querySelectorAll(".product-gallery-dot");
 
+    if (images.length <= 1) return;
 
-    const dots =
-        gallery.querySelectorAll(
-            ".product-gallery-dot"
-        );
+    let current = Array.from(images).findIndex(image => image.classList.contains("active"));
 
+    if (current < 0) current = 0;
 
-    if (images.length <= 1) {
+    images[current].classList.remove("active");
 
-        return;
+    if (dots[current]) dots[current].classList.remove("active");
 
-    }
+    let next = current + direction;
 
+    if (next >= images.length) next = 0;
 
-    let current =
-        Array.from(images)
-            .findIndex(
-                image =>
-                    image.classList.contains(
-                        "active"
-                    )
-            );
+    if (next < 0) next = images.length - 1;
 
+    images[next].classList.add("active");
 
-    if (current < 0) {
-
-        current = 0;
-
-    }
-
-
-    images[current]
-        .classList
-        .remove("active");
-
-
-    if (dots[current]) {
-
-        dots[current]
-            .classList
-            .remove("active");
-
-    }
-
-
-    let next =
-        current + direction;
-
-
-    if (next >= images.length) {
-
-        next = 0;
-
-    }
-
-
-    if (next < 0) {
-
-        next =
-            images.length - 1;
-
-    }
-
-
-    images[next]
-        .classList
-        .add("active");
-
-
-    if (dots[next]) {
-
-        dots[next]
-            .classList
-            .add("active");
-
-    }
+    if (dots[next]) dots[next].classList.add("active");
 
 }
 
+function setProductGallery(cardId, index) {
 
-/* =====================================================
-   SELECCIONAR FOTO
-===================================================== */
-
-function setProductGallery(
-    cardId,
-    index
-) {
-
-    const gallery =
-        document.getElementById(cardId);
-
+    const gallery = document.getElementById(cardId);
 
     if (!gallery) return;
 
+    const images = gallery.querySelectorAll(".product-gallery-image");
 
-    const images =
-        gallery.querySelectorAll(
-            ".product-gallery-image"
-        );
+    const dots = gallery.querySelectorAll(".product-gallery-dot");
 
+    images.forEach(image => image.classList.remove("active"));
 
-    const dots =
-        gallery.querySelectorAll(
-            ".product-gallery-dot"
-        );
+    dots.forEach(dot => dot.classList.remove("active"));
 
+    if (images[index]) images[index].classList.add("active");
 
-    images.forEach(
-        image =>
-            image.classList
-                .remove("active")
-    );
-
-
-    dots.forEach(
-        dot =>
-            dot.classList
-                .remove("active")
-    );
-
-
-    if (images[index]) {
-
-        images[index]
-            .classList
-            .add("active");
-
-    }
-
-
-    if (dots[index]) {
-
-        dots[index]
-            .classList
-            .add("active");
-
-    }
+    if (dots[index]) dots[index].classList.add("active");
 
 }
 
-
-/* =====================================================
-   ABRIR PRODUCTO
-===================================================== */
-
-function openProduct(
-    categoryName,
-    productId
-) {
+function openProduct(categoryName, productId) {
 
     window.location.hash =
-        `/producto/` +
-        `${encodeURIComponent(categoryName)}/` +
-        `${encodeURIComponent(productId)}`;
+        `/producto/${encodeURIComponent(categoryName)}/${encodeURIComponent(productId)}`;
 
 }
-
 
 /* =====================================================
    DETALLE DEL PRODUCTO
 ===================================================== */
 
-function renderProduct(
-    categoryName,
-    productId
-) {
+function renderProduct(categoryName, productId) {
 
-    const category =
-        catalog.find(
-            c =>
-                c.name.toLowerCase() ===
-                categoryName.toLowerCase()
-        );
-
+    const category = catalog.find(c => c.name.toLowerCase() === categoryName.toLowerCase());
 
     if (!category) {
 
@@ -3355,71 +3790,35 @@ function renderProduct(
 
     }
 
-
-    const product =
-        category.products.find(
-            p =>
-                p.id === productId
-        );
-
+    const product = category.products.find(p => p.id === productId);
 
     if (!product) {
 
-        renderCategory(
-            categoryName
-        );
+        renderCategory(categoryName);
 
         return;
 
     }
 
-
     selectedSize = "";
 
-
-    const app =
-        document.getElementById("app");
-
+    const app = document.getElementById("app");
 
     app.innerHTML = `
 
         <div class="view">
 
+            <section class="detail-page">
 
-            <section
-                class="detail-page"
-            >
+                <div class="detail-container">
 
-                <div
-                    class="detail-container"
-                >
-
-
-                    <button
-                        class="back-btn"
-                        onclick="
-                            openCategory(
-                                '${escapeAttr(category.name)}'
-                            )
-                        "
-                    >
-
-                        ← Volver a
-                        ${escapeHTML(category.name)}
-
+                    <button class="back-btn" onclick="openCategory('${escapeAttr(category.name)}')">
+                        ← Volver a ${escapeHTML(category.name)}
                     </button>
 
+                    <div class="detail-layout">
 
-                    <div
-                        class="detail-layout"
-                    >
-
-
-                        <!-- GALERÍA -->
-
-                        <div
-                            class="detail-gallery"
-                        >
+                        <div class="detail-gallery">
 
                             <img
                                 id="mainProductImage"
@@ -3428,158 +3827,73 @@ function renderProduct(
                                 alt="${escapeAttr(product.name)}"
                             >
 
+                            <div class="thumbnails">
 
-                            <div
-                                class="thumbnails"
-                            >
-
-                                ${
-                                    product.images
-                                        .map(
-                                            (img,index) => `
-
-                                                <img
-                                                    class="
-                                                        thumbnail
-                                                        ${index === 0 ? "active" : ""}
-                                                    "
-                                                    src="${img}"
-                                                    alt="${escapeAttr(product.name)}"
-                                                    onclick="
-                                                        selectProductImage(
-                                                            this,
-                                                            '${escapeAttr(img)}'
-                                                        )
-                                                    "
-                                                >
-
-                                            `
-                                        )
-                                        .join("")
-                                }
+                                ${product.images.map((img,index) => `
+                                    <img
+                                        class="thumbnail ${index === 0 ? "active" : ""}"
+                                        src="${img}"
+                                        alt="${escapeAttr(product.name)}"
+                                        onclick="selectProductImage(this, '${escapeAttr(img)}')"
+                                    >
+                                `).join("")}
 
                             </div>
 
                         </div>
 
+                        <div class="detail-info">
 
-                        <!-- INFORMACIÓN -->
-
-                        <div
-                            class="detail-info"
-                        >
-
-                            <div
-                                class="detail-brand"
-                            >
-
+                            <div class="detail-brand">
                                 ${escapeHTML(category.name)}
-
                             </div>
 
-
-                            <h1
-                                class="detail-title"
-                            >
-
+                            <h1 class="detail-title">
                                 ${escapeHTML(product.name)}
-
                             </h1>
 
-
-                            <div
-                                class="detail-price"
-                            >
-
+                            <div class="detail-price">
                                 $${escapeHTML(product.price)}
-
                             </div>
 
-
-                            <p
-                                class="detail-description"
-                            >
-
-                                Prenda exclusiva
-                                IRIDIUM.
-
-                                <br><br>
-
-                                Diseño inspirado en
-                                el motorsport y la
-                                cultura streetwear
-                                contemporánea.
-
-                                <br><br>
-
-                                Consulta disponibilidad,
-                                colores y tallas
-                                directamente por
-                                WhatsApp.
-
+                            <p class="detail-description">
+                                Prenda exclusiva IRIDIUM.<br><br>
+                                Diseñada con acabados de alta calidad e inspirada en la cultura del motorsport y el streetwear de lujo.
                             </p>
 
-
-                            <div
-                                class="size-title"
-                            >
-
+                            <div class="size-title">
                                 Selecciona tu talla
+                            </div>
+
+                            <div class="sizes">
+
+                                ${["XS", "S", "M", "L", "XL", "XXL"].map(size => `
+                                    <button class="size-btn" onclick="selectSize('${size}', this)">
+                                        ${size}
+                                    </button>
+                                `).join("")}
 
                             </div>
 
+                            <div class="detail-actions">
 
-                            <div
-                                class="sizes"
-                            >
+                                <button
+                                    class="add-cart-btn"
+                                    onclick="addToCartFromDetail('${escapeAttr(product.id)}', '${escapeAttr(category.name)}')"
+                                >
+                                    + Agregar a la Bolsa
+                                </button>
 
-                                ${
-                                    [
-                                        "XS",
-                                        "S",
-                                        "M",
-                                        "L",
-                                        "XL",
-                                        "XXL"
-                                    ]
-                                    .map(
-                                        size => `
-
-                                            <button
-                                                class="size-btn"
-                                                onclick="
-                                                    selectSize(
-                                                        '${size}',
-                                                        this
-                                                    )
-                                                "
-                                            >
-
-                                                ${size}
-
-                                            </button>
-
-                                        `
-                                    )
-                                    .join("")
-                                }
+                                <a
+                                    id="orderButton"
+                                    class="order-btn"
+                                    href="https://wa.me/${WHATSAPP}?text=${createWhatsAppMessage(product)}"
+                                    target="_blank"
+                                >
+                                    Pedir Directo por WhatsApp
+                                </a>
 
                             </div>
-
-
-                            <a
-                                id="orderButton"
-                                class="order-btn"
-                                href="
-                                    https://wa.me/${WHATSAPP}?text=${createWhatsAppMessage(product)}
-                                "
-                                target="_blank"
-                            >
-
-                                Pedir por WhatsApp
-
-                            </a>
-
 
                         </div>
 
@@ -3589,6 +3903,257 @@ function renderProduct(
 
             </section>
 
+        </div>
+
+    `;
+
+}
+
+function addToCartFromDetail(productId, categoryName) {
+
+    const category = catalog.find(c => c.name.toLowerCase() === categoryName.toLowerCase());
+
+    if (!category) return;
+
+    const product = category.products.find(p => p.id === productId);
+
+    if (!product) return;
+
+    addToCart(product, selectedSize);
+
+}
+
+function selectProductImage(element, src) {
+
+    const main = document.getElementById("mainProductImage");
+
+    if (!main) return;
+
+    main.src = src;
+
+    document.querySelectorAll(".thumbnail").forEach(thumbnail => thumbnail.classList.remove("active"));
+
+    element.classList.add("active");
+
+}
+
+function selectSize(size, button) {
+
+    selectedSize = size;
+
+    document.querySelectorAll(".size-btn").forEach(btn => btn.classList.remove("selected"));
+
+    button.classList.add("selected");
+
+    const orderButton = document.getElementById("orderButton");
+
+    if (!orderButton) return;
+
+    const parts = getHashParts();
+
+    const categoryName = decodeURIComponent(parts[1] || "");
+
+    const productId = decodeURIComponent(parts[2] || "");
+
+    const category = catalog.find(c => c.name.toLowerCase() === categoryName.toLowerCase());
+
+    if (!category) return;
+
+    const product = category.products.find(p => p.id === productId);
+
+    if (!product) return;
+
+    orderButton.href = `https://wa.me/${WHATSAPP}?text=` + createWhatsAppMessage(product, size);
+
+}
+
+function createWhatsAppMessage(product, size = "") {
+
+    let message = `Hola IRIDIUM, quiero pedir el producto: ${product.name} ($${product.price})`;
+
+    if (size) message += `, talla ${size}`;
+
+    return encodeURIComponent(message);
+
+}
+
+/* =====================================================
+   VISTA: COTIZACIÓN DIGITAL
+===================================================== */
+
+function renderQuoteView(encodedData) {
+
+    let quote = null;
+
+    try {
+
+        quote = JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(encodedData)))));
+
+    } catch (e) {
+
+        console.error("Error al decodificar la cotización:", e);
+
+    }
+
+    const app = document.getElementById("app");
+
+    if (!quote) {
+
+        app.innerHTML = `
+
+            <div class="view">
+
+                <section class="page-header">
+
+                    <button class="back-btn" onclick="navigateHome()">← Volver al Inicio</button>
+
+                    <h1>Cotización no válida</h1>
+
+                </section>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    app.innerHTML = `
+
+        <div class="view">
+
+            <section class="page-header" style="padding-bottom: 20px;">
+
+                <button class="back-btn" onclick="navigateHome()">← Volver al Inicio</button>
+
+                <small>COMPROBANTE DIGITAL</small>
+
+                <h1>Cotización Oficial</h1>
+
+            </section>
+
+            <div style="padding: 0 20px 80px;">
+
+                <div class="invoice-container">
+
+                    <div class="invoice-header">
+
+                        <div>
+
+                            <div class="invoice-brand">IRIDIUM</div>
+
+                            <small style="color: var(--muted); letter-spacing: 2px;">LUXURY APPAREL</small>
+
+                        </div>
+
+                        <div class="invoice-badge">
+
+                            ESTADO: PENDIENTE
+
+                        </div>
+
+                    </div>
+
+                    <div class="invoice-details-meta">
+
+                        <div>
+
+                            <strong>Orden:</strong> #${escapeHTML(quote.id)}<br>
+
+                            <strong>Fecha:</strong> ${escapeHTML(quote.date)}
+
+                        </div>
+
+                        <div style="text-align: right;">
+
+                            <strong>Canal:</strong> Pedido Web<br>
+
+                            <strong>Atención:</strong> WhatsApp Oficial
+
+                        </div>
+
+                    </div>
+
+                    <table class="invoice-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Prenda</th>
+
+                                <th>Talla</th>
+
+                                <th style="text-align: center;">Cant.</th>
+
+                                <th style="text-align: right;">Precio</th>
+
+                                <th style="text-align: right;">Subtotal</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            ${quote.items.map(item => `
+
+                                <tr>
+
+                                    <td>
+
+                                        <strong>${escapeHTML(item.name)}</strong>
+
+                                        <br><small style="color: var(--muted);">${escapeHTML(item.category)}</small>
+
+                                    </td>
+
+                                    <td>${escapeHTML(item.size)}</td>
+
+                                    <td style="text-align: center;">${item.qty}</td>
+
+                                    <td style="text-align: right;">$${item.price.toFixed(2)}</td>
+
+                                    <td style="text-align: right;">$${item.subtotal.toFixed(2)}</td>
+
+                                </tr>
+
+                            `).join("")}
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="invoice-summary">
+
+                        <div><span>Subtotal Estimado:</span> <strong>$${quote.total.toFixed(2)}</strong></div>
+
+                        <div><span>Envío:</span> <strong>A coordinar por WhatsApp</strong></div>
+
+                        <div class="invoice-total-highlight">TOTAL: $${quote.total.toFixed(2)}</div>
+
+                    </div>
+
+                    <div class="invoice-actions">
+
+                        <button class="order-btn" style="flex: 1;" onclick="window.print()">
+
+                            🖨️ Imprimir / Guardar PDF
+
+                        </button>
+
+                        <a class="explore-btn" style="flex: 1; text-align: center;" href="https://wa.me/${WHATSAPP}" target="_blank">
+
+                            Contactar Asesor
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -3596,229 +4161,33 @@ function renderProduct(
 
 }
 
-
 /* =====================================================
-   SELECCIONAR IMAGEN DEL DETALLE
-===================================================== */
-
-function selectProductImage(
-    element,
-    src
-) {
-
-    const main =
-        document.getElementById(
-            "mainProductImage"
-        );
-
-
-    if (!main) return;
-
-
-    main.src = src;
-
-
-    document
-        .querySelectorAll(
-            ".thumbnail"
-        )
-        .forEach(
-            thumbnail =>
-                thumbnail.classList
-                    .remove("active")
-        );
-
-
-    element.classList
-        .add("active");
-
-}
-
-
-/* =====================================================
-   SELECCIONAR TALLA
-===================================================== */
-
-function selectSize(
-    size,
-    button
-) {
-
-    selectedSize = size;
-
-
-    document
-        .querySelectorAll(
-            ".size-btn"
-        )
-        .forEach(
-            btn =>
-                btn.classList
-                    .remove("selected")
-        );
-
-
-    button.classList
-        .add("selected");
-
-
-    const orderButton =
-        document.getElementById(
-            "orderButton"
-        );
-
-
-    if (!orderButton) return;
-
-
-    const parts =
-        getHashParts();
-
-
-    const categoryName =
-        decodeURIComponent(
-            parts[1] || ""
-        );
-
-
-    const productId =
-        decodeURIComponent(
-            parts[2] || ""
-        );
-
-
-    const category =
-        catalog.find(
-            c =>
-                c.name.toLowerCase() ===
-                categoryName.toLowerCase()
-        );
-
-
-    if (!category) return;
-
-
-    const product =
-        category.products.find(
-            p =>
-                p.id === productId
-        );
-
-
-    if (!product) return;
-
-
-    orderButton.href =
-        `https://wa.me/${WHATSAPP}?text=` +
-        createWhatsAppMessage(
-            product,
-            size
-        );
-
-}
-
-
-/* =====================================================
-   WHATSAPP
-===================================================== */
-
-function createWhatsAppMessage(
-    product,
-    size = ""
-) {
-
-    let message =
-        `Hola IRIDIUM, quiero pedir el producto: ` +
-        `${product.name} ` +
-        `($${product.price})`;
-
-
-    if (size) {
-
-        message +=
-            `, talla ${size}`;
-
-    }
-
-
-    return encodeURIComponent(
-        message
-    );
-
-}
-
-
-/* =====================================================
-   NOSOTROS
+   NOSOTROS Y CONTACTO
 ===================================================== */
 
 function renderAbout() {
 
-    document.getElementById(
-        "app"
-    ).innerHTML = `
+    document.getElementById("app").innerHTML = `
 
         <div class="view">
 
-            <section
-                class="page-header"
-            >
+            <section class="page-header">
 
-                <button
-                    class="back-btn"
-                    onclick="navigateHome()"
-                >
+                <button class="back-btn" onclick="navigateHome()">← Volver</button>
 
-                    ← Volver
+                <small>IRIDIUM</small>
 
-                </button>
-
-
-                <small>
-
-                    IRIDIUM
-
-                </small>
-
-
-                <h1>
-
-                    Nosotros
-
-                </h1>
+                <h1>Nosotros</h1>
 
             </section>
 
+            <section class="explore">
 
-            <section
-                class="explore"
-            >
+                <h2 class="explore-title">MÁS QUE STREETWEAR</h2>
 
-                <h2
-                    class="explore-title"
-                >
-
-                    MÁS QUE STREETWEAR
-
-                </h2>
-
-
-                <p
-                    class="explore-text"
-                >
-
-                    IRIDIUM nace de la combinación
-                    entre diseño, velocidad y cultura
-                    urbana.
-
-                    <br><br>
-
-                    Creamos prendas pensadas para
-                    quienes buscan expresar su
-                    personalidad a través de piezas
-                    con carácter, estética premium
-                    y espíritu de competición.
-
+                <p class="explore-text">
+                    IRIDIUM nace de la combinación entre diseño, velocidad y cultura urbana.<br><br>
+                    Creamos prendas pensadas para quienes buscan expresar su personalidad a través de piezas con carácter, estética premium y espíritu de competición.
                 </p>
 
             </section>
@@ -3829,102 +4198,46 @@ function renderAbout() {
 
 }
 
-
-/* =====================================================
-   CONTACTO
-===================================================== */
-
 function renderContact() {
 
-    document.getElementById(
-        "app"
-    ).innerHTML = `
+    document.getElementById("app").innerHTML = `
 
         <div class="view">
 
+            <section class="page-header">
 
-            <section
-                class="page-header"
-            >
+                <button class="back-btn" onclick="navigateHome()">← Volver</button>
 
-                <button
-                    class="back-btn"
-                    onclick="navigateHome()"
-                >
+                <small>IRIDIUM</small>
 
-                    ← Volver
-
-                </button>
-
-
-                <small>
-
-                    IRIDIUM
-
-                </small>
-
-
-                <h1>
-
-                    Contacto
-
-                </h1>
+                <h1>Contacto</h1>
 
             </section>
 
+            <section class="explore">
 
-            <section
-                class="explore"
-            >
+                <h2 class="explore-title">HABLEMOS</h2>
 
-                <h2
-                    class="explore-title"
-                >
-
-                    HABLEMOS
-
-                </h2>
-
-
-                <p
-                    class="explore-text"
-                >
-
-                    ¿Quieres realizar un pedido,
-                    consultar disponibilidad o
-                    conocer nuestras próximas
-                    colecciones?
-
-                    <br><br>
-
+                <p class="explore-text">
+                    ¿Quieres realizar un pedido, consultar disponibilidad o conocer nuestras próximas colecciones?<br><br>
                     Escríbenos directamente.
-
                 </p>
-
 
                 <a
                     href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20información"
                     target="_blank"
                     class="explore-btn"
                 >
-
                     WhatsApp
-
                 </a>
 
             </section>
-
 
         </div>
 
     `;
 
 }
-
-
-/* =====================================================
-   HOME
-===================================================== */
 
 function navigateHome() {
 
@@ -3932,43 +4245,40 @@ function navigateHome() {
 
 }
 
-
 /* =====================================================
    ROUTER
 ===================================================== */
 
 function router() {
 
-    const parts =
-        getHashParts();
+    const parts = getHashParts();
 
-
-    const route =
-        parts[0] || "";
-
+    const route = parts[0] || "";
 
     const navLinks = document.querySelectorAll(".top-menu a");
+
     navLinks.forEach(link => {
+
         const href = link.getAttribute("href");
+
         if (
             (route === "" || route === "/") && href === "#/" ||
             route === "colecciones" && href === "#/colecciones" ||
             route === "nosotros" && href === "#/nosotros" ||
             route === "contacto" && href === "#/contacto"
         ) {
+
             link.classList.add("active");
+
         } else {
+
             link.classList.remove("active");
+
         }
+
     });
 
-
-    /* HOME */
-
-    if (
-        !route ||
-        route === "/"
-    ) {
+    if (!route || route === "/") {
 
         renderHome();
 
@@ -3976,12 +4286,7 @@ function router() {
 
     }
 
-
-    /* COLECCIONES */
-
-    if (
-        route === "colecciones"
-    ) {
+    if (route === "colecciones") {
 
         renderCollections();
 
@@ -3989,63 +4294,31 @@ function router() {
 
     }
 
+    if (route === "categoria") {
 
-    /* CATEGORÍA */
-
-    if (
-        route === "categoria"
-    ) {
-
-        const category =
-            decodeURIComponent(
-                parts[1] || ""
-            );
-
-
-        renderCategory(
-            category
-        );
-
+        renderCategory(decodeURIComponent(parts[1] || ""));
 
         return;
 
     }
 
+    if (route === "producto") {
 
-    /* PRODUCTO */
-
-    if (
-        route === "producto"
-    ) {
-
-        const category =
-            decodeURIComponent(
-                parts[1] || ""
-            );
-
-
-        const product =
-            decodeURIComponent(
-                parts[2] || ""
-            );
-
-
-        renderProduct(
-            category,
-            product
-        );
-
+        renderProduct(decodeURIComponent(parts[1] || ""), decodeURIComponent(parts[2] || ""));
 
         return;
 
     }
 
+    if (route === "cotizacion") {
 
-    /* NOSOTROS */
+        renderQuoteView(parts[1] || "");
 
-    if (
-        route === "nosotros"
-    ) {
+        return;
+
+    }
+
+    if (route === "nosotros") {
 
         renderAbout();
 
@@ -4053,12 +4326,7 @@ function router() {
 
     }
 
-
-    /* CONTACTO */
-
-    if (
-        route === "contacto"
-    ) {
+    if (route === "contacto") {
 
         renderContact();
 
@@ -4066,71 +4334,39 @@ function router() {
 
     }
 
-
     renderHome();
 
 }
 
-
-/* =====================================================
-   HASH
-===================================================== */
-
 function getHashParts() {
 
-    let hash =
-        window.location.hash
+    let hash = window.location.hash.replace(/^#/, "").replace(/^\/+/, "");
 
-            .replace(/^#/, "")
+    if (!hash) return ["/"];
 
-            .replace(/^\/+/, "");
-
-
-    if (!hash) {
-
-        return ["/"];
-
-    }
-
-
-    return hash
-        .split("/")
-        .filter(Boolean);
+    return hash.split("/").filter(Boolean);
 
 }
 
-
 /* =====================================================
-   CAMBIO DE HASH
+   EVENTOS E INICIALIZACIÓN
 ===================================================== */
 
-window.addEventListener(
-    "hashchange",
-    function() {
+window.addEventListener("hashchange", function() {
 
-        router();
+    router();
 
-        window.scrollTo(
-            0,
-            0
-        );
+    window.scrollTo(0, 0);
 
-    }
-);
+});
 
+window.addEventListener("DOMContentLoaded", function() {
 
-/* =====================================================
-   INICIAR
-===================================================== */
+    updateCartUI();
 
-window.addEventListener(
-    "DOMContentLoaded",
-    function() {
+    loadCatalog();
 
-        loadCatalog();
-
-    }
-);
+});
 
 </script>
 
