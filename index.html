@@ -1,1332 +1,3473 @@
-<script>
-/* ============================================================
-   CONFIGURACIÓN
-   ============================================================ */
+<!DOCTYPE html>
+<html lang="es">
 
-const GITHUB_USER = "bhastian-ec";
-const GITHUB_REPO = "sky";
-const GITHUB_BRANCH = "main";
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+>
+
+<title>IRIDIUM — Luxury Streetwear & Apparel</title>
+
+
+<!-- =========================================================
+     TIPOGRAFÍAS
+========================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+  rel="stylesheet"
+>
+
+
+<style>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+  --bg: #050608;
+
+  --surface: #0e1014;
+
+  --card-bg: #12141a;
+
+  --silver: #e2e8f0;
+
+  --silver-glow:
+    rgba(226,232,240,0.35);
+
+  --text: #f8f9fa;
+
+  --text-muted: #8a909d;
+
+  --border:
+    rgba(255,255,255,0.08);
+
+  --border-active:
+    rgba(226,232,240,0.5);
+
+  --font-title:
+    'Cinzel', serif;
+
+  --font-body:
+    'Plus Jakarta Sans', sans-serif;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+  box-sizing: border-box;
+
+  margin: 0;
+
+  padding: 0;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+
+html,
+body {
+
+  background-color:
+    var(--bg);
+
+  color:
+    var(--text);
+
+  font-family:
+    var(--font-body);
+
+  overflow-x:
+    hidden;
+
+  -webkit-font-smoothing:
+    antialiased;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+  position: fixed;
+
+  top: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 80px;
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  padding:
+    0 3.5rem;
+
+  z-index: 1000;
+
+  pointer-events:
+    none;
+
+}
+
+
+.brand-container {
+
+  display: flex;
+
+  align-items:
+    center;
+
+  gap: 12px;
+
+  text-decoration:
+    none;
+
+  color:
+    var(--text);
+
+  pointer-events:
+    auto;
+
+}
+
+
+.brand-logo-svg {
+
+  width: 32px;
+
+  height: 32px;
+
+  filter:
+    drop-shadow(
+      0 0 6px
+      rgba(255,255,255,0.4)
+    );
+
+}
+
+
+.brand-name {
+
+  font-family:
+    var(--font-title);
+
+  font-weight:
+    800;
+
+  font-size:
+    1.35rem;
+
+  letter-spacing:
+    5px;
+
+  text-transform:
+    uppercase;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 20%,
+      #b0b5be 60%,
+      #e2e8f0 100%
+    );
+
+  -webkit-background-clip:
+    text;
+
+  -webkit-text-fill-color:
+    transparent;
+
+}
+
+
+.nav-pill-wrapper {
+
+  pointer-events:
+    auto;
+
+  background:
+    rgba(18,20,26,0.65);
+
+  backdrop-filter:
+    blur(25px);
+
+  -webkit-backdrop-filter:
+    blur(25px);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+  border-radius:
+    50px;
+
+  padding:
+    0.4rem 0.6rem
+    0.4rem 1.8rem;
+
+  display: flex;
+
+  align-items:
+    center;
+
+  gap:
+    1.8rem;
+
+  box-shadow:
+    0 10px 35px
+    rgba(0,0,0,0.5),
+
+    inset 0 1px 0
+    rgba(255,255,255,0.1);
+
+}
+
+
+.nav-links-list {
+
+  display: flex;
+
+  align-items:
+    center;
+
+  gap:
+    1.6rem;
+
+  list-style:
+    none;
+
+}
+
+
+.nav-pill-link {
+
+  color:
+    var(--text-muted);
+
+  text-decoration:
+    none;
+
+  font-size:
+    0.8rem;
+
+  font-weight:
+    600;
+
+  letter-spacing:
+    0.8px;
+
+  transition:
+    color 0.25s ease;
+
+}
+
+
+.nav-pill-link:hover,
+.nav-pill-link.active {
+
+  color:
+    #ffffff;
+
+}
+
+
+.header-actions {
+
+  pointer-events:
+    auto;
+
+  display: flex;
+
+  align-items:
+    center;
+
+  gap:
+    1rem;
+
+}
+
+
+.icon-btn {
+
+  background:
+    rgba(18,20,26,0.65);
+
+  backdrop-filter:
+    blur(20px);
+
+  -webkit-backdrop-filter:
+    blur(20px);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.12);
+
+  width: 42px;
+
+  height: 42px;
+
+  border-radius:
+    50%;
+
+  display: flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  color:
+    #ffffff;
+
+  cursor:
+    pointer;
+
+  text-decoration:
+    none;
+
+  transition:
+    all 0.3s;
+
+}
+
+
+.icon-btn:hover {
+
+  border-color:
+    var(--border-active);
+
+  transform:
+    scale(1.05);
+
+  box-shadow:
+    0 0 15px
+    var(--silver-glow);
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero-container {
+
+  position:
+    relative;
+
+  width:
+    100%;
+
+  min-height:
+    100vh;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+    #000;
+
+  padding-top:
+    80px;
+
+}
+
+
+.hero-video-box {
+
+  position:
+    relative;
+
+  width:
+    100%;
+
+  max-width:
+    1280px;
+
+  aspect-ratio:
+    16 / 9;
+
+  max-height:
+    720px;
+
+  margin:
+    0 auto;
+
+  overflow:
+    hidden;
+
+  border-radius:
+    20px;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,0.9);
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+}
+
+
+.video-bg {
+
+  position:
+    absolute;
+
+  top: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit:
+    cover;
+
+  opacity:
+    1;
+
+  filter:
+    brightness(1.08)
+    contrast(1.05);
+
+}
+
+
+.video-vignette {
+
+  position:
+    absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 40%,
+      rgba(5,6,8,0.35) 95%
+    ),
+
+    linear-gradient(
+      to bottom,
+      transparent 75%,
+      var(--bg) 100%
+    );
+
+  z-index:
+    2;
+
+  pointer-events:
+    none;
+
+}
+
+
+.hero-content {
+
+  position:
+    relative;
+
+  z-index:
+    3;
+
+  text-align:
+    center;
+
+  padding:
+    0 1.5rem;
+
+  max-width:
+    800px;
+
+  animation:
+    fadeIn 1.5s ease;
+
+}
+
+
+.hero-badge-symbol {
+
+  width:
+    55px;
+
+  height:
+    55px;
+
+  margin:
+    0 auto 1rem;
+
+  filter:
+    drop-shadow(
+      0 0 20px
+      rgba(255,255,255,0.6)
+    );
+
+}
+
+
+.hero-title {
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    clamp(2.4rem,6vw,4.5rem);
+
+  font-weight:
+    900;
+
+  letter-spacing:
+    8px;
+
+  text-transform:
+    uppercase;
+
+  margin-bottom:
+    0.6rem;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 30%,
+      #a4abb8 80%,
+      #767d8a 100%
+    );
+
+  -webkit-background-clip:
+    text;
+
+  -webkit-text-fill-color:
+    transparent;
+
+  text-shadow:
+    0 10px 30px
+    rgba(0,0,0,0.8);
+
+}
+
+
+.hero-tagline {
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    clamp(0.8rem,1.8vw,1.1rem);
+
+  color:
+    #e2e8f0;
+
+  letter-spacing:
+    4px;
+
+  text-transform:
+    uppercase;
+
+  font-weight:
+    600;
+
+  margin-bottom:
+    1.8rem;
+
+  text-shadow:
+    0 4px 15px
+    rgba(0,0,0,0.9);
+
+}
+
+
+.btn-primary-luxury {
+
+  background:
+    #ffffff;
+
+  color:
+    #000000;
+
+  padding:
+    0.85rem 2.2rem;
+
+  border-radius:
+    50px;
+
+  font-weight:
+    700;
+
+  font-size:
+    0.8rem;
+
+  letter-spacing:
+    1.5px;
+
+  text-transform:
+    uppercase;
+
+  text-decoration:
+    none;
+
+  transition:
+    all 0.3s;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0,0,0,0.5);
+
+  display:
+    inline-block;
+
+}
+
+
+.btn-primary-luxury:hover {
+
+  background:
+    #e2e8f0;
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 10px 30px
+    var(--silver-glow);
+
+}
+
+
+/* =========================================================
+   CATEGORÍAS
+========================================================= */
+
+.brands-section {
+
+  padding:
+    4rem 2rem 3rem;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--bg) 0%,
+      #090a0d 100%
+    );
+
+  text-align:
+    center;
+
+}
+
+
+.section-eyebrow {
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    0.85rem;
+
+  letter-spacing:
+    4px;
+
+  color:
+    var(--silver);
+
+  text-transform:
+    uppercase;
+
+  margin-bottom:
+    2.5rem;
+
+  opacity:
+    0.8;
+
+}
+
+
+.brand-tabs-container {
+
+  display:
+    flex;
+
+  gap:
+    1.4rem;
+
+  overflow-x:
+    auto;
+
+  padding:
+    1rem 2rem 2.5rem;
+
+  scroll-behavior:
+    smooth;
+
+  -webkit-overflow-scrolling:
+    touch;
+
+  justify-content:
+    flex-start;
+
+  max-width:
+    1550px;
+
+  margin:
+    0 auto;
+
+}
+
+
+.brand-tabs-container::-webkit-scrollbar {
+
+  height:
+    4px;
+
+}
+
+
+.brand-tabs-container::-webkit-scrollbar-thumb {
+
+  background:
+    rgba(255,255,255,0.2);
+
+  border-radius:
+    10px;
+
+}
+
+
+.brand-tab {
+
+  flex:
+    0 0 120px;
+
+  height:
+    120px;
+
+  background:
+    radial-gradient(
+      circle at 40% 30%,
+      rgba(255,255,255,0.06) 0%,
+      rgba(14,16,22,0.95) 100%
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
+
+  border-radius:
+    28px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    8px;
+
+  cursor:
+    pointer;
+
+  text-decoration:
+    none;
+
+  color:
+    var(--silver);
+
+  transition:
+    all 0.35s;
+
+  position:
+    relative;
+
+  overflow:
+    hidden;
+
+  backdrop-filter:
+    blur(15px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(0,0,0,0.4);
+
+}
+
+
+.brand-tab:hover,
+.brand-tab.active {
+
+  transform:
+    translateY(-6px);
+
+  border-color:
+    rgba(255,255,255,0.6);
+
+  box-shadow:
+    0 15px 35px
+    rgba(0,0,0,0.7),
+
+    0 0 20px
+    rgba(226,232,240,0.25);
+
+}
+
+
+.brand-tab span.brand-text {
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    0.85rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    1px;
+
+  text-transform:
+    uppercase;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #a4abb8 100%
+    );
+
+  -webkit-background-clip:
+    text;
+
+  -webkit-text-fill-color:
+    transparent;
+
+}
+
+
+/* =========================================================
+   PRODUCTOS
+========================================================= */
+
+.releases-section {
+
+  padding:
+    4rem 0 6rem;
+
+  background:
+    #050608;
+
+  overflow:
+    hidden;
+
+}
+
+
+.releases-header {
+
+  padding:
+    0 4rem 2.5rem;
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    flex-end;
+
+}
+
+
+.releases-header h2 {
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    clamp(1.8rem,3.5vw,2.5rem);
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    4px;
+
+  text-transform:
+    uppercase;
+
+}
+
+
+.releases-marquee {
+
+  width:
+    100%;
+
+  overflow:
+    hidden;
+
+  position:
+    relative;
+
+}
+
+
+.releases-track {
+
+  display:
+    flex;
+
+  gap:
+    2.5rem;
+
+  width:
+    max-content;
+
+  animation:
+    marqueeScroll 45s linear infinite;
+
+}
+
+
+.releases-track:hover {
+
+  animation-play-state:
+    paused;
+
+}
+
+
+@keyframes marqueeScroll {
+
+  0% {
+
+    transform:
+      translateX(0);
+
+  }
+
+  100% {
+
+    transform:
+      translateX(-50%);
+
+  }
+
+}
+
+
+.product-card {
+
+  flex:
+    0 0 380px;
+
+  height:
+    540px;
+
+  background:
+    var(--card-bg);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    24px;
+
+  position:
+    relative;
+
+  overflow:
+    hidden;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    flex-end;
+
+  padding:
+    2.2rem;
+
+  transition:
+    border-color 0.4s,
+    transform 0.4s;
+
+}
+
+
+.product-card:hover {
+
+  border-color:
+    var(--border-active);
+
+  transform:
+    translateY(-4px);
+
+}
+
+
+/* =========================================================
+   GALERÍA
+========================================================= */
+
+.card-gallery-wrapper {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  z-index:
+    1;
+
+}
+
+
+.card-img-slide {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  object-fit:
+    cover;
+
+  opacity:
+    0;
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.6s;
+
+  cursor:
+    zoom-in;
+
+}
+
+
+.card-img-slide.active {
+
+  opacity:
+    0.75;
+
+}
+
+
+.product-card:hover
+.card-img-slide.active {
+
+  transform:
+    scale(1.05);
+
+  opacity:
+    0.95;
+
+}
+
+
+/* =========================================================
+   FLECHAS
+========================================================= */
+
+.gallery-arrow {
+
+  position:
+    absolute;
+
+  top:
+    40%;
+
+  transform:
+    translateY(-50%);
+
+  width:
+    34px;
+
+  height:
+    34px;
+
+  border-radius:
+    50%;
+
+  background:
+    rgba(18,20,26,0.7);
+
+  backdrop-filter:
+    blur(8px);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.15);
+
+  color:
+    #ffffff;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  cursor:
+    pointer;
+
+  z-index:
+    5;
+
+  opacity:
+    0;
+
+  transition:
+    all 0.25s;
+
+  user-select:
+    none;
+
+}
+
+
+.product-card:hover
+.gallery-arrow {
+
+  opacity:
+    1;
+
+}
+
+
+.gallery-arrow:hover {
+
+  background:
+    rgba(255,255,255,0.9);
+
+  color:
+    #000;
+
+}
+
+
+.gallery-arrow.prev {
+
+  left:
+    14px;
+
+}
+
+
+.gallery-arrow.next {
+
+  right:
+    14px;
+
+}
+
+
+/* =========================================================
+   PUNTOS
+========================================================= */
+
+.gallery-dots {
+
+  position:
+    absolute;
+
+  top:
+    18px;
+
+  right:
+    18px;
+
+  display:
+    flex;
+
+  gap:
+    6px;
+
+  z-index:
+    5;
+
+  background:
+    rgba(0,0,0,0.45);
+
+  padding:
+    5px 9px;
+
+  border-radius:
+    20px;
+
+  backdrop-filter:
+    blur(6px);
+
+}
+
+
+.gallery-dot {
+
+  width:
+    6px;
+
+  height:
+    6px;
+
+  border-radius:
+    50%;
+
+  background:
+    rgba(255,255,255,0.35);
+
+  transition:
+    all 0.3s;
+
+  cursor:
+    pointer;
+
+}
+
+
+.gallery-dot.active {
+
+  background:
+    #ffffff;
+
+  width:
+    16px;
+
+  border-radius:
+    10px;
+
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.card-overlay {
+
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(5,6,8,0.95) 0%,
+      rgba(5,6,8,0.3) 60%,
+      transparent 100%
+    );
+
+  z-index:
+    2;
+
+  pointer-events:
+    none;
+
+}
+
+
+.card-info {
+
+  position:
+    relative;
+
+  z-index:
+    3;
+
+}
+
+
+.card-tag {
+
+  font-size:
+    0.75rem;
+
+  letter-spacing:
+    2px;
+
+  text-transform:
+    uppercase;
+
+  color:
+    var(--silver);
+
+  font-weight:
+    700;
+
+  margin-bottom:
+    0.4rem;
+
+  display:
+    block;
+
+}
+
+
+.card-title {
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    1.35rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    1px;
+
+  text-transform:
+    uppercase;
+
+  margin-bottom:
+    0.5rem;
+
+  line-height:
+    1.2;
+
+}
+
+
+.card-bottom {
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  margin-top:
+    1rem;
+
+}
+
+
+.card-price {
+
+  font-size:
+    1.3rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    1px;
+
+}
+
+
+.btn-card-wa {
+
+  background:
+    #ffffff;
+
+  color:
+    #000;
+
+  padding:
+    0.65rem 1.4rem;
+
+  border-radius:
+    50px;
+
+  font-size:
+    0.75rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    1px;
+
+  text-transform:
+    uppercase;
+
+  text-decoration:
+    none;
+
+  transition:
+    all 0.3s;
+
+}
+
+
+.btn-card-wa:hover {
+
+  background:
+    #25d366;
+
+  color:
+    #000;
+
+  box-shadow:
+    0 4px 15px
+    rgba(37,211,102,0.4);
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.image-modal {
+
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  background:
+    rgba(3,4,5,0.92);
+
+  backdrop-filter:
+    blur(15px);
+
+  z-index:
+    2000;
+
+  display:
+    none;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    2rem;
+
+}
+
+
+.image-modal.active {
+
+  display:
+    flex;
+
+}
+
+
+.modal-content {
+
+  max-width:
+    90vw;
+
+  max-height:
+    85vh;
+
+  position:
+    relative;
+
+}
+
+
+.modal-content img {
+
+  max-width:
+    100%;
+
+  max-height:
+    85vh;
+
+  border-radius:
+    12px;
+
+  border:
+    1px solid
+    var(--border-active);
+
+  box-shadow:
+    0 25px 50px
+    rgba(0,0,0,0.8);
+
+  object-fit:
+    contain;
+
+}
+
+
+.modal-close {
+
+  position:
+    absolute;
+
+  top:
+    -45px;
+
+  right:
+    0;
+
+  background:
+    transparent;
+
+  border:
+    none;
+
+  color:
+    #fff;
+
+  font-size:
+    2rem;
+
+  cursor:
+    pointer;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+  padding:
+    3.5rem 2rem;
+
+  background:
+    #030405;
+
+  border-top:
+    1px solid
+    var(--border);
+
+  text-align:
+    center;
+
+  color:
+    var(--text-muted);
+
+  font-size:
+    0.85rem;
+
+}
+
+
+/* =========================================================
+   ANIMACIÓN
+========================================================= */
+
+@keyframes fadeIn {
+
+  from {
+
+    opacity:
+      0;
+
+    transform:
+      translateY(20px);
+
+  }
+
+  to {
+
+    opacity:
+      1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 992px) {
+
+  .nav-pill-wrapper {
+
+    display:
+      none;
+
+  }
+
+  header {
+
+    padding:
+      0 1.5rem;
+
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+  .hero-video-box {
+
+    border-radius:
+      0;
+
+    border:
+      none;
+
+  }
+
+
+  .releases-header {
+
+    padding:
+      0 1.5rem 1.5rem;
+
+  }
+
+
+  .product-card {
+
+    flex:
+      0 0 290px;
+
+    height:
+      440px;
+
+    padding:
+      1.5rem;
+
+  }
+
+
+  .brand-tab {
+
+    flex:
+      0 0 100px;
+
+    height:
+      105px;
+
+  }
+
+
+  .gallery-arrow {
+
+    opacity:
+      1;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+  <a
+    href="#"
+    class="brand-container"
+  >
+
+    <svg
+      class="brand-logo-svg"
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+
+      <defs>
+
+        <linearGradient
+          id="silverGradHeader"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
+
+          <stop
+            offset="0%"
+            stop-color="#ffffff"
+          />
+
+          <stop
+            offset="40%"
+            stop-color="#cfd4dc"
+          />
+
+          <stop
+            offset="70%"
+            stop-color="#8a909d"
+          />
+
+          <stop
+            offset="100%"
+            stop-color="#ffffff"
+          />
+
+        </linearGradient>
+
+      </defs>
+
+
+      <path
+        d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z"
+        stroke="url(#silverGradHeader)"
+        stroke-width="4"
+        fill="rgba(255,255,255,0.04)"
+      />
+
+
+      <path
+        d="M50 16 L80 34 L80 66 L50 84 L20 66 L20 34 Z"
+        stroke="#ffffff"
+        stroke-width="1.5"
+        stroke-opacity="0.6"
+      />
+
+
+      <path
+        d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z"
+        fill="url(#silverGradHeader)"
+      />
+
+
+      <circle
+        cx="50"
+        cy="50"
+        r="3"
+        fill="#ffffff"
+      />
+
+    </svg>
+
+
+    <span class="brand-name">
+      IRIDIUM
+    </span>
+
+  </a>
+
+
+  <nav class="nav-pill-wrapper">
+
+    <ul class="nav-links-list">
+
+      <li>
+
+        <a
+          href="#lanzamientos"
+          class="nav-pill-link active"
+        >
+          Lanzamientos
+        </a>
+
+      </li>
+
+
+      <li>
+
+        <a
+          href="#marcas"
+          class="nav-pill-link"
+        >
+          Escuderías
+        </a>
+
+      </li>
+
+    </ul>
+
+  </nav>
+
+
+  <div class="header-actions">
+
+    <a
+      href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20hacer%20un%20pedido"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="icon-btn"
+      title="Pedido por WhatsApp"
+    >
+
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+
+        <circle
+          cx="9"
+          cy="21"
+          r="1"
+        />
+
+        <circle
+          cx="20"
+          cy="21"
+          r="1"
+        />
+
+        <path
+          d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+        />
+
+      </svg>
+
+    </a>
+
+  </div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<div class="hero-container">
+
+  <section class="hero-video-box">
+
+    <video
+      class="video-bg"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+    >
+
+      <source
+        src="video.mp4"
+        type="video/mp4"
+      >
+
+    </video>
+
+
+    <div class="video-vignette"></div>
+
+
+    <div class="hero-content">
+
+      <svg
+        class="hero-badge-symbol"
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+
+        <defs>
+
+          <linearGradient
+            id="silverGradHero"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+
+            <stop
+              offset="0%"
+              stop-color="#ffffff"
+            />
+
+            <stop
+              offset="35%"
+              stop-color="#e0e3e8"
+            />
+
+            <stop
+              offset="65%"
+              stop-color="#9aa0ad"
+            />
+
+            <stop
+              offset="100%"
+              stop-color="#ffffff"
+            />
+
+          </linearGradient>
+
+        </defs>
+
+
+        <path
+          d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z"
+          stroke="url(#silverGradHero)"
+          stroke-width="3.5"
+        />
+
+
+        <path
+          d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z"
+          fill="url(#silverGradHero)"
+        />
+
+      </svg>
+
+
+      <h1 class="hero-title">
+        IRIDIUM
+      </h1>
+
+
+      <p class="hero-tagline">
+        Luxury Streetwear Performance
+      </p>
+
+
+      <a
+        href="#lanzamientos"
+        class="btn-primary-luxury"
+      >
+        Explorar Colección
+      </a>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- =========================================================
+     CATEGORÍAS
+========================================================= -->
+
+<section
+  class="brands-section"
+  id="marcas"
+>
+
+  <div class="section-eyebrow">
+    // Selecciona tu División //
+  </div>
+
+
+  <div
+    class="brand-tabs-container"
+    id="brandTabsContainer"
+  >
+
+    <!-- Las categorías aparecen automáticamente -->
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     CATÁLOGO
+========================================================= -->
+
+<section
+  class="releases-section"
+  id="lanzamientos"
+>
+
+  <div class="releases-header">
+
+    <div>
+
+      <span
+        style="
+          font-size:0.8rem;
+          letter-spacing:3px;
+          color:var(--silver);
+          text-transform:uppercase;
+          font-weight:700;
+        "
+      >
+
+        Catálogo Exclusivo
+
+      </span>
+
+
+      <h2 id="galleryTitle">
+        Últimos Lanzamientos
+      </h2>
+
+    </div>
+
+  </div>
+
+
+  <div class="releases-marquee">
+
+    <div
+      class="releases-track"
+      id="productTrack"
+    >
+
+      <div
+        style="
+          padding:40px;
+          color:#8a909d;
+        "
+      >
+
+        Cargando productos...
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     MODAL
+========================================================= -->
+
+<div
+  class="image-modal"
+  id="imageModal"
+  onclick="closeModal(event)"
+>
+
+  <div
+    class="modal-content"
+    onclick="event.stopPropagation()"
+  >
+
+    <button
+      class="modal-close"
+      onclick="closeModal()"
+    >
+      &times;
+    </button>
+
+
+    <img
+      id="modalImg"
+      src=""
+      alt="Vista previa del producto"
+    >
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+  <p>
+    © 2026 IRIDIUM Clothing.
+    Todos los derechos reservados.
+    WhatsApp: +593 99 502 3674
+  </p>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   CONFIGURACIÓN GITHUB
+========================================================= */
+
+const GITHUB_USER =
+  "bhastian-ec";
+
+const GITHUB_REPO =
+  "sky";
+
+const GITHUB_BRANCH =
+  "main";
+
 
 const GITHUB_API =
   `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}`;
 
+
 const GITHUB_RAW =
   `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
+
 
 let groupedProducts = [];
 
 
-/* ============================================================
-   CONVERTIR NOMBRE DE ARCHIVO EN PRODUCTO
-   ============================================================ */
+/* =========================================================
+   INTERPRETAR NOMBRE DE ARCHIVO
 
-/*
-
-   FORMATO:
-
-   PRODUCTO-PRECIO
-   PRODUCTO-PRECIO-FOTO
-   PRODUCTO-PRECIO-FOTO-FUTURO
-
-   Ejemplos:
-
-   Lando_Norris-16.jpg
-
-   Producto:
-   Lando Norris
-   Precio:
-   16
-   Foto:
-   1
-
-
-   Lando_Norris-16-2.jpg
-
-   Producto:
-   Lando Norris
-   Precio:
-   16
-   Foto:
-   2
-
-
-   Lando_Norris-16-3.jpg
-
-   Producto:
-   Lando Norris
-   Precio:
-   16
-   Foto:
-   3
-
-*/
+   Producto-Precio.jpg
+   Producto-Precio-2.jpg
+   Producto-Precio-3.jpg
+========================================================= */
 
 function parseFileName(fileName) {
 
-    // Quitar extensión
-    const nameWithoutExtension =
-        fileName.replace(/\.[^/.]+$/, "");
-
-    // Separar por "-"
-    const parts =
-        nameWithoutExtension.split("-");
-
-
-    /*
-       El último elemento puede ser el número
-       de fotografía.
-
-       Ejemplo:
-
-       Lando_Norris-16-2
-
-       parts:
-
-       0 = Lando_Norris
-       1 = 16
-       2 = 2
-    */
-
-    let photoNumber = 1;
-    let price;
-    let productParts;
-
-
-    // ¿El último elemento es un número?
-    const lastPart =
-        parts[parts.length - 1];
-
-    const lastIsNumber =
-        /^\d+(\.\d+)?$/.test(lastPart);
-
-
-    /*
-       Si tenemos:
-
-       Producto-16-2
-
-       entonces:
-
-       2 = foto
-       16 = precio
-    */
-
-    if (
-        parts.length >= 3 &&
-        lastIsNumber
-    ) {
-
-        photoNumber =
-            parseInt(lastPart, 10);
-
-        const possiblePrice =
-            parts[parts.length - 2];
-
-        if (
-            /^\d+(\.\d+)?$/.test(possiblePrice)
-        ) {
-
-            price = possiblePrice;
-
-            productParts =
-                parts.slice(0, -2);
-
-        } else {
-
-            /*
-               Si no existe precio válido
-               antes del número de foto,
-               tratamos todo como nombre.
-            */
-
-            productParts =
-                parts.slice(0, -1);
-
-        }
-
-    }
-
-    /*
-       Formato:
-
-       Producto-16
-
-       No hay número de foto.
-       Por lo tanto es foto 1.
-    */
-
-    else if (
-        parts.length >= 2 &&
-        lastIsNumber
-    ) {
-
-        price = lastPart;
-
-        productParts =
-            parts.slice(0, -1);
-
-        photoNumber = 1;
-
-    }
-
-    /*
-       Si el nombre no tiene precio,
-       usamos un precio por defecto.
-    */
-
-    else {
-
-        price = "35";
-
-        productParts =
-            parts;
-
-        photoNumber = 1;
-
-    }
-
-
-    /*
-       Unir nuevamente el nombre del producto
-    */
-
-    let title =
-        productParts.join("-");
-
-
-    /*
-       Reemplazar "_" por espacios
-    */
-
-    title =
-        title.replace(/_/g, " ");
-
-
-    /*
-       Limpiar espacios
-    */
-
-    title =
-        title.replace(/\s+/g, " ").trim();
-
-
-    return {
-
-        title: title,
-
-        price: price,
-
-        photoNumber: photoNumber
-
-    };
-
-}
-
-
-/* ============================================================
-   CREAR URL DE IMAGEN
-   ============================================================ */
-
-function createImageURL(
-    category,
-    fileName
-) {
-
-    return (
-        GITHUB_RAW +
-        "/products/" +
-        encodeURIComponent(category) +
-        "/" +
-        encodeURIComponent(fileName)
+  const cleanName =
+    fileName.replace(
+      /\.[^/.]+$/,
+      ""
     );
 
+
+  const parts =
+    cleanName.split("-");
+
+
+  let title = "";
+
+  let price = "35";
+
+  let photoNumber = 1;
+
+
+  /*
+     Producto-20-2
+
+     Producto = parts 0
+     20       = parts 1
+     2        = parts 2
+  */
+
+  if (
+    parts.length >= 3 &&
+    /^\d+(\.\d+)?$/.test(
+      parts[parts.length - 2]
+    ) &&
+    /^\d+$/.test(
+      parts[parts.length - 1]
+    )
+  ) {
+
+    price =
+      parts[parts.length - 2];
+
+
+    photoNumber =
+      parseInt(
+        parts[parts.length - 1],
+        10
+      );
+
+
+    title =
+      parts
+        .slice(0, -2)
+        .join("-");
+
+  }
+
+
+  /*
+     Producto-20
+
+     Es la primera foto.
+  */
+
+  else if (
+    parts.length >= 2 &&
+    /^\d+(\.\d+)?$/.test(
+      parts[parts.length - 1]
+    )
+  ) {
+
+    price =
+      parts[parts.length - 1];
+
+
+    photoNumber = 1;
+
+
+    title =
+      parts
+        .slice(0, -1)
+        .join("-");
+
+  }
+
+
+  /*
+     Sin precio.
+  */
+
+  else {
+
+    title =
+      cleanName;
+
+    price =
+      "35";
+
+    photoNumber =
+      1;
+
+  }
+
+
+  /*
+     Convertir:
+
+     Lando_Norris
+
+     en:
+
+     Lando Norris
+  */
+
+  title =
+    title
+      .replace(/_/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+
+  return {
+
+    title,
+
+    price,
+
+    photoNumber
+
+  };
+
 }
 
 
-/* ============================================================
-   CARGAR CATEGORÍAS Y PRODUCTOS
-   ============================================================ */
+/* =========================================================
+   URL RAW DE GITHUB
+========================================================= */
+
+function createImageURL(
+  category,
+  fileName
+) {
+
+  return (
+    GITHUB_RAW +
+    "/products/" +
+    encodeURIComponent(category) +
+    "/" +
+    encodeURIComponent(fileName)
+  );
+
+}
+
+
+/* =========================================================
+   CARGAR CATEGORÍAS
+========================================================= */
 
 async function loadGitHubCatalog() {
 
-    const tabsContainer =
-        document.getElementById(
-            "brandTabsContainer"
+  const tabs =
+    document.getElementById(
+      "brandTabsContainer"
+    );
+
+
+  const track =
+    document.getElementById(
+      "productTrack"
+    );
+
+
+  try {
+
+    tabs.innerHTML = `
+      <div
+        style="
+          padding:20px;
+          color:#8a909d;
+        "
+      >
+        Cargando categorías...
+      </div>
+    `;
+
+
+    /*
+       Obtener /products
+    */
+
+    const response =
+      await fetch(
+        `${GITHUB_API}/contents/products?ref=${GITHUB_BRANCH}`,
+        {
+          cache: "no-store"
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        `GitHub API: ${response.status}`
+      );
+
+    }
+
+
+    const categories =
+      await response.json();
+
+
+    /*
+       Limpiar
+    */
+
+    tabs.innerHTML = "";
+
+
+    /*
+       BOTÓN TODOS
+    */
+
+    const allTab =
+      document.createElement(
+        "a"
+      );
+
+
+    allTab.href =
+      "javascript:void(0)";
+
+
+    allTab.className =
+      "brand-tab active";
+
+
+    allTab.innerHTML = `
+      <span class="brand-text">
+        TODOS
+      </span>
+    `;
+
+
+    allTab.onclick =
+      function() {
+
+        filterCategory(
+          "ALL",
+          this
         );
 
-    const track =
-        document.getElementById(
-            "productTrack"
+      };
+
+
+    tabs.appendChild(
+      allTab
+    );
+
+
+    /*
+       Mapa de productos
+    */
+
+    const productMap = {};
+
+
+    /*
+       RECORRER CARPETAS
+    */
+
+    for (
+      const category of categories
+    ) {
+
+      /*
+         Solo carpetas
+      */
+
+      if (
+        category.type !== "dir"
+      ) {
+
+        continue;
+
+      }
+
+
+      /*
+         NOMBRE DE LA CARPETA
+         = CATEGORÍA
+      */
+
+      const categoryName =
+        category.name;
+
+
+      /*
+         CREAR PESTAÑA
+      */
+
+      const categoryTab =
+        document.createElement(
+          "a"
         );
 
 
-    try {
+      categoryTab.href =
+        "javascript:void(0)";
+
+
+      categoryTab.className =
+        "brand-tab";
+
+
+      categoryTab.innerHTML = `
+        <span class="brand-text">
+          ${categoryName}
+        </span>
+      `;
+
+
+      categoryTab.onclick =
+        function() {
+
+          filterCategory(
+            categoryName,
+            this
+          );
+
+        };
+
+
+      tabs.appendChild(
+        categoryTab
+      );
+
+
+      /*
+         OBTENER ARCHIVOS
+         DE LA CATEGORÍA
+      */
+
+      const folderResponse =
+        await fetch(
+          `${GITHUB_API}/contents/products/${encodeURIComponent(categoryName)}?ref=${GITHUB_BRANCH}`,
+          {
+            cache: "no-store"
+          }
+        );
+
+
+      if (
+        !folderResponse.ok
+      ) {
+
+        console.warn(
+          "No se pudo cargar:",
+          categoryName
+        );
+
+        continue;
+
+      }
+
+
+      const files =
+        await folderResponse.json();
+
+
+      /*
+         RECORRER IMÁGENES
+      */
+
+      for (
+        const file of files
+      ) {
 
         /*
-           Mensaje mientras carga
+           Solo archivos
         */
 
-        tabsContainer.innerHTML = `
-            <div style="
-                color:#8a909d;
-                padding:20px;
-            ">
-                Cargando categorías...
-            </div>
-        `;
+        if (
+          file.type !== "file"
+        ) {
 
-
-        track.innerHTML = `
-            <div style="
-                color:#8a909d;
-                padding:40px;
-            ">
-                Cargando productos...
-            </div>
-        `;
-
-
-        /*
-           OBTENER PRODUCTS
-        */
-
-        const productsURL =
-            `${GITHUB_API}/contents/products?ref=${GITHUB_BRANCH}`;
-
-
-        const response =
-            await fetch(productsURL, {
-                cache: "no-store"
-            });
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "No se pudo acceder a la carpeta products"
-            );
+          continue;
 
         }
 
 
-        const categories =
-            await response.json();
+        /*
+           Solo imágenes
+        */
+
+        if (
+          !/\.(jpg|jpeg|png|webp|avif|gif)$/i
+            .test(file.name)
+        ) {
+
+          continue;
+
+        }
 
 
         /*
-           Limpiar pestañas
+           INTERPRETAR NOMBRE
         */
 
-        tabsContainer.innerHTML = "";
+        const data =
+          parseFileName(
+            file.name
+          );
 
 
         /*
-           BOTÓN TODOS
+           CLAVE DEL PRODUCTO
+
+           La misma clave agrupa:
+
+           Lando_Norris-16.jpg
+           Lando_Norris-16-2.jpg
+           Lando_Norris-16-3.jpg
         */
 
-        tabsContainer.innerHTML += `
+        const productKey =
+          categoryName +
+          "||" +
+          data.title +
+          "||" +
+          data.price;
 
-            <a
-                href="javascript:void(0)"
-                onclick="filterCategory('ALL', this)"
-                class="brand-tab active"
+
+        /*
+           CREAR PRODUCTO
+        */
+
+        if (
+          !productMap[productKey]
+        ) {
+
+          productMap[productKey] = {
+
+            id:
+              "product_" +
+              Math.random()
+                .toString(36)
+                .substring(2, 10),
+
+            brand:
+              categoryName,
+
+            title:
+              data.title,
+
+            price:
+              data.price,
+
+            images: []
+
+          };
+
+        }
+
+
+        /*
+           AGREGAR FOTO
+        */
+
+        productMap[
+          productKey
+        ].images.push({
+
+          url:
+            createImageURL(
+              categoryName,
+              file.name
+            ),
+
+          order:
+            data.photoNumber
+
+        });
+
+      }
+
+    }
+
+
+    /*
+       CONVERTIR A ARRAY
+    */
+
+    groupedProducts =
+      Object.values(
+        productMap
+      );
+
+
+    /*
+       ORDENAR FOTOS
+    */
+
+    groupedProducts.forEach(
+      product => {
+
+        product.images.sort(
+          (a,b) =>
+            a.order - b.order
+        );
+
+      }
+    );
+
+
+    /*
+       MOSTRAR
+    */
+
+    renderProducts(
+      "ALL"
+    );
+
+
+    console.log(
+      "CATÁLOGO IRIDIUM:",
+      groupedProducts
+    );
+
+
+  }
+
+  catch(error) {
+
+    console.error(
+      "Error cargando catálogo:",
+      error
+    );
+
+
+    tabs.innerHTML = `
+      <div
+        style="
+          color:#ff6b6b;
+          padding:20px;
+        "
+      >
+        Error cargando categorías.
+      </div>
+    `;
+
+
+    track.innerHTML = `
+      <div
+        style="
+          color:#ff6b6b;
+          padding:40px;
+        "
+      >
+
+        No se pudieron cargar
+        los productos desde GitHub.
+
+        <br><br>
+
+        <small>
+          Abre la consola del navegador
+          para ver el error.
+        </small>
+
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDERIZAR PRODUCTOS
+========================================================= */
+
+function renderProducts(
+  filterBrand
+) {
+
+  const track =
+    document.getElementById(
+      "productTrack"
+    );
+
+
+  track.innerHTML =
+    "";
+
+
+  /*
+     FILTRAR
+  */
+
+  const filtered =
+    filterBrand === "ALL"
+
+    ? groupedProducts
+
+    : groupedProducts.filter(
+        product =>
+          product.brand.toUpperCase()
+          === filterBrand.toUpperCase()
+      );
+
+
+  /*
+     SIN PRODUCTOS
+  */
+
+  if (
+    filtered.length === 0
+  ) {
+
+    track.innerHTML = `
+      <p
+        style="
+          padding:2rem;
+          color:var(--text-muted);
+        "
+      >
+        No hay productos
+        en esta división.
+      </p>
+    `;
+
+    return;
+
+  }
+
+
+  /*
+     DUPLICAR SI SON POCOS
+  */
+
+  const productsToRender =
+    filtered.length < 5
+
+    ? [
+        ...filtered,
+        ...filtered,
+        ...filtered
+      ]
+
+    : filtered;
+
+
+  /*
+     CREAR TARJETAS
+  */
+
+  productsToRender.forEach(
+    (product,index) => {
+
+      const cardId =
+        `${product.id}_${index}`;
+
+
+      const card =
+        document.createElement(
+          "article"
+        );
+
+
+      card.className =
+        "product-card";
+
+
+      card.id =
+        cardId;
+
+
+      /*
+         IMÁGENES
+      */
+
+      let imagesHTML = `
+        <div
+          class="card-gallery-wrapper"
+        >
+      `;
+
+
+      product.images.forEach(
+        (image,imageIndex) => {
+
+          imagesHTML += `
+
+            <img
+
+              src="${image.url}"
+
+              alt="${product.title}"
+
+              class="
+                card-img-slide
+                ${imageIndex === 0
+                  ? "active"
+                  : ""}
+              "
+
+              data-index="${imageIndex}"
+
+              loading="lazy"
+
+              onclick="
+                openModal(
+                  '${image.url}'
+                )
+              "
+
             >
 
-                <span class="brand-text">
-                    TODOS
-                </span>
+          `;
+
+        }
+      );
+
+
+      imagesHTML += `
+        </div>
+      `;
+
+
+      /*
+         CONTROLES
+      */
+
+      let controlsHTML =
+        "";
+
+
+      if (
+        product.images.length > 1
+      ) {
+
+        controlsHTML = `
+
+          <button
+
+            class="
+              gallery-arrow
+              prev
+            "
+
+            onclick="
+              changeSlide(
+                '${cardId}',
+                -1,
+                event
+              )
+            "
+
+          >
+            &#10094;
+
+          </button>
+
+
+          <button
+
+            class="
+              gallery-arrow
+              next
+            "
+
+            onclick="
+              changeSlide(
+                '${cardId}',
+                1,
+                event
+              )
+            "
+
+          >
+            &#10095;
+
+          </button>
+
+
+          <div
+            class="gallery-dots"
+          >
+
+            ${product.images
+              .map(
+                (_,i) => `
+
+                  <span
+
+                    class="
+                      gallery-dot
+                      ${i === 0
+                        ? "active"
+                        : ""}
+                    "
+
+                    onclick="
+                      setSlide(
+                        '${cardId}',
+                        ${i},
+                        event
+                      )
+                    "
+
+                  ></span>
+
+                `
+              )
+              .join("")
+            }
+
+          </div>
+
+        `;
+
+      }
+
+
+      /*
+         WHATSAPP
+      */
+
+      const message =
+        `Hola IRIDIUM, quiero el producto: ${product.title} ($${product.price})`;
+
+
+      /*
+         TARJETA
+      */
+
+      card.innerHTML = `
+
+        ${imagesHTML}
+
+        ${controlsHTML}
+
+
+        <div
+          class="card-overlay"
+        ></div>
+
+
+        <div
+          class="card-info"
+        >
+
+          <span
+            class="card-tag"
+          >
+
+            // ${product.brand}
+
+          </span>
+
+
+          <h3
+            class="card-title"
+          >
+
+            ${product.title}
+
+          </h3>
+
+
+          <div
+            class="card-bottom"
+          >
+
+            <span
+              class="card-price"
+            >
+
+              $${product.price}
+
+            </span>
+
+
+            <a
+
+              href="
+                https://wa.me/593995023674?text=${encodeURIComponent(message)}
+              "
+
+              target="_blank"
+
+              rel="noopener noreferrer"
+
+              class="btn-card-wa"
+
+            >
+
+              Pedir
 
             </a>
 
-        `;
+          </div>
 
+        </div>
 
-        /*
-           Objeto temporal donde
-           agruparemos los productos
-        */
+      `;
 
-        const productsMap = {};
 
-
-        /* =====================================================
-           RECORRER CATEGORÍAS
-           ===================================================== */
-
-        for (
-            const category of categories
-        ) {
-
-
-            /*
-               Ignorar archivos.
-               Solo queremos carpetas.
-            */
-
-            if (
-                category.type !== "dir"
-            ) {
-                continue;
-            }
-
-
-            /*
-               EL NOMBRE DE LA CARPETA
-               ES LA CATEGORÍA
-            */
-
-            const categoryName =
-                category.name;
-
-
-            /*
-               CREAR PESTAÑA AUTOMÁTICAMENTE
-            */
-
-            const tab =
-                document.createElement("a");
-
-
-            tab.href =
-                "javascript:void(0)";
-
-
-            tab.className =
-                "brand-tab";
-
-
-            tab.innerHTML = `
-
-                <span class="brand-text">
-                    ${categoryName}
-                </span>
-
-            `;
-
-
-            tab.onclick = function () {
-
-                filterCategory(
-                    categoryName,
-                    this
-                );
-
-            };
-
-
-            tabsContainer.appendChild(tab);
-
-
-            /*
-               OBTENER ARCHIVOS
-               DE LA CATEGORÍA
-            */
-
-            const categoryURL =
-                `${GITHUB_API}/contents/products/${encodeURIComponent(categoryName)}?ref=${GITHUB_BRANCH}`;
-
-
-            const categoryResponse =
-                await fetch(
-                    categoryURL,
-                    {
-                        cache: "no-store"
-                    }
-                );
-
-
-            if (
-                !categoryResponse.ok
-            ) {
-                continue;
-            }
-
-
-            const files =
-                await categoryResponse.json();
-
-
-            /*
-               RECORRER ARCHIVOS
-            */
-
-            for (
-                const file of files
-            ) {
-
-
-                /*
-                   Solo imágenes
-                */
-
-                if (
-                    file.type !== "file"
-                ) {
-                    continue;
-                }
-
-
-                if (
-                    !/\.(jpg|jpeg|png|webp|avif|gif)$/i
-                    .test(file.name)
-                ) {
-                    continue;
-                }
-
-
-                /*
-                   INTERPRETAR NOMBRE
-                */
-
-                const parsed =
-                    parseFileName(
-                        file.name
-                    );
-
-
-                /*
-                   CLAVE ÚNICA DEL PRODUCTO
-
-                   Categoría +
-                   Nombre +
-                   Precio
-
-                   Esto hace que:
-
-                   Lando_Norris-16.jpg
-                   Lando_Norris-16-2.jpg
-                   Lando_Norris-16-3.jpg
-
-                   sean UN SOLO PRODUCTO.
-                */
-
-                const productKey =
-                    categoryName +
-                    "__" +
-                    parsed.title +
-                    "__" +
-                    parsed.price;
-
-
-                /*
-                   Crear producto si no existe
-                */
-
-                if (
-                    !productsMap[productKey]
-                ) {
-
-                    productsMap[productKey] = {
-
-                        id:
-                            "product_" +
-                            Math.random()
-                                .toString(36)
-                                .substring(2, 10),
-
-                        brand:
-                            categoryName,
-
-                        title:
-                            parsed.title,
-
-                        price:
-                            parsed.price,
-
-                        images: []
-
-                    };
-
-                }
-
-
-                /*
-                   AGREGAR FOTO
-                */
-
-                productsMap[
-                    productKey
-                ].images.push({
-
-                    url:
-                        createImageURL(
-                            categoryName,
-                            file.name
-                        ),
-
-                    order:
-                        parsed.photoNumber,
-
-                    fileName:
-                        file.name
-
-                });
-
-            }
-
-        }
-
-
-        /*
-           CONVERTIR MAPA EN ARRAY
-        */
-
-        groupedProducts =
-            Object.values(
-                productsMap
-            );
-
-
-        /*
-           ORDENAR FOTOS
-        */
-
-        groupedProducts.forEach(
-            product => {
-
-                product.images.sort(
-                    (a, b) =>
-                        a.order - b.order
-                );
-
-            }
-        );
-
-
-        /*
-           Mostrar productos
-        */
-
-        renderProducts("ALL");
-
-
-        console.log(
-            "Categorías:",
-            categories
-        );
-
-
-        console.log(
-            "Productos:",
-            groupedProducts
-        );
-
+      track.appendChild(
+        card
+      );
 
     }
-
-    catch (error) {
-
-        console.error(
-            "Error:",
-            error
-        );
-
-
-        tabsContainer.innerHTML = `
-
-            <div style="
-                color:#ff6b6b;
-                padding:20px;
-            ">
-
-                Error cargando categorías.
-
-            </div>
-
-        `;
-
-
-        track.innerHTML = `
-
-            <div style="
-                color:#ff6b6b;
-                padding:40px;
-            ">
-
-                No se pudieron cargar
-                los productos desde GitHub.
-
-            </div>
-
-        `;
-
-    }
+  );
 
 }
 
 
-/* ============================================================
-   MOSTRAR PRODUCTOS
-   ============================================================ */
-
-function renderProducts(
-    filterBrand
-) {
-
-    const track =
-        document.getElementById(
-            "productTrack"
-        );
-
-
-    track.innerHTML = "";
-
-
-    /*
-       FILTRAR POR CATEGORÍA
-    */
-
-    const filteredProducts =
-        filterBrand === "ALL"
-
-        ? groupedProducts
-
-        : groupedProducts.filter(
-            product =>
-                product.brand.toUpperCase()
-                === filterBrand.toUpperCase()
-        );
-
-
-    /*
-       Si no hay productos
-    */
-
-    if (
-        filteredProducts.length === 0
-    ) {
-
-        track.innerHTML = `
-
-            <p style="
-                padding:2rem;
-                color:var(--text-muted);
-            ">
-
-                No hay productos
-                en esta división.
-
-            </p>
-
-        `;
-
-        return;
-
-    }
-
-
-    /*
-       Duplicar productos
-       para el marquee
-    */
-
-    const productsToShow =
-        filteredProducts.length < 5
-
-        ? [
-            ...filteredProducts,
-            ...filteredProducts,
-            ...filteredProducts
-        ]
-
-        : filteredProducts;
-
-
-    /*
-       CREAR TARJETAS
-    */
-
-    productsToShow.forEach(
-        (product, productIndex) => {
-
-
-            const cardId =
-                product.id +
-                "_" +
-                productIndex;
-
-
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-
-            card.className =
-                "product-card";
-
-
-            card.id =
-                cardId;
-
-
-            /*
-               GALERÍA
-            */
-
-            let imagesHTML = `
-
-                <div
-                    class="card-gallery-wrapper"
-                >
-
-            `;
-
-
-            product.images.forEach(
-                (image, imageIndex) => {
-
-                    imagesHTML += `
-
-                        <img
-
-                            src="${image.url}"
-
-                            alt="${product.title}"
-
-                            class="
-                                card-img-slide
-                                ${imageIndex === 0
-                                    ? "active"
-                                    : ""}
-                            "
-
-                            data-index="${imageIndex}"
-
-                            loading="lazy"
-
-                            onclick="
-                                openModal(
-                                    '${image.url}'
-                                )
-                            "
-
-                        />
-
-                    `;
-
-                }
-            );
-
-
-            imagesHTML += `
-                </div>
-            `;
-
-
-            /*
-               CONTROLES
-            */
-
-            let controlsHTML = "";
-
-
-            if (
-                product.images.length > 1
-            ) {
-
-                controlsHTML = `
-
-                    <button
-
-                        class="
-                            gallery-arrow
-                            prev
-                        "
-
-                        onclick="
-                            changeSlide(
-                                '${cardId}',
-                                -1,
-                                event
-                            )
-                        "
-
-                    >
-                        &#10094;
-
-                    </button>
-
-
-                    <button
-
-                        class="
-                            gallery-arrow
-                            next
-                        "
-
-                        onclick="
-                            changeSlide(
-                                '${cardId}',
-                                1,
-                                event
-                            )
-                        "
-
-                    >
-                        &#10095;
-
-                    </button>
-
-
-                    <div
-                        class="gallery-dots"
-                    >
-
-                        ${product.images
-                            .map(
-                                (_, index) => `
-
-                                    <span
-
-                                        class="
-                                            gallery-dot
-                                            ${index === 0
-                                                ? "active"
-                                                : ""}
-                                        "
-
-                                        onclick="
-                                            setSlide(
-                                                '${cardId}',
-                                                ${index},
-                                                event
-                                            )
-                                        "
-
-                                    ></span>
-
-                                `
-                            )
-                            .join("")}
-
-                    </div>
-
-                `;
-
-            }
-
-
-            /*
-               WHATSAPP
-            */
-
-            const message =
-                `Hola IRIDIUM, quiero el producto: ${product.title} ($${product.price})`;
-
-
-            /*
-               TARJETA COMPLETA
-            */
-
-            card.innerHTML = `
-
-                ${imagesHTML}
-
-                ${controlsHTML}
-
-
-                <div
-                    class="card-overlay"
-                ></div>
-
-
-                <div
-                    class="card-info"
-                >
-
-                    <span
-                        class="card-tag"
-                    >
-
-                        // ${product.brand}
-
-                    </span>
-
-
-                    <h3
-                        class="card-title"
-                    >
-
-                        ${product.title}
-
-                    </h3>
-
-
-                    <div
-                        class="card-bottom"
-                    >
-
-                        <span
-                            class="card-price"
-                        >
-
-                            $${product.price}
-
-                        </span>
-
-
-                        <a
-
-                            href="
-                                https://wa.me/593995023674?text=${encodeURIComponent(message)}
-                            "
-
-                            target="_blank"
-
-                            class="btn-card-wa"
-
-                        >
-
-                            Pedir
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            `;
-
-
-            track.appendChild(
-                card
-            );
-
-        }
-    );
-
-}
-
-
-/* ============================================================
+/* =========================================================
    CAMBIAR FOTO
-   ============================================================ */
+========================================================= */
 
 function changeSlide(
-    cardId,
-    step,
-    event
+  cardId,
+  step,
+  event
 ) {
 
-    if (event) {
-        event.stopPropagation();
-    }
+  if (event) {
+
+    event.stopPropagation();
+
+  }
 
 
-    const card =
-        document.getElementById(
-            cardId
-        );
+  const card =
+    document.getElementById(
+      cardId
+    );
 
 
-    if (!card) {
-        return;
-    }
+  if (!card) {
+
+    return;
+
+  }
 
 
-    const slides =
-        card.querySelectorAll(
-            ".card-img-slide"
-        );
+  const slides =
+    card.querySelectorAll(
+      ".card-img-slide"
+    );
 
 
-    const dots =
-        card.querySelectorAll(
-            ".gallery-dot"
-        );
+  const dots =
+    card.querySelectorAll(
+      ".gallery-dot"
+    );
 
 
-    let current =
-        Array.from(slides)
-            .findIndex(
-                slide =>
-                    slide.classList
-                        .contains("active")
-            );
+  if (
+    slides.length === 0
+  ) {
+
+    return;
+
+  }
 
 
-    if (current < 0) {
-        current = 0;
-    }
+  let current =
+    Array.from(slides)
+      .findIndex(
+        slide =>
+          slide.classList
+            .contains("active")
+      );
 
 
-    slides[current]
-        .classList
-        .remove("active");
+  if (
+    current < 0
+  ) {
+
+    current = 0;
+
+  }
 
 
-    if (dots[current]) {
-
-        dots[current]
-            .classList
-            .remove("active");
-
-    }
+  slides[current]
+    .classList
+    .remove("active");
 
 
-    let next =
-        current + step;
+  if (
+    dots[current]
+  ) {
+
+    dots[current]
+      .classList
+      .remove("active");
+
+  }
 
 
-    if (
-        next >= slides.length
-    ) {
-        next = 0;
-    }
+  let next =
+    current + step;
 
 
-    if (next < 0) {
-        next =
-            slides.length - 1;
-    }
+  if (
+    next >= slides.length
+  ) {
+
+    next = 0;
+
+  }
 
 
-    slides[next]
-        .classList
-        .add("active");
+  if (
+    next < 0
+  ) {
+
+    next =
+      slides.length - 1;
+
+  }
 
 
-    if (dots[next]) {
+  slides[next]
+    .classList
+    .add("active");
 
-        dots[next]
-            .classList
-            .add("active");
 
-    }
+  if (
+    dots[next]
+  ) {
+
+    dots[next]
+      .classList
+      .add("active");
+
+  }
 
 }
 
 
-/* ============================================================
+/* =========================================================
    SELECCIONAR FOTO
-   ============================================================ */
+========================================================= */
 
 function setSlide(
-    cardId,
-    index,
-    event
+  cardId,
+  index,
+  event
 ) {
 
-    if (event) {
-        event.stopPropagation();
-    }
+  if (event) {
+
+    event.stopPropagation();
+
+  }
 
 
-    const card =
-        document.getElementById(
-            cardId
-        );
-
-
-    if (!card) {
-        return;
-    }
-
-
-    const slides =
-        card.querySelectorAll(
-            ".card-img-slide"
-        );
-
-
-    const dots =
-        card.querySelectorAll(
-            ".gallery-dot"
-        );
-
-
-    slides.forEach(
-        slide =>
-            slide.classList
-                .remove("active")
+  const card =
+    document.getElementById(
+      cardId
     );
 
 
-    dots.forEach(
-        dot =>
-            dot.classList
-                .remove("active")
+  if (!card) {
+
+    return;
+
+  }
+
+
+  const slides =
+    card.querySelectorAll(
+      ".card-img-slide"
     );
 
 
-    if (slides[index]) {
-
-        slides[index]
-            .classList
-            .add("active");
-
-    }
+  const dots =
+    card.querySelectorAll(
+      ".gallery-dot"
+    );
 
 
-    if (dots[index]) {
+  slides.forEach(
+    slide =>
+      slide.classList
+        .remove("active")
+  );
 
-        dots[index]
-            .classList
-            .add("active");
 
-    }
+  dots.forEach(
+    dot =>
+      dot.classList
+        .remove("active")
+  );
+
+
+  if (
+    slides[index]
+  ) {
+
+    slides[index]
+      .classList
+      .add("active");
+
+  }
+
+
+  if (
+    dots[index]
+  ) {
+
+    dots[index]
+      .classList
+      .add("active");
+
+  }
 
 }
 
 
-/* ============================================================
+/* =========================================================
    MODAL
-   ============================================================ */
+========================================================= */
 
 function openModal(
-    src
+  src
 ) {
 
-    const modal =
-        document.getElementById(
-            "imageModal"
-        );
-
-
-    const modalImg =
-        document.getElementById(
-            "modalImg"
-        );
-
-
-    modalImg.src =
-        src;
-
-
-    modal.classList.add(
-        "active"
+  const modal =
+    document.getElementById(
+      "imageModal"
     );
+
+
+  const modalImg =
+    document.getElementById(
+      "modalImg"
+    );
+
+
+  modalImg.src =
+    src;
+
+
+  modal.classList.add(
+    "active"
+  );
 
 }
 
 
 function closeModal() {
 
-    const modal =
-        document.getElementById(
-            "imageModal"
-        );
-
-
-    modal.classList.remove(
-        "active"
+  const modal =
+    document.getElementById(
+      "imageModal"
     );
+
+
+  modal.classList.remove(
+    "active"
+  );
 
 }
 
 
-/* ============================================================
+/* =========================================================
    FILTRAR CATEGORÍA
-   ============================================================ */
+========================================================= */
 
 function filterCategory(
-    brand,
-    element
+  brand,
+  element
 ) {
 
-    const tabs =
-        document.querySelectorAll(
-            ".brand-tab"
-        );
-
-
-    const title =
-        document.getElementById(
-            "galleryTitle"
-        );
-
-
-    /*
-       Quitar active
-    */
-
-    tabs.forEach(
-        tab =>
-            tab.classList
-                .remove("active")
+  const tabs =
+    document.querySelectorAll(
+      ".brand-tab"
     );
 
 
-    /*
-       Activar pestaña
-    */
-
-    if (element) {
-
-        element.classList.add(
-            "active"
-        );
-
-    }
-
-
-    /*
-       Cambiar título
-    */
-
-    title.innerText =
-        brand === "ALL"
-
-        ? "Últimos Lanzamientos"
-
-        : `Colección // ${brand}`;
-
-
-    /*
-       Mostrar productos
-    */
-
-    renderProducts(
-        brand
+  const title =
+    document.getElementById(
+      "galleryTitle"
     );
 
 
-    /*
-       Scroll
-    */
+  tabs.forEach(
+    tab =>
+      tab.classList
+        .remove("active")
+  );
 
-    document
-        .getElementById(
-            "lanzamientos"
-        )
-        .scrollIntoView({
-            behavior: "smooth"
-        });
+
+  if (
+    element
+  ) {
+
+    element.classList.add(
+      "active"
+    );
+
+  }
+
+
+  title.innerText =
+    brand === "ALL"
+
+    ? "Últimos Lanzamientos"
+
+    : `Colección // ${brand}`;
+
+
+  renderProducts(
+    brand
+  );
+
+
+  document
+    .getElementById(
+      "lanzamientos"
+    )
+    .scrollIntoView({
+      behavior:
+        "smooth"
+    });
 
 }
 
 
-/* ============================================================
-   ESC PARA CERRAR MODAL
-   ============================================================ */
+/* =========================================================
+   CERRAR MODAL CON ESC
+========================================================= */
 
 document.addEventListener(
-    "keydown",
-    function(event) {
+  "keydown",
+  function(event) {
 
-        if (
-            event.key === "Escape"
-        ) {
+    if (
+      event.key === "Escape"
+    ) {
 
-            closeModal();
-
-        }
+      closeModal();
 
     }
+
+  }
 );
 
 
-/* ============================================================
+/* =========================================================
    INICIAR
-   ============================================================ */
+========================================================= */
 
 window.addEventListener(
-    "DOMContentLoaded",
-    function() {
+  "DOMContentLoaded",
+  function() {
 
-        loadGitHubCatalog();
+    loadGitHubCatalog();
 
-    }
+  }
 );
+
 </script>
+
+</body>
+
+   </html>
