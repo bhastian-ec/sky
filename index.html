@@ -1644,7 +1644,7 @@ header {
 }
 
 /* =====================================================
-   DETALLE PRODUCTO
+   DETALLE PRODUCTO & INSTAGRAM SLIDER
 ===================================================== */
 
 .detail-page {
@@ -1683,30 +1683,129 @@ header {
 
 }
 
-.detail-gallery {
+.ig-slider-container {
+
+    position: relative;
+
+    width: 100%;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background: #0b0d10;
+
+    border: 1px solid var(--border);
+
+}
+
+.ig-slider-track {
+
+    display: flex;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1.15;
+
+    overflow-x: auto;
+
+    scroll-snap-type: x mandatory;
+
+    scrollbar-width: none;
+
+    -webkit-overflow-scrolling: touch;
+
+    cursor: grab;
+
+}
+
+.ig-slider-track::-webkit-scrollbar {
+
+    display: none;
+
+}
+
+.ig-slider-track:active {
+
+    cursor: grabbing;
+
+}
+
+.ig-slide {
+
+    flex: 0 0 100%;
+
+    width: 100%;
+
+    height: 100%;
+
+    scroll-snap-align: start;
 
     position: relative;
 
 }
 
-.main-product-image {
+.ig-slide img {
 
     width: 100%;
 
-    aspect-ratio:
-        1 / 1.15;
+    height: 100%;
 
     object-fit: contain;
 
-    background:
-        #0b0d10;
+    pointer-events: none;
+
+    user-select: none;
+
+}
+
+.ig-slider-dots {
+
+    position: absolute;
+
+    bottom: 15px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    gap: 6px;
+
+    padding: 5px 10px;
+
+    background: rgba(0,0,0,.6);
+
+    backdrop-filter: blur(10px);
 
     border-radius: 20px;
 
-    border:
-        1px solid var(--border);
+    z-index: 10;
 
-    cursor: default;
+}
+
+.ig-dot {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.4);
+
+    transition: all .25s ease;
+
+}
+
+.ig-dot.active {
+
+    width: 16px;
+
+    border-radius: 8px;
+
+    background: #ffffff;
 
 }
 
@@ -1834,7 +1933,7 @@ header {
 }
 
 /* =====================================================
-   TALLAS Y BOTONES DE ACCIÓN EN DETALLE
+   TALLAS Y ACCIONES
 ===================================================== */
 
 .size-title {
@@ -1999,7 +2098,7 @@ header {
 }
 
 /* =====================================================
-   VISTA DE COTIZACIÓN DINÁMICA
+   COTIZACIÓN DIGITAL (CON IMÁGENES)
 ===================================================== */
 
 .invoice-container {
@@ -2106,11 +2205,39 @@ header {
 
 .invoice-table td {
 
-    padding: 16px 10px;
+    padding: 14px 10px;
 
     border-bottom: 1px solid rgba(255,255,255,.04);
 
     font-size: .85rem;
+
+    vertical-align: middle;
+
+}
+
+.invoice-item-flex {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+.invoice-item-img {
+
+    width: 50px;
+
+    height: 60px;
+
+    object-fit: cover;
+
+    border-radius: 6px;
+
+    background: #050608;
+
+    border: 1px solid var(--border);
 
 }
 
@@ -2882,7 +3009,7 @@ function updateCartUI() {
 }
 
 /* =====================================================
-   CHECKOUT: GENERADOR DE COTIZACIÓN Y LINK WHATSAPP
+   CHECKOUT: ENLACE CORTO Y MENSAJE WHATSAPP
 ===================================================== */
 
 function checkoutCart() {
@@ -2897,35 +3024,12 @@ function checkoutCart() {
 
     const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
 
-    const payload = {
+    // Formato ultra corto: ID:CANT:TALLA separado por comas
+    const shortItemsQuery = cart.map(i => `${i.id}:${i.qty}:${i.size}`).join(",");
 
-        id: orderId,
+    const quoteURL = `${window.location.origin}${window.location.pathname}#/q/${orderId}_${shortItemsQuery}`;
 
-        date: new Date().toLocaleDateString('es-EC', { year: 'numeric', month: 'short', day: 'numeric' }),
-
-        items: cart.map(i => ({
-
-            name: i.name,
-
-            category: i.category,
-
-            size: i.size,
-
-            qty: i.qty,
-
-            price: i.price,
-
-            subtotal: i.price * i.qty
-
-        })),
-
-        total: cart.reduce((acc, i) => acc + (i.price * i.qty), 0)
-
-    };
-
-    const encodedData = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(payload)))));
-
-    const quoteURL = `${window.location.origin}${window.location.pathname}#/cotizacion/${encodedData}`;
+    const total = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
 
     let waMessage = `*IRIDIUM — NUEVO PEDIDO / COTIZACIÓN*\n`;
 
@@ -2933,17 +3037,17 @@ function checkoutCart() {
 
     waMessage += `--------------------------------------\n`;
 
-    payload.items.forEach(item => {
+    cart.forEach(item => {
 
-        waMessage += `▪ *${item.name}* (Talla ${item.size}) x${item.qty} — $${item.subtotal.toFixed(2)}\n`;
+        waMessage += `▪ *${item.name}* (Talla ${item.size}) x${item.qty} — $${(item.price * item.qty).toFixed(2)}\n`;
 
     });
 
     waMessage += `--------------------------------------\n`;
 
-    waMessage += `*TOTAL ESTIMADO:* $${payload.total.toFixed(2)}\n\n`;
+    waMessage += `*TOTAL ESTIMADO:* $${total.toFixed(2)}\n\n`;
 
-    waMessage += `📄 *Ver Cotización Digital Oficial:*\n${quoteURL}`;
+    waMessage += `📄 *Ver Cotización Digital:*\n${quoteURL}`;
 
     toggleCart();
 
@@ -3775,7 +3879,7 @@ function openProduct(categoryName, productId) {
 }
 
 /* =====================================================
-   DETALLE DEL PRODUCTO
+   DETALLE DEL PRODUCTO (INSTAGRAM TOUCH SLIDER)
 ===================================================== */
 
 function renderProduct(categoryName, productId) {
@@ -3820,12 +3924,28 @@ function renderProduct(categoryName, productId) {
 
                         <div class="detail-gallery">
 
-                            <img
-                                id="mainProductImage"
-                                class="main-product-image"
-                                src="${product.images[0] || ""}"
-                                alt="${escapeAttr(product.name)}"
-                            >
+                            <!-- Instagram Carousel Slider -->
+                            <div class="ig-slider-container">
+
+                                <div class="ig-slider-track" id="igSliderTrack">
+
+                                    ${product.images.map((img, idx) => `
+                                        <div class="ig-slide" data-index="${idx}">
+                                            <img src="${img}" alt="${escapeAttr(product.name)}">
+                                        </div>
+                                    `).join("")}
+
+                                </div>
+
+                                ${product.images.length > 1 ? `
+                                    <div class="ig-slider-dots" id="igSliderDots">
+                                        ${product.images.map((_, idx) => `
+                                            <div class="ig-dot ${idx === 0 ? "active" : ""}"></div>
+                                        `).join("")}
+                                    </div>
+                                ` : ''}
+
+                            </div>
 
                             <div class="thumbnails">
 
@@ -3834,7 +3954,7 @@ function renderProduct(categoryName, productId) {
                                         class="thumbnail ${index === 0 ? "active" : ""}"
                                         src="${img}"
                                         alt="${escapeAttr(product.name)}"
-                                        onclick="selectProductImage(this, '${escapeAttr(img)}')"
+                                        onclick="goToSlide(${index})"
                                     >
                                 `).join("")}
 
@@ -3907,6 +4027,85 @@ function renderProduct(categoryName, productId) {
 
     `;
 
+    initInstagramSlider();
+
+}
+
+function initInstagramSlider() {
+
+    const track = document.getElementById("igSliderTrack");
+
+    if (!track) return;
+
+    const dots = document.querySelectorAll(".ig-dot");
+
+    const thumbs = document.querySelectorAll(".thumbnail");
+
+    track.addEventListener("scroll", () => {
+
+        const width = track.offsetWidth;
+
+        if (!width) return;
+
+        const index = Math.round(track.scrollLeft / width);
+
+        dots.forEach((d, i) => d.classList.toggle("active", i === index));
+
+        thumbs.forEach((t, i) => t.classList.toggle("active", i === index));
+
+    }, { passive: true });
+
+    // Drag con ratón (Desktop)
+    let isDown = false;
+
+    let startX = 0;
+
+    let scrollLeft = 0;
+
+    track.addEventListener('mousedown', (e) => {
+
+        isDown = true;
+
+        startX = e.pageX - track.offsetLeft;
+
+        scrollLeft = track.scrollLeft;
+
+    });
+
+    track.addEventListener('mouseleave', () => { isDown = false; });
+
+    track.addEventListener('mouseup', () => { isDown = false; });
+
+    track.addEventListener('mousemove', (e) => {
+
+        if (!isDown) return;
+
+        e.preventDefault();
+
+        const x = e.pageX - track.offsetLeft;
+
+        const walk = (x - startX) * 1.5;
+
+        track.scrollLeft = scrollLeft - walk;
+
+    });
+
+}
+
+function goToSlide(index) {
+
+    const track = document.getElementById("igSliderTrack");
+
+    if (!track) return;
+
+    track.scrollTo({
+
+        left: track.offsetWidth * index,
+
+        behavior: 'smooth'
+
+    });
+
 }
 
 function addToCartFromDetail(productId, categoryName) {
@@ -3920,20 +4119,6 @@ function addToCartFromDetail(productId, categoryName) {
     if (!product) return;
 
     addToCart(product, selectedSize);
-
-}
-
-function selectProductImage(element, src) {
-
-    const main = document.getElementById("mainProductImage");
-
-    if (!main) return;
-
-    main.src = src;
-
-    document.querySelectorAll(".thumbnail").forEach(thumbnail => thumbnail.classList.remove("active"));
-
-    element.classList.add("active");
 
 }
 
@@ -3978,46 +4163,93 @@ function createWhatsAppMessage(product, size = "") {
 }
 
 /* =====================================================
-   VISTA: COTIZACIÓN DIGITAL
+   VISTA: COTIZACIÓN DIGITAL (ENLACE CORTO + IMÁGENES)
 ===================================================== */
 
-function renderQuoteView(encodedData) {
+function renderQuoteView(param) {
 
-    let quote = null;
+    if (!param) {
 
-    try {
-
-        quote = JSON.parse(decodeURIComponent(escape(atob(decodeURIComponent(encodedData)))));
-
-    } catch (e) {
-
-        console.error("Error al decodificar la cotización:", e);
-
-    }
-
-    const app = document.getElementById("app");
-
-    if (!quote) {
-
-        app.innerHTML = `
-
-            <div class="view">
-
-                <section class="page-header">
-
-                    <button class="back-btn" onclick="navigateHome()">← Volver al Inicio</button>
-
-                    <h1>Cotización no válida</h1>
-
-                </section>
-
-            </div>
-
-        `;
+        navigateHome();
 
         return;
 
     }
+
+    // Formato: ORD-123456_idProd:cant:talla,idProd2:cant:talla
+    const [orderId, itemsRaw] = param.split("_");
+
+    let parsedItems = [];
+
+    if (itemsRaw) {
+
+        const rawList = itemsRaw.split(",");
+
+        rawList.forEach(entry => {
+
+            const [pId, qtyStr, size] = entry.split(":");
+
+            let matchedProduct = null;
+
+            catalog.forEach(cat => {
+
+                const found = cat.products.find(p => p.id === pId);
+
+                if (found) matchedProduct = found;
+
+            });
+
+            const qty = parseInt(qtyStr, 10) || 1;
+
+            if (matchedProduct) {
+
+                parsedItems.push({
+
+                    name: matchedProduct.name,
+
+                    category: matchedProduct.category,
+
+                    image: matchedProduct.images[0] || "",
+
+                    price: parseFloat(matchedProduct.price) || 0,
+
+                    size: size || "M",
+
+                    qty: qty,
+
+                    subtotal: (parseFloat(matchedProduct.price) || 0) * qty
+
+                });
+
+            } else {
+
+                parsedItems.push({
+
+                    name: "Prenda IRIDIUM",
+
+                    category: "Colección",
+
+                    image: "",
+
+                    price: 0,
+
+                    size: size || "-",
+
+                    qty: qty,
+
+                    subtotal: 0
+
+                });
+
+            }
+
+        });
+
+    }
+
+    const total = parsedItems.reduce((acc, i) => acc + i.subtotal, 0);
+
+    const app = document.getElementById("app");
 
     app.innerHTML = `
 
@@ -4043,7 +4275,7 @@ function renderQuoteView(encodedData) {
 
                             <div class="invoice-brand">IRIDIUM</div>
 
-                            <small style="color: var(--muted); letter-spacing: 2px;">LUXURY APPAREL</small>
+                            <small style="color: var(--muted); letter-spacing: 2px;">LUXURY STREETWEAR</small>
 
                         </div>
 
@@ -4059,9 +4291,9 @@ function renderQuoteView(encodedData) {
 
                         <div>
 
-                            <strong>Orden:</strong> #${escapeHTML(quote.id)}<br>
+                            <strong>Orden:</strong> #${escapeHTML(orderId || "IRIDIUM")}<br>
 
-                            <strong>Fecha:</strong> ${escapeHTML(quote.date)}
+                            <strong>Fecha:</strong> ${new Date().toLocaleDateString('es-EC', { year: 'numeric', month: 'short', day: 'numeric' })}
 
                         </div>
 
@@ -4097,15 +4329,25 @@ function renderQuoteView(encodedData) {
 
                         <tbody>
 
-                            ${quote.items.map(item => `
+                            ${parsedItems.map(item => `
 
                                 <tr>
 
                                     <td>
 
-                                        <strong>${escapeHTML(item.name)}</strong>
+                                        <div class="invoice-item-flex">
 
-                                        <br><small style="color: var(--muted);">${escapeHTML(item.category)}</small>
+                                            ${item.image ? `<img src="${item.image}" class="invoice-item-img" alt="${escapeAttr(item.name)}">` : ''}
+
+                                            <div>
+
+                                                <strong>${escapeHTML(item.name)}</strong>
+
+                                                <br><small style="color: var(--muted);">${escapeHTML(item.category)}</small>
+
+                                            </div>
+
+                                        </div>
 
                                     </td>
 
@@ -4127,11 +4369,11 @@ function renderQuoteView(encodedData) {
 
                     <div class="invoice-summary">
 
-                        <div><span>Subtotal Estimado:</span> <strong>$${quote.total.toFixed(2)}</strong></div>
+                        <div><span>Subtotal Estimado:</span> <strong>$${total.toFixed(2)}</strong></div>
 
                         <div><span>Envío:</span> <strong>A coordinar por WhatsApp</strong></div>
 
-                        <div class="invoice-total-highlight">TOTAL: $${quote.total.toFixed(2)}</div>
+                        <div class="invoice-total-highlight">TOTAL: $${total.toFixed(2)}</div>
 
                     </div>
 
@@ -4310,7 +4552,7 @@ function router() {
 
     }
 
-    if (route === "cotizacion") {
+    if (route === "q") {
 
         renderQuoteView(parts[1] || "");
 
