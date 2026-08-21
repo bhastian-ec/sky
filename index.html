@@ -1,301 +1,568 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+>
 
-<meta name="theme-color" content="#050608">
+<meta
+    name="theme-color"
+    content="#050608"
+>
 
-<title>IRIDIUM — Luxury Streetwear & Apparel</title>
+<title>
+IRIDIUM — Luxury Streetwear & Apparel
+</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet">
+<!-- =====================================================
+     TIPOGRAFÍAS
+===================================================== -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
 
 <style>
 
+/* =====================================================
+   VARIABLES
+===================================================== */
+
 :root {
+
     --bg: #050608;
     --black: #000000;
-    --surface: #0c0e12;
+
+    --surface: #0b0d11;
     --card: #111319;
 
     --silver: #e2e8f0;
     --silver-light: #ffffff;
-    --silver-dark: #8d949f;
+    --silver-dark: #8b929d;
 
     --text: #f8f9fa;
-    --muted: #8a909d;
+    --muted: #858b96;
 
     --border: rgba(255,255,255,.09);
-    --border-light: rgba(255,255,255,.22);
+    --border-light: rgba(255,255,255,.25);
 
     --title: 'Cinzel', serif;
     --body: 'Plus Jakarta Sans', sans-serif;
+
 }
 
-/* =========================
+
+/* =====================================================
    RESET
-========================= */
+===================================================== */
 
 * {
+
     margin: 0;
     padding: 0;
+
     box-sizing: border-box;
+
     -webkit-tap-highlight-color: transparent;
+
 }
 
 html {
-    scroll-behavior: smooth;
+
     background: var(--bg);
+
+    scroll-behavior: smooth;
+
 }
 
 body {
+
     background: var(--bg);
+
     color: var(--text);
+
     font-family: var(--body);
+
     overflow-x: hidden;
+
     -webkit-font-smoothing: antialiased;
+
 }
 
 button,
 a {
+
     font-family: inherit;
+
 }
 
 button {
-    border: 0;
+
+    border: none;
+
 }
 
 img {
+
     max-width: 100%;
-}
 
-.hidden {
-    display: none !important;
 }
 
 
-/* =========================
+/* =====================================================
    HEADER
-========================= */
+===================================================== */
 
 header {
+
     position: fixed;
+
     top: 0;
     left: 0;
 
     width: 100%;
-    height: 76px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    height: 76px;
 
     padding: 0 4%;
 
-    z-index: 1000;
+    display: flex;
 
-    background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,.75),
-        rgba(0,0,0,0)
-    );
+    align-items: center;
+
+    justify-content: space-between;
+
+    z-index: 2000;
 
     pointer-events: none;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.85),
+            rgba(0,0,0,0)
+        );
+
 }
 
+
+/* LOGO */
+
 .brand {
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
 
     color: white;
+
     text-decoration: none;
 
     pointer-events: auto;
+
 }
 
 .brand-logo {
+
     width: 34px;
     height: 34px;
 
     filter:
-        drop-shadow(0 0 6px rgba(255,255,255,.45));
+        drop-shadow(
+            0 0 7px rgba(255,255,255,.5)
+        );
+
 }
 
 .brand-name {
+
     font-family: var(--title);
+
     font-size: 1.3rem;
+
     font-weight: 800;
+
     letter-spacing: 5px;
 
     background:
         linear-gradient(
             135deg,
             #ffffff 15%,
-            #b8bec8 55%,
+            #aeb4be 55%,
             #ffffff 100%
         );
 
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
+
 }
 
 
-/* =========================
-   NAV
-========================= */
+/* =====================================================
+   NAVEGACIÓN DESKTOP
+===================================================== */
 
 .main-nav {
-    pointer-events: auto;
 
     display: flex;
+
     align-items: center;
+
     gap: 30px;
 
-    padding: 9px 20px;
+    padding: 9px 22px;
 
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 40px;
+    border:
+        1px solid rgba(255,255,255,.13);
 
-    background: rgba(10,11,14,.72);
+    border-radius: 50px;
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    background:
+        rgba(10,11,14,.75);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
+
+    pointer-events: auto;
+
 }
 
 .main-nav a {
+
     color: #aeb4be;
+
     text-decoration: none;
 
     font-size: .74rem;
+
     font-weight: 700;
 
     letter-spacing: 1px;
+
     text-transform: uppercase;
 
     transition: .25s;
+
 }
 
-.main-nav a:hover,
-.main-nav a.active {
+.main-nav a:hover {
+
     color: white;
+
 }
+
+
+/* =====================================================
+   WHATSAPP HEADER
+===================================================== */
 
 .header-actions {
+
     pointer-events: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
 }
 
 .header-wa {
+
     width: 42px;
     height: 42px;
 
+    border-radius: 50%;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
-
-    border-radius: 50%;
 
     color: white;
 
     text-decoration: none;
 
-    border: 1px solid rgba(255,255,255,.14);
+    background:
+        rgba(10,11,14,.75);
 
-    background: rgba(10,11,14,.7);
+    border:
+        1px solid rgba(255,255,255,.14);
 
     backdrop-filter: blur(15px);
 
     transition: .3s;
+
 }
 
 .header-wa:hover {
-    transform: scale(1.06);
-    border-color: rgba(255,255,255,.5);
+
+    transform: scale(1.07);
+
+    border-color:
+        rgba(255,255,255,.5);
+
 }
 
 
-/* =========================
-   VIEWS
-========================= */
+/* =====================================================
+   MENÚ MÓVIL
+===================================================== */
+
+.mobile-menu-button {
+
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(10,11,14,.85);
+
+    border:
+        1px solid rgba(255,255,255,.16);
+
+    backdrop-filter: blur(15px);
+
+    cursor: pointer;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    pointer-events: auto;
+
+}
+
+.mobile-menu-button span {
+
+    width: 17px;
+
+    height: 1.5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #aeb4be,
+            #ffffff
+        );
+
+}
+
+.mobile-menu {
+
+    display: none;
+
+    position: fixed;
+
+    top: 67px;
+
+    right: 18px;
+
+    width: 215px;
+
+    padding: 10px;
+
+    border-radius: 18px;
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    background:
+        rgba(8,9,12,.96);
+
+    backdrop-filter: blur(25px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.8);
+
+    z-index: 5000;
+
+}
+
+.mobile-menu.active {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+.mobile-menu a {
+
+    padding: 14px 16px;
+
+    color: #d8dce2;
+
+    text-decoration: none;
+
+    font-size: .72rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    border-radius: 10px;
+
+    transition: .25s;
+
+}
+
+.mobile-menu a:hover {
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
 
 #app {
+
     min-height: 100vh;
+
 }
 
 .view {
+
     min-height: 100vh;
-    animation: pageIn .5s ease;
+
+    animation:
+        pageIn .45s ease;
+
 }
 
 @keyframes pageIn {
+
     from {
+
         opacity: 0;
-        transform: translateY(12px);
+
+        transform:
+            translateY(10px);
+
     }
 
     to {
+
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
+
     }
+
 }
 
 
-/* =========================
+/* =====================================================
    HERO
-========================= */
+===================================================== */
 
 .hero {
+
     width: 100%;
-    min-height: 100vh;
+
+    min-height: auto;
 
     padding:
-        76px 20px 60px;
+        76px 0 8px;
 
     display: flex;
-    align-items: center;
+
     justify-content: center;
 
+    align-items: center;
+
     background:
-        radial-gradient(
-            circle at center,
-            #101217 0%,
-            #050608 55%,
-            #000 100%
-        );
+        #000;
+
 }
 
+
+/*
+   CONTENEDOR EXACTO 16:9
+
+   Máximo:
+   1280 x 720
+
+   En pantallas pequeñas:
+   mantiene 16:9
+*/
+
 .hero-video-wrapper {
+
     position: relative;
 
-    width: min(1280px, 100%);
+    width: min(1280px, 100vw);
 
-    /*
-       Mantiene SIEMPRE 16:9.
-       El video jamás se estira.
-    */
     aspect-ratio: 16 / 9;
 
     max-height: 720px;
 
     overflow: hidden;
 
-    border-radius: 22px;
-
-    border: 1px solid rgba(255,255,255,.1);
-
     background: #000;
 
+    border-radius: 20px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
     box-shadow:
-        0 30px 80px rgba(0,0,0,.9);
+        0 25px 70px rgba(0,0,0,.9);
+
 }
 
+
+/*
+   IMPORTANTE:
+
+   object-fit: contain
+
+   evita que el video se deforme.
+*/
+
 .hero-video {
+
     position: absolute;
 
     inset: 0;
@@ -303,61 +570,77 @@ header {
     width: 100%;
     height: 100%;
 
-    /*
-       contain = jamás distorsiona.
-       El video mantiene exactamente su proporción.
-    */
     object-fit: contain;
 
     background: #000;
+
 }
 
+
+/* OVERLAY */
+
 .hero-overlay {
+
     position: absolute;
+
     inset: 0;
 
     background:
         linear-gradient(
             to bottom,
-            rgba(0,0,0,.05),
-            rgba(0,0,0,.15) 45%,
+            rgba(0,0,0,.02),
+            rgba(0,0,0,.15) 50%,
             rgba(0,0,0,.9) 100%
         );
 
     pointer-events: none;
+
 }
 
+
+/* TEXTO HERO */
+
 .hero-content {
+
     position: absolute;
 
     left: 50%;
+
     bottom: 10%;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
     width: 90%;
 
     text-align: center;
+
 }
 
 .hero-symbol {
+
     width: 52px;
     height: 52px;
 
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 
     filter:
-        drop-shadow(0 0 20px rgba(255,255,255,.5));
+        drop-shadow(
+            0 0 20px rgba(255,255,255,.5)
+        );
+
 }
 
 .hero-title {
+
     font-family: var(--title);
 
-    font-size: clamp(
-        2.5rem,
-        7vw,
-        5rem
-    );
+    font-size:
+        clamp(
+            2.5rem,
+            7vw,
+            5rem
+        );
 
     font-weight: 900;
 
@@ -366,40 +649,47 @@ header {
     background:
         linear-gradient(
             180deg,
-            #ffffff 25%,
-            #aeb4be 70%,
+            #ffffff 20%,
+            #b1b7c0 70%,
             #737984 100%
         );
 
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
+
 }
 
 .hero-subtitle {
+
     margin-top: 8px;
 
-    color: #dfe3e8;
+    color: #e1e5e9;
 
     font-family: var(--title);
 
+    font-size:
+        clamp(
+            .7rem,
+            1.6vw,
+            1rem
+        );
+
     letter-spacing: 4px;
 
-    font-size: clamp(
-        .7rem,
-        1.6vw,
-        1rem
-    );
-
     text-transform: uppercase;
+
 }
 
 
-/* =========================
-   EXPLORE SECTION
-========================= */
+/* =====================================================
+   EXPLORAR
+===================================================== */
 
 .explore {
-    padding: 100px 20px 90px;
+
+    padding:
+        35px 20px 65px;
 
     text-align: center;
 
@@ -410,28 +700,33 @@ header {
             #07090c 50%,
             #000000 100%
         );
+
 }
 
 .explore-label {
+
     color: #aeb4be;
 
-    font-size: .72rem;
+    font-size: .7rem;
 
     letter-spacing: 4px;
 
     text-transform: uppercase;
 
-    margin-bottom: 18px;
+    margin-bottom: 16px;
+
 }
 
 .explore-title {
+
     font-family: var(--title);
 
-    font-size: clamp(
-        2rem,
-        5vw,
-        3.6rem
-    );
+    font-size:
+        clamp(
+            2rem,
+            5vw,
+            3.6rem
+        );
 
     letter-spacing: 5px;
 
@@ -444,31 +739,38 @@ header {
         );
 
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
+
 }
 
 .explore-text {
+
     max-width: 650px;
 
-    margin: 20px auto 35px;
+    margin:
+        20px auto 30px;
 
     color: var(--muted);
 
     line-height: 1.8;
 
     font-size: .9rem;
+
 }
 
 .explore-btn {
+
     display: inline-flex;
 
-    padding: 15px 35px;
+    padding:
+        15px 35px;
 
     border-radius: 50px;
 
     color: #000;
 
-    background: #fff;
+    background: white;
 
     text-decoration: none;
 
@@ -481,35 +783,47 @@ header {
     text-transform: uppercase;
 
     transition: .3s;
+
 }
 
 .explore-btn:hover {
-    transform: translateY(-3px);
 
-    background: #dce1e7;
+    transform:
+        translateY(-3px);
+
+    background:
+        #dce1e7;
 
     box-shadow:
-        0 12px 35px rgba(255,255,255,.2);
+        0 12px 35px
+        rgba(255,255,255,.2);
+
 }
 
 
-/* =========================
-   CATEGORIES
-========================= */
+/* =====================================================
+   CATEGORÍAS
+===================================================== */
 
 .categories {
-    padding: 80px 20px 110px;
+
+    padding:
+        65px 20px 100px;
 
     background: #050608;
+
 }
 
 .section-heading {
+
     text-align: center;
 
-    margin-bottom: 45px;
+    margin-bottom: 42px;
+
 }
 
 .section-heading small {
+
     color: var(--silver-dark);
 
     font-size: .7rem;
@@ -517,23 +831,28 @@ header {
     letter-spacing: 4px;
 
     text-transform: uppercase;
+
 }
 
 .section-heading h2 {
+
     margin-top: 10px;
 
     font-family: var(--title);
 
-    font-size: clamp(
-        1.8rem,
-        4vw,
-        2.8rem
-    );
+    font-size:
+        clamp(
+            1.8rem,
+            4vw,
+            2.8rem
+        );
 
     letter-spacing: 4px;
+
 }
 
 .category-grid {
+
     max-width: 1300px;
 
     margin: auto;
@@ -543,21 +862,28 @@ header {
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(180px, 1fr)
+            minmax(180px,1fr)
         );
 
     gap: 20px;
+
 }
 
+
+/* TARJETA CATEGORÍA */
+
 .category-card {
+
     min-height: 210px;
 
     position: relative;
 
     display: flex;
+
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
     gap: 20px;
@@ -566,13 +892,14 @@ header {
 
     border-radius: 22px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
     background:
         radial-gradient(
             circle at center,
             rgba(255,255,255,.055),
-            rgba(10,11,14,.95)
+            rgba(10,11,14,.96)
         );
 
     color: white;
@@ -583,20 +910,29 @@ header {
         transform .35s,
         border-color .35s,
         box-shadow .35s;
+
 }
 
 .category-card:hover {
-    transform: translateY(-7px);
+
+    transform:
+        translateY(-7px);
 
     border-color:
         rgba(255,255,255,.45);
 
     box-shadow:
         0 20px 50px rgba(0,0,0,.7),
-        0 0 30px rgba(255,255,255,.06);
+        0 0 30px
+        rgba(255,255,255,.06);
+
 }
 
+
+/* LOGO DE CATEGORÍA */
+
 .category-logo {
+
     width: 90px;
     height: 90px;
 
@@ -604,11 +940,13 @@ header {
 
     filter:
         drop-shadow(
-            0 5px 15px rgba(0,0,0,.6)
+            0 5px 15px rgba(0,0,0,.7)
         );
+
 }
 
 .category-name {
+
     font-family: var(--title);
 
     font-size: .9rem;
@@ -616,16 +954,18 @@ header {
     letter-spacing: 2px;
 
     text-transform: uppercase;
+
 }
 
 
-/* =========================
-   INNER PAGE HEADER
-========================= */
+/* =====================================================
+   HEADER DE PÁGINAS INTERNAS
+===================================================== */
 
 .page-header {
+
     padding:
-        130px 5% 50px;
+        125px 5% 45px;
 
     background:
         linear-gradient(
@@ -633,9 +973,11 @@ header {
             #0b0d11,
             #050608
         );
+
 }
 
 .back-btn {
+
     display: inline-flex;
 
     align-items: center;
@@ -654,37 +996,46 @@ header {
 
     text-transform: uppercase;
 
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 
     transition: .25s;
+
 }
 
 .back-btn:hover {
+
     color: white;
 
-    transform: translateX(-4px);
+    transform:
+        translateX(-4px);
+
 }
 
 .page-header small {
-    color: var(--silver-dark);
+
+    color:
+        var(--silver-dark);
 
     letter-spacing: 4px;
 
     font-size: .7rem;
 
     text-transform: uppercase;
+
 }
 
 .page-header h1 {
+
     margin-top: 10px;
 
     font-family: var(--title);
 
-    font-size: clamp(
-        2rem,
-        5vw,
-        3.8rem
-    );
+    font-size:
+        clamp(
+            2rem,
+            5vw,
+            3.8rem
+        );
 
     letter-spacing: 5px;
 
@@ -698,22 +1049,28 @@ header {
         );
 
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
+
 }
 
 
-/* =========================
-   PRODUCTS GRID
-========================= */
+/* =====================================================
+   PRODUCTOS
+===================================================== */
 
 .products-page {
+
     padding:
         0 5% 100px;
 
-    background: #050608;
+    background:
+        #050608;
+
 }
 
 .products-grid {
+
     max-width: 1450px;
 
     margin: auto;
@@ -723,13 +1080,18 @@ header {
     grid-template-columns:
         repeat(
             auto-fill,
-            minmax(250px, 1fr)
+            minmax(250px,1fr)
         );
 
     gap: 24px;
+
 }
 
+
+/* TARJETA */
+
 .product-card {
+
     position: relative;
 
     min-height: 460px;
@@ -738,72 +1100,271 @@ header {
 
     border-radius: 20px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
-    background: var(--card);
+    background:
+        var(--card);
 
     cursor: pointer;
 
     transition:
         transform .35s,
         border-color .35s;
+
 }
 
 .product-card:hover {
-    transform: translateY(-6px);
+
+    transform:
+        translateY(-6px);
 
     border-color:
         rgba(255,255,255,.4);
+
 }
 
-.product-image {
+
+/* =====================================================
+   GALERÍA INTERNA
+===================================================== */
+
+.product-gallery {
+
+    position: absolute;
+
+    inset: 0;
+
     width: 100%;
-    height: 350px;
+    height: 100%;
 
-    display: block;
-
-    object-fit: cover;
+    overflow: hidden;
 
     background: #111;
 
-    transition: transform .5s;
 }
 
-.product-card:hover .product-image {
-    transform: scale(1.04);
-}
+.product-gallery-image {
 
-.product-gradient {
     position: absolute;
 
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
 
-    height: 210px;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    opacity: 0;
+
+    transition:
+        opacity .35s ease,
+        transform .5s ease;
+
+}
+
+.product-gallery-image.active {
+
+    opacity: 1;
+
+}
+
+.product-card:hover
+.product-gallery-image.active {
+
+    transform:
+        scale(1.04);
+
+}
+
+
+/* =====================================================
+   FLECHAS
+===================================================== */
+
+.product-gallery-arrow {
+
+    position: absolute;
+
+    top: 42%;
+
+    transform:
+        translateY(-50%);
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(0,0,0,.65);
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    backdrop-filter: blur(10px);
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    transition:
+        opacity .25s,
+        background .25s,
+        transform .25s;
+
+}
+
+.product-card:hover
+.product-gallery-arrow {
+
+    opacity: 1;
+
+}
+
+.product-gallery-arrow:hover {
+
+    background:
+        rgba(255,255,255,.95);
+
+    color: #000;
+
+}
+
+.product-gallery-arrow.prev {
+
+    left: 12px;
+
+}
+
+.product-gallery-arrow.next {
+
+    right: 12px;
+
+}
+
+
+/* =====================================================
+   PUNTOS
+===================================================== */
+
+.product-gallery-dots {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 105px;
+
+    transform:
+        translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding:
+        5px 9px;
+
+    background:
+        rgba(0,0,0,.55);
+
+    border-radius: 20px;
+
+    z-index: 20;
+
+}
+
+.product-gallery-dot {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.4);
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+.product-gallery-dot.active {
+
+    width: 17px;
+
+    border-radius: 10px;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px
+        rgba(255,255,255,.8);
+
+}
+
+
+/* =====================================================
+   DEGRADADO
+===================================================== */
+
+.product-gradient {
+
+    position: absolute;
+
+    inset:
+        auto 0 0 0;
+
+    height: 230px;
 
     background:
         linear-gradient(
             to top,
-            #090a0d 15%,
+            #090a0d 10%,
             rgba(9,10,13,.85) 55%,
             transparent
         );
 
     pointer-events: none;
+
+    z-index: 2;
+
 }
 
+
+/* =====================================================
+   INFORMACIÓN PRODUCTO
+===================================================== */
+
 .product-info {
+
     position: absolute;
 
     left: 22px;
     right: 22px;
+
     bottom: 20px;
 
-    z-index: 2;
+    z-index: 30;
+
 }
 
 .product-brand {
+
     color: #aeb4be;
 
     font-size: .65rem;
@@ -813,9 +1374,11 @@ header {
     letter-spacing: 2px;
 
     text-transform: uppercase;
+
 }
 
 .product-name {
+
     margin-top: 7px;
 
     font-family: var(--title);
@@ -825,22 +1388,27 @@ header {
     letter-spacing: 1px;
 
     text-transform: uppercase;
+
 }
 
 .product-price {
+
     margin-top: 8px;
 
     font-size: 1.15rem;
 
     font-weight: 800;
+
 }
 
 .product-view {
+
     display: inline-flex;
 
     margin-top: 13px;
 
-    padding: 9px 17px;
+    padding:
+        9px 17px;
 
     border-radius: 30px;
 
@@ -855,14 +1423,16 @@ header {
     letter-spacing: 1px;
 
     text-transform: uppercase;
+
 }
 
 
-/* =========================
-   PRODUCT DETAIL
-========================= */
+/* =====================================================
+   DETALLE PRODUCTO
+===================================================== */
 
 .detail-page {
+
     padding:
         110px 5% 100px;
 
@@ -872,50 +1442,63 @@ header {
             #0a0c10,
             #050608 30%
         );
+
 }
 
 .detail-container {
+
     max-width: 1400px;
 
     margin: auto;
+
 }
 
 .detail-layout {
+
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1.15fr)
-        minmax(330px, .85fr);
+        minmax(0,1.15fr)
+        minmax(330px,.85fr);
 
     gap: 60px;
 
     align-items: start;
+
 }
 
 
-/* GALLERY */
+/* GALERÍA DETALLE */
 
 .detail-gallery {
+
     position: relative;
+
 }
 
 .main-product-image {
+
     width: 100%;
 
-    aspect-ratio: 1 / 1.15;
+    aspect-ratio:
+        1 / 1.15;
 
     object-fit: contain;
 
-    background: #0b0d10;
+    background:
+        #0b0d10;
 
     border-radius: 20px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
     cursor: zoom-in;
+
 }
 
 .thumbnails {
+
     display: flex;
 
     gap: 10px;
@@ -925,10 +1508,13 @@ header {
     margin-top: 15px;
 
     padding-bottom: 5px;
+
 }
 
 .thumbnail {
-    flex: 0 0 80px;
+
+    flex:
+        0 0 80px;
 
     width: 80px;
     height: 80px;
@@ -937,32 +1523,40 @@ header {
 
     border-radius: 10px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
     cursor: pointer;
 
-    opacity: .55;
+    opacity: .5;
 
     transition: .25s;
+
 }
 
 .thumbnail.active,
 .thumbnail:hover {
+
     opacity: 1;
 
     border-color:
         rgba(255,255,255,.6);
+
 }
 
 
-/* INFO */
+/* INFORMACIÓN */
 
 .detail-info {
+
     padding-top: 15px;
+
 }
 
 .detail-brand {
-    color: var(--silver-dark);
+
+    color:
+        var(--silver-dark);
 
     font-size: .7rem;
 
@@ -971,18 +1565,21 @@ header {
     letter-spacing: 3px;
 
     text-transform: uppercase;
+
 }
 
 .detail-title {
+
     margin-top: 12px;
 
     font-family: var(--title);
 
-    font-size: clamp(
-        2rem,
-        4vw,
-        3.2rem
-    );
+    font-size:
+        clamp(
+            2rem,
+            4vw,
+            3.2rem
+        );
 
     line-height: 1.15;
 
@@ -998,18 +1595,23 @@ header {
         );
 
     -webkit-background-clip: text;
+
     -webkit-text-fill-color: transparent;
+
 }
 
 .detail-price {
+
     margin-top: 20px;
 
     font-size: 1.5rem;
 
     font-weight: 800;
+
 }
 
 .detail-description {
+
     margin-top: 25px;
 
     color: #9298a2;
@@ -1017,12 +1619,16 @@ header {
     line-height: 1.8;
 
     font-size: .88rem;
+
 }
 
 
-/* SIZES */
+/* =====================================================
+   TALLAS
+===================================================== */
 
 .size-title {
+
     margin-top: 35px;
 
     font-size: .72rem;
@@ -1032,9 +1638,11 @@ header {
     letter-spacing: 2px;
 
     text-transform: uppercase;
+
 }
 
 .sizes {
+
     display: flex;
 
     flex-wrap: wrap;
@@ -1042,20 +1650,26 @@ header {
     gap: 10px;
 
     margin-top: 15px;
+
 }
 
 .size-btn {
+
     min-width: 55px;
 
-    padding: 12px 16px;
+    padding:
+        12px 16px;
 
     border-radius: 8px;
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
-    background: #0d0f13;
+    background:
+        #0d0f13;
 
-    color: #dce0e5;
+    color:
+        #dce0e5;
 
     cursor: pointer;
 
@@ -1064,21 +1678,27 @@ header {
     font-weight: 700;
 
     transition: .25s;
+
 }
 
 .size-btn:hover,
 .size-btn.selected {
+
     color: #000;
 
     background: white;
 
     border-color: white;
+
 }
 
 
-/* WHATSAPP */
+/* =====================================================
+   WHATSAPP
+===================================================== */
 
 .order-btn {
+
     width: 100%;
 
     margin-top: 30px;
@@ -1091,15 +1711,11 @@ header {
 
     align-items: center;
 
-    gap: 10px;
-
     border-radius: 50px;
 
     background: white;
 
     color: black;
-
-    cursor: pointer;
 
     text-decoration: none;
 
@@ -1112,30 +1728,35 @@ header {
     text-transform: uppercase;
 
     transition: .3s;
+
 }
 
 .order-btn:hover {
-    background: #dfe3e8;
 
-    transform: translateY(-2px);
+    background:
+        #dfe3e8;
 
-    box-shadow:
-        0 10px 30px rgba(255,255,255,.15);
+    transform:
+        translateY(-2px);
+
 }
 
 
-/* =========================
-   EMPTY / LOADING
-========================= */
+/* =====================================================
+   LOADING / EMPTY
+===================================================== */
 
 .loading {
-    min-height: 300px;
+
+    min-height: 400px;
 
     display: flex;
 
+    align-items: center;
+
     justify-content: center;
 
-    align-items: center;
+    text-align: center;
 
     color: var(--muted);
 
@@ -1143,30 +1764,33 @@ header {
 
     font-size: .75rem;
 
-    text-transform: uppercase;
 }
 
 .empty {
-    grid-column: 1 / -1;
+
+    grid-column:
+        1 / -1;
 
     padding: 80px 20px;
 
     text-align: center;
 
     color: var(--muted);
+
 }
 
 
-/* =========================
+/* =====================================================
    MODAL
-========================= */
+===================================================== */
 
 .modal {
+
     position: fixed;
 
     inset: 0;
 
-    z-index: 3000;
+    z-index: 5000;
 
     display: none;
 
@@ -1178,25 +1802,33 @@ header {
 
     background:
         rgba(0,0,0,.94);
+
 }
 
 .modal.active {
+
     display: flex;
+
 }
 
 .modal img {
+
     max-width: 95vw;
+
     max-height: 90vh;
 
     object-fit: contain;
 
     border-radius: 10px;
+
 }
 
 .modal-close {
+
     position: absolute;
 
     top: 20px;
+
     right: 25px;
 
     color: white;
@@ -1206,14 +1838,16 @@ header {
     font-size: 35px;
 
     cursor: pointer;
+
 }
 
 
-/* =========================
+/* =====================================================
    FOOTER
-========================= */
+===================================================== */
 
 footer {
+
     padding: 55px 20px;
 
     text-align: center;
@@ -1226,154 +1860,262 @@ footer {
 
     background: #020304;
 
-    border-top: 1px solid var(--border);
+    border-top:
+        1px solid var(--border);
+
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* =====================================================
+   TABLET
+===================================================== */
 
 @media(max-width:900px) {
 
     header {
+
         padding: 0 18px;
+
     }
 
     .main-nav {
+
         display: none;
+
+    }
+
+    .mobile-menu-button {
+
+        display: flex;
+
     }
 
     .hero {
+
         padding:
-            76px 0 40px;
+            76px 0 5px;
+
     }
 
     .hero-video-wrapper {
+
+        width: 100%;
+
         border-radius: 0;
 
         border-left: 0;
+
         border-right: 0;
+
     }
 
     .hero-content {
+
         bottom: 8%;
+
     }
 
     .hero-title {
+
         letter-spacing: 5px;
+
     }
 
     .detail-layout {
+
         grid-template-columns: 1fr;
 
         gap: 35px;
+
     }
 
     .detail-info {
+
         padding: 0 5px;
+
     }
 
 }
 
 
+/* =====================================================
+   MÓVIL
+===================================================== */
+
 @media(max-width:600px) {
 
     .brand-name {
+
         font-size: 1.05rem;
+
     }
 
     .header-wa {
+
         width: 38px;
         height: 38px;
+
     }
 
     .hero-video-wrapper {
+
         width: 100%;
-        aspect-ratio: 16 / 9;
+
+        aspect-ratio:
+            16 / 9;
+
     }
 
     .hero-symbol {
+
         width: 38px;
         height: 38px;
+
     }
 
     .hero-title {
+
         font-size: 2.2rem;
+
     }
 
     .hero-subtitle {
-        font-size: .6rem;
+
+        font-size: .58rem;
+
         letter-spacing: 2px;
+
+    }
+
+    .explore {
+
+        padding:
+            28px 18px 50px;
+
+    }
+
+    .categories {
+
+        padding:
+            50px 15px 80px;
+
     }
 
     .category-grid {
+
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2,1fr);
 
         gap: 12px;
+
     }
 
     .category-card {
+
         min-height: 165px;
+
+        padding: 15px;
+
     }
 
     .category-logo {
+
         width: 65px;
         height: 65px;
+
     }
 
-    .products-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
+    .category-name {
 
-        gap: 12px;
-    }
+        font-size: .72rem;
 
-    .product-card {
-        min-height: 330px;
-    }
+        text-align: center;
 
-    .product-image {
-        height: 250px;
-    }
-
-    .product-info {
-        left: 13px;
-        right: 13px;
-        bottom: 13px;
-    }
-
-    .product-name {
-        font-size: .75rem;
-    }
-
-    .product-price {
-        font-size: .9rem;
-    }
-
-    .product-view {
-        font-size: .55rem;
-        padding: 7px 11px;
-    }
-
-    .page-header {
-        padding:
-            110px 20px 40px;
     }
 
     .products-page {
+
         padding:
-            0 15px 80px;
+            0 12px 80px;
+
+    }
+
+    .products-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap: 12px;
+
+    }
+
+    .product-card {
+
+        min-height: 340px;
+
+    }
+
+    .product-gallery-arrow {
+
+        opacity: 1;
+
+        width: 32px;
+        height: 32px;
+
+    }
+
+    .product-gallery-dots {
+
+        bottom: 105px;
+
+    }
+
+    .product-info {
+
+        left: 13px;
+        right: 13px;
+
+        bottom: 13px;
+
+    }
+
+    .product-name {
+
+        font-size: .72rem;
+
+    }
+
+    .product-price {
+
+        font-size: .9rem;
+
+    }
+
+    .product-view {
+
+        font-size: .53rem;
+
+        padding:
+            7px 10px;
+
+    }
+
+    .page-header {
+
+        padding:
+            110px 20px 40px;
+
     }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
+
 
 <!-- =====================================================
      HEADER
@@ -1381,122 +2123,219 @@ footer {
 
 <header>
 
-    <a href="#/" class="brand" onclick="navigateHome()">
 
-        <svg
-            class="brand-logo"
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+<a
+    href="#/"
+    class="brand"
+    onclick="navigateHome()"
+>
 
-            <defs>
+<svg
+    class="brand-logo"
+    viewBox="0 0 100 100"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
 
-                <linearGradient
-                    id="silverHeader"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%">
+<defs>
 
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="45%" stop-color="#cfd4dc"/>
-                    <stop offset="75%" stop-color="#858c98"/>
-                    <stop offset="100%" stop-color="#ffffff"/>
+<linearGradient
+    id="silverHeader"
+    x1="0%"
+    y1="0%"
+    x2="100%"
+    y2="100%"
+>
 
-                </linearGradient>
+<stop
+    offset="0%"
+    stop-color="#ffffff"
+/>
 
-            </defs>
+<stop
+    offset="45%"
+    stop-color="#cfd4dc"
+/>
 
-            <path
-                d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z"
-                stroke="url(#silverHeader)"
-                stroke-width="4"/>
+<stop
+    offset="75%"
+    stop-color="#858c98"
+/>
 
-            <path
-                d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z"
-                fill="url(#silverHeader)"/>
+<stop
+    offset="100%"
+    stop-color="#ffffff"
+/>
 
-            <circle
-                cx="50"
-                cy="50"
-                r="3"
-                fill="#ffffff"/>
+</linearGradient>
 
-        </svg>
-
-        <span class="brand-name">
-            IRIDIUM
-        </span>
-
-    </a>
-
-
-    <nav class="main-nav">
-
-        <a href="#/" class="active">
-            Inicio
-        </a>
-
-        <a href="#/colecciones">
-            Colecciones
-        </a>
-
-        <a href="#/nosotros">
-            Nosotros
-        </a>
-
-        <a href="#/contacto">
-            Contacto
-        </a>
-
-    </nav>
+</defs>
 
 
-    <div class="header-actions">
+<path
+    d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z"
+    stroke="url(#silverHeader)"
+    stroke-width="4"
+/>
 
-        <a
-            class="header-wa"
-            href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20hacer%20un%20pedido"
-            target="_blank"
-            title="WhatsApp">
+<path
+    d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z"
+    fill="url(#silverHeader)"
+/>
 
-            <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2">
+<circle
+    cx="50"
+    cy="50"
+    r="3"
+    fill="#ffffff"
+/>
 
-                <path
-                    d="M21 11.5a8.38 8.38 0 0 1-9 9
-                    8.5 8.5 0 0 1-4-.9L3 21l1.4-4.7
-                    A8.38 8.38 0 1 1 21 11.5Z"/>
+</svg>
 
-                <path
-                    d="M8.5 8.5c.3-.6.6-.6.9-.6
-                    .2 0 .4 0 .5.1
-                    l.8 1.8c.1.2.1.4 0 .6
-                    l-.4.6c-.1.2-.2.3-.1.5
-                    .5.9 1.3 1.7 2.3 2.2
-                    .2.1.3.1.5-.1l.7-.8
-                    c.2-.2.4-.2.6-.1l1.8.8
-                    c.2.1.3.3.2.5
-                    -.1.2-.4.5-1.2.5-1.7
-                    0-.4-.3-.8-.6-1
-                    -.4-.2-1.7-.8-2-.9
-                    -.3-.1-.6-.1-.8.2
-                    -.2.2-.8.9-.9 1.1
-                    -.2.2-.4.2-.6.1
-                    -.3-.1-1.1-.4-1.8-1.1
-                    -.7-.6-1.1-1.4-1.2-1.7
-                    -.1-.3 0-.5.1-.7Z"/>
 
-            </svg>
+<span class="brand-name">
+IRIDIUM
+</span>
 
-        </a>
+</a>
 
-    </div>
+
+<!-- =====================================================
+     NAV DESKTOP
+===================================================== -->
+
+<nav class="main-nav">
+
+<a href="#/" onclick="closeMobileMenu()">
+Inicio
+</a>
+
+<a href="#/colecciones" onclick="closeMobileMenu()">
+Colecciones
+</a>
+
+<a href="#/nosotros" onclick="closeMobileMenu()">
+Nosotros
+</a>
+
+<a href="#/contacto" onclick="closeMobileMenu()">
+Contacto
+</a>
+
+</nav>
+
+
+<!-- =====================================================
+     ACCIONES
+===================================================== -->
+
+<div class="header-actions">
+
+
+<a
+    class="header-wa"
+    href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20hacer%20un%20pedido"
+    target="_blank"
+    title="WhatsApp"
+>
+
+<svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+>
+
+<path
+    d="M21 11.5a8.38 8.38 0 0 1-9 9
+    8.5 8.5 0 0 1-4-.9L3 21l1.4-4.7
+    A8.38 8.38 0 1 1 21 11.5Z"
+/>
+
+<path
+    d="M8.5 8.5c.3-.6.6-.6.9-.6
+    .2 0 .4 0 .5.1
+    l.8 1.8c.1.2.1.4 0 .6
+    l-.4.6c-.1.2-.2.3-.1.5
+    .5.9 1.3 1.7 2.3 2.2
+    .2.1.3.1.5-.1l.7-.8
+    c.2-.2.4-.2.6-.1l1.8.8
+    c.2.1.3.3.2.5
+    -.1.2-.4.5-1.2.5-1.7
+    0-.4-.3-.8-.6-1
+    -.4-.2-1.7-.8-2-.9
+    -.3-.1-.6-.1-.8.2
+    -.2.2-.8.9-.9 1.1
+    -.2.2-.4.2-.6.1
+    -.3-.1-1.1-.4-1.8-1.1
+    -.7-.6-1.1-1.4-1.2-1.7
+    -.1-.3 0-.5.1-.7Z"
+/>
+
+</svg>
+
+</a>
+
+
+<button
+    class="mobile-menu-button"
+    onclick="toggleMobileMenu()"
+    aria-label="Abrir menú"
+>
+
+<span></span>
+<span></span>
+<span></span>
+
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     MENÚ MÓVIL
+===================================================== -->
+
+<div
+    id="mobileMenu"
+    class="mobile-menu"
+>
+
+<a
+    href="#/"
+    onclick="closeMobileMenu()"
+>
+Inicio
+</a>
+
+<a
+    href="#/colecciones"
+    onclick="closeMobileMenu()"
+>
+Colecciones
+</a>
+
+<a
+    href="#/nosotros"
+    onclick="closeMobileMenu()"
+>
+Nosotros
+</a>
+
+<a
+    href="#/contacto"
+    onclick="closeMobileMenu()"
+>
+Contacto
+</a>
+
+</div>
+
 
 </header>
 
@@ -1507,9 +2346,11 @@ footer {
 
 <main id="app">
 
-    <div class="loading">
-        Cargando IRIDIUM...
-    </div>
+<div class="loading">
+
+Cargando IRIDIUM...
+
+</div>
 
 </main>
 
@@ -1521,28 +2362,38 @@ footer {
 <div
     class="modal"
     id="imageModal"
-    onclick="closeImageModal()">
+    onclick="closeImageModal()"
+>
 
-    <button
-        class="modal-close"
-        onclick="closeImageModal()">
-        ×
-    </button>
+<button
+    class="modal-close"
+    onclick="closeImageModal()"
+>
+×
+</button>
 
-    <img
-        id="modalImage"
-        src=""
-        alt="Imagen ampliada">
+<img
+    id="modalImage"
+    src=""
+    alt="Imagen ampliada"
+>
 
 </div>
 
 
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
 
-    © 2026 IRIDIUM Clothing.
-    Todos los derechos reservados.
-    <br><br>
-    WhatsApp: +593 99 502 3674
+© 2026 IRIDIUM Clothing.
+Todos los derechos reservados.
+
+<br><br>
+
+WhatsApp:
++593 99 502 3674
 
 </footer>
 
@@ -1584,7 +2435,8 @@ async function githubAPI(path) {
         `${GITHUB_USER}/${GITHUB_REPO}/contents/` +
         `${path}?ref=${GITHUB_BRANCH}`;
 
-    const response = await fetch(url);
+    const response =
+        await fetch(url);
 
     if (!response.ok) {
 
@@ -1595,45 +2447,49 @@ async function githubAPI(path) {
     }
 
     return await response.json();
+
 }
 
 
 /* =====================================================
-   LIMPIAR NOMBRE
+   LIMPIAR TEXTO
 ===================================================== */
 
 function cleanText(text) {
 
-    return text
+    return String(text)
+
         .replace(/\.[^/.]+$/, "")
+
         .replace(/_/g, " ")
+
         .trim();
 
 }
 
 
 /* =====================================================
-   ANALIZAR NOMBRE DEL ARCHIVO
-=====================================================
+   ANALIZAR NOMBRE
 
-   Ejemplos:
+   Ejemplo:
 
-   FERRARI-35-1.jpg
-   FERRARI-35-2.jpg
-   FERRARI-35-3.jpg
+   CAMISETA-25.jpg
+
+   CAMISETA-25-2.jpg
+
+   CAMISETA-25-3.jpg
+
 
    Resultado:
 
-   producto = FERRARI
-   precio = 35
-   foto = 1,2,3
+   producto = CAMISETA
 
+   precio = 25
+
+   foto = 1 / 2 / 3
 ===================================================== */
 
 function parseProductFile(filename) {
-
-    const extension =
-        filename.match(/\.[^/.]+$/)?.[0] || "";
 
     const withoutExtension =
         filename.replace(/\.[^/.]+$/, "");
@@ -1643,9 +2499,13 @@ function parseProductFile(filename) {
 
 
     let productName =
-        cleanText(parts[0] || "Producto");
+        cleanText(
+            parts[0] || "Producto"
+        );
+
 
     let price = "0";
+
 
     let photoNumber = 1;
 
@@ -1653,7 +2513,9 @@ function parseProductFile(filename) {
     if (parts.length >= 2) {
 
         price =
-            parts[1].replace(",", ".").trim();
+            parts[1]
+                .replace(",", ".")
+                .trim();
 
     }
 
@@ -1675,11 +2537,129 @@ function parseProductFile(filename) {
     return {
 
         productName,
+
         price,
-        photoNumber,
-        extension
+
+        photoNumber
 
     };
+
+}
+
+
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escapeHTML(text) {
+
+    return String(text)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   ESCAPAR ATRIBUTOS
+===================================================== */
+
+function escapeAttr(text) {
+
+    return String(text)
+
+        .replace(/\\/g, "\\\\")
+
+        .replace(/'/g, "\\'")
+
+        .replace(/"/g, "&quot;");
+
+}
+
+
+/* =====================================================
+   CREAR ID
+===================================================== */
+
+function createId(text) {
+
+    return String(text)
+
+        .toLowerCase()
+
+        .normalize("NFD")
+
+        .replace(/[\u0300-\u036f]/g, "")
+
+        .replace(/[^a-z0-9]+/g, "-")
+
+        .replace(/^-|-$/g, "");
+
+}
+
+
+/* =====================================================
+   LOGO FALLBACK
+===================================================== */
+
+function createFallbackLogo(name) {
+
+    const initials =
+        String(name)
+            .split(/[\s_-]+/)
+            .map(word => word.charAt(0))
+            .join("")
+            .substring(0,3)
+            .toUpperCase();
+
+
+    const svg = `
+
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="300"
+            height="300"
+            viewBox="0 0 300 300">
+
+            <rect
+                width="300"
+                height="300"
+                fill="#0b0d11"/>
+
+            <circle
+                cx="150"
+                cy="150"
+                r="105"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="3"/>
+
+            <text
+                x="150"
+                y="170"
+                text-anchor="middle"
+                font-family="Arial"
+                font-size="55"
+                fill="#ffffff">
+
+                ${initials}
+
+            </text>
+
+        </svg>
+    `;
+
+
+    return "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(svg);
 
 }
 
@@ -1693,7 +2673,9 @@ async function loadCatalog() {
     try {
 
         const folders =
-            await githubAPI(PRODUCTS_FOLDER);
+            await githubAPI(
+                PRODUCTS_FOLDER
+            );
 
 
         if (!Array.isArray(folders)) {
@@ -1708,10 +2690,16 @@ async function loadCatalog() {
         const result = [];
 
 
+        /* =============================================
+           CADA CARPETA = CATEGORÍA
+        ============================================= */
+
         for (const folder of folders) {
 
             if (folder.type !== "dir") {
+
                 continue;
+
             }
 
 
@@ -1726,13 +2714,13 @@ async function loadCatalog() {
 
                 files =
                     await githubAPI(
-                        `${PRODUCTS_FOLDER}/${category}`
+                        `${PRODUCTS_FOLDER}/${encodeURIComponent(category)}`
                     );
 
             } catch (error) {
 
                 console.error(
-                    "Error categoría:",
+                    "Error cargando categoría:",
                     category,
                     error
                 );
@@ -1743,16 +2731,23 @@ async function loadCatalog() {
 
 
             if (!Array.isArray(files)) {
+
                 continue;
+
             }
 
 
-            /* -----------------------------------------
+            /* =========================================
                BUSCAR LOGO
-            ----------------------------------------- */
 
-            let categoryLogo = null;
+               El logo debe tener el mismo nombre
+               que la carpeta.
 
+               Ejemplo:
+
+               FERRARI/
+               FERRARI.png
+            ========================================= */
 
             const possibleLogoNames = [
 
@@ -1767,12 +2762,17 @@ async function loadCatalog() {
 
             const logoFile =
                 files.find(file =>
+
                     possibleLogoNames.some(
                         name =>
                             name.toLowerCase() ===
                             file.name.toLowerCase()
                     )
+
                 );
+
+
+            let categoryLogo = null;
 
 
             if (logoFile) {
@@ -1783,42 +2783,46 @@ async function loadCatalog() {
             }
 
 
-            /* -----------------------------------------
+            /* =========================================
                PRODUCTOS
-            ----------------------------------------- */
+
+               IMPORTANTE:
+
+               El logo NO se convierte en producto.
+            ========================================= */
 
             const productsMap = {};
 
 
             for (const file of files) {
 
-                if (file.type !== "file") {
+                if (
+                    file.type !== "file"
+                ) {
+
                     continue;
+
                 }
 
 
                 if (
                     !/\.(jpg|jpeg|png|webp|avif)$/i
-                    .test(file.name)
+                        .test(file.name)
                 ) {
+
                     continue;
+
                 }
 
 
-                /* No considerar el logo como producto */
+                /* =====================================
+                   NO USAR EL LOGO COMO PRODUCTO
+                ===================================== */
 
                 if (
+                    logoFile &&
                     file.name.toLowerCase() ===
-                    `${category.toLowerCase()}.png`
-                    ||
-                    file.name.toLowerCase() ===
-                    `${category.toLowerCase()}.jpg`
-                    ||
-                    file.name.toLowerCase() ===
-                    `${category.toLowerCase()}.jpeg`
-                    ||
-                    file.name.toLowerCase() ===
-                    `${category.toLowerCase()}.webp`
+                    logoFile.name.toLowerCase()
                 ) {
 
                     continue;
@@ -1827,23 +2831,31 @@ async function loadCatalog() {
 
 
                 const parsed =
-                    parseProductFile(file.name);
+                    parseProductFile(
+                        file.name
+                    );
 
 
                 /*
-                   La combinación producto + precio
-                   identifica el producto.
+                   Clave:
 
-                   Ejemplo:
+                   categoría +
+                   producto +
+                   precio
 
-                   FERRARI-35-1
-                   FERRARI-35-2
+                   Esto permite que:
 
-                   = mismo producto
+                   CAMISETA-25.jpg
+                   CAMISETA-25-2.jpg
+                   CAMISETA-25-3.jpg
+
+                   sean un solo producto.
                 */
 
                 const key =
-                    `${parsed.productName}__${parsed.price}`;
+                    `${category}__` +
+                    `${parsed.productName}__` +
+                    `${parsed.price}`;
 
 
                 if (!productsMap[key]) {
@@ -1852,11 +2864,7 @@ async function loadCatalog() {
 
                         id:
                             createId(
-                                category +
-                                "_" +
-                                parsed.productName +
-                                "_" +
-                                parsed.price
+                                `${category}-${parsed.productName}-${parsed.price}`
                             ),
 
                         category,
@@ -1882,15 +2890,16 @@ async function loadCatalog() {
                             file.download_url,
 
                         order:
-                            parsed.photoNumber,
-
-                        filename:
-                            file.name
+                            parsed.photoNumber
 
                     });
 
             }
 
+
+            /* =========================================
+               ORDENAR FOTOS
+            ========================================= */
 
             const products =
                 Object.values(productsMap);
@@ -1903,9 +2912,11 @@ async function loadCatalog() {
                         a.order - b.order
                 );
 
+
                 product.images =
                     product.images.map(
-                        img => img.url
+                        image =>
+                            image.url
                     );
 
             });
@@ -1913,9 +2924,11 @@ async function loadCatalog() {
 
             result.push({
 
-                name: category,
+                name:
+                    category,
 
-                logo: categoryLogo,
+                logo:
+                    categoryLogo,
 
                 products
 
@@ -1928,7 +2941,7 @@ async function loadCatalog() {
 
 
         console.log(
-            "Catálogo cargado:",
+            "IRIDIUM catálogo:",
             catalog
         );
 
@@ -1944,37 +2957,38 @@ async function loadCatalog() {
         );
 
 
-        document.getElementById("app").innerHTML = `
+        document.getElementById(
+            "app"
+        ).innerHTML = `
 
             <div class="loading">
 
-                No se pudo cargar el catálogo.
+                <div>
 
-                <br><br>
+                    No se pudo cargar el catálogo.
 
-                Revisa que la carpeta
-                <strong>products</strong>
-                exista en GitHub.
+                    <br><br>
+
+                    Revisa que exista:
+
+                    <br><br>
+
+                    <strong>
+                        /products
+                    </strong>
+
+                    <br><br>
+
+                    y que las categorías
+                    estén dentro.
+
+                </div>
 
             </div>
 
         `;
 
     }
-
-}
-
-
-/* =====================================================
-   CREAR ID
-===================================================== */
-
-function createId(text) {
-
-    return text
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
 
 }
 
@@ -1993,11 +3007,14 @@ function renderHome() {
 
         <div class="view">
 
+
             <!-- HERO -->
 
             <section class="hero">
 
-                <div class="hero-video-wrapper">
+                <div
+                    class="hero-video-wrapper"
+                >
 
                     <video
                         class="hero-video"
@@ -2005,44 +3022,83 @@ function renderHome() {
                         muted
                         loop
                         playsinline
-                        preload="auto">
+                        webkit-playsinline
+                        preload="auto"
+                    >
 
                         <source
                             src="video.mp4"
-                            type="video/mp4">
+                            type="video/mp4"
+                        >
 
                     </video>
 
 
-                    <div class="hero-overlay"></div>
+                    <div
+                        class="hero-overlay"
+                    ></div>
 
 
-                    <div class="hero-content">
+                    <div
+                        class="hero-content"
+                    >
 
                         <svg
                             class="hero-symbol"
                             viewBox="0 0 100 100"
-                            fill="none">
+                            fill="none"
+                        >
 
                             <path
-                                d="M50 5 L90 28 L90 72 L50 95 L10 72 L10 28 Z"
+                                d="
+                                M50 5
+                                L90 28
+                                L90 72
+                                L50 95
+                                L10 72
+                                L10 28
+                                Z
+                                "
                                 stroke="#ffffff"
-                                stroke-width="3"/>
+                                stroke-width="3"
+                            />
 
                             <path
-                                d="M44 32 H56 V44 H53 V56 H56 V68 H44 V56 H47 V44 H44 Z"
-                                fill="#ffffff"/>
+                                d="
+                                M44 32
+                                H56
+                                V44
+                                H53
+                                V56
+                                H56
+                                V68
+                                H44
+                                V56
+                                H47
+                                V44
+                                H44
+                                Z
+                                "
+                                fill="#ffffff"
+                            />
 
                         </svg>
 
 
                         <h1 class="hero-title">
+
                             IRIDIUM
+
                         </h1>
 
 
-                        <p class="hero-subtitle">
-                            Luxury Streetwear Performance
+                        <p
+                            class="hero-subtitle"
+                        >
+
+                            Luxury Streetwear
+                            Performance
+
                         </p>
 
                     </div>
@@ -2056,26 +3112,41 @@ function renderHome() {
 
             <section class="explore">
 
-                <div class="explore-label">
+                <div
+                    class="explore-label"
+                >
+
                     IRIDIUM COLLECTION
+
                 </div>
 
-                <h2 class="explore-title">
+
+                <h2
+                    class="explore-title"
+                >
+
                     EXPLORAR COLECCIÓN
+
                 </h2>
 
-                <p class="explore-text">
 
-                    Descubre una selección exclusiva
-                    de prendas inspiradas en la velocidad,
-                    el diseño y la cultura del motorsport.
+                <p
+                    class="explore-text"
+                >
+
+                    Descubre una selección
+                    exclusiva de prendas
+                    inspiradas en la velocidad,
+                    el diseño y la cultura
+                    del motorsport.
 
                 </p>
 
 
                 <a
                     href="#/colecciones"
-                    class="explore-btn">
+                    class="explore-btn"
+                >
 
                     Ver colecciones
 
@@ -2088,16 +3159,24 @@ function renderHome() {
 
             <section
                 class="categories"
-                id="categorias">
+                id="categorias"
+            >
 
-                <div class="section-heading">
+                <div
+                    class="section-heading"
+                >
 
                     <small>
+
                         // Selecciona tu categoría //
+
                     </small>
 
+
                     <h2>
+
                         COLECCIONES
+
                     </h2>
 
                 </div>
@@ -2105,13 +3184,15 @@ function renderHome() {
 
                 <div
                     class="category-grid"
-                    id="categoryGrid">
+                    id="categoryGrid"
+                >
 
                     ${renderCategoryCards()}
 
                 </div>
 
             </section>
+
 
         </div>
 
@@ -2121,7 +3202,7 @@ function renderHome() {
 
 
 /* =====================================================
-   TARJETAS DE CATEGORÍA
+   TARJETAS CATEGORÍAS
 ===================================================== */
 
 function renderCategoryCards() {
@@ -2129,9 +3210,14 @@ function renderCategoryCards() {
     if (!catalog.length) {
 
         return `
+
             <div class="empty">
-                No hay categorías disponibles.
+
+                No hay categorías
+                disponibles.
+
             </div>
+
         `;
 
     }
@@ -2141,23 +3227,38 @@ function renderCategoryCards() {
 
         const logo =
             category.logo ||
-            createFallbackLogo(category.name);
+            createFallbackLogo(
+                category.name
+            );
 
 
         return `
 
             <div
                 class="category-card"
-                onclick="openCategory('${escapeAttr(category.name)}')">
+                onclick="
+                    openCategory(
+                        '${escapeAttr(category.name)}'
+                    )
+                "
+            >
 
                 <img
                     class="category-logo"
                     src="${logo}"
                     alt="${escapeAttr(category.name)}"
-                    onerror="this.src='${createFallbackLogo(category.name)}'">
+                    onerror="
+                        this.src='${createFallbackLogo(category.name)}'
+                    "
+                >
 
-                <span class="category-name">
+
+                <span
+                    class="category-name"
+                >
+
                     ${escapeHTML(category.name)}
+
                 </span>
 
             </div>
@@ -2165,50 +3266,6 @@ function renderCategoryCards() {
         `;
 
     }).join("");
-
-}
-
-
-/* =====================================================
-   LOGO DE RESPALDO
-===================================================== */
-
-function createFallbackLogo(name) {
-
-    const text =
-        name.substring(0,3).toUpperCase();
-
-
-    return `
-        data:image/svg+xml;charset=UTF-8,
-        ${encodeURIComponent(`
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="200"
-                height="200"
-                viewBox="0 0 200 200">
-
-                <rect
-                    width="200"
-                    height="200"
-                    fill="#111318"/>
-
-                <text
-                    x="100"
-                    y="112"
-                    text-anchor="middle"
-                    fill="white"
-                    font-family="Arial"
-                    font-size="52"
-                    font-weight="bold">
-
-                    ${text}
-
-                </text>
-
-            </svg>
-        `)}
-    `;
 
 }
 
@@ -2227,11 +3284,13 @@ function renderCollections() {
 
         <div class="view">
 
+
             <section class="page-header">
 
                 <button
                     class="back-btn"
-                    onclick="navigateHome()">
+                    onclick="navigateHome()"
+                >
 
                     ← Volver
 
@@ -2239,11 +3298,16 @@ function renderCollections() {
 
 
                 <small>
-                    IRIDIUM
+
+                    IRIDIUM COLLECTION
+
                 </small>
 
+
                 <h1>
+
                     Colecciones
+
                 </h1>
 
             </section>
@@ -2251,13 +3315,16 @@ function renderCollections() {
 
             <section class="categories">
 
-                <div class="category-grid">
+                <div
+                    class="category-grid"
+                >
 
                     ${renderCategoryCards()}
 
                 </div>
 
             </section>
+
 
         </div>
 
@@ -2268,6 +3335,10 @@ function renderCollections() {
 
 /* =====================================================
    ABRIR CATEGORÍA
+
+   Simula una nueva página utilizando HASH.
+
+   No necesita crear otro HTML.
 ===================================================== */
 
 function openCategory(categoryName) {
@@ -2279,7 +3350,7 @@ function openCategory(categoryName) {
 
 
 /* =====================================================
-   RENDER CATEGORÍA
+   PÁGINA CATEGORÍA
 ===================================================== */
 
 function renderCategory(categoryName) {
@@ -2309,23 +3380,30 @@ function renderCategory(categoryName) {
 
         <div class="view">
 
+
             <section class="page-header">
 
                 <button
                     class="back-btn"
-                    onclick="navigateHome()">
+                    onclick="navigateHome()"
+                >
 
-                    ← Volver a colecciones
+                    ← Volver
 
                 </button>
 
 
                 <small>
+
                     COLECCIÓN
+
                 </small>
 
+
                 <h1>
+
                     ${escapeHTML(category.name)}
+
                 </h1>
 
             </section>
@@ -2333,33 +3411,43 @@ function renderCategory(categoryName) {
 
             <section class="products-page">
 
-                <div class="products-grid">
+
+                <div
+                    class="products-grid"
+                >
 
                     ${
                         category.products.length
+
                         ?
+
                         category.products
                             .map(
                                 product =>
-                                    renderProductCard(
-                                        product
-                                    )
+                                    renderProductCard(product)
                             )
                             .join("")
+
                         :
+
                         `
+
                             <div class="empty">
 
                                 No hay productos
-                                disponibles en esta categoría.
+                                disponibles
+                                en esta categoría.
 
                             </div>
+
                         `
                     }
 
                 </div>
 
+
             </section>
+
 
         </div>
 
@@ -2369,65 +3457,215 @@ function renderCategory(categoryName) {
 
 
 /* =====================================================
-   PRODUCT CARD
+   TARJETA DE PRODUCTO
 ===================================================== */
 
 function renderProductCard(product) {
 
-    const image =
-        product.images[0] || "";
+    const images =
+        product.images || [];
 
+
+    const cardId =
+        "gallery_" +
+        product.id;
+
+
+    let galleryHTML = `
+
+        <div
+            class="product-gallery"
+            id="${cardId}"
+        >
+
+    `;
+
+
+    /* ================================================
+       FOTOS
+    ================================================ */
+
+    images.forEach(
+        (image,index) => {
+
+            galleryHTML += `
+
+                <img
+                    class="
+                        product-gallery-image
+                        ${index === 0 ? "active" : ""}
+                    "
+                    src="${image}"
+                    alt="${escapeAttr(product.name)}"
+                    loading="lazy"
+                    onclick="
+                        event.stopPropagation();
+                        openImageModal('${escapeAttr(image)}');
+                    "
+                >
+
+            `;
+
+        }
+    );
+
+
+    /* ================================================
+       CONTROLES
+    ================================================ */
+
+    if (images.length > 1) {
+
+        galleryHTML += `
+
+            <button
+                class="
+                    product-gallery-arrow
+                    prev
+                "
+                onclick="
+                    event.stopPropagation();
+                    changeProductGallery(
+                        '${cardId}',
+                        -1
+                    );
+                "
+                aria-label="Foto anterior"
+            >
+
+                &#10094;
+
+            </button>
+
+
+            <button
+                class="
+                    product-gallery-arrow
+                    next
+                "
+                onclick="
+                    event.stopPropagation();
+                    changeProductGallery(
+                        '${cardId}',
+                        1
+                    );
+                "
+                aria-label="Foto siguiente"
+            >
+
+                &#10095;
+
+            </button>
+
+
+            <div
+                class="product-gallery-dots"
+            >
+
+                ${
+
+                    images.map(
+                        (_,index) => `
+
+                            <span
+                                class="
+                                    product-gallery-dot
+                                    ${index === 0 ? "active" : ""}
+                                "
+                                onclick="
+                                    event.stopPropagation();
+                                    setProductGallery(
+                                        '${cardId}',
+                                        ${index}
+                                    );
+                                "
+                            ></span>
+
+                        `
+                    ).join("")
+
+                }
+
+            </div>
+
+        `;
+
+    }
+
+
+    galleryHTML += `
+
+        </div>
+
+    `;
+
+
+    /* ================================================
+       TARJETA
+    ================================================ */
 
     return `
 
         <article
             class="product-card"
-            onclick="openProduct(
-                '${escapeAttr(product.category)}',
-                '${escapeAttr(product.id)}'
-            )">
+            onclick="
+                openProduct(
+                    '${escapeAttr(product.category)}',
+                    '${escapeAttr(product.id)}'
+                )
+            "
+        >
 
 
-            <img
-                class="product-image"
-                src="${image}"
-                alt="${escapeAttr(product.name)}"
-                loading="lazy">
+            ${galleryHTML}
 
 
-            <div class="product-gradient"></div>
+            <div
+                class="product-gradient"
+            ></div>
 
 
-            <div class="product-info">
+            <div
+                class="product-info"
+            >
 
-                <div class="product-brand">
+                <div
+                    class="product-brand"
+                >
 
                     ${escapeHTML(product.category)}
 
                 </div>
 
 
-                <h2 class="product-name">
+                <h2
+                    class="product-name"
+                >
 
                     ${escapeHTML(product.name)}
 
                 </h2>
 
 
-                <div class="product-price">
+                <div
+                    class="product-price"
+                >
 
                     $${escapeHTML(product.price)}
 
                 </div>
 
 
-                <span class="product-view">
+                <span
+                    class="product-view"
+                >
 
                     Ver producto
 
                 </span>
 
             </div>
+
 
         </article>
 
@@ -2437,22 +3675,193 @@ function renderProductCard(product) {
 
 
 /* =====================================================
-   ABRIR PRODUCTO
+   CAMBIAR FOTO
 ===================================================== */
 
-function openProduct(categoryName, productId) {
+function changeProductGallery(
+    cardId,
+    direction
+) {
 
-    window.location.hash =
-        `/producto/${encodeURIComponent(categoryName)}/${encodeURIComponent(productId)}`;
+    const gallery =
+        document.getElementById(cardId);
+
+
+    if (!gallery) return;
+
+
+    const images =
+        gallery.querySelectorAll(
+            ".product-gallery-image"
+        );
+
+
+    const dots =
+        gallery.querySelectorAll(
+            ".product-gallery-dot"
+        );
+
+
+    if (images.length <= 1) {
+
+        return;
+
+    }
+
+
+    let current =
+        Array.from(images)
+            .findIndex(
+                image =>
+                    image.classList.contains(
+                        "active"
+                    )
+            );
+
+
+    if (current < 0) {
+
+        current = 0;
+
+    }
+
+
+    images[current]
+        .classList
+        .remove("active");
+
+
+    if (dots[current]) {
+
+        dots[current]
+            .classList
+            .remove("active");
+
+    }
+
+
+    let next =
+        current + direction;
+
+
+    if (next >= images.length) {
+
+        next = 0;
+
+    }
+
+
+    if (next < 0) {
+
+        next =
+            images.length - 1;
+
+    }
+
+
+    images[next]
+        .classList
+        .add("active");
+
+
+    if (dots[next]) {
+
+        dots[next]
+            .classList
+            .add("active");
+
+    }
 
 }
 
 
 /* =====================================================
-   PRODUCTO DETALLE
+   SELECCIONAR FOTO
 ===================================================== */
 
-function renderProduct(categoryName, productId) {
+function setProductGallery(
+    cardId,
+    index
+) {
+
+    const gallery =
+        document.getElementById(cardId);
+
+
+    if (!gallery) return;
+
+
+    const images =
+        gallery.querySelectorAll(
+            ".product-gallery-image"
+        );
+
+
+    const dots =
+        gallery.querySelectorAll(
+            ".product-gallery-dot"
+        );
+
+
+    images.forEach(
+        image =>
+            image.classList
+                .remove("active")
+    );
+
+
+    dots.forEach(
+        dot =>
+            dot.classList
+                .remove("active")
+    );
+
+
+    if (images[index]) {
+
+        images[index]
+            .classList
+            .add("active");
+
+    }
+
+
+    if (dots[index]) {
+
+        dots[index]
+            .classList
+            .add("active");
+
+    }
+
+}
+
+
+/* =====================================================
+   ABRIR PRODUCTO
+===================================================== */
+
+function openProduct(
+    categoryName,
+    productId
+) {
+
+    window.location.hash =
+        `/producto/` +
+        `${encodeURIComponent(categoryName)}/` +
+        `${encodeURIComponent(productId)}`;
+
+}
+
+
+/* =====================================================
+   DETALLE DEL PRODUCTO
+===================================================== */
+
+function renderProduct(
+    categoryName,
+    productId
+) {
 
     const category =
         catalog.find(
@@ -2480,7 +3889,9 @@ function renderProduct(categoryName, productId) {
 
     if (!product) {
 
-        renderCategory(categoryName);
+        renderCategory(
+            categoryName
+        );
 
         return;
 
@@ -2498,51 +3909,78 @@ function renderProduct(categoryName, productId) {
 
         <div class="view">
 
-            <section class="detail-page">
 
-                <div class="detail-container">
+            <section
+                class="detail-page"
+            >
+
+                <div
+                    class="detail-container"
+                >
 
 
                     <button
                         class="back-btn"
-                        onclick="openCategory('${escapeAttr(category.name)}')">
+                        onclick="
+                            openCategory(
+                                '${escapeAttr(category.name)}'
+                            )
+                        "
+                    >
 
-                        ← Volver a ${escapeHTML(category.name)}
+                        ← Volver a
+                        ${escapeHTML(category.name)}
 
                     </button>
 
 
-                    <div class="detail-layout">
+                    <div
+                        class="detail-layout"
+                    >
 
 
                         <!-- GALERÍA -->
 
-                        <div class="detail-gallery">
+                        <div
+                            class="detail-gallery"
+                        >
 
                             <img
                                 id="mainProductImage"
                                 class="main-product-image"
                                 src="${product.images[0] || ""}"
                                 alt="${escapeAttr(product.name)}"
-                                onclick="openImageModal(this.src)">
+                                onclick="
+                                    openImageModal(this.src)
+                                "
+                            >
 
 
-                            <div class="thumbnails">
+                            <div
+                                class="thumbnails"
+                            >
 
                                 ${
                                     product.images
                                         .map(
-                                            (img,index) =>
-                                                `
+                                            (img,index) => `
+
                                                 <img
-                                                    class="thumbnail ${index === 0 ? "active" : ""}"
+                                                    class="
+                                                        thumbnail
+                                                        ${index === 0 ? "active" : ""}
+                                                    "
                                                     src="${img}"
-                                                    onclick="selectProductImage(
-                                                        this,
-                                                        '${escapeAttr(img)}'
-                                                    )"
-                                                    alt="${escapeAttr(product.name)}">
-                                                `
+                                                    alt="${escapeAttr(product.name)}"
+                                                    onclick="
+                                                        selectProductImage(
+                                                            this,
+                                                            '${escapeAttr(img)}'
+                                                        )
+                                                    "
+                                                >
+
+                                            `
                                         )
                                         .join("")
                                 }
@@ -2554,69 +3992,101 @@ function renderProduct(categoryName, productId) {
 
                         <!-- INFORMACIÓN -->
 
-                        <div class="detail-info">
+                        <div
+                            class="detail-info"
+                        >
 
-                            <div class="detail-brand">
+                            <div
+                                class="detail-brand"
+                            >
 
                                 ${escapeHTML(category.name)}
 
                             </div>
 
 
-                            <h1 class="detail-title">
+                            <h1
+                                class="detail-title"
+                            >
 
                                 ${escapeHTML(product.name)}
 
                             </h1>
 
 
-                            <div class="detail-price">
+                            <div
+                                class="detail-price"
+                            >
 
                                 $${escapeHTML(product.price)}
 
                             </div>
 
 
-                            <p class="detail-description">
+                            <p
+                                class="detail-description"
+                            >
 
-                                Prenda exclusiva IRIDIUM.
-                                Diseño inspirado en el
-                                motorsport y la cultura
-                                streetwear contemporánea.
+                                Prenda exclusiva
+                                IRIDIUM.
+
+                                <br><br>
+
+                                Diseño inspirado en
+                                el motorsport y la
+                                cultura streetwear
+                                contemporánea.
 
                                 <br><br>
 
                                 Consulta disponibilidad,
-                                colores y tallas directamente
-                                por WhatsApp.
+                                colores y tallas
+                                directamente por
+                                WhatsApp.
 
                             </p>
 
 
-                            <div class="size-title">
+                            <div
+                                class="size-title"
+                            >
 
                                 Selecciona tu talla
 
                             </div>
 
 
-                            <div class="sizes">
+                            <div
+                                class="sizes"
+                            >
 
-                                ${["XS","S","M","L","XL","XXL"]
+                                ${
+                                    [
+                                        "XS",
+                                        "S",
+                                        "M",
+                                        "L",
+                                        "XL",
+                                        "XXL"
+                                    ]
                                     .map(
-                                        size =>
-                                            `
+                                        size => `
+
                                             <button
                                                 class="size-btn"
-                                                onclick="selectSize(
-                                                    '${size}',
-                                                    this
-                                                )">
+                                                onclick="
+                                                    selectSize(
+                                                        '${size}',
+                                                        this
+                                                    )
+                                                "
+                                            >
 
                                                 ${size}
 
                                             </button>
-                                            `
+
+                                        `
                                     )
                                     .join("")
                                 }
@@ -2627,12 +4097,16 @@ function renderProduct(categoryName, productId) {
                             <a
                                 id="orderButton"
                                 class="order-btn"
-                                href="https://wa.me/${WHATSAPP}?text=${createWhatsAppMessage(product)}"
-                                target="_blank">
+                                href="
+                                    https://wa.me/${WHATSAPP}?text=${createWhatsAppMessage(product)}
+                                "
+                                target="_blank"
+                            >
 
                                 Pedir por WhatsApp
 
                             </a>
+
 
                         </div>
 
@@ -2642,6 +4116,7 @@ function renderProduct(categoryName, productId) {
 
             </section>
 
+
         </div>
 
     `;
@@ -2650,10 +4125,13 @@ function renderProduct(categoryName, productId) {
 
 
 /* =====================================================
-   SELECCIONAR IMAGEN
+   SELECCIONAR IMAGEN DEL DETALLE
 ===================================================== */
 
-function selectProductImage(element, src) {
+function selectProductImage(
+    element,
+    src
+) {
 
     const main =
         document.getElementById(
@@ -2668,16 +4146,18 @@ function selectProductImage(element, src) {
 
 
     document
-        .querySelectorAll(".thumbnail")
+        .querySelectorAll(
+            ".thumbnail"
+        )
         .forEach(
             thumbnail =>
-                thumbnail.classList.remove(
-                    "active"
-                )
+                thumbnail.classList
+                    .remove("active")
         );
 
 
-    element.classList.add("active");
+    element.classList
+        .add("active");
 
 }
 
@@ -2686,22 +4166,27 @@ function selectProductImage(element, src) {
    SELECCIONAR TALLA
 ===================================================== */
 
-function selectSize(size, button) {
+function selectSize(
+    size,
+    button
+) {
 
     selectedSize = size;
 
 
     document
-        .querySelectorAll(".size-btn")
+        .querySelectorAll(
+            ".size-btn"
+        )
         .forEach(
             btn =>
-                btn.classList.remove(
-                    "selected"
-                )
+                btn.classList
+                    .remove("selected")
         );
 
 
-    button.classList.add("selected");
+    button.classList
+        .add("selected");
 
 
     const orderButton =
@@ -2712,10 +4197,6 @@ function selectSize(size, button) {
 
     if (!orderButton) return;
 
-
-    /*
-       Obtener producto desde URL
-    */
 
     const parts =
         getHashParts();
@@ -2778,6 +4259,7 @@ function createWhatsAppMessage(
         `${product.name} ` +
         `($${product.price})`;
 
+
     if (size) {
 
         message +=
@@ -2799,46 +4281,69 @@ function createWhatsAppMessage(
 
 function renderAbout() {
 
-    document.getElementById("app").innerHTML = `
+    document.getElementById(
+        "app"
+    ).innerHTML = `
 
         <div class="view">
 
-            <section class="page-header">
+            <section
+                class="page-header"
+            >
 
                 <button
                     class="back-btn"
-                    onclick="navigateHome()">
+                    onclick="navigateHome()"
+                >
 
                     ← Volver
 
                 </button>
 
+
                 <small>
+
                     IRIDIUM
+
                 </small>
 
+
                 <h1>
+
                     Nosotros
+
                 </h1>
 
             </section>
 
 
-            <section class="explore">
+            <section
+                class="explore"
+            >
 
-                <h2 class="explore-title">
+                <h2
+                    class="explore-title"
+                >
+
                     MÁS QUE STREETWEAR
+
                 </h2>
 
 
-                <p class="explore-text">
+                <p
+                    class="explore-text"
+                >
 
-                    IRIDIUM nace de la combinación entre
-                    diseño, velocidad y cultura urbana.
+                    IRIDIUM nace de la combinación
+                    entre diseño, velocidad y cultura
+                    urbana.
 
-                    Creamos prendas pensadas para quienes
-                    buscan expresar su personalidad a través
-                    de piezas con carácter, estética premium
+                    <br><br>
+
+                    Creamos prendas pensadas para
+                    quienes buscan expresar su
+                    personalidad a través de piezas
+                    con carácter, estética premium
                     y espíritu de competición.
 
                 </p>
@@ -2858,46 +4363,66 @@ function renderAbout() {
 
 function renderContact() {
 
-    document.getElementById("app").innerHTML = `
+    document.getElementById(
+        "app"
+    ).innerHTML = `
 
         <div class="view">
 
-            <section class="page-header">
+
+            <section
+                class="page-header"
+            >
 
                 <button
                     class="back-btn"
-                    onclick="navigateHome()">
+                    onclick="navigateHome()"
+                >
 
                     ← Volver
 
                 </button>
 
+
                 <small>
+
                     IRIDIUM
+
                 </small>
 
+
                 <h1>
+
                     Contacto
+
                 </h1>
 
             </section>
 
 
-            <section class="explore">
+            <section
+                class="explore"
+            >
 
-                <h2 class="explore-title">
+                <h2
+                    class="explore-title"
+                >
 
                     HABLEMOS
 
                 </h2>
 
 
-                <p class="explore-text">
+                <p
+                    class="explore-text"
+                >
 
                     ¿Quieres realizar un pedido,
                     consultar disponibilidad o
                     conocer nuestras próximas
                     colecciones?
+
+                    <br><br>
 
                     Escríbenos directamente.
 
@@ -2907,13 +4432,15 @@ function renderContact() {
                 <a
                     href="https://wa.me/593995023674?text=Hola%20IRIDIUM,%20quiero%20información"
                     target="_blank"
-                    class="explore-btn">
+                    class="explore-btn"
+                >
 
                     WhatsApp
 
                 </a>
 
             </section>
+
 
         </div>
 
@@ -2947,6 +4474,8 @@ function router() {
         parts[0] || "";
 
 
+    /* HOME */
+
     if (
         !route ||
         route === "/"
@@ -2959,6 +4488,8 @@ function router() {
     }
 
 
+    /* COLECCIONES */
+
     if (
         route === "colecciones"
     ) {
@@ -2970,6 +4501,8 @@ function router() {
     }
 
 
+    /* CATEGORÍA */
+
     if (
         route === "categoria"
     ) {
@@ -2979,12 +4512,18 @@ function router() {
                 parts[1] || ""
             );
 
-        renderCategory(category);
+
+        renderCategory(
+            category
+        );
+
 
         return;
 
     }
 
+
+    /* PRODUCTO */
 
     if (
         route === "producto"
@@ -2995,20 +4534,25 @@ function router() {
                 parts[1] || ""
             );
 
+
         const product =
             decodeURIComponent(
                 parts[2] || ""
             );
+
 
         renderProduct(
             category,
             product
         );
 
+
         return;
 
     }
 
+
+    /* NOSOTROS */
 
     if (
         route === "nosotros"
@@ -3020,6 +4564,8 @@ function router() {
 
     }
 
+
+    /* CONTACTO */
 
     if (
         route === "contacto"
@@ -3045,7 +4591,9 @@ function getHashParts() {
 
     let hash =
         window.location.hash
+
             .replace(/^#/, "")
+
             .replace(/^\/+/, "");
 
 
@@ -3064,35 +4612,6 @@ function getHashParts() {
 
 
 /* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* =====================================================
-   ESCAPE ATRIBUTO
-===================================================== */
-
-function escapeAttr(value) {
-
-    return String(value)
-        .replace(/\\/g, "\\\\")
-        .replace(/'/g, "\\'");
-
-}
-
-
-/* =====================================================
    MODAL
 ===================================================== */
 
@@ -3103,6 +4622,7 @@ function openImageModal(src) {
             "imageModal"
         );
 
+
     const image =
         document.getElementById(
             "modalImage"
@@ -3111,39 +4631,95 @@ function openImageModal(src) {
 
     image.src = src;
 
-    modal.classList.add(
-        "active"
-    );
+
+    modal.classList
+        .add("active");
 
 }
 
 
 function closeImageModal() {
 
-    document
-        .getElementById(
+    const modal =
+        document.getElementById(
             "imageModal"
-        )
-        .classList.remove(
-            "active"
         );
+
+
+    modal.classList
+        .remove("active");
 
 }
 
 
 /* =====================================================
-   TECLADO
+   MENÚ MÓVIL
+===================================================== */
+
+function toggleMobileMenu() {
+
+    const menu =
+        document.getElementById(
+            "mobileMenu"
+        );
+
+
+    if (!menu) return;
+
+
+    menu.classList
+        .toggle("active");
+
+}
+
+
+function closeMobileMenu() {
+
+    const menu =
+        document.getElementById(
+            "mobileMenu"
+        );
+
+
+    if (!menu) return;
+
+
+    menu.classList
+        .remove("active");
+
+}
+
+
+/* =====================================================
+   CERRAR MENÚ AL HACER CLICK FUERA
 ===================================================== */
 
 document.addEventListener(
-    "keydown",
-    event => {
+    "click",
+    function(event) {
+
+        const menu =
+            document.getElementById(
+                "mobileMenu"
+            );
+
+
+        const button =
+            document.querySelector(
+                ".mobile-menu-button"
+            );
+
+
+        if (!menu || !button) return;
+
 
         if (
-            event.key === "Escape"
+            !menu.contains(event.target) &&
+            !button.contains(event.target)
         ) {
 
-            closeImageModal();
+            menu.classList
+                .remove("active");
 
         }
 
@@ -3152,25 +4728,42 @@ document.addEventListener(
 
 
 /* =====================================================
-   NAVEGACIÓN HASH
+   CAMBIO DE HASH
 ===================================================== */
 
 window.addEventListener(
     "hashchange",
-    router
+    function() {
+
+        closeMobileMenu();
+
+        router();
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+    }
 );
 
 
 /* =====================================================
-   INICIO
+   INICIAR
 ===================================================== */
 
 window.addEventListener(
     "DOMContentLoaded",
-    loadCatalog
+    function() {
+
+        loadCatalog();
+
+    }
 );
 
 </script>
 
+
 </body>
-</html>
+
+      </html>
